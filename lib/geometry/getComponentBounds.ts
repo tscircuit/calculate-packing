@@ -2,7 +2,10 @@ import type { PackedComponent } from "../types"
 import { rotatePoint } from "../math/rotatePoint"
 
 export interface Bounds {
-  minX: number; maxX: number; minY: number; maxY: number
+  minX: number
+  maxX: number
+  minY: number
+  maxY: number
 }
 
 /** Axis-aligned bounds of a component, expanded by `minGap`. */
@@ -10,7 +13,12 @@ export const getComponentBounds = (
   component: PackedComponent,
   minGap: number = 0,
 ): Bounds => {
-  const bounds: Bounds = { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity }
+  const bounds: Bounds = {
+    minX: Infinity,
+    maxX: -Infinity,
+    minY: Infinity,
+    maxY: -Infinity,
+  }
 
   component.pads.forEach((pad) => {
     const hw = pad.size.x / 2

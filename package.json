@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "start": "cosmos",
+    "format": "biome format --write .",
     "build:site": "cosmos-export"
   },
   "devDependencies": {
