@@ -5,10 +5,12 @@
   "private": true,
   "devDependencies": {
     "@biomejs/biome": "^2.1.1",
+    "@tscircuit/math-utils": "^0.0.19",
     "@types/bun": "latest",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "bun-match-svg": "^0.0.12",
+    "graphics-debug": "^0.0.60",
     "react": "^19.1.0",
     "react-cosmos": "^7.0.0",
     "react-cosmos-plugin-vite": "^7.0.0",
