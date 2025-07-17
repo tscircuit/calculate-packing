@@ -1,3 +1,6 @@
+export type ComponentId = string
+export type PadId = string
+
 export interface InputPad {
   padId: string
   networkId: string
@@ -11,7 +14,7 @@ export interface OutputPad extends InputPad {
 }
 
 export interface InputComponent {
-  boxId: string
+  componentId: string
   pads: InputPad[]
 }
 
@@ -25,6 +28,9 @@ export interface PackInput {
   components: InputComponent[]
 
   minGap: number
+
+  packOrder: ComponentId[] | "largest_to_smallest"
+  packStrategy: "shortest_connection_along_outline"
 }
 
 export interface PackOutput extends PackInput {
