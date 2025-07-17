@@ -25,7 +25,7 @@ export const constructOutlinesFromPackedComponents = (
 
   // Gather rectangle corners for every component (+minGap).
   const allPoints: Point[] = []
-  components.forEach((c) => {
+  for (const c of components) {
     const b = getComponentBounds(c, minGap)
     allPoints.push(
       { x: b.minX, y: b.minY },
@@ -33,7 +33,7 @@ export const constructOutlinesFromPackedComponents = (
       { x: b.maxX, y: b.maxY },
       { x: b.minX, y: b.maxY },
     )
-  })
+  }
 
   const hull = convexHull(allPoints)
   if (hull.length === 0) return []
@@ -41,7 +41,7 @@ export const constructOutlinesFromPackedComponents = (
   // Convert hull vertices → ordered edge list.
   const outline: Outline = []
   for (let i = 0; i < hull.length; i++) {
-    outline.push([hull[i], hull[(i + 1) % hull.length]])
+    outline.push([hull[i]!, hull[(i + 1) % hull.length]!])
   }
 
   return [outline]
