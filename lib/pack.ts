@@ -15,6 +15,7 @@ const DEFAULT_PACK_DIRECTION_FALLBACK = "right"
  * 7. To determine the component rotation, find the minimum distance between pad
  *    centers for the remaining pads at each possible rotation (making sure that
  *    we never pack such that two pads overlap)
+ * 8. Go to step 2 until all components are packed
  */
 export const pack = (input: PackInput): PackOutput => {
   // TODO
