@@ -29,8 +29,11 @@ export interface PackInput {
 
   minGap: number
 
-  packOrder: ComponentId[] | "largest_to_smallest"
-  packStrategy: "shortest_connection_along_outline"
+  packOrderStrategy: "largest_to_smallest"
+  packPlacementStrategy: "shortest_connection_along_outline"
+
+  disconnectedPackDirection?: "left" | "right" | "up" | "down"
+  packFirst?: ComponentId[]
 }
 
 export interface PackOutput extends PackInput {
