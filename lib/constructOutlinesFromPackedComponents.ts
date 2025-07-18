@@ -2,6 +2,7 @@ import type { PackedComponent } from "./types"
 import type { Point } from "@tscircuit/math-utils"
 import { getComponentBounds } from "./geometry/getComponentBounds"
 import { convexHull } from "./geometry/convexHull"
+import { cross } from "./math/cross"
 
 type Outline = Array<[Point, Point]>
 
@@ -23,26 +24,7 @@ export const constructOutlinesFromPackedComponents = (
   const { minGap = 0 } = opts
   if (components.length === 0) return []
 
-  // Gather rectangle corners for every component (+minGap).
-  const allPoints: Point[] = []
-  for (const c of components) {
-    const b = getComponentBounds(c, minGap)
-    allPoints.push(
-      { x: b.minX, y: b.minY },
-      { x: b.maxX, y: b.minY },
-      { x: b.maxX, y: b.maxY },
-      { x: b.minX, y: b.maxY },
-    )
-  }
+  // TODO
 
-  const hull = convexHull(allPoints)
-  if (hull.length === 0) return []
-
-  // Convert hull vertices → ordered edge list.
-  const outline: Outline = []
-  for (let i = 0; i < hull.length; i++) {
-    outline.push([hull[i]!, hull[(i + 1) % hull.length]!])
-  }
-
-  return [outline]
+  return []
 }
