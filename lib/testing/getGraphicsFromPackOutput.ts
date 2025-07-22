@@ -1,4 +1,5 @@
-import type { GraphicsObject, Rect } from "graphics-debug"
+import type { GraphicsObject, Rect, Line } from "graphics-debug"
+import { createColorMapFromStrings } from "./createColorMapFromStrings"
 import type { PackOutput } from "../types"
 import { getComponentBounds } from "../geometry/getComponentBounds"
 
@@ -6,6 +7,14 @@ export const getGraphicsFromPackOutput = (
   packOutput: PackOutput,
 ): GraphicsObject => {
   const rects: Rect[] = []
+  const lines: Line[] = []
+
+  const allNetworkIds = Array.from(
+    new Set(
+      packOutput.components.flatMap((c) => c.pads.map((p) => p.networkId)),
+    ),
+  )
+  const colorMap = createColorMapFromStrings(allNetworkIds)
 
   for (const component of packOutput.components) {
     const bounds = getComponentBounds(component)
@@ -35,8 +44,23 @@ export const getGraphicsFromPackOutput = (
     }
   }
 
+  for (const netId of allNetworkIds) {
+    const padsOnNet = packOutput.components.flatMap((c) =>
+      c.pads.filter((p) => p.networkId === netId),
+    )
+    for (let i = 0; i < padsOnNet.length; i++) {
+      for (let j = i + 1; j < padsOnNet.length; j++) {
+        lines.push({
+          points: [padsOnNet[i]!.absoluteCenter, padsOnNet[j]!.absoluteCenter],
+          stroke: colorMap[netId],
+        } as Line)
+      }
+    }
+  }
+
   return {
     coordinateSystem: "cartesian",
     rects,
+    lines,
   }
 }
