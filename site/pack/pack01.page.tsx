@@ -71,7 +71,7 @@ const manualPackOutput: PackOutput = {
       ],
     },
   ],
-  minGap: 5,
+  minGap: 2,
   packOrderStrategy: "largest_to_smallest",
   packPlacementStrategy: "shortest_connection_along_outline",
   disconnectedPackDirection: "right",

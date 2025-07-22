@@ -231,10 +231,10 @@ export class PackSolver extends BaseSolver {
           ccwRotationOffset: angle,
         }
 
-        const candBounds = getComponentBounds(tempComponent, minGap)
+        const candBounds = getComponentBounds(tempComponent, 0)
 
-        const overlaps = this.packedComponents.some((pc) => {
-          const pcBounds = getComponentBounds(pc, minGap)
+        const overlapsWithPackedComponent = this.packedComponents.some((pc) => {
+          const pcBounds = getComponentBounds(pc, 0)
           return (
             candBounds.minX < pcBounds.maxX &&
             candBounds.maxX > pcBounds.minX &&
@@ -243,12 +243,14 @@ export class PackSolver extends BaseSolver {
           )
         })
 
-        if (overlaps) continue /* reject candidate */
+        if (overlapsWithPackedComponent) continue /* reject candidate */
 
         /* --- 2. cost (connection length) ------------------------------- */
         let cost = 0
         for (const tp of transformedPads) {
-          const sameNetPads = packedPads.filter((pp) => pp.networkId === tp.networkId)
+          const sameNetPads = packedPads.filter(
+            (pp) => pp.networkId === tp.networkId,
+          )
           if (!sameNetPads.length) continue
           let bestD = Infinity
           for (const pp of sameNetPads) {
@@ -271,7 +273,8 @@ export class PackSolver extends BaseSolver {
         newPackedComponent.ccwRotationOffset = bestCandidate.angle
       } else {
         /* no valid rotation found – default: put pad on point, 0° rot. */
-        const firstPad = newPadsConnectedToNetworkId[0]
+        console.log("no valid rotation found")
+        const firstPad = newPadsConnectedToNetworkId[0]!
         const candidateCenter = {
           x: bestPoint.x - firstPad.offset.x,
           y: bestPoint.y - firstPad.offset.y,
