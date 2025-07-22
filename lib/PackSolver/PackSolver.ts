@@ -224,17 +224,25 @@ export class PackSolver extends BaseSolver {
           }
         })
 
-        /* --- 1. overlap check (AABB) ----------------------------------- */
-        const overlaps = transformedPads.some((tp) =>
-          packedPads.some((pp) => {
-            const dx = Math.abs(tp.absoluteCenter.x - pp.absoluteCenter.x)
-            const dy = Math.abs(tp.absoluteCenter.y - pp.absoluteCenter.y)
-            return (
-              dx < (tp.size.x + pp.size.x) / 2 &&
-              dy < (tp.size.y + pp.size.y) / 2
-            )
-          }),
-        )
+        /* --- 1. overlap check (component bounds) ----------------------- */
+        const tempComponent: PackedComponent = {
+          ...newPackedComponent,
+          center: candidateCenter,
+          ccwRotationOffset: angle,
+        }
+
+        const candBounds = getComponentBounds(tempComponent, minGap)
+
+        const overlaps = this.packedComponents.some((pc) => {
+          const pcBounds = getComponentBounds(pc, minGap)
+          return (
+            candBounds.minX < pcBounds.maxX &&
+            candBounds.maxX > pcBounds.minX &&
+            candBounds.minY < pcBounds.maxY &&
+            candBounds.maxY > pcBounds.minY
+          )
+        })
+
         if (overlaps) continue /* reject candidate */
 
         /* --- 2. cost (connection length) ------------------------------- */
