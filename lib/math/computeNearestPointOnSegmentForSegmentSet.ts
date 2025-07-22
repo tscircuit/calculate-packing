@@ -82,7 +82,7 @@ function closestPointOnSegAToSegB(
 export function computeNearestPointOnSegmentForSegmentSet(
   segmentA: Segment,
   segmentSet: Segment[],
-): Point {
+): { nearestPoint: Point; dist: number } {
   if (!segmentSet.length)
     throw new Error("segmentSet must contain at least one segment")
 
@@ -99,5 +99,5 @@ export function computeNearestPointOnSegmentForSegmentSet(
     }
   }
 
-  return bestPoint
+  return { nearestPoint: bestPoint, dist: Math.sqrt(bestDist2) }
 }

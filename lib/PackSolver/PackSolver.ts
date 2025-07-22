@@ -36,7 +36,7 @@ export class PackSolver extends BaseSolver {
   unpackedComponentQueue!: InputComponent[]
   packedComponents!: PackedComponent[]
 
-  lastBestPoint?: Point & { distance: number }
+  lastBestPointsResult?: { bestPoints: Point[]; distance: number }
 
   constructor(input: PackInput) {
     console.log("PackSolver constructor", input)
@@ -121,11 +121,9 @@ export class PackSolver extends BaseSolver {
     }
 
     const networkIdToAlreadyPackedSegments = new Map<NetworkId, Segment[]>()
-    const networkIdToNewPackedSegments = new Map<NetworkId, Segment[]>()
 
     for (const sharedNetworkId of sharedNetworkIds) {
       networkIdToAlreadyPackedSegments.set(sharedNetworkId, [])
-      networkIdToNewPackedSegments.set(sharedNetworkId, [])
       for (const packedComponent of this.packedComponents) {
         for (const pad of packedComponent.pads) {
           if (pad.networkId !== sharedNetworkId) continue
@@ -133,47 +131,41 @@ export class PackSolver extends BaseSolver {
           networkIdToAlreadyPackedSegments.set(sharedNetworkId, segments)
         }
       }
-      for (const pad of newPackedComponent.pads) {
-        if (pad.networkId !== sharedNetworkId) continue
-        const segments = getSegmentsFromPad(pad)
-        networkIdToNewPackedSegments.set(sharedNetworkId, segments)
-      }
     }
 
     // Find the point along the outline that minimizes the distance of the pad
     // to the next nearest pad on the network
     let smallestDistance = Number.POSITIVE_INFINITY
-    let bestPoint: Point = { x: 0, y: 0 }
+    let bestPoints: Point[] = []
     for (const outline of outlines) {
       for (const outlineSegment of outline) {
         for (const sharedNetworkId of sharedNetworkIds) {
           const alreadyPackedSegments =
             networkIdToAlreadyPackedSegments.get(sharedNetworkId)
-          const newPackedSegments =
-            networkIdToNewPackedSegments.get(sharedNetworkId)
-          if (!alreadyPackedSegments || !newPackedSegments) continue
-          const nearestPoint = computeNearestPointOnSegmentForSegmentSet(
+          if (!alreadyPackedSegments) continue
+          const {
+            nearestPoint: nearestPointOnOutlineToAlreadyPackedSegments,
+            dist: outlineToAlreadyPackedSegmentsDist,
+          } = computeNearestPointOnSegmentForSegmentSet(
             outlineSegment,
             alreadyPackedSegments,
           )
-          const nearestPointOnNewPackedSegments =
-            computeNearestPointOnSegmentForSegmentSet(
-              outlineSegment,
-              newPackedSegments,
-            )
-          const distance = Math.hypot(
-            nearestPoint.x - nearestPointOnNewPackedSegments.x,
-            nearestPoint.y - nearestPointOnNewPackedSegments.y,
-          )
-          if (distance < smallestDistance) {
-            smallestDistance = distance
-            bestPoint = nearestPoint
+          if (outlineToAlreadyPackedSegmentsDist < smallestDistance + 1e-6) {
+            if (outlineToAlreadyPackedSegmentsDist < smallestDistance - 1e-6) {
+              bestPoints = [nearestPointOnOutlineToAlreadyPackedSegments]
+              smallestDistance = outlineToAlreadyPackedSegmentsDist
+            } else {
+              bestPoints.push(nearestPointOnOutlineToAlreadyPackedSegments)
+            }
           }
         }
       }
     }
 
-    this.lastBestPoint = { ...bestPoint, distance: smallestDistance }
+    this.lastBestPointsResult = {
+      bestPoints,
+      distance: smallestDistance,
+    }
 
     setPackedComponentPadCenters(newPackedComponent)
     this.packedComponents.push(newPackedComponent)
@@ -216,12 +208,14 @@ export class PackSolver extends BaseSolver {
       ),
     )
 
-    if (this.lastBestPoint) {
-      graphics.points!.push({
-        x: this.lastBestPoint.x,
-        y: this.lastBestPoint.y,
-        label: `bestPoint: d=${this.lastBestPoint.distance}`,
-      } as Point)
+    if (this.lastBestPointsResult) {
+      for (const bestPoint of this.lastBestPointsResult.bestPoints) {
+        graphics.points!.push({
+          x: bestPoint.x,
+          y: bestPoint.y,
+          label: `bestPoint: d=${this.lastBestPointsResult.distance}`,
+        } as Point)
+      }
     }
 
     return graphics
