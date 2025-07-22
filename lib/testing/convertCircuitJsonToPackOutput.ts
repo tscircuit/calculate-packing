@@ -1,11 +1,18 @@
 import type { CircuitJson, PcbComponent } from "circuit-json"
 import { cju, getBoundsOfPcbElements } from "@tscircuit/circuit-json-util"
-import type { InputComponent, InputPad, PackInput } from "../types"
+import type {
+  InputComponent,
+  InputPad,
+  OutputPad,
+  PackedComponent,
+  PackInput,
+  PackOutput,
+} from "../types"
 
-export const convertCircuitJsonToPackInput = (
+export const convertCircuitJsonToPackOutput = (
   circuitJson: CircuitJson,
-): PackInput => {
-  const packInput: PackInput = {
+): PackOutput => {
+  const packOutput: PackOutput = {
     components: [],
     minGap: 0,
     packOrderStrategy: "largest_to_smallest",
@@ -16,7 +23,7 @@ export const convertCircuitJsonToPackInput = (
   const pcbComponents = db.pcb_component.list()
 
   for (const pcbComponent of pcbComponents) {
-    const pads: InputPad[] = []
+    const pads: OutputPad[] = []
 
     const platedHoles = db.pcb_plated_hole.list({
       pcb_component_id: pcbComponent.pcb_component_id,
@@ -33,7 +40,7 @@ export const convertCircuitJsonToPackInput = (
         (platedHole as any).outer_diameter ??
         (platedHole as any).hole_diameter ??
         0
-      const pad: InputPad = {
+      const pad: OutputPad = {
         padId: platedHole.pcb_plated_hole_id,
         networkId:
           (platedHole as any).source_net_id ??
@@ -45,6 +52,10 @@ export const convertCircuitJsonToPackInput = (
           y: platedHole.y - pcbComponent.center.y,
         },
         size: { x: sx, y: sy },
+        absoluteCenter: {
+          x: platedHole.x,
+          y: platedHole.y,
+        },
       }
       pads.push(pad)
     }
@@ -57,7 +68,7 @@ export const convertCircuitJsonToPackInput = (
       if (smtPad.shape === "polygon") {
         throw new Error("Polygon pads are not supported in pack layout yet")
       }
-      const pad: InputPad = {
+      const pad: OutputPad = {
         padId: smtPad.pcb_smtpad_id,
         networkId:
           (smtPad as any).source_net_id ??
@@ -72,17 +83,26 @@ export const convertCircuitJsonToPackInput = (
           x: (smtPad as any).width ?? 0,
           y: (smtPad as any).height ?? 0,
         },
+        absoluteCenter: {
+          x: smtPad.x,
+          y: smtPad.y,
+        },
       }
       pads.push(pad)
     }
 
-    const inputComponent: InputComponent = {
+    const packedComponent: PackedComponent = {
       componentId: pcbComponent.pcb_component_id,
       pads,
+      center: {
+        x: pcbComponent.center.x,
+        y: pcbComponent.center.y,
+      },
+      ccwRotationOffset: 0,
     }
 
-    packInput.components.push(inputComponent)
+    packOutput.components.push(packedComponent)
   }
 
-  return packInput
+  return packOutput
 }
