@@ -173,7 +173,22 @@ export class PackSolver extends BaseSolver {
       distance: smallestDistance,
     }
 
-    // TODO: Test the component
+    for (const bestPoint of bestPoints) {
+      const networkId = bestPoint.networkId
+
+      const newPadsConnectedToNetworkId = newPackedComponent.pads.filter(
+        (p) => p.networkId === networkId,
+      )
+
+      // TODO: move the component such that the pad with offset is on the
+      // bestPoint
+
+      // Rotate the component about the bestPoint and do the following:
+      // 1. Check that no new pad overlaps with an already packed pad
+      // 2. Compute the distance for other shared networkIds
+      // 3. Select the rotation that minimizes the distance for other shared networkIds
+      // TODO
+    }
 
     setPackedComponentPadCenters(newPackedComponent)
     this.packedComponents.push(newPackedComponent)
