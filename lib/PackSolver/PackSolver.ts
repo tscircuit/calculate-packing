@@ -1,4 +1,7 @@
 import { BaseSolver } from "../solver-utils/BaseSolver"
+import { getComponentBounds } from "../geometry/getComponentBounds"
+import { rotatePoint } from "../math/rotatePoint"
+import { constructOutlinesFromPackedComponents } from "../constructOutlinesFromPackedComponents"
 import type { InputComponent, PackedComponent, PackInput } from "../types"
 
 /**
@@ -23,11 +26,13 @@ export class PackSolver extends BaseSolver {
   packedComponents!: PackedComponent[]
 
   constructor(input: PackInput) {
+    console.log("PackSolver constructor", input)
     super()
     this.packInput = input
   }
 
   override _setup() {
+    console.log("packInput", this.packInput)
     const { components, packOrderStrategy } = this.packInput
 
     this.unpackedComponentQueue = [...components].sort((a, b) => {
@@ -36,10 +41,89 @@ export class PackSolver extends BaseSolver {
       }
       return a.pads.length - b.pads.length
     })
+    this.packedComponents = []
   }
 
   override _step() {
-    // If there are
-    // TODO
+    // Already solved?
+    if (this.solved) return
+
+    const { minGap = 0, disconnectedPackDirection = "right" } = this.packInput
+
+    // If no more components to process -> solved
+    if (this.unpackedComponentQueue.length === 0) {
+      this.solved = true
+      return
+    }
+
+    // Take next component
+    const next = this.unpackedComponentQueue.shift()!
+    if (!next) {
+      this.solved = true
+      return
+    }
+
+    // --- Create a shallow PackedComponent from next ---
+    const packed: PackedComponent = {
+      ...next,
+      center: { x: 0, y: 0 },
+      ccwRotationOffset: 0,
+      pads: next.pads.map((p) => ({
+        ...p,
+        absoluteCenter: { x: 0, y: 0 },
+      })),
+    }
+
+    if (this.packedComponents.length === 0) {
+      // First component at origin
+      packed.center = { x: 0, y: 0 }
+    } else {
+      // Position relative to previous components (simple strategy)
+      const outlines = constructOutlinesFromPackedComponents(
+        this.packedComponents,
+        { minGap },
+      )
+      // For the simple implementation take furthest right X of first outline
+      let maxX = -Infinity
+      outlines.forEach((outline) =>
+        outline.forEach(([a, b]) => {
+          maxX = Math.max(maxX, a.x, b.x)
+        }),
+      )
+      const bounds = getComponentBounds(
+        {
+          ...packed,
+          center: { x: 0, y: 0 },
+          pads: packed.pads,
+          ccwRotationOffset: 0,
+        },
+        0,
+      )
+      const width = bounds.maxX - bounds.minX
+      // place to right with minGap
+      packed.center = {
+        x: maxX + width / 2 + minGap,
+        y: 0,
+      }
+    }
+
+    // Update absolute pad centers
+    packed.pads = packed.pads.map((pad) => ({
+      ...pad,
+      absoluteCenter: {
+        x: packed.center.x + pad.offset.x,
+        y: packed.center.y + pad.offset.y,
+      },
+    }))
+
+    this.packedComponents.push(packed)
+  }
+
+  getConstructorParams() {
+    return [this.packInput]
+  }
+
+  getResult(): PackedComponent[] {
+    return this.packedComponents
   }
 }
