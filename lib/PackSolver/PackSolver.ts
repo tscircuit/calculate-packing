@@ -3,6 +3,8 @@ import { getComponentBounds } from "../geometry/getComponentBounds"
 import { rotatePoint } from "../math/rotatePoint"
 import { constructOutlinesFromPackedComponents } from "../constructOutlinesFromPackedComponents"
 import type { InputComponent, PackedComponent, PackInput } from "../types"
+import type { GraphicsObject, Line } from "graphics-debug"
+import { getGraphicsFromPackOutput } from "../testing/getGraphicsFromPackOutput"
 
 /**
  * The pack algorithm performs the following steps:
@@ -85,11 +87,11 @@ export class PackSolver extends BaseSolver {
       )
       // For the simple implementation take furthest right X of first outline
       let maxX = -Infinity
-      outlines.forEach((outline) =>
-        outline.forEach(([a, b]) => {
+      for (const outline of outlines) {
+        for (const [a, b] of outline) {
           maxX = Math.max(maxX, a.x, b.x)
-        }),
-      )
+        }
+      }
       const bounds = getComponentBounds(
         {
           ...packed,
@@ -119,8 +121,44 @@ export class PackSolver extends BaseSolver {
     this.packedComponents.push(packed)
   }
 
-  getConstructorParams() {
+  override getConstructorParams() {
     return [this.packInput]
+  }
+
+  /** Visualize the current packing state – components are omitted, only the outline is shown. */
+  override visualize(): GraphicsObject {
+    const graphics: GraphicsObject = getGraphicsFromPackOutput({
+      components: this.packedComponents ?? [],
+      minGap: this.packInput.minGap,
+      packOrderStrategy: this.packInput.packOrderStrategy,
+      packPlacementStrategy: this.packInput.packPlacementStrategy,
+      disconnectedPackDirection: this.packInput.disconnectedPackDirection,
+    })
+
+    /* Build an outline around every currently-packed island */
+    const outlines = constructOutlinesFromPackedComponents(
+      this.packedComponents ?? [],
+      {
+        minGap: this.packInput.minGap,
+      },
+    )
+
+    /* Convert every outline segment to a graphics-debug “line” object */
+    console.log("outlines", outlines)
+    graphics.lines ??= []
+    graphics.lines!.push(
+      ...outlines.flatMap((outline) =>
+        outline.map(
+          ([p1, p2]) =>
+            ({
+              points: [p1, p2],
+              stroke: "#ff4444",
+            }) as Line,
+        ),
+      ),
+    )
+
+    return graphics
   }
 
   getResult(): PackedComponent[] {
