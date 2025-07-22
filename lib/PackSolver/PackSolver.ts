@@ -39,13 +39,11 @@ export class PackSolver extends BaseSolver {
   lastBestPointsResult?: { bestPoints: Point[]; distance: number }
 
   constructor(input: PackInput) {
-    console.log("PackSolver constructor", input)
     super()
     this.packInput = input
   }
 
   override _setup() {
-    console.log("packInput", this.packInput)
     const { components, packOrderStrategy } = this.packInput
 
     this.unpackedComponentQueue = [...components].sort((a, b) => {
@@ -136,7 +134,7 @@ export class PackSolver extends BaseSolver {
     // Find the point along the outline that minimizes the distance of the pad
     // to the next nearest pad on the network
     let smallestDistance = Number.POSITIVE_INFINITY
-    let bestPoints: Point[] = []
+    let bestPoints: (Point & { networkId: NetworkId })[] = []
     for (const outline of outlines) {
       for (const outlineSegment of outline) {
         for (const sharedNetworkId of sharedNetworkIds) {
@@ -152,10 +150,18 @@ export class PackSolver extends BaseSolver {
           )
           if (outlineToAlreadyPackedSegmentsDist < smallestDistance + 1e-6) {
             if (outlineToAlreadyPackedSegmentsDist < smallestDistance - 1e-6) {
-              bestPoints = [nearestPointOnOutlineToAlreadyPackedSegments]
+              bestPoints = [
+                {
+                  ...nearestPointOnOutlineToAlreadyPackedSegments,
+                  networkId: sharedNetworkId,
+                },
+              ]
               smallestDistance = outlineToAlreadyPackedSegmentsDist
             } else {
-              bestPoints.push(nearestPointOnOutlineToAlreadyPackedSegments)
+              bestPoints.push({
+                ...nearestPointOnOutlineToAlreadyPackedSegments,
+                networkId: sharedNetworkId,
+              })
             }
           }
         }
@@ -166,6 +172,8 @@ export class PackSolver extends BaseSolver {
       bestPoints,
       distance: smallestDistance,
     }
+
+    // TODO: Test the component
 
     setPackedComponentPadCenters(newPackedComponent)
     this.packedComponents.push(newPackedComponent)
@@ -213,7 +221,7 @@ export class PackSolver extends BaseSolver {
         graphics.points!.push({
           x: bestPoint.x,
           y: bestPoint.y,
-          label: `bestPoint: d=${this.lastBestPointsResult.distance}`,
+          label: `bestPoint\nnetworkId: ${bestPoint.networkId}\nd=${this.lastBestPointsResult.distance}`,
         } as Point)
       }
     }
