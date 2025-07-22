@@ -180,14 +180,100 @@ export class PackSolver extends BaseSolver {
         (p) => p.networkId === networkId,
       )
 
-      // TODO: move the component such that the pad with offset is on the
-      // bestPoint
+      /* -------------------------------------------------------------
+       * 1. Build a set of candidate rotations (0°,90°,180°,270°)
+       * 2. For every candidate rotation:
+       *      • translate the component so that the FIRST pad on
+       *        this networkId lands exactly on bestPoint
+       *      • reject the candidate if ANY pad overlaps with an
+       *        already-packed pad (simple AABB test)
+       *      • compute a cost = Σ   (for every pad that shares a
+       *        network with the already-packed board)
+       *        min-distance to another pad on that same network
+       * 3. Pick the candidate with the smallest cost
+       * ------------------------------------------------------------- */
 
-      // Rotate the component about the bestPoint and do the following:
-      // 1. Check that no new pad overlaps with an already packed pad
-      // 2. Compute the distance for other shared networkIds
-      // 3. Select the rotation that minimizes the distance for other shared networkIds
-      // TODO
+      const candidateAngles = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2]
+      let bestCandidate: {
+        center: Point
+        angle: number
+        cost: number
+      } | null = null
+
+      const packedPads = this.packedComponents.flatMap((c) => c.pads)
+
+      for (const angle of candidateAngles) {
+        /* rotate FIRST pad of this network so it will hit bestPoint */
+        const firstPad = newPadsConnectedToNetworkId[0]
+        if (!firstPad) continue
+        const rotatedOffset = rotatePoint(firstPad.offset, angle)
+        const candidateCenter = {
+          x: bestPoint.x - rotatedOffset.x,
+          y: bestPoint.y - rotatedOffset.y,
+        }
+
+        /* build pad list for the candidate */
+        const transformedPads = newPackedComponent.pads.map((p) => {
+          const ro = rotatePoint(p.offset, angle)
+          return {
+            ...p,
+            absoluteCenter: {
+              x: candidateCenter.x + ro.x,
+              y: candidateCenter.y + ro.y,
+            },
+          }
+        })
+
+        /* --- 1. overlap check (AABB) ----------------------------------- */
+        const overlaps = transformedPads.some((tp) =>
+          packedPads.some((pp) => {
+            const dx = Math.abs(tp.absoluteCenter.x - pp.absoluteCenter.x)
+            const dy = Math.abs(tp.absoluteCenter.y - pp.absoluteCenter.y)
+            return (
+              dx < (tp.size.x + pp.size.x) / 2 &&
+              dy < (tp.size.y + pp.size.y) / 2
+            )
+          }),
+        )
+        if (overlaps) continue /* reject candidate */
+
+        /* --- 2. cost (connection length) ------------------------------- */
+        let cost = 0
+        for (const tp of transformedPads) {
+          const sameNetPads = packedPads.filter((pp) => pp.networkId === tp.networkId)
+          if (!sameNetPads.length) continue
+          let bestD = Infinity
+          for (const pp of sameNetPads) {
+            const dx = tp.absoluteCenter.x - pp.absoluteCenter.x
+            const dy = tp.absoluteCenter.y - pp.absoluteCenter.y
+            const d = Math.hypot(dx, dy)
+            if (d < bestD) bestD = d
+          }
+          cost += bestD
+        }
+
+        if (!bestCandidate || cost < bestCandidate.cost) {
+          bestCandidate = { center: candidateCenter, angle, cost }
+        }
+      }
+
+      /* Apply the best candidate (fallback: first one with 0° rotation) */
+      if (bestCandidate) {
+        newPackedComponent.center = bestCandidate.center
+        newPackedComponent.ccwRotationOffset = bestCandidate.angle
+      } else {
+        /* no valid rotation found – default: put pad on point, 0° rot. */
+        const firstPad = newPadsConnectedToNetworkId[0]
+        const candidateCenter = {
+          x: bestPoint.x - firstPad.offset.x,
+          y: bestPoint.y - firstPad.offset.y,
+        }
+        newPackedComponent.center = candidateCenter
+        newPackedComponent.ccwRotationOffset = 0
+      }
+
+      /* recompute absolute pad centres */
+      setPackedComponentPadCenters(newPackedComponent)
     }
 
     setPackedComponentPadCenters(newPackedComponent)
