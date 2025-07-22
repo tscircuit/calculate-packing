@@ -1,5 +1,6 @@
 export type ComponentId = string
 export type PadId = string
+export type NetworkId = string
 
 export interface InputPad {
   padId: string

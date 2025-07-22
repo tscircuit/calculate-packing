@@ -2,9 +2,18 @@ import { BaseSolver } from "../solver-utils/BaseSolver"
 import { getComponentBounds } from "../geometry/getComponentBounds"
 import { rotatePoint } from "../math/rotatePoint"
 import { constructOutlinesFromPackedComponents } from "../constructOutlinesFromPackedComponents"
-import type { InputComponent, PackedComponent, PackInput } from "../types"
-import type { GraphicsObject, Line } from "graphics-debug"
+import type {
+  InputComponent,
+  NetworkId,
+  PackedComponent,
+  PackInput,
+} from "../types"
+import type { GraphicsObject, Line, Point } from "graphics-debug"
 import { getGraphicsFromPackOutput } from "../testing/getGraphicsFromPackOutput"
+import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
+import type { Segment } from "../geometry/types"
+import { getSegmentsFromPad } from "./getSegmentsFromPad"
+import { computeNearestPointOnSegmentForSegmentSet } from "../math/computeNearestPointOnSegmentForSegmentSet"
 
 /**
  * The pack algorithm performs the following steps:
@@ -26,6 +35,8 @@ export class PackSolver extends BaseSolver {
 
   unpackedComponentQueue!: InputComponent[]
   packedComponents!: PackedComponent[]
+
+  lastBestPoint?: Point & { distance: number }
 
   constructor(input: PackInput) {
     console.log("PackSolver constructor", input)
@@ -66,7 +77,7 @@ export class PackSolver extends BaseSolver {
     }
 
     // --- Create a shallow PackedComponent from next ---
-    const packed: PackedComponent = {
+    const newPackedComponent: PackedComponent = {
       ...next,
       center: { x: 0, y: 0 },
       ccwRotationOffset: 0,
@@ -77,48 +88,95 @@ export class PackSolver extends BaseSolver {
     }
 
     if (this.packedComponents.length === 0) {
-      // First component at origin
-      packed.center = { x: 0, y: 0 }
-    } else {
-      // Position relative to previous components (simple strategy)
-      const outlines = constructOutlinesFromPackedComponents(
-        this.packedComponents,
-        { minGap },
+      newPackedComponent.center = { x: 0, y: 0 }
+      setPackedComponentPadCenters(newPackedComponent)
+      this.packedComponents.push(newPackedComponent)
+      return
+    }
+
+    // Position relative to previous components (simple strategy)
+    const outlines = constructOutlinesFromPackedComponents(
+      this.packedComponents,
+      { minGap },
+    )
+
+    const networkIdsInPackedComponents = new Set(
+      this.packedComponents.flatMap((c) => c.pads.map((p) => p.networkId)),
+    )
+
+    const networkIdsInNewPackedComponent = new Set(
+      newPackedComponent.pads.map((p) => p.networkId),
+    )
+
+    const sharedNetworkIds = new Set(
+      [...networkIdsInPackedComponents].filter((id) =>
+        networkIdsInNewPackedComponent.has(id),
+      ),
+    )
+
+    if (sharedNetworkIds.size === 0) {
+      throw new Error(
+        "Use the disconnectedPackDirection to place the new component",
       )
-      // For the simple implementation take furthest right X of first outline
-      let maxX = -Infinity
-      for (const outline of outlines) {
-        for (const [a, b] of outline) {
-          maxX = Math.max(maxX, a.x, b.x)
+    }
+
+    const networkIdToAlreadyPackedSegments = new Map<NetworkId, Segment[]>()
+    const networkIdToNewPackedSegments = new Map<NetworkId, Segment[]>()
+
+    for (const sharedNetworkId of sharedNetworkIds) {
+      networkIdToAlreadyPackedSegments.set(sharedNetworkId, [])
+      networkIdToNewPackedSegments.set(sharedNetworkId, [])
+      for (const packedComponent of this.packedComponents) {
+        for (const pad of packedComponent.pads) {
+          if (pad.networkId !== sharedNetworkId) continue
+          const segments = getSegmentsFromPad(pad)
+          networkIdToAlreadyPackedSegments.set(sharedNetworkId, segments)
         }
       }
-      const bounds = getComponentBounds(
-        {
-          ...packed,
-          center: { x: 0, y: 0 },
-          pads: packed.pads,
-          ccwRotationOffset: 0,
-        },
-        0,
-      )
-      const width = bounds.maxX - bounds.minX
-      // place to right with minGap
-      packed.center = {
-        x: maxX + width / 2 + minGap,
-        y: 0,
+      for (const pad of newPackedComponent.pads) {
+        if (pad.networkId !== sharedNetworkId) continue
+        const segments = getSegmentsFromPad(pad)
+        networkIdToNewPackedSegments.set(sharedNetworkId, segments)
       }
     }
 
-    // Update absolute pad centers
-    packed.pads = packed.pads.map((pad) => ({
-      ...pad,
-      absoluteCenter: {
-        x: packed.center.x + pad.offset.x,
-        y: packed.center.y + pad.offset.y,
-      },
-    }))
+    // Find the point along the outline that minimizes the distance of the pad
+    // to the next nearest pad on the network
+    let smallestDistance = Number.POSITIVE_INFINITY
+    let bestPoint: Point = { x: 0, y: 0 }
+    for (const outline of outlines) {
+      for (const outlineSegment of outline) {
+        for (const sharedNetworkId of sharedNetworkIds) {
+          const alreadyPackedSegments =
+            networkIdToAlreadyPackedSegments.get(sharedNetworkId)
+          const newPackedSegments =
+            networkIdToNewPackedSegments.get(sharedNetworkId)
+          if (!alreadyPackedSegments || !newPackedSegments) continue
+          const nearestPoint = computeNearestPointOnSegmentForSegmentSet(
+            outlineSegment,
+            alreadyPackedSegments,
+          )
+          const nearestPointOnNewPackedSegments =
+            computeNearestPointOnSegmentForSegmentSet(
+              outlineSegment,
+              newPackedSegments,
+            )
+          const distance = Math.hypot(
+            nearestPoint.x - nearestPointOnNewPackedSegments.x,
+            nearestPoint.y - nearestPointOnNewPackedSegments.y,
+          )
+          if (distance < smallestDistance) {
+            smallestDistance = distance
+            bestPoint = nearestPoint
+          }
+        }
+      }
+    }
 
-    this.packedComponents.push(packed)
+    this.lastBestPoint = { ...bestPoint, distance: smallestDistance }
+
+    setPackedComponentPadCenters(newPackedComponent)
+    this.packedComponents.push(newPackedComponent)
   }
 
   override getConstructorParams() {
@@ -134,6 +192,8 @@ export class PackSolver extends BaseSolver {
       packPlacementStrategy: this.packInput.packPlacementStrategy,
       disconnectedPackDirection: this.packInput.disconnectedPackDirection,
     })
+    graphics.points ??= []
+    graphics.lines ??= []
 
     /* Build an outline around every currently-packed island */
     const outlines = constructOutlinesFromPackedComponents(
@@ -144,8 +204,6 @@ export class PackSolver extends BaseSolver {
     )
 
     /* Convert every outline segment to a graphics-debug “line” object */
-    console.log("outlines", outlines)
-    graphics.lines ??= []
     graphics.lines!.push(
       ...outlines.flatMap((outline) =>
         outline.map(
@@ -157,6 +215,14 @@ export class PackSolver extends BaseSolver {
         ),
       ),
     )
+
+    if (this.lastBestPoint) {
+      graphics.points!.push({
+        x: this.lastBestPoint.x,
+        y: this.lastBestPoint.y,
+        label: `bestPoint: d=${this.lastBestPoint.distance}`,
+      } as Point)
+    }
 
     return graphics
   }
