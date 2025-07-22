@@ -1,4 +1,4 @@
-import { GraphicsObject, Rect } from "graphics-debug"
+import type { GraphicsObject, Rect } from "graphics-debug"
 import type { PackOutput } from "../types"
 import { getComponentBounds } from "../geometry/getComponentBounds"
 
@@ -15,23 +15,24 @@ export const getGraphicsFromPackOutput = (
       center: { x: component.center.x, y: component.center.y },
       width,
       height,
-      color: "rgba(0,0,0,0.25)",
+      fill: "rgba(0,0,0,0.25)",
+      label: component.componentId,
     }
+    rects.push(rect)
 
     for (const pad of component.pads) {
-      const { absoluteCenter, offset, size, padId, networkId } = pad
+      const { absoluteCenter, size, padId, networkId } = pad
 
       const padRect: Rect = {
         center: { x: absoluteCenter.x, y: absoluteCenter.y },
         width: size.x,
         height: size.y,
-        color: "rgba(255,0,0,0.8)",
+        label: `${padId} ${networkId}`,
+        fill: "rgba(255,0,0,0.8)",
       }
 
       rects.push(padRect)
     }
-
-    rects.push(rect)
   }
 
   return {
