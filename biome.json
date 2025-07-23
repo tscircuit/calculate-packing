@@ -67,6 +67,9 @@
         "useValidAutocomplete": "off",
         "useValidLang": "off"
       },
+      "correctness": {
+        "useExhaustiveDependencies": "off"
+      },
       "style": {
         "useSingleVarDeclarator": "error",
         "noParameterAssign": "off",
