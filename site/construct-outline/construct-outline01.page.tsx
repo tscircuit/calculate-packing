@@ -192,7 +192,7 @@ const OutlineVisualization: React.FC = () => {
           }))
 
           const pathData =
-            `M ${worldCorners[0].x} ${worldCorners[0].y} ` +
+            `M ${worldCorners[0]!.x} ${worldCorners[0]!.y} ` +
             worldCorners
               .slice(1)
               .map((p) => `L ${p.x} ${p.y}`)

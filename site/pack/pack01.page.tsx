@@ -74,8 +74,8 @@ const manualPackOutput: PackOutput = {
 
 export default () => {
   return (
-    <PackDebugger 
-      initialPackOutput={manualPackOutput} 
+    <PackDebugger
+      initialPackOutput={manualPackOutput}
       title="Pack01 - Manual Pack Output"
     />
   )
