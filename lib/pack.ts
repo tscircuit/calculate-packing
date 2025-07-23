@@ -19,7 +19,6 @@ const DEFAULT_PACK_DIRECTION_FALLBACK = "right"
  * 8. Go to step 2 until all components are packed
  */
 export const pack = (input: PackInput): PackOutput => {
-  console.log("pack", input)
   const solver = new PackSolver(input)
   solver.solve()
   return {
