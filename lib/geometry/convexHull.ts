@@ -11,7 +11,7 @@ export const convexHull = (points: Point[]): Point[] => {
   for (const p of sorted) {
     while (
       lower.length >= 2 &&
-      cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0
+      cross(lower[lower.length - 2]!, lower[lower.length - 1]!, p) <= 0
     )
       lower.pop()
     lower.push(p)
@@ -22,10 +22,10 @@ export const convexHull = (points: Point[]): Point[] => {
     const p = sorted[i]
     while (
       upper.length >= 2 &&
-      cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0
+      cross(upper[upper.length - 2]!, upper[upper.length - 1]!, p!) <= 0
     )
       upper.pop()
-    upper.push(p)
+    upper.push(p!)
   }
 
   upper.pop()
