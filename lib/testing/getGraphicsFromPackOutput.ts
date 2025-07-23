@@ -52,7 +52,7 @@ export const getGraphicsFromPackOutput = (
       for (let j = i + 1; j < padsOnNet.length; j++) {
         lines.push({
           points: [padsOnNet[i]!.absoluteCenter, padsOnNet[j]!.absoluteCenter],
-          stroke: colorMap[netId],
+          strokeColor: colorMap[netId],
         } as Line)
       }
     }

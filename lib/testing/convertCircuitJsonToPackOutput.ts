@@ -21,6 +21,20 @@ export const convertCircuitJsonToPackOutput = (
 
   const db = cju(circuitJson)
   const pcbComponents = db.pcb_component.list()
+  let unnamedCounter = 0
+
+  const getNetworkId = (pcbPortId?: string): string => {
+    if (pcbPortId) {
+      const pcbPort = db.pcb_port.get(pcbPortId)
+      if (pcbPort) {
+        const sourcePort = db.source_port.get(pcbPort.source_port_id)
+        if (sourcePort?.subcircuit_connectivity_map_key) {
+          return sourcePort.subcircuit_connectivity_map_key
+        }
+      }
+    }
+    return `unnamed${unnamedCounter++}`
+  }
 
   for (const pcbComponent of pcbComponents) {
     const pads: OutputPad[] = []
@@ -40,12 +54,12 @@ export const convertCircuitJsonToPackOutput = (
         (platedHole as any).outer_diameter ??
         (platedHole as any).hole_diameter ??
         0
+
+      const networkId = getNetworkId(platedHole.pcb_port_id)
+
       const pad: OutputPad = {
         padId: platedHole.pcb_plated_hole_id,
-        networkId:
-          (platedHole as any).source_net_id ??
-          (platedHole as any).pcb_port_id ??
-          "unknown_net",
+        networkId,
         type: "rect",
         offset: {
           x: platedHole.x - pcbComponent.center.x,
@@ -68,12 +82,10 @@ export const convertCircuitJsonToPackOutput = (
       if (smtPad.shape === "polygon") {
         throw new Error("Polygon pads are not supported in pack layout yet")
       }
+      const networkId = getNetworkId(smtPad.pcb_port_id)
       const pad: OutputPad = {
         padId: smtPad.pcb_smtpad_id,
-        networkId:
-          (smtPad as any).source_net_id ??
-          (smtPad as any).pcb_port_id ??
-          "unknown_net",
+        networkId,
         type: "rect",
         offset: {
           x: smtPad.x - pcbComponent.center.x,
