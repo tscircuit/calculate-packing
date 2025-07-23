@@ -36,7 +36,10 @@ export class PackSolver extends BaseSolver {
   unpackedComponentQueue!: InputComponent[]
   packedComponents!: PackedComponent[]
 
-  lastBestPointsResult?: { bestPoints: Point[]; distance: number }
+  lastBestPointsResult?: {
+    bestPoints: (Point & { networkId: NetworkId })[]
+    distance: number
+  }
 
   constructor(input: PackInput) {
     super()
@@ -92,10 +95,15 @@ export class PackSolver extends BaseSolver {
       return
     }
 
+    const padMargins = newPackedComponent.pads.map(
+      (p) => Math.max(p.size.x, p.size.y) / 2,
+    )
+    const additionalGap = Math.max(...padMargins)
+
     // Position relative to previous components (simple strategy)
     const outlines = constructOutlinesFromPackedComponents(
       this.packedComponents,
-      { minGap },
+      { minGap: minGap + additionalGap },
     )
 
     const networkIdsInPackedComponents = new Set(
