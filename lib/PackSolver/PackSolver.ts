@@ -206,7 +206,12 @@ export class PackSolver extends BaseSolver {
        * 3. Pick the candidate with the smallest cost
        * ------------------------------------------------------------- */
 
-      const candidateAngles = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2]
+      // Determine which rotations are allowed for this component.
+      // • If the component specifies availableRotationDegrees we use those
+      // • Otherwise fall back to the four cardinal rotations (0°,90°,180°,270°)
+      const candidateAngles = (
+        newPackedComponent.availableRotationDegrees ?? [0, 90, 180, 270]
+      ).map((deg) => ((deg % 360) * Math.PI) / 180)
       let bestCandidate: {
         center: Point
         angle: number

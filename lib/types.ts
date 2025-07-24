@@ -16,6 +16,10 @@ export interface OutputPad extends InputPad {
 
 export interface InputComponent {
   componentId: string
+  /**
+   * If not provided, the component can be rotated by 0, 90, 180, or 270 degrees.
+   */
+  availableRotationDegrees?: number[]
   pads: InputPad[]
 }
 
