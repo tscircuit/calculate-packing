@@ -209,9 +209,9 @@ export class PackSolver extends BaseSolver {
       // Determine which rotations are allowed for this component.
       // • If the component specifies availableRotationDegrees we use those
       // • Otherwise fall back to the four cardinal rotations (0°,90°,180°,270°)
-      const candidateAngles =
-        (newPackedComponent.availableRotationDegrees ?? [0, 90, 180, 270])
-          .map((deg) => ((deg % 360) * Math.PI) / 180)
+      const candidateAngles = (
+        newPackedComponent.availableRotationDegrees ?? [0, 90, 180, 270]
+      ).map((deg) => ((deg % 360) * Math.PI) / 180)
       let bestCandidate: {
         center: Point
         angle: number
