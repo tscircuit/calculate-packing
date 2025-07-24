@@ -1,104 +1,94 @@
 <svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="white" />
   <g>
-    <circle data-type="point" data-label="bestPoint
-networkId: unnamedsubcircuit121_connectivity_net1
-d=2.55" data-x="1.6499999999999995" data-y="-4.755" cx="338.4431137724551" cy="470.2275449101797" r="3" fill="black" />
+    <polyline data-points="-2.15,1.905 -4.949999999999999,1.605" data-type="line" data-label="" points="211.01796407185628,259.47305389221555 117.12574850299401,269.5329341317365" fill="none" stroke="hsl(0, 100%, 50%)" stroke-width="1" />
   </g>
   <g>
-    <circle data-type="point" data-label="bestPoint
-networkId: unnamedsubcircuit121_connectivity_net1
-d=2.55" data-x="5.199999999999999" data-y="-2.205" cx="457.4850299401197" cy="384.7185628742515" r="3" fill="black" />
+    <polyline data-points="2.15,-1.905 5.199999999999999,-2.205" data-type="line" data-label="" points="355.20958083832335,387.2335329341317 457.4850299401197,397.29341317365265" fill="none" stroke="hsl(120, 100%, 50%)" stroke-width="1" />
   </g>
   <g>
-    <polyline data-points="-2.15,1.905 -4.949999999999999,1.605" data-type="line" data-label="" points="211.01796407185628,246.89820359281438 117.12574850299401,256.9580838323353" fill="none" stroke="hsl(0, 100%, 50%)" stroke-width="1" />
+    <polyline data-points="2.6499999999999986,-4.205 2.6499999999999986,-4.705" data-type="line" data-label="" points="371.97604790419155,464.35928143712573 371.97604790419155,481.12574850299404" fill="none" stroke="black" stroke-width="1" />
   </g>
   <g>
-    <polyline data-points="2.15,-1.905 5.199999999999999,-2.205" data-type="line" data-label="" points="355.20958083832335,374.65868263473055 457.4850299401197,384.7185628742515" fill="none" stroke="hsl(120, 100%, 50%)" stroke-width="1" />
+    <polyline data-points="2.6499999999999986,-4.705 9.45,-4.705" data-type="line" data-label="" points="371.97604790419155,481.12574850299404 600,481.12574850299404" fill="none" stroke="black" stroke-width="1" />
   </g>
   <g>
-    <polyline data-points="2.6499999999999986,-4.205 2.6499999999999986,-4.705" data-type="line" data-label="" points="371.97604790419155,451.7844311377246 371.97604790419155,468.55089820359285" fill="none" stroke="black" stroke-width="1" />
+    <polyline data-points="9.45,-4.705 9.45,0.29499999999999993" data-type="line" data-label="" points="600,481.12574850299404 600,313.4610778443113" fill="none" stroke="black" stroke-width="1" />
   </g>
   <g>
-    <polyline data-points="2.6499999999999986,-4.705 9.45,-4.705" data-type="line" data-label="" points="371.97604790419155,468.55089820359285 600,468.55089820359285" fill="none" stroke="black" stroke-width="1" />
+    <polyline data-points="9.45,0.29499999999999993 4.65,0.29499999999999993" data-type="line" data-label="" points="600,313.4610778443113 439.0419161676647,313.4610778443113" fill="none" stroke="black" stroke-width="1" />
   </g>
   <g>
-    <polyline data-points="9.45,-4.705 9.45,0.29499999999999993" data-type="line" data-label="" points="600,468.55089820359285 600,300.8862275449102" fill="none" stroke="black" stroke-width="1" />
+    <polyline data-points="4.65,0.29499999999999993 4.65,4.205" data-type="line" data-label="" points="439.0419161676647,313.4610778443113 439.0419161676647,182.3473053892215" fill="none" stroke="black" stroke-width="1" />
   </g>
   <g>
-    <polyline data-points="9.45,0.29499999999999993 4.65,0.29499999999999993" data-type="line" data-label="" points="600,300.8862275449102 439.0419161676647,300.8862275449102" fill="none" stroke="black" stroke-width="1" />
+    <polyline data-points="4.65,4.205 -2.6499999999999995,4.205" data-type="line" data-label="" points="439.0419161676647,182.3473053892215 194.25149700598803,182.3473053892215" fill="none" stroke="black" stroke-width="1" />
   </g>
   <g>
-    <polyline data-points="4.65,0.29499999999999993 4.65,4.205" data-type="line" data-label="" points="439.0419161676647,300.8862275449102 439.0419161676647,169.77245508982037" fill="none" stroke="black" stroke-width="1" />
+    <polyline data-points="-2.6499999999999995,4.205 -2.6499999999999995,4.905" data-type="line" data-label="" points="194.25149700598803,182.3473053892215 194.25149700598803,158.87425149700593" fill="none" stroke="black" stroke-width="1" />
   </g>
   <g>
-    <polyline data-points="4.65,4.205 -4.65,4.205" data-type="line" data-label="" points="439.0419161676647,169.77245508982037 127.18562874251492,169.77245508982037" fill="none" stroke="black" stroke-width="1" />
+    <polyline data-points="-2.6499999999999995,4.905 -7.249999999999999,4.905" data-type="line" data-label="" points="194.25149700598803,158.87425149700593 40,158.87425149700593" fill="none" stroke="black" stroke-width="1" />
   </g>
   <g>
-    <polyline data-points="-4.65,4.205 -4.65,3.9050000000000002" data-type="line" data-label="" points="127.18562874251492,169.77245508982037 127.18562874251492,179.8323353293413" fill="none" stroke="black" stroke-width="1" />
+    <polyline data-points="-7.249999999999999,4.905 -7.249999999999999,-0.6950000000000001" data-type="line" data-label="" points="40,158.87425149700593 40,346.6586826347305" fill="none" stroke="black" stroke-width="1" />
   </g>
   <g>
-    <polyline data-points="-4.65,3.9050000000000002 -7.249999999999999,3.9050000000000002" data-type="line" data-label="" points="127.18562874251492,179.8323353293413 40,179.8323353293413" fill="none" stroke="black" stroke-width="1" />
+    <polyline data-points="-7.249999999999999,-0.6950000000000001 -4.65,-0.6950000000000001" data-type="line" data-label="" points="40,346.6586826347305 127.18562874251492,346.6586826347305" fill="none" stroke="black" stroke-width="1" />
   </g>
   <g>
-    <polyline data-points="-7.249999999999999,3.9050000000000002 -7.249999999999999,-0.6950000000000001" data-type="line" data-label="" points="40,179.8323353293413 40,334.08383233532936" fill="none" stroke="black" stroke-width="1" />
+    <polyline data-points="-4.65,-0.6950000000000001 -4.65,-4.205" data-type="line" data-label="" points="127.18562874251492,346.6586826347305 127.18562874251492,464.35928143712573" fill="none" stroke="black" stroke-width="1" />
   </g>
   <g>
-    <polyline data-points="-7.249999999999999,-0.6950000000000001 -4.65,-0.6950000000000001" data-type="line" data-label="" points="40,334.08383233532936 127.18562874251492,334.08383233532936" fill="none" stroke="black" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-4.65,-0.6950000000000001 -4.65,-4.205" data-type="line" data-label="" points="127.18562874251492,334.08383233532936 127.18562874251492,451.7844311377246" fill="none" stroke="black" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-4.65,-4.205 2.6499999999999986,-4.205" data-type="line" data-label="" points="127.18562874251492,451.7844311377246 371.97604790419155,451.7844311377246" fill="none" stroke="black" stroke-width="1" />
+    <polyline data-points="-4.65,-4.205 2.6499999999999986,-4.205" data-type="line" data-label="" points="127.18562874251492,464.35928143712573 371.97604790419155,464.35928143712573" fill="none" stroke="black" stroke-width="1" />
   </g>
   <g>
     <rect data-type="rect" data-label="pcb_component_0
-ccwRotationOffset: 0.0" data-x="0" data-y="0" x="194.25149700598803" y="236.83832335329345" width="177.72455089820357" height="147.88023952095807" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.029821428571428568" />
+ccwRotationOffset: 0.0" data-x="0" data-y="0" x="194.25149700598803" y="249.41317365269458" width="177.72455089820357" height="147.88023952095807" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_0 unnamedsubcircuit121_connectivity_net0" data-x="-2.15" data-y="1.905" x="194.25149700598803" y="236.83832335329345" width="33.53293413173651" height="20.119760479041872" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
+    <rect data-type="rect" data-label="pcb_smtpad_0 unnamedsubcircuit121_connectivity_net0" data-x="-2.15" data-y="1.905" x="194.25149700598803" y="249.41317365269458" width="33.53293413173651" height="20.11976047904193" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_1 unnamed0" data-x="-2.15" data-y="0.635" x="194.25149700598803" y="279.4251497005988" width="33.53293413173651" height="20.11976047904193" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
+    <rect data-type="rect" data-label="pcb_smtpad_1 unnamed0" data-x="-2.15" data-y="0.635" x="194.25149700598803" y="291.99999999999994" width="33.53293413173651" height="20.11976047904193" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_2 unnamed1" data-x="-2.15" data-y="-0.635" x="194.25149700598803" y="322.0119760479042" width="33.53293413173651" height="20.11976047904193" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
+    <rect data-type="rect" data-label="pcb_smtpad_2 unnamed1" data-x="-2.15" data-y="-0.635" x="194.25149700598803" y="334.58682634730536" width="33.53293413173651" height="20.11976047904193" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_3 unnamed2" data-x="-2.15" data-y="-1.905" x="194.25149700598803" y="364.59880239520965" width="33.53293413173651" height="20.119760479041872" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
+    <rect data-type="rect" data-label="pcb_smtpad_3 unnamed2" data-x="-2.15" data-y="-1.905" x="194.25149700598803" y="377.1736526946107" width="33.53293413173651" height="20.11976047904193" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_4 unnamedsubcircuit121_connectivity_net1" data-x="2.15" data-y="-1.905" x="338.4431137724551" y="364.59880239520965" width="33.53293413173651" height="20.119760479041872" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
+    <rect data-type="rect" data-label="pcb_smtpad_4 unnamedsubcircuit121_connectivity_net1" data-x="2.15" data-y="-1.905" x="338.4431137724551" y="377.1736526946107" width="33.53293413173651" height="20.11976047904193" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_5 unnamed3" data-x="2.15" data-y="-0.635" x="338.4431137724551" y="322.0119760479042" width="33.53293413173651" height="20.11976047904193" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
+    <rect data-type="rect" data-label="pcb_smtpad_5 unnamed3" data-x="2.15" data-y="-0.635" x="338.4431137724551" y="334.58682634730536" width="33.53293413173651" height="20.11976047904193" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_6 unnamed4" data-x="2.15" data-y="0.635" x="338.4431137724551" y="279.4251497005988" width="33.53293413173651" height="20.11976047904193" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
+    <rect data-type="rect" data-label="pcb_smtpad_6 unnamed4" data-x="2.15" data-y="0.635" x="338.4431137724551" y="291.99999999999994" width="33.53293413173651" height="20.11976047904193" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_7 unnamed5" data-x="2.15" data-y="1.905" x="338.4431137724551" y="236.83832335329345" width="33.53293413173651" height="20.119760479041872" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
+    <rect data-type="rect" data-label="pcb_smtpad_7 unnamed5" data-x="2.15" data-y="1.905" x="338.4431137724551" y="249.41317365269458" width="33.53293413173651" height="20.11976047904193" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
     <rect data-type="rect" data-label="pcb_component_1
-ccwRotationOffset: 0.0" data-x="-4.449999999999999" data-y="1.605" x="107.06586826347305" y="246.89820359281438" width="53.65269461077844" height="20.119760479041958" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.029821428571428568" />
+ccwRotationOffset: 90.0" data-x="-4.949999999999999" data-y="2.105" x="107.06586826347305" y="225.94011976047898" width="20.1197604790419" height="53.6526946107785" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_8 unnamedsubcircuit121_connectivity_net0" data-x="-4.949999999999999" data-y="1.605" x="107.06586826347305" y="246.89820359281438" width="20.1197604790419" height="20.119760479041958" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
+    <rect data-type="rect" data-label="pcb_smtpad_8 unnamedsubcircuit121_connectivity_net0" data-x="-4.949999999999999" data-y="1.605" x="107.06586826347305" y="259.47305389221555" width="20.1197604790419" height="20.119760479041872" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_9 unnamed6" data-x="-3.9499999999999993" data-y="1.605" x="140.5988023952096" y="246.89820359281438" width="20.1197604790419" height="20.119760479041958" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
+    <rect data-type="rect" data-label="pcb_smtpad_9 unnamed6" data-x="-4.949999999999999" data-y="2.605" x="107.06586826347305" y="225.94011976047898" width="20.1197604790419" height="20.11976047904193" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
     <rect data-type="rect" data-label="pcb_component_2
-ccwRotationOffset: 0.0" data-x="6.049999999999999" data-y="-2.205" x="439.0419161676647" y="367.95209580838326" width="93.8922155688623" height="33.53293413173657" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.029821428571428568" />
+ccwRotationOffset: 0.0" data-x="6.049999999999999" data-y="-2.205" x="439.0419161676647" y="380.5269461077844" width="93.8922155688623" height="33.53293413173651" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_10 unnamedsubcircuit121_connectivity_net1" data-x="5.199999999999999" data-y="-2.205" x="439.0419161676647" y="367.95209580838326" width="36.886227544910184" height="33.53293413173657" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
+    <rect data-type="rect" data-label="pcb_smtpad_10 unnamedsubcircuit121_connectivity_net1" data-x="5.199999999999999" data-y="-2.205" x="439.0419161676647" y="380.5269461077844" width="36.886227544910184" height="33.53293413173651" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_11 unnamed7" data-x="6.899999999999999" data-y="-2.205" x="496.04790419161674" y="367.95209580838326" width="36.88622754491024" height="33.53293413173657" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
+    <rect data-type="rect" data-label="pcb_smtpad_11 unnamed7" data-x="6.899999999999999" data-y="-2.205" x="496.04790419161674" y="380.5269461077844" width="36.88622754491024" height="33.53293413173651" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.029821428571428568" />
   </g>
   <g id="crosshair" style="display: none">
     <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
@@ -133,7 +123,7 @@ ccwRotationOffset: 0.0" data-x="6.049999999999999" data-y="-2.205" x="439.041916
         "e": 283.1137724550898,
         "b": 0,
         "d": -33.53293413173653,
-        "f": 310.7784431137725
+        "f": 323.3532934131736
       };
       // Manually invert and apply the affine transform
       // Since we only use translate and scale, we can directly compute:
