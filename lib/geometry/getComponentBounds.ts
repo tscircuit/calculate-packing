@@ -11,7 +11,7 @@ export interface Bounds {
 /** Axis-aligned bounds of a component, expanded by `minGap`. */
 export const getComponentBounds = (
   component: PackedComponent,
-  minGap: number = 0,
+  minGap = 0,
 ): Bounds => {
   const bounds: Bounds = {
     minX: Infinity,

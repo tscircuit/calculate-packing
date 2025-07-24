@@ -14,6 +14,7 @@ import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
 import type { Segment } from "../geometry/types"
 import { getSegmentsFromPad } from "./getSegmentsFromPad"
 import { computeNearestPointOnSegmentForSegmentSet } from "../math/computeNearestPointOnSegmentForSegmentSet"
+import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
 
 /**
  * The pack algorithm performs the following steps:
@@ -40,6 +41,8 @@ export class PackSolver extends BaseSolver {
     bestPoints: (Point & { networkId: NetworkId })[]
     distance: number
   }
+
+  lastEvaluatedPositionShadows?: Array<PackedComponent>
 
   constructor(input: PackInput) {
     super()
@@ -181,6 +184,8 @@ export class PackSolver extends BaseSolver {
       distance: smallestDistance,
     }
 
+    this.lastEvaluatedPositionShadows = []
+
     for (const bestPoint of bestPoints) {
       const networkId = bestPoint.networkId
 
@@ -237,19 +242,39 @@ export class PackSolver extends BaseSolver {
           ...newPackedComponent,
           center: candidateCenter,
           ccwRotationOffset: angle,
+          pads: transformedPads,
         }
+
+        this.lastEvaluatedPositionShadows?.push(tempComponent)
 
         const candBounds = getComponentBounds(tempComponent, 0)
 
-        const overlapsWithPackedComponent = this.packedComponents.some((pc) => {
-          const pcBounds = getComponentBounds(pc, 0)
-          return (
-            candBounds.minX < pcBounds.maxX &&
-            candBounds.maxX > pcBounds.minX &&
-            candBounds.minY < pcBounds.maxY &&
-            candBounds.maxY > pcBounds.minY
-          )
-        })
+        const candBox = {
+          center: {
+            x: (candBounds.minX + candBounds.maxX) / 2,
+            y: (candBounds.minY + candBounds.maxY) / 2,
+          },
+          width: candBounds.maxX - candBounds.minX,
+          height: candBounds.maxY - candBounds.minY,
+        }
+        let overlapsWithPackedComponent = false
+        for (const pc of this.packedComponents) {
+          for (const pcPad of pc.pads) {
+            const distToPad = computeDistanceBetweenBoxes(
+              {
+                center: pcPad.absoluteCenter,
+                width: pcPad.size.x,
+                height: pcPad.size.y,
+              },
+              candBox,
+            ).distance
+
+            if (distToPad < this.packInput.minGap) {
+              overlapsWithPackedComponent = true
+              break
+            }
+          }
+        }
 
         if (overlapsWithPackedComponent) continue /* reject candidate */
 
@@ -336,13 +361,34 @@ export class PackSolver extends BaseSolver {
       ),
     )
 
-    if (this.lastBestPointsResult) {
-      for (const bestPoint of this.lastBestPointsResult.bestPoints) {
-        graphics.points!.push({
-          x: bestPoint.x,
-          y: bestPoint.y,
-          label: `bestPoint\nnetworkId: ${bestPoint.networkId}\nd=${this.lastBestPointsResult.distance}`,
-        } as Point)
+    if (!this.solved) {
+      for (const shadow of this.lastEvaluatedPositionShadows ?? []) {
+        const bounds = getComponentBounds(shadow, 0)
+        graphics.rects!.push({
+          center: shadow.center,
+          width: bounds.maxX - bounds.minX,
+          height: bounds.maxY - bounds.minY,
+          fill: "rgba(0,255,255,0.2)",
+          label: ((shadow.ccwRotationOffset / Math.PI) * 180).toFixed(1),
+        })
+        for (const shadowPad of shadow.pads) {
+          graphics.rects!.push({
+            center: shadowPad.absoluteCenter,
+            width: shadowPad.size.x,
+            height: shadowPad.size.y,
+            fill: "rgba(0,0,255,0.5)",
+          })
+        }
+      }
+
+      if (this.lastBestPointsResult) {
+        for (const bestPoint of this.lastBestPointsResult.bestPoints) {
+          graphics.points!.push({
+            x: bestPoint.x,
+            y: bestPoint.y,
+            label: `bestPoint\nnetworkId: ${bestPoint.networkId}\nd=${this.lastBestPointsResult.distance}`,
+          } as Point)
+        }
       }
     }
 
