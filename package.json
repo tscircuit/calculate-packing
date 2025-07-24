@@ -7,6 +7,7 @@
   "scripts": {
     "start": "cosmos",
     "format": "biome format --write .",
+    "format:check": "biome format .",
     "build": "tsup-node lib/index.ts --format esm --dts --outDir dist",
     "build:site": "cosmos-export"
   },
