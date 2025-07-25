@@ -65,7 +65,8 @@ export class PackSolver extends BaseSolver {
     // Already solved?
     if (this.solved) return
 
-    const { minGap = 0, disconnectedPackDirection = "right" } = this.packInput
+    const { minGap = 0, disconnectedPackDirection = "nearest_to_center" } =
+      this.packInput
 
     // If no more components to process -> solved
     if (this.unpackedComponentQueue.length === 0) {
@@ -124,9 +125,16 @@ export class PackSolver extends BaseSolver {
     )
 
     if (sharedNetworkIds.size === 0) {
-      throw new Error(
-        "Use the disconnectedPackDirection to place the new component",
+      /* no shared nets – use the disconnected strategy */
+      this.placeComponentDisconnected(
+        newPackedComponent,
+        outlines,
+        disconnectedPackDirection as NonNullable<
+          PackInput["disconnectedPackDirection"]
+        >,
       )
+      this.packedComponents.push(newPackedComponent)
+      return
     }
 
     const networkIdToAlreadyPackedSegments = new Map<NetworkId, Segment[]>()
@@ -209,9 +217,7 @@ export class PackSolver extends BaseSolver {
       // Determine which rotations are allowed for this component.
       // • If the component specifies availableRotationDegrees we use those
       // • Otherwise fall back to the four cardinal rotations (0°,90°,180°,270°)
-      const candidateAngles = (
-        newPackedComponent.availableRotationDegrees ?? [0, 90, 180, 270]
-      ).map((deg) => ((deg % 360) * Math.PI) / 180)
+      const candidateAngles = this.getCandidateAngles(newPackedComponent)
       let bestCandidate: {
         center: Point
         angle: number
@@ -252,36 +258,7 @@ export class PackSolver extends BaseSolver {
 
         this.lastEvaluatedPositionShadows?.push(tempComponent)
 
-        const candBounds = getComponentBounds(tempComponent, 0)
-
-        const candBox = {
-          center: {
-            x: (candBounds.minX + candBounds.maxX) / 2,
-            y: (candBounds.minY + candBounds.maxY) / 2,
-          },
-          width: candBounds.maxX - candBounds.minX,
-          height: candBounds.maxY - candBounds.minY,
-        }
-        let overlapsWithPackedComponent = false
-        for (const pc of this.packedComponents) {
-          for (const pcPad of pc.pads) {
-            const distToPad = computeDistanceBetweenBoxes(
-              {
-                center: pcPad.absoluteCenter,
-                width: pcPad.size.x,
-                height: pcPad.size.y,
-              },
-              candBox,
-            ).distance
-
-            if (distToPad < this.packInput.minGap) {
-              overlapsWithPackedComponent = true
-              break
-            }
-          }
-        }
-
-        if (overlapsWithPackedComponent) continue /* reject candidate */
+        if (this.checkOverlapWithPackedComponents(tempComponent)) continue
 
         /* --- 2. cost (connection length) ------------------------------- */
         let cost = 0
@@ -331,6 +308,121 @@ export class PackSolver extends BaseSolver {
 
   override getConstructorParams() {
     return [this.packInput]
+  }
+
+  /* ---------- small helpers ------------------------------------------------ */
+
+  private getCandidateAngles(c: InputComponent): number[] {
+    return (c.availableRotationDegrees ?? [0, 90, 180, 270]).map(
+      (d) => ((d % 360) * Math.PI) / 180,
+    )
+  }
+
+  private checkOverlapWithPackedComponents(cand: PackedComponent): boolean {
+    const b = getComponentBounds(cand, 0)
+    const candBox = {
+      center: { x: (b.minX + b.maxX) / 2, y: (b.minY + b.maxY) / 2 },
+      width: b.maxX - b.minX,
+      height: b.maxY - b.minY,
+    }
+    for (const pc of this.packedComponents) {
+      for (const pad of pc.pads) {
+        if (
+          computeDistanceBetweenBoxes(
+            {
+              center: pad.absoluteCenter,
+              width: pad.size.x,
+              height: pad.size.y,
+            },
+            candBox,
+          ).distance < this.packInput.minGap
+        )
+          return true
+      }
+    }
+    return false
+  }
+
+  private computeGlobalCenter(): Point {
+    if (!this.packedComponents.length) return { x: 0, y: 0 }
+    const s = this.packedComponents.reduce(
+      (a, c) => ({ x: a.x + c.center.x, y: a.y + c.center.y }),
+      { x: 0, y: 0 },
+    )
+    return {
+      x: s.x / this.packedComponents.length,
+      y: s.y / this.packedComponents.length,
+    }
+  }
+
+  private findBestPointForDisconnected(
+    outlines: Segment[][],
+    dir: NonNullable<PackInput["disconnectedPackDirection"]>,
+  ): Point {
+    const pts = outlines.flatMap((ol) =>
+      ol.map(([p1, p2]) => ({
+        x: (p1.x + p2.x) / 2,
+        y: (p1.y + p2.y) / 2,
+      })),
+    )
+    if (!pts.length) return { x: 0, y: 0 }
+
+    const cmp = {
+      left: (p: Point, v: number) => p.x < v,
+      right: (p: Point, v: number) => p.x > v,
+      down: (p: Point, v: number) => p.y < v,
+      up: (p: Point, v: number) => p.y > v,
+    }
+
+    if (dir !== "nearest_to_center") {
+      const extreme = dir === "left" || dir === "down" ? Math.min : Math.max
+      const key = dir === "left" || dir === "right" ? "x" : "y"
+      const target = extreme(...pts.map((p) => p[key]))
+      return pts.find((p) => p[key] === target)!
+    }
+
+    const center = this.computeGlobalCenter()
+    return pts.reduce((best, p) =>
+      Math.hypot(p.x - center.x, p.y - center.y) <
+      Math.hypot(best.x - center.x, best.y - center.y)
+        ? p
+        : best,
+    )
+  }
+
+  private placeComponentAtPoint(comp: PackedComponent, pt: Point) {
+    this.lastEvaluatedPositionShadows = []
+    for (const ang of this.getCandidateAngles(comp)) {
+      const pads = comp.pads.map((p) => {
+        const ro = rotatePoint(p.offset, ang)
+        return { ...p, absoluteCenter: { x: pt.x + ro.x, y: pt.y + ro.y } }
+      })
+      const cand: PackedComponent = {
+        ...comp,
+        center: pt,
+        ccwRotationOffset: ang,
+        pads,
+      }
+      this.lastEvaluatedPositionShadows.push(cand)
+      if (!this.checkOverlapWithPackedComponents(cand)) {
+        Object.assign(comp, cand)
+        setPackedComponentPadCenters(comp)
+        return
+      }
+    }
+    /* fallback: 0° rotation */
+    comp.center = pt
+    comp.ccwRotationOffset = 0
+    setPackedComponentPadCenters(comp)
+  }
+
+  private placeComponentDisconnected(
+    comp: PackedComponent,
+    outlines: Segment[][],
+    dir: NonNullable<PackInput["disconnectedPackDirection"]>,
+  ) {
+    const target = this.findBestPointForDisconnected(outlines, dir)
+    this.placeComponentAtPoint(comp, target)
   }
 
   /** Visualize the current packing state – components are omitted, only the outline is shown. */
