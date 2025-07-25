@@ -37,7 +37,12 @@ export interface PackInput {
   packOrderStrategy: "largest_to_smallest"
   packPlacementStrategy: "shortest_connection_along_outline"
 
-  disconnectedPackDirection?: "left" | "right" | "up" | "down"
+  disconnectedPackDirection?:
+    | "left"
+    | "right"
+    | "up"
+    | "down"
+    | "nearest_to_center"
   packFirst?: ComponentId[]
 }
 

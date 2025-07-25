@@ -65,7 +65,8 @@ export class PackSolver extends BaseSolver {
     // Already solved?
     if (this.solved) return
 
-    const { minGap = 0, disconnectedPackDirection = "right" } = this.packInput
+    const { minGap = 0, disconnectedPackDirection = "nearest_to_center" } =
+      this.packInput
 
     // If no more components to process -> solved
     if (this.unpackedComponentQueue.length === 0) {
@@ -125,7 +126,7 @@ export class PackSolver extends BaseSolver {
 
     if (sharedNetworkIds.size === 0) {
       throw new Error(
-        "Use the disconnectedPackDirection to place the new component",
+        "TODO find the point along the outline that best optimizes for disconnectedPackDirection, e.g. is most up or is nearest to the center of the outline. For the rotation selection, select from the availableRotationDegrees where we have no overlap with the already-packed components.",
       )
     }
 
