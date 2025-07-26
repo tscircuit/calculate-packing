@@ -1,5 +1,9 @@
 import type { CircuitJson, PcbComponent } from "circuit-json"
-import { cju, getBoundsOfPcbElements } from "@tscircuit/circuit-json-util"
+import {
+  cju,
+  getBoundsOfPcbElements,
+  getCircuitJsonTree,
+} from "@tscircuit/circuit-json-util"
 import type {
   InputComponent,
   InputPad,
@@ -11,6 +15,9 @@ import type {
 
 export const convertCircuitJsonToPackOutput = (
   circuitJson: CircuitJson,
+  opts: {
+    source_group_id?: string
+  } = {},
 ): PackOutput => {
   const packOutput: PackOutput = {
     components: [],
@@ -19,6 +26,9 @@ export const convertCircuitJsonToPackOutput = (
     packPlacementStrategy: "shortest_connection_along_outline",
   }
 
+  const tree = getCircuitJsonTree(circuitJson, {
+    source_group_id: opts.source_group_id!,
+  })
   const db = cju(circuitJson)
   const pcbComponents = db.pcb_component.list()
   let unnamedCounter = 0
