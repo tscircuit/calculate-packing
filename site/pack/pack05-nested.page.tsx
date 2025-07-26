@@ -17,7 +17,7 @@ export default () => {
     async function run() {
       const circuitJson = await runTscircuitCode(`
       export default () => (
-        <board autoroutingDisabled>
+        <board routingDisabled>
           <group name="G1">
             <group name="G2">
               <resistor name="R1" resistance="1k" footprint="0402" />
