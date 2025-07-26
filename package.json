@@ -18,7 +18,7 @@
     "@biomejs/biome": "^2.1.1",
     "@flatten-js/core": "^1.6.2",
     "@react-hook/resize-observer": "^2.0.2",
-    "@tscircuit/circuit-json-util": "^0.0.52",
+    "@tscircuit/circuit-json-util": "^0.0.55",
     "@tscircuit/footprinter": "^0.0.203",
     "@tscircuit/math-utils": "^0.0.19",
     "@types/bun": "latest",
@@ -31,6 +31,7 @@
     "react-cosmos": "^7.0.0",
     "react-cosmos-plugin-vite": "^7.0.0",
     "react-dom": "^19.1.0",
+    "tscircuit": "^0.0.562",
     "tsup": "^8.5.0",
     "vite": "^7.0.5"
   },
