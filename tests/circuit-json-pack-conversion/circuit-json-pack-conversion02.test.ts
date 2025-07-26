@@ -221,6 +221,160 @@ test("circuit-json-pack-conversion02", async () => {
       },
     }
   `)
+  const tree2 = getCircuitJsonTree(circuitJson, {
+    source_group_id: (
+      circuitJson.find(
+        (e) => e.type === "source_group" && e.name === "G1",
+      )! as any
+    ).source_group_id,
+  })
+  expect(tree2).toMatchInlineSnapshot(`
+    {
+      "childNodes": [
+        {
+          "childNodes": [
+            {
+              "childNodes": [],
+              "nodeType": "component",
+              "otherChildElements": [
+                {
+                  "center": {
+                    "x": 0,
+                    "y": 0,
+                  },
+                  "height": 0.6,
+                  "layer": "top",
+                  "pcb_component_id": "pcb_component_0",
+                  "pcb_group_id": "pcb_group_0",
+                  "rotation": 0,
+                  "source_component_id": "source_component_0",
+                  "subcircuit_id": "subcircuit_source_group_2",
+                  "type": "pcb_component",
+                  "width": 1.6,
+                },
+              ],
+              "sourceComponent": {
+                "are_pins_interchangeable": true,
+                "display_resistance": "1kΩ",
+                "ftype": "simple_resistor",
+                "manufacturer_part_number": undefined,
+                "name": "R1",
+                "resistance": 1000,
+                "source_component_id": "source_component_0",
+                "source_group_id": "source_group_0",
+                "supplier_part_numbers": {
+                  "jlcpcb": [
+                    "C2906901",
+                    "C185446",
+                    "C25086",
+                  ],
+                },
+                "type": "source_component",
+              },
+            },
+            {
+              "childNodes": [],
+              "nodeType": "component",
+              "otherChildElements": [
+                {
+                  "center": {
+                    "x": 0,
+                    "y": 0,
+                  },
+                  "height": 0.6,
+                  "layer": "top",
+                  "pcb_component_id": "pcb_component_1",
+                  "pcb_group_id": "pcb_group_0",
+                  "rotation": 0,
+                  "source_component_id": "source_component_1",
+                  "subcircuit_id": "subcircuit_source_group_2",
+                  "type": "pcb_component",
+                  "width": 1.6,
+                },
+              ],
+              "sourceComponent": {
+                "are_pins_interchangeable": true,
+                "capacitance": 0.0000001,
+                "display_capacitance": "100nF",
+                "ftype": "simple_capacitor",
+                "manufacturer_part_number": undefined,
+                "max_decoupling_trace_length": undefined,
+                "max_voltage_rating": undefined,
+                "name": "C1",
+                "source_component_id": "source_component_1",
+                "source_group_id": "source_group_0",
+                "supplier_part_numbers": {
+                  "jlcpcb": [
+                    "C1525",
+                    "C6119799",
+                    "C307331",
+                  ],
+                },
+                "type": "source_component",
+              },
+            },
+          ],
+          "nodeType": "group",
+          "otherChildElements": [],
+          "sourceGroup": {
+            "is_subcircuit": undefined,
+            "name": "G2",
+            "parent_source_group_id": "source_group_1",
+            "source_group_id": "source_group_0",
+            "type": "source_group",
+          },
+        },
+        {
+          "childNodes": [],
+          "nodeType": "component",
+          "otherChildElements": [
+            {
+              "center": {
+                "x": 0,
+                "y": 0,
+              },
+              "height": 1,
+              "layer": "top",
+              "pcb_component_id": "pcb_component_2",
+              "pcb_group_id": "pcb_group_1",
+              "rotation": 0,
+              "source_component_id": "source_component_2",
+              "subcircuit_id": "subcircuit_source_group_2",
+              "type": "pcb_component",
+              "width": 2.8,
+            },
+          ],
+          "sourceComponent": {
+            "are_pins_interchangeable": true,
+            "display_resistance": "2kΩ",
+            "ftype": "simple_resistor",
+            "manufacturer_part_number": undefined,
+            "name": "R2",
+            "resistance": 2000,
+            "source_component_id": "source_component_2",
+            "source_group_id": "source_group_1",
+            "supplier_part_numbers": {
+              "jlcpcb": [
+                "C2907139",
+                "C22977",
+                "C2933191",
+              ],
+            },
+            "type": "source_component",
+          },
+        },
+      ],
+      "nodeType": "group",
+      "otherChildElements": [],
+      "sourceGroup": {
+        "is_subcircuit": undefined,
+        "name": "G1",
+        "parent_source_group_id": "source_group_2",
+        "source_group_id": "source_group_1",
+        "type": "source_group",
+      },
+    }
+  `)
   expect(circuitJson).toMatchInlineSnapshot(`
     [
       {
