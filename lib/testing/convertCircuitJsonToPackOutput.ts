@@ -29,6 +29,7 @@ export const convertCircuitJsonToPackOutput = (
   const tree = getCircuitJsonTree(circuitJson, {
     source_group_id: opts.source_group_id!,
   })
+  console.log(tree)
   const db = cju(circuitJson)
   const pcbComponents = db.pcb_component.list()
   let unnamedCounter = 0

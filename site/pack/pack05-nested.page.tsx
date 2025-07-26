@@ -20,12 +20,12 @@ export default () => {
         <board autoroutingDisabled>
           <group name="G1">
             <group name="G2">
-              <resistor name="R1" resistance="1k" />
-              <capacitor name="C1" capacitance="100nF" />
+              <resistor name="R1" resistance="1k" footprint="0402" />
+              <capacitor name="C1" capacitance="100nF" footprint="0402" />
             </group>
-            <resistor name="R2" resistance="2k" />
+            <resistor name="R2" resistance="2k" footprint="0603" />
           </group>
-          <resistor name="R3" resistance="3k" />
+          <resistor name="R3" resistance="3k" footprint="0805" />
         </board>
       )
       `)
@@ -33,14 +33,19 @@ export default () => {
       const packOutput = convertCircuitJsonToPackOutput(circuitJson, {
         source_group_id: (
           circuitJson.find(
-            (e) => e.type === "source_group" && e.name === "G2",
+            (e) => e.type === "source_group" && e.name === "G1",
           )! as any
         ).source_group_id,
       })
+      packOutput.minGap = 0.5
       setManualPackOutput(packOutput)
     }
     run()
   }, [])
+
+  if (!manualPackOutput) {
+    return <div>Loading...</div>
+  }
 
   return (
     <PackDebugger
