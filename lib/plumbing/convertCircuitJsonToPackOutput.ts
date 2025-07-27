@@ -102,14 +102,14 @@ export const convertCircuitJsonToPackOutput = (
 
   for (const node of topLevelNodes) {
     if (node.nodeType === "component") {
-      const pcbId = node.otherChildElements[0]?.pcb_component_id
-      if (!pcbId) continue
-      const pcbComp = db.pcb_component.get(pcbId)
-      if (!pcbComp) continue
+      const pcbComponent = node.otherChildElements.find(
+        (e) => e.type === "pcb_component",
+      )
+      if (!pcbComponent) continue
       packOutput.components.push(
         buildPackedComponent(
-          [pcbComp],
-          pcbComp.pcb_component_id,
+          [pcbComponent],
+          pcbComponent.pcb_component_id,
           db,
           getNetworkId,
         ),
