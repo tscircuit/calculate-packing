@@ -1,6 +1,6 @@
 export * from "./pack"
 export * from "./PackSolver/PackSolver"
-export * from "./testing/convertCircuitJsonToPackOutput"
+export * from "./plumbing/convertCircuitJsonToPackOutput"
 export * from "./testing/getGraphicsFromPackOutput"
 export * from "./types"
 export * from "./plumbing/convertPackOutputToPackInput"
