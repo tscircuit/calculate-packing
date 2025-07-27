@@ -20,7 +20,7 @@ export default () => {
         <board routingDisabled>
           <group name="G1">
             <group name="G2">
-              <resistor name="R1" resistance="1k" footprint="0402" />
+              <resistor name="R1" resistance="1k" footprint="0402" pcbX={3} />
               <capacitor name="C1" capacitance="100nF" footprint="0402" />
             </group>
             <resistor name="R2" resistance="2k" footprint="0603" />
