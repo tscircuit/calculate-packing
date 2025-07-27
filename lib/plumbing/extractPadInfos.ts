@@ -118,22 +118,34 @@ export const extractPadInfos = (
         break
       }
       case "circle": {
+        pushPad({
+          padId: sp.pcb_smtpad_id,
+          pcbPortId: sp.pcb_port_id,
+          sx: sp.radius ?? 0,
+          sy: sp.radius ?? 0,
+          x: sp.x,
+          y: sp.y,
+        })
         break
       }
       case "pill": {
+        pushPad({
+          padId: sp.pcb_smtpad_id,
+          pcbPortId: sp.pcb_port_id,
+          sx: sp.width ?? 0,
+          sy: sp.height ?? 0,
+          x: sp.x,
+          y: sp.y,
+        })
         break
       }
-      case "polygon": {
-        break
-      }
-      case "rotated_rect": {
+      default: {
+        console.warn(
+          `smtpad shape ${sp.shape} pads are not supported in pack layout yet`,
+        )
         break
       }
     }
-
-    console.warn(
-      `smtpad shape ${sp.shape} pads are not supported in pack layout yet`,
-    )
   }
 
   return out
