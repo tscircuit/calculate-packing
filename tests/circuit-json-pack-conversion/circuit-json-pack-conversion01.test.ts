@@ -1,6 +1,6 @@
 import { test, expect } from "bun:test"
 import circuitJson from "./circuit-json-pack-conversion01.json"
-import { convertCircuitJsonToPackOutput } from "../../lib/testing/convertCircuitJsonToPackOutput"
+import { convertCircuitJsonToPackOutput } from "../../lib/plumbing/convertCircuitJsonToPackOutput"
 import { getSvgFromGraphicsObject } from "graphics-debug"
 import { getGraphicsFromPackOutput } from "../../lib/testing/getGraphicsFromPackOutput"
 import type { CircuitJson } from "circuit-json"

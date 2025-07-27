@@ -1,5 +1,5 @@
 import circuitJson from "../../tests/circuit-json-pack-conversion/circuit-json-pack-conversion01.json"
-import { convertCircuitJsonToPackOutput } from "../../lib/testing/convertCircuitJsonToPackOutput"
+import { convertCircuitJsonToPackOutput } from "../../lib/plumbing/convertCircuitJsonToPackOutput"
 import { PackDebugger } from "../components/PackDebugger"
 import type { CircuitJson } from "circuit-json"
 
