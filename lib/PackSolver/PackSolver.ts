@@ -44,6 +44,8 @@ export class PackSolver extends BaseSolver {
   }
 
   lastEvaluatedPositionShadows?: Array<PackedComponent>
+  
+  lastCandidatePoints?: Array<Point & { networkId: NetworkId; distance: number }>
 
   constructor(input: PackInput) {
     super()
@@ -177,6 +179,9 @@ export class PackSolver extends BaseSolver {
     let bestPoints: (Point & { networkId: NetworkId })[] = []
 
     if (packPlacementStrategy === "minimum_sum_distance_to_network") {
+      // Store all candidate points for visualization
+      this.lastCandidatePoints = []
+      
       // For minimum sum distance strategy, evaluate each outline point
       // by computing the sum of distances for all pads to their nearest packed pads
       for (const outline of outlines) {
@@ -199,6 +204,13 @@ export class PackSolver extends BaseSolver {
                 samplePoint,
                 sharedNetworkId,
               )
+
+              // Store all candidate points for visualization
+              this.lastCandidatePoints.push({
+                ...samplePoint,
+                networkId: sharedNetworkId,
+                distance: sumDistance,
+              })
 
               if (sumDistance < smallestDistance + 1e-6) {
                 if (sumDistance < smallestDistance - 1e-6) {
@@ -599,12 +611,27 @@ export class PackSolver extends BaseSolver {
         }
       }
 
+      // Show all candidate points
+      if (this.lastCandidatePoints) {
+        for (const candidatePoint of this.lastCandidatePoints) {
+          graphics.points!.push({
+            x: candidatePoint.x,
+            y: candidatePoint.y,
+            label: `candidatePoint\nnetworkId: ${candidatePoint.networkId}\nd=${candidatePoint.distance.toFixed(3)}`,
+            fill: "rgba(255,165,0,0.6)", // Orange color for candidate points
+            radius: 0.02,
+          } as Point)
+        }
+      }
+
       if (this.lastBestPointsResult) {
         for (const bestPoint of this.lastBestPointsResult.bestPoints) {
           graphics.points!.push({
             x: bestPoint.x,
             y: bestPoint.y,
             label: `bestPoint\nnetworkId: ${bestPoint.networkId}\nd=${this.lastBestPointsResult.distance}`,
+            fill: "rgba(0,255,0,0.8)", // Green color for best points
+            radius: 0.03,
           } as Point)
         }
       }
