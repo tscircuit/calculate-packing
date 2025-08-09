@@ -9,10 +9,10 @@ export interface FindBestPointForDisconnectedParams {
   packedComponents: PackedComponent[]
 }
 
-export function findBestPointForDisconnected({ 
-  outlines, 
-  direction, 
-  packedComponents 
+export function findBestPointForDisconnected({
+  outlines,
+  direction,
+  packedComponents,
 }: FindBestPointForDisconnectedParams): Point {
   const points = outlines.flatMap((outline) =>
     outline.map(([p1, p2]) => ({
@@ -23,7 +23,8 @@ export function findBestPointForDisconnected({
   if (!points.length) return { x: 0, y: 0 }
 
   if (direction !== "nearest_to_center") {
-    const extreme = direction === "left" || direction === "down" ? Math.min : Math.max
+    const extreme =
+      direction === "left" || direction === "down" ? Math.min : Math.max
     const key = direction === "left" || direction === "right" ? "x" : "y"
     const target = extreme(...points.map((p) => p[key]))
     return points.find((p) => p[key] === target)!

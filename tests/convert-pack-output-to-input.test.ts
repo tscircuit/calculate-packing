@@ -29,7 +29,7 @@ test("convertPackOutputToPackInput should preserve availableRotationDegrees", ()
         pads: [
           {
             padId: "U2_P1",
-            networkId: "VCC", 
+            networkId: "VCC",
             type: "rect",
             offset: { x: 0, y: 0 },
             size: { x: 1, y: 1 },
@@ -50,16 +50,18 @@ test("convertPackOutputToPackInput should preserve availableRotationDegrees", ()
   expect(packInput.components[1].availableRotationDegrees).toEqual([0, 90])
 
   // Should remove output-only properties
-  expect(packInput.components[0]).not.toHaveProperty('center')
-  expect(packInput.components[0]).not.toHaveProperty('ccwRotationOffset')
-  expect(packInput.components[0].pads[0]).not.toHaveProperty('absoluteCenter')
+  expect(packInput.components[0]).not.toHaveProperty("center")
+  expect(packInput.components[0]).not.toHaveProperty("ccwRotationOffset")
+  expect(packInput.components[0].pads[0]).not.toHaveProperty("absoluteCenter")
 
   // Should preserve input properties
   expect(packInput.components[0].componentId).toBe("U1")
   expect(packInput.components[0].pads[0].padId).toBe("U1_P1")
   expect(packInput.components[0].pads[0].offset).toEqual({ x: -5, y: 2 })
   expect(packInput.minGap).toBe(2)
-  expect(packInput.packPlacementStrategy).toBe("minimum_sum_squared_distance_to_network")
+  expect(packInput.packPlacementStrategy).toBe(
+    "minimum_sum_squared_distance_to_network",
+  )
 
   console.log("✅ convertPackOutputToPackInput preserves rotation constraints!")
 })

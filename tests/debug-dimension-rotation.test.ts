@@ -8,7 +8,13 @@ test("debug exactly where pad dimensions get lost", () => {
       {
         componentId: "U1",
         pads: [
-          { padId: "U1_P1", networkId: "VCC", type: "rect", offset: { x: 0, y: 0 }, size: { x: 1, y: 1 } },
+          {
+            padId: "U1_P1",
+            networkId: "VCC",
+            type: "rect",
+            offset: { x: 0, y: 0 },
+            size: { x: 1, y: 1 },
+          },
         ],
       },
       {
@@ -31,20 +37,22 @@ test("debug exactly where pad dimensions get lost", () => {
   }
 
   console.log(`=== Debugging Dimension Rotation ===`)
-  console.log(`Input U2 body pad: ${input.components[1].pads[0].size.x} x ${input.components[1].pads[0].size.y}`)
-  
+  console.log(
+    `Input U2 body pad: ${input.components[1].pads[0].size.x} x ${input.components[1].pads[0].size.y}`,
+  )
+
   const result = pack(input)
-  const u2 = result.components.find(c => c.componentId === "U2")!
+  const u2 = result.components.find((c) => c.componentId === "U2")!
   const bodyPad = u2.pads[0]!
 
   console.log(`Output U2 rotation: ${u2.ccwRotationOffset}°`)
   console.log(`Output U2 body pad: ${bodyPad.size.x} x ${bodyPad.size.y}`)
   console.log(`Expected after 90°: 4 x 2`)
-  
+
   // At 90°, should swap from 2x4 to 4x2
   expect(u2.ccwRotationOffset).toBe(90)
   expect(bodyPad.size.x).toBe(4) // was height
   expect(bodyPad.size.y).toBe(2) // was width
-  
+
   console.log(`✅ Pad dimensions correctly swapped`)
 })

@@ -78,21 +78,30 @@ test("min-sum-distance-to-network02 page should show proper rotations", () => {
   }
 
   const result = pack(packInput)
-  
+
   console.log(`=== min-sum-distance-to-network02 Analysis ===`)
-  
+
   for (const component of result.components) {
     console.log(`${component.componentId}:`)
-    console.log(`  Center: (${component.center.x.toFixed(2)}, ${component.center.y.toFixed(2)})`)
+    console.log(
+      `  Center: (${component.center.x.toFixed(2)}, ${component.center.y.toFixed(2)})`,
+    )
     console.log(`  Rotation: ${component.ccwRotationOffset}°`)
-    
+
     for (const pad of component.pads) {
       if (pad.padId.includes("body")) {
-        console.log(`  Body pad size: ${pad.size.x.toFixed(2)} x ${pad.size.y.toFixed(2)}`)
+        console.log(
+          `  Body pad size: ${pad.size.x.toFixed(2)} x ${pad.size.y.toFixed(2)}`,
+        )
         // Check if dimensions were rotated for body pads (which are most visible)
-        const isRotated = component.ccwRotationOffset === 90 || component.ccwRotationOffset === 270 || component.ccwRotationOffset === -90
+        const isRotated =
+          component.ccwRotationOffset === 90 ||
+          component.ccwRotationOffset === 270 ||
+          component.ccwRotationOffset === -90
         if (isRotated) {
-          console.log(`  → Should be swapped due to ${component.ccwRotationOffset}° rotation`)
+          console.log(
+            `  → Should be swapped due to ${component.ccwRotationOffset}° rotation`,
+          )
         }
       }
     }
@@ -100,11 +109,11 @@ test("min-sum-distance-to-network02 page should show proper rotations", () => {
 
   // The test passes if we successfully pack without errors
   expect(result.components.length).toBe(2)
-  
+
   // Check that at least one component got rotated (since they have shared networks)
-  const rotations = result.components.map(c => c.ccwRotationOffset)
+  const rotations = result.components.map((c) => c.ccwRotationOffset)
   console.log(`All rotations: ${rotations.join(", ")}`)
-  
+
   // Verify dimensions are correctly handled
   for (const component of result.components) {
     for (const pad of component.pads) {
@@ -112,6 +121,6 @@ test("min-sum-distance-to-network02 page should show proper rotations", () => {
       expect(pad.size.y).toBeGreaterThan(0)
     }
   }
-  
+
   console.log(`✅ Rotation and dimension handling working`)
 })

@@ -67,32 +67,38 @@ test("availableRotationDegrees [0] should prevent component rotation", () => {
   }
 
   const result = pack(input)
-  
+
   console.log("=== Rotation Constraint Test ===")
-  
+
   for (const component of result.components) {
     console.log(`${component.componentId}:`)
-    console.log(`  Center: (${component.center.x.toFixed(2)}, ${component.center.y.toFixed(2)})`)
-    console.log(`  Rotation: ${(component.ccwRotationOffset * 180 / Math.PI).toFixed(1)}°`)
-    console.log(`  Available rotations: ${input.components.find(c => c.componentId === component.componentId)?.availableRotationDegrees}`)
-    
+    console.log(
+      `  Center: (${component.center.x.toFixed(2)}, ${component.center.y.toFixed(2)})`,
+    )
+    console.log(
+      `  Rotation: ${((component.ccwRotationOffset * 180) / Math.PI).toFixed(1)}°`,
+    )
+    console.log(
+      `  Available rotations: ${input.components.find((c) => c.componentId === component.componentId)?.availableRotationDegrees}`,
+    )
+
     // With availableRotationDegrees: [0], rotation should be exactly 0
     expect(component.ccwRotationOffset).toBe(0)
   }
-  
+
   // Also verify the pad positions match the expected offsets (no rotation applied)
-  const u2 = result.components.find(c => c.componentId === "U2")!
-  
+  const u2 = result.components.find((c) => c.componentId === "U2")!
+
   // U2_P1 should be at center + (-5, 0) offset
-  const u2P1 = u2.pads.find(p => p.padId === "U2_P1")!
+  const u2P1 = u2.pads.find((p) => p.padId === "U2_P1")!
   expect(u2P1.absoluteCenter.x).toBeCloseTo(u2.center.x - 5, 1)
   expect(u2P1.absoluteCenter.y).toBeCloseTo(u2.center.y + 0, 1)
-  
-  // U2_P2 should be at center + (5, 0) offset  
-  const u2P2 = u2.pads.find(p => p.padId === "U2_P2")!
+
+  // U2_P2 should be at center + (5, 0) offset
+  const u2P2 = u2.pads.find((p) => p.padId === "U2_P2")!
   expect(u2P2.absoluteCenter.x).toBeCloseTo(u2.center.x + 5, 1)
   expect(u2P2.absoluteCenter.y).toBeCloseTo(u2.center.y + 0, 1)
-  
+
   console.log("\n✅ All rotation constraints respected!")
 })
 
@@ -112,7 +118,7 @@ test("components without rotation constraints should still be able to rotate", (
           },
           {
             padId: "U1_P2",
-            networkId: "GND", 
+            networkId: "GND",
             type: "rect",
             offset: { x: -5, y: -2 },
             size: { x: 1, y: 1 },
@@ -131,7 +137,7 @@ test("components without rotation constraints should still be able to rotate", (
             size: { x: 1, y: 1 },
           },
           {
-            padId: "U2_P2", 
+            padId: "U2_P2",
             networkId: "GND",
             type: "rect",
             offset: { x: 5, y: 0 },
@@ -141,25 +147,27 @@ test("components without rotation constraints should still be able to rotate", (
       },
     ],
     minGap: 2,
-    packOrderStrategy: "largest_to_smallest", 
+    packOrderStrategy: "largest_to_smallest",
     packPlacementStrategy: "minimum_sum_squared_distance_to_network",
     packFirst: ["U1"],
   }
 
   const result = pack(input)
-  
+
   console.log("\n=== Default Rotation Test ===")
-  
+
   for (const component of result.components) {
-    const rotationDegrees = component.ccwRotationOffset * 180 / Math.PI
+    const rotationDegrees = (component.ccwRotationOffset * 180) / Math.PI
     console.log(`${component.componentId}:`)
-    console.log(`  Center: (${component.center.x.toFixed(2)}, ${component.center.y.toFixed(2)})`)
+    console.log(
+      `  Center: (${component.center.x.toFixed(2)}, ${component.center.y.toFixed(2)})`,
+    )
     console.log(`  Rotation: ${rotationDegrees.toFixed(1)}°`)
-    
+
     // Rotation should be one of the default values: 0, 90, 180, or 270
     const normalizedRotation = Math.round(rotationDegrees / 90) * 90
     expect([0, 90, 180, 270]).toContain(normalizedRotation)
   }
-  
+
   console.log("✅ Default rotation constraints working!")
 })

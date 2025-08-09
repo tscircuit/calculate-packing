@@ -215,31 +215,48 @@ test("min-sum-distance-to-network02 - verify C6 rotation and body pad dimensions
   }
 
   const result = pack(packInput)
-  
+
   console.log(`=== EXACT min-sum-distance-to-network02 Test ===`)
-  
+
   for (const component of result.components) {
     console.log(`\n${component.componentId}:`)
-    console.log(`  Center: (${component.center.x.toFixed(3)}, ${component.center.y.toFixed(3)})`)
+    console.log(
+      `  Center: (${component.center.x.toFixed(3)}, ${component.center.y.toFixed(3)})`,
+    )
     console.log(`  Rotation: ${component.ccwRotationOffset}°`)
-    
-    const bodyPad = component.pads.find(p => p.padId.includes("body"))
+
+    const bodyPad = component.pads.find((p) => p.padId.includes("body"))
     if (bodyPad) {
-      console.log(`  Body pad size: ${bodyPad.size.x.toFixed(3)} x ${bodyPad.size.y.toFixed(3)}`)
-      
+      console.log(
+        `  Body pad size: ${bodyPad.size.x.toFixed(3)} x ${bodyPad.size.y.toFixed(3)}`,
+      )
+
       // Let's find the original size from input to compare
-      const inputComponent = packInput.components.find(c => c.componentId === component.componentId)
-      const inputBodyPad = inputComponent?.pads.find(p => p.padId.includes("body"))
+      const inputComponent = packInput.components.find(
+        (c) => c.componentId === component.componentId,
+      )
+      const inputBodyPad = inputComponent?.pads.find((p) =>
+        p.padId.includes("body"),
+      )
       if (inputBodyPad) {
-        console.log(`  Original body pad size: ${inputBodyPad.size.x.toFixed(3)} x ${inputBodyPad.size.y.toFixed(3)}`)
-        
-        if (component.ccwRotationOffset === 90 || component.ccwRotationOffset === -90) {
-          console.log(`  → Expected after 90° rotation: ${inputBodyPad.size.y.toFixed(3)} x ${inputBodyPad.size.x.toFixed(3)}`)
+        console.log(
+          `  Original body pad size: ${inputBodyPad.size.x.toFixed(3)} x ${inputBodyPad.size.y.toFixed(3)}`,
+        )
+
+        if (
+          component.ccwRotationOffset === 90 ||
+          component.ccwRotationOffset === -90
+        ) {
+          console.log(
+            `  → Expected after 90° rotation: ${inputBodyPad.size.y.toFixed(3)} x ${inputBodyPad.size.x.toFixed(3)}`,
+          )
           const expectedX = inputBodyPad.size.y
           const expectedY = inputBodyPad.size.x
-          
-          console.log(`  → Actual vs Expected: ${bodyPad.size.x.toFixed(3)} vs ${expectedX.toFixed(3)}, ${bodyPad.size.y.toFixed(3)} vs ${expectedY.toFixed(3)}`)
-          
+
+          console.log(
+            `  → Actual vs Expected: ${bodyPad.size.x.toFixed(3)} vs ${expectedX.toFixed(3)}, ${bodyPad.size.y.toFixed(3)} vs ${expectedY.toFixed(3)}`,
+          )
+
           // This is the key test - rotated body pads should have swapped dimensions
           expect(bodyPad.size.x).toBeCloseTo(expectedX, 3)
           expect(bodyPad.size.y).toBeCloseTo(expectedY, 3)
@@ -247,7 +264,7 @@ test("min-sum-distance-to-network02 - verify C6 rotation and body pad dimensions
       }
     }
   }
-  
+
   // Basic sanity checks
   expect(result.components.length).toBe(4)
   console.log(`\n✅ Test completed`)

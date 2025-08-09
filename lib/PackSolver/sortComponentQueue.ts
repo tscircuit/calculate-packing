@@ -9,7 +9,7 @@ export interface SortComponentQueueParams {
 export function sortComponentQueue({
   components,
   packOrderStrategy,
-  packFirst = []
+  packFirst = [],
 }: SortComponentQueueParams): InputComponent[] {
   // Create a map for quick lookup of packFirst priorities
   const packFirstMap = new Map<string, number>()

@@ -68,7 +68,7 @@ export function computeTranslationBounds(
     // Instead of being overly conservative, we'll rely on overlap checking
     // during optimization. This allows more exploration while maintaining safety.
     // Only apply minimal constraints to prevent obvious overlaps.
-    
+
     // Don't get too close to the packed component center
     const safetyMargin = minGap + 1
     if (Math.abs(initialCenter.x - packedCenterX) < safetyMargin) {
@@ -78,7 +78,7 @@ export function computeTranslationBounds(
         minX = Math.max(minX, packedCenterX + safetyMargin)
       }
     }
-    
+
     if (Math.abs(initialCenter.y - packedCenterY) < safetyMargin) {
       if (initialCenter.y < packedCenterY) {
         maxY = Math.min(maxY, packedCenterY - safetyMargin)
@@ -134,7 +134,9 @@ export function calculateSumDistance(
     for (const packedPad of sameNetPads) {
       const dx = padAbsolutePos.x - packedPad.absoluteCenter.x
       const dy = padAbsolutePos.y - packedPad.absoluteCenter.y
-      const distance = useSquaredDistance ? (dx * dx + dy * dy) : Math.hypot(dx, dy)
+      const distance = useSquaredDistance
+        ? dx * dx + dy * dy
+        : Math.hypot(dx, dy)
       if (distance < minDistance) {
         minDistance = distance
       }
@@ -157,7 +159,7 @@ export function checkOverlap(
 ): boolean {
   // Use pad-to-pad distance checking instead of component bounds
   // This is more accurate and less conservative
-  
+
   const tempPads = component.pads.map((p) => ({
     ...p,
     absoluteCenter: {
@@ -198,7 +200,13 @@ export function checkOverlap(
 export function optimizeTranslationForMinimumSumWithSampling(
   context: OptimizationContext,
 ): Point {
-  const { component, initialCenter, packedComponents, minGap, useSquaredDistance = false } = context
+  const {
+    component,
+    initialCenter,
+    packedComponents,
+    minGap,
+    useSquaredDistance = false,
+  } = context
 
   // Compute available translation freedom
   const translationBounds = computeTranslationBounds(
@@ -365,7 +373,13 @@ function geometricMedianConstrained(
 export function optimizeTranslationForMinimumSum(
   context: OptimizationContext,
 ): Point {
-  const { component, initialCenter, packedComponents, minGap, useSquaredDistance = false } = context
+  const {
+    component,
+    initialCenter,
+    packedComponents,
+    minGap,
+    useSquaredDistance = false,
+  } = context
 
   // Compute feasible translation box
   const bounds = computeTranslationBounds(
@@ -481,7 +495,12 @@ export function optimizeTranslationForMinimumSum(
     packedComponents,
     useSquaredDistance,
   )
-  const finalCost = calculateSumDistance(component, center, packedComponents, useSquaredDistance)
+  const finalCost = calculateSumDistance(
+    component,
+    center,
+    packedComponents,
+    useSquaredDistance,
+  )
   if (
     finalCost > initCost &&
     !checkOverlap(component, initialCenter, packedComponents, minGap)

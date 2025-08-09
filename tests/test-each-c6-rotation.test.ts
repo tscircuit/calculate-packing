@@ -65,10 +65,14 @@ test("test each C6 rotation to find truly optimal choice", () => {
     packPlacementStrategy: "minimum_sum_squared_distance_to_network",
   }
 
-  const rotationResults: Array<{rotation: number, squaredSum: number, center: {x: number, y: number}}> = []
-  
+  const rotationResults: Array<{
+    rotation: number
+    squaredSum: number
+    center: { x: number; y: number }
+  }> = []
+
   console.log(`=== Testing Each C6 Rotation with Translation Optimization ===`)
-  
+
   for (const rotation of [0, 90, 180, 270]) {
     const testInput = {
       ...baseInput,
@@ -77,47 +81,51 @@ test("test each C6 rotation to find truly optimal choice", () => {
         {
           ...baseInput.components[1]!,
           availableRotationDegrees: [rotation], // Force this specific rotation
-        }
-      ]
+        },
+      ],
     }
-    
+
     const result = pack(testInput)
     const u1 = result.components[0]!
     const c6 = result.components[1]!
-    
+
     // Calculate final squared distances
-    const u1_c11 = u1.pads.find(p => p.networkId === "C1.1")!
-    const u1_c12 = u1.pads.find(p => p.networkId === "C1.2")!
-    const c6_c11 = c6.pads.find(p => p.networkId === "C1.1")!
-    const c6_c12 = c6.pads.find(p => p.networkId === "C1.2")!
-    
+    const u1_c11 = u1.pads.find((p) => p.networkId === "C1.1")!
+    const u1_c12 = u1.pads.find((p) => p.networkId === "C1.2")!
+    const c6_c11 = c6.pads.find((p) => p.networkId === "C1.1")!
+    const c6_c12 = c6.pads.find((p) => p.networkId === "C1.2")!
+
     const c11_dist = Math.hypot(
       u1_c11.absoluteCenter.x - c6_c11.absoluteCenter.x,
-      u1_c11.absoluteCenter.y - c6_c11.absoluteCenter.y
+      u1_c11.absoluteCenter.y - c6_c11.absoluteCenter.y,
     )
     const c12_dist = Math.hypot(
       u1_c12.absoluteCenter.x - c6_c12.absoluteCenter.x,
-      u1_c12.absoluteCenter.y - c6_c12.absoluteCenter.y
+      u1_c12.absoluteCenter.y - c6_c12.absoluteCenter.y,
     )
     const squaredSum = c11_dist * c11_dist + c12_dist * c12_dist
-    
+
     rotationResults.push({
       rotation,
       squaredSum,
-      center: { x: c6.center.x, y: c6.center.y }
+      center: { x: c6.center.x, y: c6.center.y },
     })
-    
-    console.log(`${rotation}°: center=(${c6.center.x.toFixed(3)}, ${c6.center.y.toFixed(3)}), squaredSum=${squaredSum.toFixed(3)}`)
+
+    console.log(
+      `${rotation}°: center=(${c6.center.x.toFixed(3)}, ${c6.center.y.toFixed(3)}), squaredSum=${squaredSum.toFixed(3)}`,
+    )
   }
-  
+
   // Find the truly optimal rotation
-  const optimalResult = rotationResults.reduce((best, current) => 
-    current.squaredSum < best.squaredSum ? current : best
+  const optimalResult = rotationResults.reduce((best, current) =>
+    current.squaredSum < best.squaredSum ? current : best,
   )
-  
+
   console.log(`\n=== Results ===`)
-  console.log(`Optimal rotation: ${optimalResult.rotation}° with squaredSum=${optimalResult.squaredSum.toFixed(3)}`)
-  
+  console.log(
+    `Optimal rotation: ${optimalResult.rotation}° with squaredSum=${optimalResult.squaredSum.toFixed(3)}`,
+  )
+
   // Now test what the algorithm actually chooses when all rotations are available
   const openInput = {
     ...baseInput,
@@ -127,14 +135,16 @@ test("test each C6 rotation to find truly optimal choice", () => {
         ...baseInput.components[1]!,
         // Remove rotation constraints - let algorithm choose
         availableRotationDegrees: undefined,
-      }
-    ]
+      },
+    ],
   }
-  
+
   const openResult = pack(openInput)
   const openC6 = openResult.components[1]!
-  
-  console.log(`Algorithm chose: ${openC6.ccwRotationOffset}° (should match optimal ${optimalResult.rotation}°)`)
-  
+
+  console.log(
+    `Algorithm chose: ${openC6.ccwRotationOffset}° (should match optimal ${optimalResult.rotation}°)`,
+  )
+
   expect(openResult.components.length).toBe(2)
 })

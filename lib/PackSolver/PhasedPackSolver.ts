@@ -19,9 +19,9 @@ import { placeComponentDisconnected } from "./placeComponentDisconnected"
 import { checkOverlapWithPackedComponents } from "./checkOverlapWithPackedComponents"
 import { findOptimalPointOnSegment } from "./findOptimalPointOnSegment"
 
-type PackingPhase = 
+type PackingPhase =
   | "idle"
-  | "show_candidate_points" 
+  | "show_candidate_points"
   | "show_rotations"
   | "show_final_placement"
 
@@ -40,7 +40,7 @@ export class PhasedPackSolver extends BaseSolver {
   currentComponent?: InputComponent
   phaseData: {
     candidatePoints?: Array<Point & { networkId: NetworkId; distance: number }>
-    bestPoints?: Array<Point & { networkId: NetworkId }>
+    goodCandidates?: Array<Point & { networkId: NetworkId }>
     bestDistance?: number
     rotationTrials?: Array<RotationTrial>
     selectedRotation?: PackedComponent
@@ -49,7 +49,7 @@ export class PhasedPackSolver extends BaseSolver {
 
   // Legacy compatibility
   lastBestPointsResult?: {
-    bestPoints: (Point & { networkId: NetworkId })[]
+    goodCandidates: (Point & { networkId: NetworkId })[]
     distance: number
   }
   lastEvaluatedPositionShadows?: Array<PackedComponent>
@@ -68,7 +68,7 @@ export class PhasedPackSolver extends BaseSolver {
     this.unpackedComponentQueue = sortComponentQueue({
       components,
       packOrderStrategy,
-      packFirst
+      packFirst,
     })
     this.packedComponents = []
     this.currentPhase = "idle"
@@ -87,7 +87,7 @@ export class PhasedPackSolver extends BaseSolver {
           this.solved = true
           return
         }
-        
+
         this.currentComponent = this.unpackedComponentQueue.shift()
         if (!this.currentComponent) {
           this.solved = true
@@ -97,7 +97,7 @@ export class PhasedPackSolver extends BaseSolver {
         // Special case: first component
         if (this.packedComponents.length === 0) {
           this.placeFirstComponent()
-          this.currentComponent = undefined  // Clear current component
+          this.currentComponent = undefined // Clear current component
           return
         }
 
@@ -128,7 +128,7 @@ export class PhasedPackSolver extends BaseSolver {
 
   private placeFirstComponent(): void {
     if (!this.currentComponent) return
-    
+
     const newPackedComponent: PackedComponent = {
       ...this.currentComponent,
       center: { x: 0, y: 0 },
@@ -194,8 +194,8 @@ export class PhasedPackSolver extends BaseSolver {
     if (sharedNetworkIds.size === 0) {
       // No shared networks - use disconnected placement
       this.phaseData.candidatePoints = []
-      this.phaseData.bestPoints = []
-      
+      this.phaseData.goodCandidates = []
+
       // Handle disconnected placement separately
       const shadows = placeComponentDisconnected({
         component: newPackedComponent,
@@ -205,18 +205,32 @@ export class PhasedPackSolver extends BaseSolver {
         >,
         packedComponents: this.packedComponents,
         candidateAngles: this.getCandidateAngles(newPackedComponent),
-        checkOverlap: (comp) => this.checkOverlapWithPackedComponents(comp)
+        checkOverlap: (comp) => this.checkOverlapWithPackedComponents(comp),
       })
-      
+
       this.phaseData.selectedRotation = newPackedComponent
-      this.phaseData.rotationTrials = shadows.map(s => ({ ...s, cost: 0 }))
+      this.phaseData.rotationTrials = shadows.map((s) => ({ ...s, cost: 0 }))
       return
     }
 
     // Compute candidate points for connected placement
-    const candidatePoints: Array<Point & { networkId: NetworkId; distance: number }> = []
-    const bestPoints: Array<Point & { networkId: NetworkId }> = []
+    const candidatePoints: Array<
+      Point & { networkId: NetworkId; distance: number }
+    > = []
+    const goodCandidates: Array<Point & { networkId: NetworkId }> = []
     let smallestDistance = Number.POSITIVE_INFINITY
+
+    // Track best point for each segment to ensure at least one per segment
+    const segmentBestPoints = new Map<
+      string,
+      { point: Point & { networkId: NetworkId }; distance: number }
+    >()
+
+    // Helper to create unique key for segment
+    const getSegmentKey = (segment: Segment): string => {
+      const [p1, p2] = segment
+      return `${p1.x.toFixed(6)},${p1.y.toFixed(6)}-${p2.x.toFixed(6)},${p2.y.toFixed(6)}`
+    }
 
     // Get segments for each shared network
     const networkIdToAlreadyPackedSegments = new Map<NetworkId, Segment[]>()
@@ -252,7 +266,8 @@ export class PhasedPackSolver extends BaseSolver {
               component: newPackedComponent,
               networkId: sharedNetworkId,
               packedComponents: this.packedComponents,
-              useSquaredDistance: packPlacementStrategy ===
+              useSquaredDistance:
+                packPlacementStrategy ===
                 "minimum_sum_squared_distance_to_network",
             })
 
@@ -261,13 +276,32 @@ export class PhasedPackSolver extends BaseSolver {
               candidatePoints.push(searchPoint)
             }
 
+            // Track best point for this segment
+            const segmentKey = getSegmentKey(outlineSegment)
+            const currentSegmentBest = segmentBestPoints.get(segmentKey)
+            if (
+              !currentSegmentBest ||
+              optimalDistance < currentSegmentBest.distance
+            ) {
+              segmentBestPoints.set(segmentKey, {
+                point: { ...optimalPoint, networkId: sharedNetworkId },
+                distance: optimalDistance,
+              })
+            }
+
             if (optimalDistance < smallestDistance + 1e-6) {
               if (optimalDistance < smallestDistance - 1e-6) {
-                bestPoints.length = 0
-                bestPoints.push({ ...optimalPoint, networkId: sharedNetworkId })
+                goodCandidates.length = 0
+                goodCandidates.push({
+                  ...optimalPoint,
+                  networkId: sharedNetworkId,
+                })
                 smallestDistance = optimalDistance
               } else {
-                bestPoints.push({ ...optimalPoint, networkId: sharedNetworkId })
+                goodCandidates.push({
+                  ...optimalPoint,
+                  networkId: sharedNetworkId,
+                })
               }
             }
           }
@@ -278,9 +312,10 @@ export class PhasedPackSolver extends BaseSolver {
       for (const outline of outlines) {
         for (const outlineSegment of outline) {
           for (const sharedNetworkId of sharedNetworkIds) {
-            const alreadyPackedSegments = networkIdToAlreadyPackedSegments.get(sharedNetworkId)
+            const alreadyPackedSegments =
+              networkIdToAlreadyPackedSegments.get(sharedNetworkId)
             if (!alreadyPackedSegments) continue
-            
+
             const {
               nearestPoint: nearestPointOnOutlineToAlreadyPackedSegments,
               dist: outlineToAlreadyPackedSegmentsDist,
@@ -288,24 +323,43 @@ export class PhasedPackSolver extends BaseSolver {
               outlineSegment,
               alreadyPackedSegments,
             )
-            
+
             // Add as candidate point
             candidatePoints.push({
               ...nearestPointOnOutlineToAlreadyPackedSegments,
               networkId: sharedNetworkId,
               distance: outlineToAlreadyPackedSegmentsDist,
             })
-            
+
+            // Track best point for this segment
+            const segmentKey = getSegmentKey(outlineSegment)
+            const currentSegmentBest = segmentBestPoints.get(segmentKey)
+            if (
+              !currentSegmentBest ||
+              outlineToAlreadyPackedSegmentsDist < currentSegmentBest.distance
+            ) {
+              segmentBestPoints.set(segmentKey, {
+                point: {
+                  ...nearestPointOnOutlineToAlreadyPackedSegments,
+                  networkId: sharedNetworkId,
+                },
+                distance: outlineToAlreadyPackedSegmentsDist,
+              })
+            }
+
             if (outlineToAlreadyPackedSegmentsDist < smallestDistance + 1e-6) {
-              if (outlineToAlreadyPackedSegmentsDist < smallestDistance - 1e-6) {
-                bestPoints.length = 0
-                bestPoints.push({
+              if (
+                outlineToAlreadyPackedSegmentsDist <
+                smallestDistance - 1e-6
+              ) {
+                goodCandidates.length = 0
+                goodCandidates.push({
                   ...nearestPointOnOutlineToAlreadyPackedSegments,
                   networkId: sharedNetworkId,
                 })
                 smallestDistance = outlineToAlreadyPackedSegmentsDist
               } else {
-                bestPoints.push({
+                goodCandidates.push({
                   ...nearestPointOnOutlineToAlreadyPackedSegments,
                   networkId: sharedNetworkId,
                 })
@@ -326,20 +380,26 @@ export class PhasedPackSolver extends BaseSolver {
               x: p1.x + t * (p2.x - p1.x),
               y: p1.y + t * (p2.y - p1.y),
             }
-            
+
             // Calculate distance for this point
             let distance = 0
             const componentPadsOnNetwork = newPackedComponent.pads.filter(
-              p => p.networkId === sharedNetworkId
+              (p) => p.networkId === sharedNetworkId,
             )
-            
+
             for (const componentPad of componentPadsOnNetwork) {
               let minDist = Number.POSITIVE_INFINITY
               for (const packedComponent of this.packedComponents) {
                 for (const packedPad of packedComponent.pads) {
                   if (packedPad.networkId === sharedNetworkId) {
-                    const dx = sampledPoint.x + componentPad.offset.x - packedPad.absoluteCenter.x
-                    const dy = sampledPoint.y + componentPad.offset.y - packedPad.absoluteCenter.y
+                    const dx =
+                      sampledPoint.x +
+                      componentPad.offset.x -
+                      packedPad.absoluteCenter.x
+                    const dy =
+                      sampledPoint.y +
+                      componentPad.offset.y -
+                      packedPad.absoluteCenter.y
                     const dist = Math.sqrt(dx * dx + dy * dy)
                     minDist = Math.min(minDist, dist)
                   }
@@ -347,33 +407,52 @@ export class PhasedPackSolver extends BaseSolver {
               }
               distance += minDist
             }
-            
-            const point = { ...sampledPoint, networkId: sharedNetworkId, distance }
+
+            const point = {
+              ...sampledPoint,
+              networkId: sharedNetworkId,
+              distance,
+            }
             candidatePoints.push(point)
-            
+
             if (distance < smallestDistance) {
               smallestDistance = distance
-              bestPoints.length = 0
-              bestPoints.push(point)
+              goodCandidates.length = 0
+              goodCandidates.push(point)
             } else if (distance === smallestDistance) {
-              bestPoints.push(point)
+              goodCandidates.push(point)
             }
           }
         }
       }
     }
 
+    // Ensure at least one point from each segment is in goodCandidates
+    for (const [, segmentBest] of segmentBestPoints) {
+      // Check if this segment's best point is already in goodCandidates
+      const isAlreadyIncluded = goodCandidates.some(
+        (gc) =>
+          Math.abs(gc.x - segmentBest.point.x) < 1e-6 &&
+          Math.abs(gc.y - segmentBest.point.y) < 1e-6 &&
+          gc.networkId === segmentBest.point.networkId,
+      )
+
+      if (!isAlreadyIncluded) {
+        goodCandidates.push(segmentBest.point)
+      }
+    }
+
     this.phaseData.candidatePoints = candidatePoints
-    this.phaseData.bestPoints = bestPoints
+    this.phaseData.goodCandidates = goodCandidates
     this.phaseData.bestDistance = smallestDistance
-    
+
     // Legacy compatibility
     this.lastCandidatePoints = candidatePoints
-    this.lastBestPointsResult = { bestPoints, distance: smallestDistance }
+    this.lastBestPointsResult = { goodCandidates, distance: smallestDistance }
   }
 
   private computeRotationTrials(): void {
-    if (!this.currentComponent || !this.phaseData.bestPoints) return
+    if (!this.currentComponent || !this.phaseData.goodCandidates) return
 
     const newPackedComponent: PackedComponent = {
       ...this.currentComponent,
@@ -387,13 +466,15 @@ export class PhasedPackSolver extends BaseSolver {
 
     const rotationTrials: RotationTrial[] = []
     const candidateAngles = this.getCandidateAngles(newPackedComponent)
-    
+
     // Try multiple candidate points, not just best points
-    const allCandidatePoints = [...this.phaseData.bestPoints]
-    
+    const allCandidatePoints = [...this.phaseData.goodCandidates]
+
     // Add sampling points if we have outlines
     if (this.phaseData.outlines) {
-      for (const networkId of new Set(this.phaseData.bestPoints.map(p => p.networkId))) {
+      for (const networkId of new Set(
+        this.phaseData.goodCandidates.map((p) => p.networkId),
+      )) {
         for (const outline of this.phaseData.outlines) {
           for (const outlineSegment of outline) {
             const [p1, p2] = outlineSegment
@@ -410,8 +491,10 @@ export class PhasedPackSolver extends BaseSolver {
     }
 
     // Use selectOptimalRotation to get the best placement
-    const useSquaredDistance = this.packInput.packPlacementStrategy === "minimum_sum_squared_distance_to_network"
-    
+    const useSquaredDistance =
+      this.packInput.packPlacementStrategy ===
+      "minimum_sum_squared_distance_to_network"
+
     const result = selectOptimalRotation({
       component: newPackedComponent,
       candidatePoints: allCandidatePoints,
@@ -423,12 +506,13 @@ export class PhasedPackSolver extends BaseSolver {
 
     // Create rotation trials for visualization
     for (const angle of candidateAngles) {
-      for (const point of this.phaseData.bestPoints.slice(0, 3)) { // Show top 3 positions
+      for (const point of this.phaseData.goodCandidates.slice(0, 3)) {
+        // Show top 3 positions
         const trial = { ...newPackedComponent }
         trial.center = { ...point }
         trial.ccwRotationOffset = angle
         setPackedComponentPadCenters(trial)
-        
+
         // Calculate cost
         let cost = 0
         for (const pad of trial.pads) {
@@ -447,13 +531,13 @@ export class PhasedPackSolver extends BaseSolver {
             cost += useSquaredDistance ? minDist * minDist : minDist
           }
         }
-        
+
         rotationTrials.push({ ...trial, cost })
       }
     }
 
     this.phaseData.rotationTrials = rotationTrials
-    
+
     // Convert RotationCandidate to PackedComponent
     if (result) {
       const selectedComponent = { ...newPackedComponent }
@@ -491,7 +575,7 @@ export class PhasedPackSolver extends BaseSolver {
 
   private finalizeComponentPlacement(): void {
     if (!this.phaseData.selectedRotation) return
-    
+
     this.packedComponents.push(this.phaseData.selectedRotation)
     this.currentComponent = undefined
   }
@@ -508,7 +592,7 @@ export class PhasedPackSolver extends BaseSolver {
     graphics.points ??= []
     graphics.lines ??= []
     graphics.rects ??= []
-    
+
     // Make packed components more visible by updating their fill
     if (graphics.rects) {
       for (const rect of graphics.rects) {
@@ -516,7 +600,6 @@ export class PhasedPackSolver extends BaseSolver {
           // This is a component rectangle, make it more visible
           rect.fill = "rgba(100,100,100,0.5)"
           rect.stroke = "#333333"
-          rect.strokeWidth = 0.02
         }
       }
     }
@@ -545,34 +628,34 @@ export class PhasedPackSolver extends BaseSolver {
     graphics.texts ??= []
     graphics.texts.push({
       text: `Phase: ${this.currentPhase}`,
-      position: { x: 0, y: 5 },
+      x: 0,
+      y: 5,
       fontSize: 0.3,
-      fill: "#000000",
     })
-    
+
     if (this.currentComponent) {
       graphics.texts.push({
         text: `Packing: ${this.currentComponent.componentId}`,
-        position: { x: 0, y: 4.5 },
+        x: 0,
+        y: 4.5,
         fontSize: 0.25,
-        fill: "#0000FF",
       })
     }
-    
+
     // Phase-specific visualization
     switch (this.currentPhase) {
       case "show_candidate_points":
         this.visualizeCandidatePoints(graphics)
         break
-      
+
       case "show_rotations":
         this.visualizeRotationTrials(graphics)
         break
-        
+
       case "show_final_placement":
         this.visualizeFinalPlacement(graphics)
         break
-        
+
       case "idle":
         // Show nothing extra when idle
         break
@@ -596,11 +679,11 @@ export class PhasedPackSolver extends BaseSolver {
     }
 
     // Show best points with X markers
-    if (this.phaseData.bestPoints) {
-      for (const bestPoint of this.phaseData.bestPoints) {
+    if (this.phaseData.goodCandidates) {
+      for (const goodCandidate of this.phaseData.goodCandidates) {
         graphics.points!.push({
-          x: bestPoint.x,
-          y: bestPoint.y,
+          x: goodCandidate.x,
+          y: goodCandidate.y,
           label: `BEST (d=${this.phaseData.bestDistance?.toFixed(3)})`,
           fill: "rgba(0,255,0,0.8)", // Green color for best points
           radius: 0.03,
@@ -611,15 +694,27 @@ export class PhasedPackSolver extends BaseSolver {
         graphics.lines!.push(
           {
             points: [
-              { x: bestPoint.x - crossSize, y: bestPoint.y - crossSize },
-              { x: bestPoint.x + crossSize, y: bestPoint.y + crossSize },
+              {
+                x: goodCandidate.x - crossSize,
+                y: goodCandidate.y - crossSize,
+              },
+              {
+                x: goodCandidate.x + crossSize,
+                y: goodCandidate.y + crossSize,
+              },
             ],
             stroke: "#00AA00",
           } as Line,
           {
             points: [
-              { x: bestPoint.x - crossSize, y: bestPoint.y + crossSize },
-              { x: bestPoint.x + crossSize, y: bestPoint.y - crossSize },
+              {
+                x: goodCandidate.x - crossSize,
+                y: goodCandidate.y + crossSize,
+              },
+              {
+                x: goodCandidate.x + crossSize,
+                y: goodCandidate.y - crossSize,
+              },
             ],
             stroke: "#00AA00",
           } as Line,
@@ -630,7 +725,7 @@ export class PhasedPackSolver extends BaseSolver {
 
   private visualizeRotationTrials(graphics: GraphicsObject): void {
     if (!this.phaseData.rotationTrials) return
-    
+
     for (const trial of this.phaseData.rotationTrials) {
       const bounds = getComponentBounds(trial, 0)
       graphics.rects!.push({
@@ -640,7 +735,7 @@ export class PhasedPackSolver extends BaseSolver {
         fill: "rgba(0,255,255,0.2)",
         label: `${trial.ccwRotationOffset}° (cost: ${trial.cost.toFixed(3)})`,
       } as Rect)
-      
+
       // Show pads for each rotation trial
       for (const pad of trial.pads) {
         graphics.rects!.push({
@@ -655,10 +750,10 @@ export class PhasedPackSolver extends BaseSolver {
 
   private visualizeFinalPlacement(graphics: GraphicsObject): void {
     if (!this.phaseData.selectedRotation) return
-    
+
     const component = this.phaseData.selectedRotation
     const bounds = getComponentBounds(component, 0)
-    
+
     // Show the final placed component more prominently
     graphics.rects!.push({
       center: component.center,
@@ -669,7 +764,7 @@ export class PhasedPackSolver extends BaseSolver {
       strokeWidth: 0.05,
       label: `PLACED at ${component.ccwRotationOffset}°`,
     } as Rect)
-    
+
     // Show the pads
     for (const pad of component.pads) {
       graphics.rects!.push({
@@ -695,11 +790,13 @@ export class PhasedPackSolver extends BaseSolver {
     return (c.availableRotationDegrees ?? [0, 90, 180, 270]).map((d) => d % 360)
   }
 
-  private checkOverlapWithPackedComponents(component: PackedComponent): boolean {
+  private checkOverlapWithPackedComponents(
+    component: PackedComponent,
+  ): boolean {
     return checkOverlapWithPackedComponents({
       component,
       packedComponents: this.packedComponents,
-      minGap: this.packInput.minGap ?? 0
+      minGap: this.packInput.minGap ?? 0,
     })
   }
 }

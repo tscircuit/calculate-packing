@@ -6,10 +6,10 @@ export interface CheckOverlapWithPackedComponentsParams {
   minGap: number
 }
 
-export function checkOverlapWithPackedComponents({ 
-  component, 
-  packedComponents, 
-  minGap 
+export function checkOverlapWithPackedComponents({
+  component,
+  packedComponents,
+  minGap,
 }: CheckOverlapWithPackedComponentsParams): boolean {
   // Use pad-to-pad distance checking for more accurate overlap detection
   for (const componentPad of component.pads) {
@@ -22,9 +22,11 @@ export function checkOverlapWithPackedComponents({
         )
 
         // Calculate minimum required center-to-center distance
-        const componentPadRadius = Math.max(componentPad.size.x, componentPad.size.y) / 2
+        const componentPadRadius =
+          Math.max(componentPad.size.x, componentPad.size.y) / 2
         const packedPadRadius = Math.max(packedPad.size.x, packedPad.size.y) / 2
-        const minRequiredDistance = minGap + componentPadRadius + packedPadRadius
+        const minRequiredDistance =
+          minGap + componentPadRadius + packedPadRadius
 
         if (centerDistance < minRequiredDistance) {
           return true // Overlap detected

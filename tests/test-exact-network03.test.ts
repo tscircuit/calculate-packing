@@ -130,24 +130,30 @@ test("exact network03 scenario - verify pad dimensions when rotated", () => {
   }
 
   const result = pack(packInput)
-  
+
   console.log("=== Network03 Complete Analysis ===")
-  
+
   for (const component of result.components) {
-    const body = component.pads.find(p => p.padId.includes("-body"))
+    const body = component.pads.find((p) => p.padId.includes("-body"))
     if (body) {
-      console.log(`${component.componentId}: rotation=${component.ccwRotationOffset}°, body=${body.size.x.toFixed(3)}x${body.size.y.toFixed(3)}`)
-      
+      console.log(
+        `${component.componentId}: rotation=${component.ccwRotationOffset}°, body=${body.size.x.toFixed(3)}x${body.size.y.toFixed(3)}`,
+      )
+
       // Check if dimensions make sense for the rotation
       const isVertical = body.size.y > body.size.x
       const rotationMod = ((component.ccwRotationOffset % 360) + 360) % 360
       const shouldBeVertical = rotationMod === 0 || rotationMod === 180
       const shouldBeHorizontal = rotationMod === 90 || rotationMod === 270
-      
+
       if (shouldBeVertical && !isVertical) {
-        console.log(`  ❌ BUG: Should be vertical (narrow/tall) but is horizontal (wide/short)`)
+        console.log(
+          `  ❌ BUG: Should be vertical (narrow/tall) but is horizontal (wide/short)`,
+        )
       } else if (shouldBeHorizontal && isVertical) {
-        console.log(`  ❌ BUG: Should be horizontal (wide/short) but is vertical (narrow/tall)`) 
+        console.log(
+          `  ❌ BUG: Should be horizontal (wide/short) but is vertical (narrow/tall)`,
+        )
       } else {
         console.log(`  ✅ Dimensions correct for rotation`)
       }

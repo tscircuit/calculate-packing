@@ -18,8 +18,17 @@ export function placeComponentDisconnected({
   direction,
   packedComponents,
   candidateAngles,
-  checkOverlap
+  checkOverlap,
 }: PlaceComponentDisconnectedParams): PackedComponent[] {
-  const targetPoint = findBestPointForDisconnected({ outlines, direction, packedComponents })
-  return placeComponentAtPoint({ component, point: targetPoint, candidateAngles, checkOverlap })
+  const targetPoint = findBestPointForDisconnected({
+    outlines,
+    direction,
+    packedComponents,
+  })
+  return placeComponentAtPoint({
+    component,
+    point: targetPoint,
+    candidateAngles,
+    checkOverlap,
+  })
 }
