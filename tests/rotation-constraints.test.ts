@@ -76,7 +76,7 @@ test("availableRotationDegrees [0] should prevent component rotation", () => {
       `  Center: (${component.center.x.toFixed(2)}, ${component.center.y.toFixed(2)})`,
     )
     console.log(
-      `  Rotation: ${((component.ccwRotationOffset * 180) / Math.PI).toFixed(1)}°`,
+      `  Rotation: ${component.ccwRotationOffset.toFixed(1)}°`,
     )
     console.log(
       `  Available rotations: ${input.components.find((c) => c.componentId === component.componentId)?.availableRotationDegrees}`,
@@ -157,7 +157,7 @@ test("components without rotation constraints should still be able to rotate", (
   console.log("\n=== Default Rotation Test ===")
 
   for (const component of result.components) {
-    const rotationDegrees = (component.ccwRotationOffset * 180) / Math.PI
+    const rotationDegrees = component.ccwRotationOffset
     console.log(`${component.componentId}:`)
     console.log(
       `  Center: (${component.center.x.toFixed(2)}, ${component.center.y.toFixed(2)})`,

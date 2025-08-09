@@ -138,10 +138,10 @@ test("multiple rotation options should work", () => {
   const u2 = result.components.find((c) => c.componentId === "U2")!
 
   console.log(`\n=== Multiple Rotation Options ===`)
-  console.log(`U2 rotation: ${u2.ccwRotationOffset}° (should be 90° or -90°)`)
+  console.log(`U2 rotation: ${u2.ccwRotationOffset}° (should be 90° or 270°)`)
 
-  // Should be one of the allowed rotations
-  expect([90, -90]).toContain(u2.ccwRotationOffset)
+  // Should be one of the allowed rotations (270° is equivalent to -90°)
+  expect([90, 270]).toContain(u2.ccwRotationOffset)
 
   console.log(`✅ U2 correctly chose rotation: ${u2.ccwRotationOffset}°`)
 })

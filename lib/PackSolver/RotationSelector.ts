@@ -68,8 +68,19 @@ export function selectOptimalRotation(
           y: candidatePoint.y - rotatedPadOffset.y,
         }
 
-        // Create transformed pads with rotation applied around the candidate point as anchor
-        const transformedPads = component.pads.map((p) => {
+        // Create a temporary component for testing overlap and cost calculation
+        const tempComponent: PackedComponent = {
+          ...component,
+          center: initialCenter,
+          ccwRotationOffset: ((angle % 360) + 360) % 360,
+          pads: component.pads.map((p) => ({
+            ...p,
+            absoluteCenter: { x: 0, y: 0 }, // Will be set by setPackedComponentPadCenters
+          })),
+        }
+        
+        // Apply rotation to calculate actual pad positions
+        const transformedPads = tempComponent.pads.map((p) => {
           // Rotate the pad offset around the origin (component center)
           const rotatedOffset = rotatePoint(p.offset, (angle * Math.PI) / 180)
 
@@ -88,12 +99,8 @@ export function selectOptimalRotation(
           }
         })
 
-        const tempComponent: PackedComponent = {
-          ...component,
-          center: initialCenter,
-          ccwRotationOffset: angle,
-          pads: transformedPads,
-        }
+        // Update the temp component with the transformed pads
+        tempComponent.pads = transformedPads
 
         // Check for overlap at initial position
         if (!checkOverlap(tempComponent)) {
@@ -119,9 +126,9 @@ export function selectOptimalRotation(
           if (!bestForThisRotation || cost < bestForThisRotation.cost) {
             bestForThisRotation = {
               center: initialCenter,
-              angle: angle,
+              angle: ((angle % 360) + 360) % 360,
               cost: cost,
-              pads: transformedPads,
+              pads: component.pads.map((p) => ({ ...p, absoluteCenter: { x: 0, y: 0 } })), // Return original pads structure
             }
           }
         }
@@ -131,7 +138,7 @@ export function selectOptimalRotation(
       const centerTrial: PackedComponent = {
         ...component,
         center: { x: candidatePoint.x, y: candidatePoint.y },
-        ccwRotationOffset: angle,
+        ccwRotationOffset: ((angle % 360) + 360) % 360,
         pads: component.pads.map((p) => {
           const rotatedOffset = rotatePoint(p.offset, (angle * Math.PI) / 180)
 
@@ -175,9 +182,9 @@ export function selectOptimalRotation(
         if (!bestForThisRotation || centerCost < bestForThisRotation.cost) {
           bestForThisRotation = {
             center: centerTrial.center,
-            angle: angle,
+            angle: ((angle % 360) + 360) % 360,
             cost: centerCost,
-            pads: centerTrial.pads,
+            pads: component.pads.map((p) => ({ ...p, absoluteCenter: { x: 0, y: 0 } })), // Return original pads structure
           }
         }
       }

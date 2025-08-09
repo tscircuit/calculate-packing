@@ -144,7 +144,7 @@ export class PhasedPackSolver extends BaseSolver {
     }
 
     const candidateAngles = this.getCandidateAngles(newPackedComponent)
-    newPackedComponent.ccwRotationOffset = candidateAngles[0] ?? 0
+    newPackedComponent.ccwRotationOffset = ((candidateAngles[0] ?? 0) % 360 + 360) % 360
     setPackedComponentPadCenters(newPackedComponent)
     this.packedComponents.push(newPackedComponent)
     this.currentComponent = undefined
@@ -530,7 +530,7 @@ export class PhasedPackSolver extends BaseSolver {
 
           const trial = { ...newPackedComponent }
           trial.center = componentCenter
-          trial.ccwRotationOffset = angle
+          trial.ccwRotationOffset = ((angle % 360) + 360) % 360
           setPackedComponentPadCenters(trial)
 
           // Check for overlap
@@ -561,7 +561,7 @@ export class PhasedPackSolver extends BaseSolver {
         // Trial 2: Position component center at the good candidate point
         const centerTrial = { ...newPackedComponent }
         centerTrial.center = { x: point.x, y: point.y }
-        centerTrial.ccwRotationOffset = angle
+        centerTrial.ccwRotationOffset = ((angle % 360) + 360) % 360
         setPackedComponentPadCenters(centerTrial)
 
         // Check for overlap
@@ -598,6 +598,8 @@ export class PhasedPackSolver extends BaseSolver {
       selectedComponent.center = result.center
       selectedComponent.ccwRotationOffset = result.angle
       selectedComponent.pads = result.pads
+      // Apply rotation to pads now that we have the final position and rotation
+      setPackedComponentPadCenters(selectedComponent)
       this.phaseData.selectedRotation = selectedComponent
     } else {
       this.phaseData.selectedRotation = undefined
@@ -621,7 +623,7 @@ export class PhasedPackSolver extends BaseSolver {
         })),
       }
       const candidateAngles = this.getCandidateAngles(newPackedComponent)
-      newPackedComponent.ccwRotationOffset = candidateAngles[0] ?? 0
+      newPackedComponent.ccwRotationOffset = ((candidateAngles[0] ?? 0) % 360 + 360) % 360
       setPackedComponentPadCenters(newPackedComponent)
       this.phaseData.selectedRotation = newPackedComponent
     }

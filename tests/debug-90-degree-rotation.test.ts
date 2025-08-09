@@ -99,7 +99,7 @@ test("test actual packing with 90 degree constraint", () => {
 
   console.log("\n=== Actual Packing Result ===")
   console.log(
-    `U2 rotation: ${((u2.ccwRotationOffset * 180) / Math.PI).toFixed(1)}°`,
+    `U2 rotation: ${u2.ccwRotationOffset.toFixed(1)}°`,
   )
   console.log(
     `U2 center: (${u2.center.x.toFixed(1)}, ${u2.center.y.toFixed(1)})`,

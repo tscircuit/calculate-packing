@@ -38,34 +38,22 @@ export function checkOverlapWithPackedComponents({
           return true // Actual rectangle overlap detected
         }
 
-        // If no overlap, check if gap is sufficient in the separating dimension
+        // If no overlap, check if gap is sufficient
         if (!xOverlap || !yOverlap) {
-          let hasInsufficientGap = false
-
-          // If separated in X dimension, check X gap
-          if (!xOverlap) {
-            const xGap = Math.min(
-              Math.abs(comp1Bounds.left - comp2Bounds.right),
-              Math.abs(comp2Bounds.left - comp1Bounds.right)
-            )
-            if (xGap < minGap) {
-              hasInsufficientGap = true
-            }
-          }
-
-          // If separated in Y dimension, check Y gap
-          if (!yOverlap && hasInsufficientGap) {  // Only check Y if X gap was insufficient
-            const yGap = Math.min(
-              Math.abs(comp1Bounds.bottom - comp2Bounds.top),
-              Math.abs(comp2Bounds.bottom - comp1Bounds.top)
-            )
-            if (yGap >= minGap) {
-              hasInsufficientGap = false  // Y gap is sufficient
-            }
-          }
-
-          if (hasInsufficientGap) {
-            return true // Insufficient gap in all separating dimensions
+          // Calculate minimum gap in both dimensions
+          const xGap = xOverlap ? 0 : Math.min(
+            Math.abs(comp1Bounds.left - comp2Bounds.right),
+            Math.abs(comp2Bounds.left - comp1Bounds.right)
+          )
+          const yGap = yOverlap ? 0 : Math.min(
+            Math.abs(comp1Bounds.bottom - comp2Bounds.top),
+            Math.abs(comp2Bounds.bottom - comp1Bounds.top)
+          )
+          
+          // The actual gap is the minimum of the non-overlapping dimensions
+          const actualGap = Math.max(xGap, yGap)
+          if (actualGap < minGap) {
+            return true // Insufficient gap
           }
         }
       }

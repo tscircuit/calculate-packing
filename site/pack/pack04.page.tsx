@@ -243,7 +243,7 @@ const manualPackOutput: PackOutput = {
   ],
   minGap: 2,
   packOrderStrategy: "largest_to_smallest",
-  packPlacementStrategy: "shortest_connection_along_outline",
+  packPlacementStrategy: "minimum_sum_squared_distance_to_network",
 }
 
 export default () => (

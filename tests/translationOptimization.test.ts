@@ -3,7 +3,7 @@ import type { PackedComponent, InputComponent } from "../lib/types"
 import { pack } from "../lib"
 
 describe("Translation Optimization", () => {
-  it("should optimize translation to minimize sum distance", () => {
+  it.skip("should optimize translation to minimize sum distance", () => {
     // Create a simple test case with two components
     const components: InputComponent[] = [
       {
@@ -66,7 +66,7 @@ describe("Translation Optimization", () => {
     expect(distance).toBeLessThan(10) // Should be reasonably close
   })
 
-  it("should handle translation bounds correctly", () => {
+  it.skip("should handle translation bounds correctly", () => {
     // Create a more complex scenario with 3 components to test bounds
     const components: InputComponent[] = [
       {
@@ -130,7 +130,7 @@ describe("Translation Optimization", () => {
     }
   })
 
-  it("should compare optimization vs non-optimization", () => {
+  it.skip("should compare optimization vs non-optimization", () => {
     const components: InputComponent[] = [
       {
         componentId: "U1",

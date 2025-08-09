@@ -62,7 +62,7 @@ test("pads should maintain correct offsets when rotation is constrained to [0]",
       `  Center: (${component.center.x.toFixed(2)}, ${component.center.y.toFixed(2)})`,
     )
     console.log(
-      `  Rotation: ${((component.ccwRotationOffset * 180) / Math.PI).toFixed(1)}°`,
+      `  Rotation: ${component.ccwRotationOffset.toFixed(1)}°`,
     )
 
     // Find original component to compare offsets
@@ -185,7 +185,7 @@ test("compare rotation=0 vs unconstrained to see the difference", () => {
     `  Center: (${u2Constrained.center.x.toFixed(2)}, ${u2Constrained.center.y.toFixed(2)})`,
   )
   console.log(
-    `  Rotation: ${((u2Constrained.ccwRotationOffset * 180) / Math.PI).toFixed(1)}°`,
+    `  Rotation: ${u2Constrained.ccwRotationOffset.toFixed(1)}°`,
   )
   console.log(
     `  VCC pad: (${u2Constrained.pads[0].absoluteCenter.x.toFixed(2)}, ${u2Constrained.pads[0].absoluteCenter.y.toFixed(2)})`,
@@ -199,7 +199,7 @@ test("compare rotation=0 vs unconstrained to see the difference", () => {
     `  Center: (${u2Unconstrained.center.x.toFixed(2)}, ${u2Unconstrained.center.y.toFixed(2)})`,
   )
   console.log(
-    `  Rotation: ${((u2Unconstrained.ccwRotationOffset * 180) / Math.PI).toFixed(1)}°`,
+    `  Rotation: ${u2Unconstrained.ccwRotationOffset.toFixed(1)}°`,
   )
   console.log(
     `  VCC pad: (${u2Unconstrained.pads[0].absoluteCenter.x.toFixed(2)}, ${u2Unconstrained.pads[0].absoluteCenter.y.toFixed(2)})`,
