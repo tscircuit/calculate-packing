@@ -75,9 +75,7 @@ test("availableRotationDegrees [0] should prevent component rotation", () => {
     console.log(
       `  Center: (${component.center.x.toFixed(2)}, ${component.center.y.toFixed(2)})`,
     )
-    console.log(
-      `  Rotation: ${component.ccwRotationOffset.toFixed(1)}°`,
-    )
+    console.log(`  Rotation: ${component.ccwRotationOffset.toFixed(1)}°`)
     console.log(
       `  Available rotations: ${input.components.find((c) => c.componentId === component.componentId)?.availableRotationDegrees}`,
     )

@@ -78,7 +78,7 @@ export function selectOptimalRotation(
             absoluteCenter: { x: 0, y: 0 }, // Will be set by setPackedComponentPadCenters
           })),
         }
-        
+
         // Apply rotation to calculate actual pad positions
         const transformedPads = tempComponent.pads.map((p) => {
           // Rotate the pad offset around the origin (component center)
@@ -116,7 +116,9 @@ export function selectOptimalRotation(
             for (const pp of sameNetPads) {
               const dx = tp.absoluteCenter.x - pp.absoluteCenter.x
               const dy = tp.absoluteCenter.y - pp.absoluteCenter.y
-              const d = useSquaredDistance ? dx * dx + dy * dy : Math.hypot(dx, dy)
+              const d = useSquaredDistance
+                ? dx * dx + dy * dy
+                : Math.hypot(dx, dy)
               if (d < bestD) bestD = d
             }
             cost += bestD === Infinity ? 0 : bestD
@@ -128,7 +130,10 @@ export function selectOptimalRotation(
               center: initialCenter,
               angle: ((angle % 360) + 360) % 360,
               cost: cost,
-              pads: component.pads.map((p) => ({ ...p, absoluteCenter: { x: 0, y: 0 } })), // Return original pads structure
+              pads: component.pads.map((p) => ({
+                ...p,
+                absoluteCenter: { x: 0, y: 0 },
+              })), // Return original pads structure
             }
           }
         }
@@ -155,7 +160,7 @@ export function selectOptimalRotation(
               y: candidatePoint.y + rotatedOffset.y,
             },
           }
-        })
+        }),
       }
 
       // Check for overlap at center position
@@ -172,7 +177,9 @@ export function selectOptimalRotation(
           for (const pp of sameNetPads) {
             const dx = tp.absoluteCenter.x - pp.absoluteCenter.x
             const dy = tp.absoluteCenter.y - pp.absoluteCenter.y
-            const d = useSquaredDistance ? dx * dx + dy * dy : Math.hypot(dx, dy)
+            const d = useSquaredDistance
+              ? dx * dx + dy * dy
+              : Math.hypot(dx, dy)
             if (d < bestD) bestD = d
           }
           centerCost += bestD === Infinity ? 0 : bestD
@@ -184,7 +191,10 @@ export function selectOptimalRotation(
             center: centerTrial.center,
             angle: ((angle % 360) + 360) % 360,
             cost: centerCost,
-            pads: component.pads.map((p) => ({ ...p, absoluteCenter: { x: 0, y: 0 } })), // Return original pads structure
+            pads: component.pads.map((p) => ({
+              ...p,
+              absoluteCenter: { x: 0, y: 0 },
+            })), // Return original pads structure
           }
         }
       }

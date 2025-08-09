@@ -86,9 +86,7 @@ test("simulate PackDebugger step behavior with 90° constraint", () => {
 
   console.log(`\nAfter stepping:`)
   console.log(`U2 rotation (raw): ${u2Result.ccwRotationOffset}`)
-  console.log(
-    `U2 rotation: ${u2Result.ccwRotationOffset.toFixed(1)}°`,
-  )
+  console.log(`U2 rotation: ${u2Result.ccwRotationOffset.toFixed(1)}°`)
   console.log(
     `U2 center: (${u2Result.center.x.toFixed(1)}, ${u2Result.center.y.toFixed(1)})`,
   )

@@ -71,3 +71,4 @@ The library exports 5 main functions:
 - React Cosmos fixtures use `.page` suffix
 - The solver must handle edge cases like zero-size components and maintain deterministic behavior
 - When modifying the packing algorithm, always run the full test suite as there are many edge cases covered by snapshot tests
+- If the user reports an error on a page, reproduce the error inside a `*.test.ts` file and run the test file to reproduce the error. Don't try to run the page.

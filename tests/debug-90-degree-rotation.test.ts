@@ -98,9 +98,7 @@ test("test actual packing with 90 degree constraint", () => {
   const u2 = result.components.find((c) => c.componentId === "U2")!
 
   console.log("\n=== Actual Packing Result ===")
-  console.log(
-    `U2 rotation: ${u2.ccwRotationOffset.toFixed(1)}°`,
-  )
+  console.log(`U2 rotation: ${u2.ccwRotationOffset.toFixed(1)}°`)
   console.log(
     `U2 center: (${u2.center.x.toFixed(1)}, ${u2.center.y.toFixed(1)})`,
   )
