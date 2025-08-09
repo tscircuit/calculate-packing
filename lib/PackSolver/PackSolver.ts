@@ -1,6 +1,5 @@
 import { BaseSolver } from "../solver-utils/BaseSolver"
 import { getComponentBounds } from "../geometry/getComponentBounds"
-import { rotatePoint } from "../math/rotatePoint"
 import { constructOutlinesFromPackedComponents } from "../constructOutlinesFromPackedComponents"
 import type {
   InputComponent,
@@ -14,12 +13,12 @@ import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
 import type { Segment } from "../geometry/types"
 import { getSegmentsFromPad } from "./getSegmentsFromPad"
 import { computeNearestPointOnSegmentForSegmentSet } from "../math/computeNearestPointOnSegmentForSegmentSet"
-import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
-import {
-  optimizeTranslationForMinimumSum,
-  optimizeTranslationForMinimumSumWithSampling,
-} from "./translationOptimizer"
 import { selectOptimalRotation } from "./RotationSelector"
+import { sortComponentQueue } from "./sortComponentQueue"
+import { placeComponentDisconnected } from "./placeComponentDisconnected"
+import { checkOverlapWithPackedComponents } from "./checkOverlapWithPackedComponents"
+import { findOptimalPointOnSegment } from "./findOptimalPointOnSegment"
+import { computeGlobalCenter } from "./computeGlobalCenter"
 
 /**
  * The pack algorithm performs the following steps:
@@ -61,30 +60,10 @@ export class PackSolver extends BaseSolver {
   override _setup() {
     const { components, packOrderStrategy, packFirst = [] } = this.packInput
 
-    // Create a map for quick lookup of packFirst priorities
-    const packFirstMap = new Map<string, number>()
-    packFirst.forEach((componentId, index) => {
-      packFirstMap.set(componentId, index)
-    })
-
-    this.unpackedComponentQueue = [...components].sort((a, b) => {
-      const aPackFirstIndex = packFirstMap.get(a.componentId)
-      const bPackFirstIndex = packFirstMap.get(b.componentId)
-
-      // If both components are in packFirst, sort by their order in packFirst
-      if (aPackFirstIndex !== undefined && bPackFirstIndex !== undefined) {
-        return aPackFirstIndex - bPackFirstIndex
-      }
-
-      // If only one component is in packFirst, it comes first
-      if (aPackFirstIndex !== undefined) return -1
-      if (bPackFirstIndex !== undefined) return 1
-
-      // Neither component is in packFirst, use the regular strategy
-      if (packOrderStrategy === "largest_to_smallest") {
-        return b.pads.length - a.pads.length
-      }
-      return a.pads.length - b.pads.length
+    this.unpackedComponentQueue = sortComponentQueue({
+      components,
+      packOrderStrategy,
+      packFirst
     })
     this.packedComponents = []
   }
@@ -127,7 +106,7 @@ export class PackSolver extends BaseSolver {
       newPackedComponent.center = { x: 0, y: 0 }
       // Respect rotation constraints even for the first component
       const candidateAngles = this.getCandidateAngles(newPackedComponent)
-      newPackedComponent.ccwRotationOffset = candidateAngles[0] // Use first available rotation
+      newPackedComponent.ccwRotationOffset = candidateAngles[0] ?? 0 // Use first available rotation or 0 if none
       setPackedComponentPadCenters(newPackedComponent)
       this.packedComponents.push(newPackedComponent)
       return
@@ -160,13 +139,16 @@ export class PackSolver extends BaseSolver {
 
     if (sharedNetworkIds.size === 0) {
       /* no shared nets – use the disconnected strategy */
-      this.placeComponentDisconnected(
-        newPackedComponent,
+      this.lastEvaluatedPositionShadows = placeComponentDisconnected({
+        component: newPackedComponent,
         outlines,
-        disconnectedPackDirection as NonNullable<
+        direction: disconnectedPackDirection as NonNullable<
           PackInput["disconnectedPackDirection"]
         >,
-      )
+        packedComponents: this.packedComponents,
+        candidateAngles: this.getCandidateAngles(newPackedComponent),
+        checkOverlap: (comp) => this.checkOverlapWithPackedComponents(comp)
+      })
       this.packedComponents.push(newPackedComponent)
       return
     }
@@ -206,14 +188,15 @@ export class PackSolver extends BaseSolver {
               point: optimalPoint,
               distance: optimalDistance,
               candidatePoints,
-            } = this.findOptimalPointOnSegment(
+            } = findOptimalPointOnSegment({
               p1,
               p2,
-              newPackedComponent,
-              sharedNetworkId,
-              packPlacementStrategy ===
+              component: newPackedComponent,
+              networkId: sharedNetworkId,
+              packedComponents: this.packedComponents,
+              useSquaredDistance: packPlacementStrategy ===
                 "minimum_sum_squared_distance_to_network",
-            )
+            })
 
             // Store all candidate points for visualization
             for (const candidatePoint of candidatePoints) {
@@ -314,7 +297,11 @@ export class PackSolver extends BaseSolver {
       packedComponents: this.packedComponents,
       minGap: minGap,
       useSquaredDistance: useSquaredDistance,
-      checkOverlap: (comp) => this.checkOverlapWithPackedComponents(comp),
+      checkOverlap: (comp) => checkOverlapWithPackedComponents({
+        component: comp,
+        packedComponents: this.packedComponents,
+        minGap: this.packInput.minGap ?? 0
+      }),
     })
 
     /* Apply the best candidate (fallback: first available rotation at reasonable position) */
@@ -329,7 +316,7 @@ export class PackSolver extends BaseSolver {
         `No valid placement found for ${newPackedComponent.componentId}. Using fallback position.`,
       )
       newPackedComponent.center = { x: 5, y: 5 } // Fallback position
-      newPackedComponent.ccwRotationOffset = candidateAngles[0]
+      newPackedComponent.ccwRotationOffset = candidateAngles[0] ?? 0
       setPackedComponentPadCenters(newPackedComponent)
     }
 
@@ -349,118 +336,20 @@ export class PackSolver extends BaseSolver {
     return (c.availableRotationDegrees ?? [0, 90, 180, 270]).map((d) => d % 360)
   }
 
-  private checkOverlapWithPackedComponents(cand: PackedComponent): boolean {
-    // Use pad-to-pad distance checking for more accurate overlap detection
-    for (const candPad of cand.pads) {
-      for (const pc of this.packedComponents) {
-        for (const packedPad of pc.pads) {
-          // Calculate center-to-center distance
-          const centerDistance = Math.hypot(
-            candPad.absoluteCenter.x - packedPad.absoluteCenter.x,
-            candPad.absoluteCenter.y - packedPad.absoluteCenter.y,
-          )
-
-          // Calculate minimum required center-to-center distance
-          const candPadRadius = Math.max(candPad.size.x, candPad.size.y) / 2
-          const packedPadRadius =
-            Math.max(packedPad.size.x, packedPad.size.y) / 2
-          const minRequiredDistance =
-            this.packInput.minGap + candPadRadius + packedPadRadius
-
-          if (centerDistance < minRequiredDistance) {
-            return true // Overlap detected
-          }
-        }
-      }
-    }
-    return false
+  private checkOverlapWithPackedComponents(component: PackedComponent): boolean {
+    return checkOverlapWithPackedComponents({
+      component,
+      packedComponents: this.packedComponents,
+      minGap: this.packInput.minGap ?? 0
+    })
   }
 
   private computeGlobalCenter(): Point {
-    if (!this.packedComponents.length) return { x: 0, y: 0 }
-    const s = this.packedComponents.reduce(
-      (a, c) => ({ x: a.x + c.center.x, y: a.y + c.center.y }),
-      { x: 0, y: 0 },
-    )
-    return {
-      x: s.x / this.packedComponents.length,
-      y: s.y / this.packedComponents.length,
-    }
+    return computeGlobalCenter(this.packedComponents)
   }
 
-  private findBestPointForDisconnected(
-    outlines: Segment[][],
-    dir: NonNullable<PackInput["disconnectedPackDirection"]>,
-  ): Point {
-    const pts = outlines.flatMap((ol) =>
-      ol.map(([p1, p2]) => ({
-        x: (p1.x + p2.x) / 2,
-        y: (p1.y + p2.y) / 2,
-      })),
-    )
-    if (!pts.length) return { x: 0, y: 0 }
 
-    if (dir !== "nearest_to_center") {
-      const extreme = dir === "left" || dir === "down" ? Math.min : Math.max
-      const key = dir === "left" || dir === "right" ? "x" : "y"
-      const target = extreme(...pts.map((p) => p[key]))
-      return pts.find((p) => p[key] === target)!
-    }
 
-    const center = this.computeGlobalCenter()
-    return pts.reduce((best, p) =>
-      Math.hypot(p.x - center.x, p.y - center.y) <
-      Math.hypot(best.x - center.x, best.y - center.y)
-        ? p
-        : best,
-    )
-  }
-
-  private placeComponentAtPoint(comp: PackedComponent, pt: Point) {
-    this.lastEvaluatedPositionShadows = []
-    for (const ang of this.getCandidateAngles(comp)) {
-      const pads = comp.pads.map((p) => {
-        const ro = rotatePoint(p.offset, (ang * Math.PI) / 180) // Convert to radians for math
-        
-        /* rotate the pad dimensions based on component rotation */
-        const normalizedRotation = ((ang % 360) + 360) % 360
-        const shouldSwapDimensions = normalizedRotation === 90 || normalizedRotation === 270
-        
-        return { 
-          ...p, 
-          size: shouldSwapDimensions 
-            ? { x: p.size.y, y: p.size.x } // Swap width/height for 90°/270° rotations
-            : p.size, // Keep original dimensions for 0°/180° rotations
-          absoluteCenter: { x: pt.x + ro.x, y: pt.y + ro.y } 
-        }
-      })
-      const cand: PackedComponent = {
-        ...comp,
-        center: pt,
-        ccwRotationOffset: ang,
-        pads,
-      }
-      this.lastEvaluatedPositionShadows.push(cand)
-      if (!this.checkOverlapWithPackedComponents(cand)) {
-        Object.assign(comp, cand)
-        setPackedComponentPadCenters(comp)
-        return
-      }
-    }
-    /* fallback: 0° rotation */
-    comp.center = pt
-    comp.ccwRotationOffset = 0
-    setPackedComponentPadCenters(comp)
-  }
-
-  private placeComponentDisconnected(
-    comp: PackedComponent,
-    outlines: Segment[][],
-    dir: NonNullable<PackInput["disconnectedPackDirection"]>,
-  ) {
-    const target = this.findBestPointForDisconnected(outlines, dir)
-    this.placeComponentAtPoint(comp, target)
-  }
 
   /** Visualize the current packing state – components are omitted, only the outline is shown. */
   override visualize(): GraphicsObject {
@@ -568,140 +457,5 @@ export class PackSolver extends BaseSolver {
     return this.packedComponents
   }
 
-  private computeSumDistanceForPosition(
-    component: PackedComponent,
-    position: Point,
-    targetNetworkId: NetworkId,
-    useSquaredDistance: boolean = false,
-  ): number {
-    // Get pads from the component that are on the target network
-    const componentPadsOnNetwork = component.pads.filter(
-      (p) => p.networkId === targetNetworkId,
-    )
 
-    if (componentPadsOnNetwork.length === 0) return 0
-
-    // Get all packed pads on the same network
-    const packedPadsOnNetwork = this.packedComponents.flatMap((c) =>
-      c.pads.filter((p) => p.networkId === targetNetworkId),
-    )
-
-    if (packedPadsOnNetwork.length === 0) return 0
-
-    let sumDistance = 0
-
-    // For each pad on the target network in the component being placed
-    for (const componentPad of componentPadsOnNetwork) {
-      // Calculate where this pad would be if the component is placed at position
-      const padPosition = {
-        x: position.x + componentPad.offset.x,
-        y: position.y + componentPad.offset.y,
-      }
-
-      // Find the minimum distance to any packed pad on the same network
-      let minDistance = Number.POSITIVE_INFINITY
-      for (const packedPad of packedPadsOnNetwork) {
-        const dx = padPosition.x - packedPad.absoluteCenter.x
-        const dy = padPosition.y - packedPad.absoluteCenter.y
-        const distance = useSquaredDistance
-          ? dx * dx + dy * dy
-          : Math.hypot(dx, dy)
-        if (distance < minDistance) {
-          minDistance = distance
-        }
-      }
-
-      // Add to sum distance (if no packed pads found, distance is 0 as specified)
-      sumDistance += minDistance === Number.POSITIVE_INFINITY ? 0 : minDistance
-    }
-
-    return sumDistance
-  }
-
-  /**
-   * Find the optimal point along a segment that minimizes sum distance for a given network
-   * Uses ternary search for continuous optimization
-   */
-  private findOptimalPointOnSegment(
-    p1: Point,
-    p2: Point,
-    component: PackedComponent,
-    networkId: NetworkId,
-    useSquaredDistance: boolean = false,
-  ): {
-    point: Point
-    distance: number
-    candidatePoints: Array<Point & { networkId: NetworkId; distance: number }>
-  } {
-    const candidatePoints: Array<
-      Point & { networkId: NetworkId; distance: number }
-    > = []
-    const tolerance = 1e-6
-    let left = 0
-    let right = 1
-
-    // Function to interpolate point along segment
-    const interpolatePoint = (t: number): Point => ({
-      x: p1.x + t * (p2.x - p1.x),
-      y: p1.y + t * (p2.y - p1.y),
-    })
-
-    // Function to evaluate sum distance at parameter t
-    const evaluateDistance = (t: number): number => {
-      const point = interpolatePoint(t)
-      const distance = this.computeSumDistanceForPosition(
-        component,
-        point,
-        networkId,
-        useSquaredDistance,
-      )
-
-      // Store for visualization
-      candidatePoints.push({
-        ...point,
-        networkId,
-        distance,
-      })
-
-      return distance
-    }
-
-    // Ternary search to find minimum
-    while (right - left > tolerance) {
-      const leftThird = left + (right - left) / 3
-      const rightThird = right - (right - left) / 3
-
-      const leftDistance = evaluateDistance(leftThird)
-      const rightDistance = evaluateDistance(rightThird)
-
-      if (leftDistance > rightDistance) {
-        left = leftThird
-      } else {
-        right = rightThird
-      }
-    }
-
-    // Final optimal point
-    const optimalT = (left + right) / 2
-    const optimalPoint = interpolatePoint(optimalT)
-    const optimalDistance = this.computeSumDistanceForPosition(
-      component,
-      optimalPoint,
-      networkId,
-      useSquaredDistance,
-    )
-
-    // Add optimal point to candidates
-    candidatePoints.push({
-      ...optimalPoint,
-      networkId,
-      distance: optimalDistance,
-    })
-
-    return {
-      point: optimalPoint,
-      distance: optimalDistance,
-      candidatePoints,
-    }
-  }
 }
