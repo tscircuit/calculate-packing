@@ -58,19 +58,21 @@ export function selectOptimalRotation(
 
       const firstPad = componentPadsOnNetwork[0]!
 
-      // Position component so first pad hits the candidate point
-      const rotatedOffset = rotatePoint(
+      // Use candidate point as the rotation anchor for the component
+      // First, calculate where the component center should be to place the first pad at the candidate point
+      const rotatedPadOffset = rotatePoint(
         firstPad.offset,
         (angle * Math.PI) / 180,
       )
       const initialCenter = {
-        x: candidatePoint.x - rotatedOffset.x,
-        y: candidatePoint.y - rotatedOffset.y,
+        x: candidatePoint.x - rotatedPadOffset.x,
+        y: candidatePoint.y - rotatedPadOffset.y,
       }
 
-      // Create transformed pads with rotated dimensions
+      // Create transformed pads with rotation applied around the candidate point as anchor
       const transformedPads = component.pads.map((p) => {
-        const ro = rotatePoint(p.offset, (angle * Math.PI) / 180)
+        // Rotate the pad offset around the origin (component center)
+        const rotatedOffset = rotatePoint(p.offset, (angle * Math.PI) / 180)
 
         // Rotate pad dimensions for 90°/270° rotations
         const normalizedRotation = ((angle % 360) + 360) % 360
@@ -81,8 +83,8 @@ export function selectOptimalRotation(
           ...p,
           size: shouldSwapDimensions ? { x: p.size.y, y: p.size.x } : p.size,
           absoluteCenter: {
-            x: initialCenter.x + ro.x,
-            y: initialCenter.y + ro.y,
+            x: initialCenter.x + rotatedOffset.x,
+            y: initialCenter.y + rotatedOffset.y,
           },
         }
       })
@@ -106,9 +108,9 @@ export function selectOptimalRotation(
         useSquaredDistance: useSquaredDistance,
       })
 
-      // Create optimized pads
+      // Create optimized pads using same rotation approach
       const optimizedPads = component.pads.map((p) => {
-        const ro = rotatePoint(p.offset, (angle * Math.PI) / 180)
+        const rotatedOffset = rotatePoint(p.offset, (angle * Math.PI) / 180)
 
         // Rotate pad dimensions for 90°/270° rotations
         const normalizedRotation = ((angle % 360) + 360) % 360
@@ -119,8 +121,8 @@ export function selectOptimalRotation(
           ...p,
           size: shouldSwapDimensions ? { x: p.size.y, y: p.size.x } : p.size,
           absoluteCenter: {
-            x: optimizedCenter.x + ro.x,
-            y: optimizedCenter.y + ro.y,
+            x: optimizedCenter.x + rotatedOffset.x,
+            y: optimizedCenter.y + rotatedOffset.y,
           },
         }
       })

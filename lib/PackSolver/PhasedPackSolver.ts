@@ -18,6 +18,7 @@ import { sortComponentQueue } from "./sortComponentQueue"
 import { placeComponentDisconnected } from "./placeComponentDisconnected"
 import { checkOverlapWithPackedComponents } from "./checkOverlapWithPackedComponents"
 import { findOptimalPointOnSegment } from "./findOptimalPointOnSegment"
+import { rotatePoint } from "../math/rotatePoint"
 
 type PackingPhase =
   | "idle"
@@ -504,12 +505,36 @@ export class PhasedPackSolver extends BaseSolver {
       checkOverlap: (comp) => this.checkOverlapWithPackedComponents(comp),
     })
 
-    // Create rotation trials for visualization
+    // Create rotation trials for visualization - properly anchored at all candidate points
     for (const angle of candidateAngles) {
-      for (const point of this.phaseData.goodCandidates.slice(0, 3)) {
-        // Show top 3 positions
+      for (const point of allCandidatePoints.filter((p, i, arr) => 
+        // Deduplicate points that are very close together
+        i === 0 || !arr.slice(0, i).some(prev => 
+          Math.abs(prev.x - p.x) < 0.01 && Math.abs(prev.y - p.y) < 0.01 && prev.networkId === p.networkId
+        )
+      )) {
+        // Show all candidate positions used in rotation selection
+        
+        // Find the first pad that matches the network of this good candidate point
+        const componentPadsOnNetwork = newPackedComponent.pads.filter(
+          (p) => p.networkId === point.networkId,
+        )
+        if (!componentPadsOnNetwork.length) continue
+
+        const firstPad = componentPadsOnNetwork[0]!
+
+        // Calculate where the component center should be to place the pad at the candidate point
+        const rotatedPadOffset = rotatePoint(
+          firstPad.offset,
+          (angle * Math.PI) / 180,
+        )
+        const componentCenter = {
+          x: point.x - rotatedPadOffset.x,
+          y: point.y - rotatedPadOffset.y,
+        }
+
         const trial = { ...newPackedComponent }
-        trial.center = { ...point }
+        trial.center = componentCenter
         trial.ccwRotationOffset = angle
         setPackedComponentPadCenters(trial)
 
@@ -727,22 +752,24 @@ export class PhasedPackSolver extends BaseSolver {
     if (!this.phaseData.rotationTrials) return
 
     for (const trial of this.phaseData.rotationTrials) {
-      const bounds = getComponentBounds(trial, 0)
-      graphics.rects!.push({
-        center: trial.center,
-        width: bounds.maxX - bounds.minX,
-        height: bounds.maxY - bounds.minY,
-        fill: "rgba(0,255,255,0.2)",
+      // Show component center as a point with rotation and cost info
+      graphics.points!.push({
+        x: trial.center.x,
+        y: trial.center.y,
         label: `${trial.ccwRotationOffset}° (cost: ${trial.cost.toFixed(3)})`,
-      } as Rect)
+        fill: "rgba(0,255,255,0.8)",
+        radius: 0.05,
+      } as Point)
 
-      // Show pads for each rotation trial
+      // Show pads for each rotation trial with more transparency
       for (const pad of trial.pads) {
         graphics.rects!.push({
           center: pad.absoluteCenter,
           width: pad.size.x,
           height: pad.size.y,
-          fill: "rgba(0,0,255,0.5)",
+          fill: "rgba(0,0,255,0.15)", // More transparent pads
+          stroke: "rgba(0,0,255,0.4)",
+          strokeWidth: 0.01,
         } as Rect)
       }
     }
