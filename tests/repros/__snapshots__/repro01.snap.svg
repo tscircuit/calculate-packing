@@ -44,7 +44,7 @@
   </g>
   <g>
     <rect data-type="rect" data-label="pcb_component_0
-ccwRotationOffset: 0.0°" data-x="0" data-y="0" x="119.43262411347516" y="282.8652482269504" width="210.4964539007092" height="175.14893617021278" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.025178571428571425" />
+ccwRotationOffset: 0.0°" data-x="0" data-y="0" x="119.43262411347516" y="282.8652482269504" width="210.4964539007092" height="175.14893617021278" fill="rgba(100,100,100,0.5)" stroke="#333333" stroke-width="0.025178571428571425" />
   </g>
   <g>
     <rect data-type="rect" data-label="pcb_smtpad_0 unnamedsubcircuit121_connectivity_net0" data-x="-2.15" data-y="1.905" x="119.43262411347516" y="282.8652482269504" width="39.71631205673759" height="23.829787234042556" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.025178571428571425" />
@@ -72,7 +72,7 @@ ccwRotationOffset: 0.0°" data-x="0" data-y="0" x="119.43262411347516" y="282.86
   </g>
   <g>
     <rect data-type="rect" data-label="pcb_component_1
-ccwRotationOffset: 0.0°" data-x="-0.5500000000000007" data-y="4.495000000000001" x="171.063829787234" y="180.00000000000003" width="63.54609929078015" height="23.829787234042527" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.025178571428571425" />
+ccwRotationOffset: 0.0°" data-x="-0.5500000000000007" data-y="4.495000000000001" x="171.063829787234" y="180.00000000000003" width="63.54609929078015" height="23.829787234042527" fill="rgba(100,100,100,0.5)" stroke="#333333" stroke-width="0.025178571428571425" />
   </g>
   <g>
     <rect data-type="rect" data-label="pcb_smtpad_8 unnamedsubcircuit121_connectivity_net0" data-x="-1.0500000000000007" data-y="4.495000000000001" x="171.063829787234" y="180.00000000000003" width="23.829787234042556" height="23.829787234042527" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.025178571428571425" />
@@ -82,14 +82,14 @@ ccwRotationOffset: 0.0°" data-x="-0.5500000000000007" data-y="4.495000000000001
   </g>
   <g>
     <rect data-type="rect" data-label="pcb_component_2
-ccwRotationOffset: 0.0°" data-x="6.049999999999999" data-y="-1.754999999999999" x="409.36170212765956" y="420.28368794326246" width="111.20567375886526" height="39.71631205673759" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.025178571428571425" />
+ccwRotationOffset: 0.0°" data-x="6.049999999999999" data-y="-1.754999999999999" x="409.36170212765956" y="420.28368794326246" width="111.20567375886526" height="39.71631205673759" fill="rgba(100,100,100,0.5)" stroke="#333333" stroke-width="0.025178571428571425" />
   </g>
   <g>
     <rect data-type="rect" data-label="pcb_smtpad_10 unnamedsubcircuit121_connectivity_net1" data-x="5.199999999999999" data-y="-1.754999999999999" x="409.36170212765956" y="420.28368794326246" width="43.68794326241135" height="39.71631205673759" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.025178571428571425" />
   </g>
   <g>
     <rect data-type="rect" data-label="pcb_smtpad_11 unnamed7" data-x="6.899999999999999" data-y="-1.754999999999999" x="476.8794326241134" y="420.28368794326246" width="43.68794326241141" height="39.71631205673759" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.025178571428571425" />
-  </g>
+  </g><text data-type="text" data-label="Phase: idle" data-x="0" data-y="5" x="224.68085106382978" y="171.85815602836885" fill="black" font-size="11.914893617021278" font-family="sans-serif" text-anchor="middle" dominant-baseline="central">Phase: idle</text>
   <g id="crosshair" style="display: none">
     <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
     <line id="crosshair-v" x1="0" x2="640" stroke="#666" stroke-width="0.5" /><text id="coordinates" font-family="monospace" font-size="12" fill="#666"></text>
