@@ -38,30 +38,34 @@ export function checkOverlapWithPackedComponents({
           return true // Actual rectangle overlap detected
         }
 
-        // If no overlap, check if gap is sufficient
+        // If no overlap, check if gap is sufficient in the separating dimension
         if (!xOverlap || !yOverlap) {
-          // Calculate gaps in both dimensions
-          let xGap = Infinity
-          let yGap = Infinity
+          let hasInsufficientGap = false
 
+          // If separated in X dimension, check X gap
           if (!xOverlap) {
-            xGap = Math.min(
+            const xGap = Math.min(
               Math.abs(comp1Bounds.left - comp2Bounds.right),
               Math.abs(comp2Bounds.left - comp1Bounds.right)
             )
+            if (xGap < minGap) {
+              hasInsufficientGap = true
+            }
           }
 
-          if (!yOverlap) {
-            yGap = Math.min(
+          // If separated in Y dimension, check Y gap
+          if (!yOverlap && hasInsufficientGap) {  // Only check Y if X gap was insufficient
+            const yGap = Math.min(
               Math.abs(comp1Bounds.bottom - comp2Bounds.top),
               Math.abs(comp2Bounds.bottom - comp1Bounds.top)
             )
+            if (yGap >= minGap) {
+              hasInsufficientGap = false  // Y gap is sufficient
+            }
           }
 
-          // If rectangles don't overlap, we need sufficient gap in the separating dimension
-          const minGapInSeparatingDimension = Math.min(xGap, yGap)
-          if (minGapInSeparatingDimension < minGap) {
-            return true // Insufficient gap
+          if (hasInsufficientGap) {
+            return true // Insufficient gap in all separating dimensions
           }
         }
       }
