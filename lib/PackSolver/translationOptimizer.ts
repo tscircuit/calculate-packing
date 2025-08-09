@@ -89,7 +89,7 @@ export function computeTranslationBounds(
   }
 
   // Clamp to reasonable bounds around initial center
-  const maxTranslation = 5 // Don't translate more than 5 units from initial position
+  const maxTranslation = minGap * 100
   minX = Math.max(minX, initialCenter.x - maxTranslation)
   maxX = Math.min(maxX, initialCenter.x + maxTranslation)
   minY = Math.max(minY, initialCenter.y - maxTranslation)
