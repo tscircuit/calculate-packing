@@ -333,8 +333,8 @@ export class PackSolver extends BaseSolver {
       setPackedComponentPadCenters(newPackedComponent)
     }
 
-    // Always call setPackedComponentPadCenters to ensure consistent pad positioning and dimensions
-    setPackedComponentPadCenters(newPackedComponent)
+    // Note: setPackedComponentPadCenters is not needed here because RotationSelector
+    // has already set the correct pad positions and dimensions
     this.packedComponents.push(newPackedComponent)
   }
 

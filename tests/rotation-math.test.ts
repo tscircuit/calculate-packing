@@ -51,10 +51,10 @@ test("90 degree rotation should correctly position pads", () => {
   
   console.log("=== Rotation Math Test ===")
   console.log(`U2 center: (${u2.center.x.toFixed(2)}, ${u2.center.y.toFixed(2)})`)
-  console.log(`U2 rotation: ${(u2.ccwRotationOffset * 180 / Math.PI).toFixed(1)}°`)
+  console.log(`U2 rotation: ${u2.ccwRotationOffset.toFixed(1)}°`)
   
   // Should be exactly 90 degrees
-  expect(Math.abs(u2.ccwRotationOffset - Math.PI/2)).toBeLessThan(0.01)
+  expect(Math.abs(u2.ccwRotationOffset - 90)).toBeLessThan(0.01)
   
   // Check pad positions
   const u2P1 = u2.pads.find(p => p.padId === "U2_P1")!

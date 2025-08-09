@@ -97,7 +97,7 @@ test("test actual packing with 90 degree constraint", () => {
   }
   
   // Must be exactly 90 degrees
-  expect(Math.abs(u2.ccwRotationOffset - Math.PI/2)).toBeLessThan(0.01)
+  expect(Math.abs(u2.ccwRotationOffset - 90)).toBeLessThan(0.01)
   // Must be vertical
   expect(sameX).toBe(true)
   expect(differentY).toBe(true)
