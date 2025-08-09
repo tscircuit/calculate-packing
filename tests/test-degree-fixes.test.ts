@@ -66,18 +66,18 @@ test("degrees should work correctly with rotation constraints", () => {
   const pad2 = u2.pads[1]
   console.log(`U2 pads:`)
   console.log(
-    `  ${pad1.padId}: (${pad1.absoluteCenter.x.toFixed(1)}, ${pad1.absoluteCenter.y.toFixed(1)})`,
+    `  ${pad1?.padId}: (${pad1?.absoluteCenter?.x.toFixed(1)}, ${pad1?.absoluteCenter?.y.toFixed(1)})`,
   )
   console.log(
-    `  ${pad2.padId}: (${pad2.absoluteCenter.x.toFixed(1)}, ${pad2.absoluteCenter.y.toFixed(1)})`,
+    `  ${pad2?.padId}: (${pad2?.absoluteCenter?.x.toFixed(1)}, ${pad2?.absoluteCenter?.y.toFixed(1)})`,
   )
 
   // Should be exactly 90 degrees (not radians!)
   expect(u2.ccwRotationOffset).toBe(90)
 
   // Should be vertical (same X, different Y)
-  const sameX = Math.abs(pad1.absoluteCenter.x - pad2.absoluteCenter.x) < 0.5
-  const differentY = Math.abs(pad1.absoluteCenter.y - pad2.absoluteCenter.y) > 8
+  const sameX = Math.abs((pad1?.absoluteCenter?.x ?? 0) - (pad2?.absoluteCenter?.x ?? 0)) < 0.5
+  const differentY = Math.abs((pad1?.absoluteCenter?.y ?? 0) - (pad2?.absoluteCenter?.y ?? 0)) > 8
 
   console.log(`Is vertical? ${sameX && differentY}`)
   expect(sameX).toBe(true)

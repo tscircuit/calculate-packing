@@ -75,7 +75,7 @@ test("simulate PackDebugger step behavior with 90° constraint", () => {
   })
 
   // Verify the conversion preserved rotation constraints
-  expect(packInput.components[1].availableRotationDegrees).toEqual([90])
+  expect(packInput.components[1]?.availableRotationDegrees).toEqual([90])
 
   // Step 2: Run pack algorithm (what PackDebugger does)
   // Note: The pack function doesn't support step-by-step execution,
@@ -95,16 +95,16 @@ test("simulate PackDebugger step behavior with 90° constraint", () => {
   const pad2 = u2Result.pads[1]
   console.log(`U2 pads:`)
   console.log(
-    `  ${pad1.padId}: (${pad1.absoluteCenter.x.toFixed(1)}, ${pad1.absoluteCenter.y.toFixed(1)})`,
+    `  ${pad1?.padId}: (${pad1?.absoluteCenter?.x.toFixed(1)}, ${pad1?.absoluteCenter?.y.toFixed(1)})`,
   )
   console.log(
-    `  ${pad2.padId}: (${pad2.absoluteCenter.x.toFixed(1)}, ${pad2.absoluteCenter.y.toFixed(1)})`,
+    `  ${pad2?.padId}: (${pad2?.absoluteCenter?.x.toFixed(1)}, ${pad2?.absoluteCenter?.y.toFixed(1)})`,
   )
 
   // Check if U2 is vertical (same X, different Y by ~10 units)
   const isVertical =
-    Math.abs(pad1.absoluteCenter.x - pad2.absoluteCenter.x) < 1 &&
-    Math.abs(pad1.absoluteCenter.y - pad2.absoluteCenter.y) > 8
+    Math.abs((pad1?.absoluteCenter?.x ?? 0) - (pad2?.absoluteCenter?.x ?? 0)) < 1 &&
+    Math.abs((pad1?.absoluteCenter?.y ?? 0) - (pad2?.absoluteCenter?.y ?? 0)) > 8
 
   console.log(`Is U2 vertical? ${isVertical}`)
 

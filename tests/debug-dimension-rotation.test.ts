@@ -38,7 +38,7 @@ test("debug exactly where pad dimensions get lost", () => {
 
   console.log(`=== Debugging Dimension Rotation ===`)
   console.log(
-    `Input U2 body pad: ${input.components[1].pads[0].size.x} x ${input.components[1].pads[0].size.y}`,
+    `Input U2 body pad: ${input.components[1]?.pads[0]?.size.x} x ${input.components[1]?.pads[0]?.size.y}`,
   )
 
   const result = pack(input)

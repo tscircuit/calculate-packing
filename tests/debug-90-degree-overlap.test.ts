@@ -73,7 +73,7 @@ test.skip("debug why 90° rotation is rejected - overlap check", () => {
 
     console.log(`${testPos.name} (${testPos.center.x}, ${testPos.center.y}):`)
     console.log(
-      `  U2 pads at: (${u2With90.pads[0].absoluteCenter.x}, ${u2With90.pads[0].absoluteCenter.y}) and (${u2With90.pads[1].absoluteCenter.x}, ${u2With90.pads[1].absoluteCenter.y})`,
+      `  U2 pads at: (${u2With90.pads[0]?.absoluteCenter?.x}, ${u2With90.pads[0]?.absoluteCenter?.y}) and (${u2With90.pads[1]?.absoluteCenter?.x}, ${u2With90.pads[1]?.absoluteCenter?.y})`,
     )
     console.log(`  Overlap detected: ${hasOverlap}`)
 
@@ -81,15 +81,15 @@ test.skip("debug why 90° rotation is rejected - overlap check", () => {
       console.log(`  ✅ 90° rotation is VALID at this position`)
 
       // Calculate distances to U1 pads to verify
-      const u1VCC = u1.pads[0].absoluteCenter
-      const u1GND = u1.pads[1].absoluteCenter
-      const u2VCC = u2With90.pads[0].absoluteCenter
-      const u2GND = u2With90.pads[1].absoluteCenter
+      const u1VCC = u1.pads[0]?.absoluteCenter
+      const u1GND = u1.pads[1]?.absoluteCenter
+      const u2VCC = u2With90.pads[0]?.absoluteCenter
+      const u2GND = u2With90.pads[1]?.absoluteCenter
 
-      const dist1 = Math.hypot(u1VCC.x - u2VCC.x, u1VCC.y - u2VCC.y)
-      const dist2 = Math.hypot(u1VCC.x - u2GND.x, u1VCC.y - u2GND.y)
-      const dist3 = Math.hypot(u1GND.x - u2VCC.x, u1GND.y - u2VCC.y)
-      const dist4 = Math.hypot(u1GND.x - u2GND.x, u1GND.y - u2GND.y)
+      const dist1 = u1VCC && u2VCC ? Math.hypot(u1VCC.x - u2VCC.x, u1VCC.y - u2VCC.y) : 0
+      const dist2 = u1VCC && u2GND ? Math.hypot(u1VCC.x - u2GND.x, u1VCC.y - u2GND.y) : 0
+      const dist3 = u1GND && u2VCC ? Math.hypot(u1GND.x - u2VCC.x, u1GND.y - u2VCC.y) : 0
+      const dist4 = u1GND && u2GND ? Math.hypot(u1GND.x - u2GND.x, u1GND.y - u2GND.y) : 0
 
       const minDist = Math.min(dist1, dist2, dist3, dist4)
       console.log(

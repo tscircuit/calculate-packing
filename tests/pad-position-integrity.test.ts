@@ -73,22 +73,22 @@ test("pads should maintain correct offsets when rotation is constrained to [0]",
       const originalPad = originalComponent.pads[i]
 
       // Calculate expected absolute position (center + offset)
-      const expectedX = component.center.x + originalPad.offset.x
-      const expectedY = component.center.y + originalPad.offset.y
+      const expectedX = component.center.x + (originalPad?.offset.x ?? 0)
+      const expectedY = component.center.y + (originalPad?.offset.y ?? 0)
 
-      console.log(`  ${resultPad.padId}:`)
+      console.log(`  ${resultPad?.padId}:`)
       console.log(
-        `    Original offset: (${originalPad.offset.x}, ${originalPad.offset.y})`,
+        `    Original offset: (${originalPad?.offset.x}, ${originalPad?.offset.y})`,
       )
       console.log(
         `    Expected absolute: (${expectedX.toFixed(2)}, ${expectedY.toFixed(2)})`,
       )
       console.log(
-        `    Actual absolute: (${resultPad.absoluteCenter.x.toFixed(2)}, ${resultPad.absoluteCenter.y.toFixed(2)})`,
+        `    Actual absolute: (${resultPad?.absoluteCenter?.x.toFixed(2)}, ${resultPad?.absoluteCenter?.y.toFixed(2)})`,
       )
 
-      const deltaX = Math.abs(resultPad.absoluteCenter.x - expectedX)
-      const deltaY = Math.abs(resultPad.absoluteCenter.y - expectedY)
+      const deltaX = Math.abs((resultPad?.absoluteCenter?.x ?? 0) - expectedX)
+      const deltaY = Math.abs((resultPad?.absoluteCenter?.y ?? 0) - expectedY)
       console.log(`    Delta: (${deltaX.toFixed(3)}, ${deltaY.toFixed(3)})`)
 
       // With no rotation allowed, pad positions should exactly match center + offset
@@ -97,11 +97,11 @@ test("pads should maintain correct offsets when rotation is constrained to [0]",
 
       if (deltaX > 0.001 || deltaY > 0.001) {
         console.log(
-          `    ❌ MISMATCH: Pad ${resultPad.padId} is not at expected position!`,
+          `    ❌ MISMATCH: Pad ${resultPad?.padId} is not at expected position!`,
         )
       } else {
         console.log(
-          `    ✅ CORRECT: Pad ${resultPad.padId} is at expected position`,
+          `    ✅ CORRECT: Pad ${resultPad?.padId} is at expected position`,
         )
       }
     }
@@ -184,10 +184,10 @@ test("compare rotation=0 vs unconstrained to see the difference", () => {
   )
   console.log(`  Rotation: ${u2Constrained.ccwRotationOffset.toFixed(1)}°`)
   console.log(
-    `  VCC pad: (${u2Constrained.pads[0].absoluteCenter.x.toFixed(2)}, ${u2Constrained.pads[0].absoluteCenter.y.toFixed(2)})`,
+    `  VCC pad: (${u2Constrained.pads[0]?.absoluteCenter?.x.toFixed(2)}, ${u2Constrained.pads[0]?.absoluteCenter?.y.toFixed(2)})`,
   )
   console.log(
-    `  GND pad: (${u2Constrained.pads[1].absoluteCenter.x.toFixed(2)}, ${u2Constrained.pads[1].absoluteCenter.y.toFixed(2)})`,
+    `  GND pad: (${u2Constrained.pads[1]?.absoluteCenter?.x.toFixed(2)}, ${u2Constrained.pads[1]?.absoluteCenter?.y.toFixed(2)})`,
   )
 
   console.log(`Unconstrained U2:`)
@@ -196,10 +196,10 @@ test("compare rotation=0 vs unconstrained to see the difference", () => {
   )
   console.log(`  Rotation: ${u2Unconstrained.ccwRotationOffset.toFixed(1)}°`)
   console.log(
-    `  VCC pad: (${u2Unconstrained.pads[0].absoluteCenter.x.toFixed(2)}, ${u2Unconstrained.pads[0].absoluteCenter.y.toFixed(2)})`,
+    `  VCC pad: (${u2Unconstrained.pads[0]?.absoluteCenter?.x.toFixed(2)}, ${u2Unconstrained.pads[0]?.absoluteCenter?.y.toFixed(2)})`,
   )
   console.log(
-    `  GND pad: (${u2Unconstrained.pads[1].absoluteCenter.x.toFixed(2)}, ${u2Unconstrained.pads[1].absoluteCenter.y.toFixed(2)})`,
+    `  GND pad: (${u2Unconstrained.pads[1]?.absoluteCenter?.x.toFixed(2)}, ${u2Unconstrained.pads[1]?.absoluteCenter?.y.toFixed(2)})`,
   )
 
   // They should be different if rotation constraints are working
