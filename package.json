@@ -8,6 +8,7 @@
     "start": "cosmos",
     "format": "biome format --write .",
     "format:check": "biome format .",
+    "typecheck": "tsc --noEmit",
     "build": "tsup-node lib/index.ts --format esm --dts --outDir dist",
     "build:site": "cosmos-export"
   },

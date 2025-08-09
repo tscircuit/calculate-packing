@@ -25,6 +25,7 @@ export interface InputComponent {
 
 export interface PackedComponent extends InputComponent {
   center: { x: number; y: number }
+  /** Rotation in degrees (counterclockwise) */
   ccwRotationOffset: number
   pads: OutputPad[]
 }
@@ -38,6 +39,7 @@ export interface PackInput {
   packPlacementStrategy:
     | "shortest_connection_along_outline"
     | "minimum_sum_distance_to_network"
+    | "minimum_sum_squared_distance_to_network"
 
   disconnectedPackDirection?:
     | "left"
