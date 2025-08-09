@@ -8,7 +8,7 @@ const packInput: PackInput = {
       pads: [
         {
           padId: "U1.1",
-          networkId: "C6.1_U1.1",
+          networkId: "C1.1",
           type: "rect",
           offset: {
             x: -1,
@@ -21,7 +21,7 @@ const packInput: PackInput = {
         },
         {
           padId: "U1.2",
-          networkId: "C6.2_U1.2",
+          networkId: "C1.2",
           type: "rect",
           offset: {
             x: -1,
@@ -34,7 +34,7 @@ const packInput: PackInput = {
         },
         {
           padId: "U1.3",
-          networkId: "U1.1_U1.3",
+          networkId: "C1.1",
           type: "rect",
           offset: {
             x: 1,
@@ -47,7 +47,7 @@ const packInput: PackInput = {
         },
         {
           padId: "U1.4",
-          networkId: "C5.1_U1.4",
+          networkId: "U1.4",
           type: "rect",
           offset: {
             x: 1,
@@ -78,7 +78,7 @@ const packInput: PackInput = {
       pads: [
         {
           padId: "C6.1",
-          networkId: "C6.1_U1.1",
+          networkId: "C1.1",
           type: "rect",
           offset: {
             x: -0.00027334999999961695,
@@ -91,7 +91,7 @@ const packInput: PackInput = {
         },
         {
           padId: "C6.2",
-          networkId: "C6.2_U1.2",
+          networkId: "C1.2",
           type: "rect",
           offset: {
             x: 0.00027334999999961695,
@@ -122,7 +122,7 @@ const packInput: PackInput = {
       pads: [
         {
           padId: "C1.1",
-          networkId: "C1.1_U1.1",
+          networkId: "C1.1",
           type: "rect",
           offset: {
             x: -0.00027335000000006104,
@@ -135,7 +135,7 @@ const packInput: PackInput = {
         },
         {
           padId: "C1.2",
-          networkId: "C1.2_U1.2",
+          networkId: "C1.2",
           type: "rect",
           offset: {
             x: 0.00027334999999961695,
@@ -166,7 +166,7 @@ const packInput: PackInput = {
       pads: [
         {
           padId: "C2.1",
-          networkId: "C2.1_U1.1",
+          networkId: "C1.1",
           type: "rect",
           offset: {
             x: -0.00027334999999961695,
@@ -179,7 +179,7 @@ const packInput: PackInput = {
         },
         {
           padId: "C2.2",
-          networkId: "C2.2_U1.2",
+          networkId: "C1.2",
           type: "rect",
           offset: {
             x: 0.00027335000000006104,
