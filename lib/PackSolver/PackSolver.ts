@@ -182,46 +182,31 @@ export class PackSolver extends BaseSolver {
       // Store all candidate points for visualization
       this.lastCandidatePoints = []
       
-      // For minimum sum distance strategy, evaluate each outline point
-      // by computing the sum of distances for all pads to their nearest packed pads
+      // For minimum sum distance strategy, find optimal point along each outline segment
+      // by using ternary search to minimize the sum of distances
       for (const outline of outlines) {
         for (const outlineSegment of outline) {
-          // Sample points along the outline segment
-          const samplePoints = [
-            outlineSegment[0],
-            {
-              x: (outlineSegment[0].x + outlineSegment[1].x) / 2,
-              y: (outlineSegment[0].y + outlineSegment[1].y) / 2,
-            },
-            outlineSegment[1],
-          ]
+          const [p1, p2] = outlineSegment
+          
+          for (const sharedNetworkId of sharedNetworkIds) {
+            // Use ternary search to find optimal point along segment
+            const { point: optimalPoint, distance: optimalDistance, candidatePoints } = 
+              this.findOptimalPointOnSegment(p1, p2, newPackedComponent, sharedNetworkId)
+            
+            // Store all candidate points for visualization
+            for (const candidatePoint of candidatePoints) {
+              this.lastCandidatePoints.push(candidatePoint)
+            }
 
-          for (const samplePoint of samplePoints) {
-            for (const sharedNetworkId of sharedNetworkIds) {
-              // Calculate sum distance for this position and network
-              const sumDistance = this.computeSumDistanceForPosition(
-                newPackedComponent,
-                samplePoint,
-                sharedNetworkId,
-              )
-
-              // Store all candidate points for visualization
-              this.lastCandidatePoints.push({
-                ...samplePoint,
-                networkId: sharedNetworkId,
-                distance: sumDistance,
-              })
-
-              if (sumDistance < smallestDistance + 1e-6) {
-                if (sumDistance < smallestDistance - 1e-6) {
-                  bestPoints = [{ ...samplePoint, networkId: sharedNetworkId }]
-                  smallestDistance = sumDistance
-                } else {
-                  bestPoints.push({
-                    ...samplePoint,
-                    networkId: sharedNetworkId,
-                  })
-                }
+            if (optimalDistance < smallestDistance + 1e-6) {
+              if (optimalDistance < smallestDistance - 1e-6) {
+                bestPoints = [{ ...optimalPoint, networkId: sharedNetworkId }]
+                smallestDistance = optimalDistance
+              } else {
+                bestPoints.push({
+                  ...optimalPoint,
+                  networkId: sharedNetworkId,
+                })
               }
             }
           }
@@ -690,5 +675,79 @@ export class PackSolver extends BaseSolver {
     }
 
     return sumDistance
+  }
+
+  /**
+   * Find the optimal point along a segment that minimizes sum distance for a given network
+   * Uses ternary search for continuous optimization
+   */
+  private findOptimalPointOnSegment(
+    p1: Point,
+    p2: Point,
+    component: PackedComponent,
+    networkId: NetworkId,
+  ): {
+    point: Point
+    distance: number
+    candidatePoints: Array<Point & { networkId: NetworkId; distance: number }>
+  } {
+    const candidatePoints: Array<Point & { networkId: NetworkId; distance: number }>= []
+    const tolerance = 1e-6
+    let left = 0
+    let right = 1
+    
+    // Function to interpolate point along segment
+    const interpolatePoint = (t: number): Point => ({
+      x: p1.x + t * (p2.x - p1.x),
+      y: p1.y + t * (p2.y - p1.y),
+    })
+    
+    // Function to evaluate sum distance at parameter t
+    const evaluateDistance = (t: number): number => {
+      const point = interpolatePoint(t)
+      const distance = this.computeSumDistanceForPosition(component, point, networkId)
+      
+      // Store for visualization
+      candidatePoints.push({
+        ...point,
+        networkId,
+        distance,
+      })
+      
+      return distance
+    }
+    
+    // Ternary search to find minimum
+    while (right - left > tolerance) {
+      const leftThird = left + (right - left) / 3
+      const rightThird = right - (right - left) / 3
+      
+      const leftDistance = evaluateDistance(leftThird)
+      const rightDistance = evaluateDistance(rightThird)
+      
+      if (leftDistance > rightDistance) {
+        left = leftThird
+      } else {
+        right = rightThird
+      }
+    }
+    
+    // Final optimal point
+    const optimalT = (left + right) / 2
+    const optimalPoint = interpolatePoint(optimalT)
+    const optimalDistance = this.computeSumDistanceForPosition(component, optimalPoint, networkId)
+    
+    // Add optimal point to candidates
+    candidatePoints.push({
+      ...optimalPoint,
+      networkId,
+      distance: optimalDistance,
+    })
+    
+    return {
+      point: optimalPoint,
+      distance: optimalDistance,
+      candidatePoints,
+    }
   }
 }
