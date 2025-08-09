@@ -19,6 +19,7 @@ import {
   optimizeTranslationForMinimumSum,
   optimizeTranslationForMinimumSumWithSampling,
 } from "./translationOptimizer"
+import { selectOptimalRotation } from "./RotationSelector"
 
 /**
  * The pack algorithm performs the following steps:
@@ -285,227 +286,50 @@ export class PackSolver extends BaseSolver {
     // especially when rotation is constrained
     let allCandidatePoints = [...bestPoints]
 
-    // Add additional candidate points if we have rotation constraints
+    // Add systematic sampling points along all outline segments
+    // This ensures we test positions that work well for all rotations
     for (const sharedNetworkId of sharedNetworkIds) {
-      const hasRotationConstraints =
-        newPackedComponent.availableRotationDegrees &&
-        newPackedComponent.availableRotationDegrees.length < 4
-
-      if (hasRotationConstraints) {
-        // Try more positions along the outline to find ones that work with constrained rotation
-        for (const outline of outlines) {
-          for (const outlineSegment of outline) {
-            const [p1, p2] = outlineSegment
-            // Sample multiple points along each segment
-            for (let t = 0; t <= 1; t += 0.25) {
-              const candidatePoint = {
-                x: p1.x + t * (p2.x - p1.x),
-                y: p1.y + t * (p2.y - p1.y),
-                networkId: sharedNetworkId,
-              }
-              allCandidatePoints.push(candidatePoint)
+      for (const outline of outlines) {
+        for (const outlineSegment of outline) {
+          const [p1, p2] = outlineSegment
+          // Sample multiple points along each segment (always, not just for constrained rotations)
+          for (let t = 0; t <= 1; t += 0.2) {
+            const candidatePoint = {
+              x: p1.x + t * (p2.x - p1.x),
+              y: p1.y + t * (p2.y - p1.y),
+              networkId: sharedNetworkId,
             }
+            allCandidatePoints.push(candidatePoint)
           }
         }
       }
     }
 
-    let bestCandidate: {
-      center: Point
-      angle: number
-      cost: number
-      pads: PackedComponent["pads"]
-    } | null = null
+    // Use the new RotationSelector for cleaner, more optimal rotation selection
+    const useSquaredDistance = packPlacementStrategy === "minimum_sum_squared_distance_to_network"
+    
+    const bestCandidate = selectOptimalRotation({
+      component: newPackedComponent,
+      candidatePoints: allCandidatePoints,
+      packedComponents: this.packedComponents,
+      minGap: minGap,
+      useSquaredDistance: useSquaredDistance,
+      checkOverlap: (comp) => this.checkOverlapWithPackedComponents(comp),
+    })
 
-    for (const bestPoint of allCandidatePoints) {
-      const networkId = bestPoint.networkId
-
-      const newPadsConnectedToNetworkId = newPackedComponent.pads.filter(
-        (p) => p.networkId === networkId,
-      )
-
-      /* -------------------------------------------------------------
-       * 1. Build a set of candidate rotations (0°,90°,180°,270°)
-       * 2. For every candidate rotation:
-       *      • translate the component so that the FIRST pad on
-       *        this networkId lands exactly on bestPoint
-       *      • reject the candidate if ANY pad overlaps with an
-       *        already-packed pad (simple AABB test)
-       *      • compute a cost = Σ   (for every pad that shares a
-       *        network with the already-packed board)
-       *        min-distance to another pad on that same network
-       * 3. Pick the candidate with the smallest cost
-       * ------------------------------------------------------------- */
-
-      // Determine which rotations are allowed for this component.
-      // • If the component specifies availableRotationDegrees we use those
-      // • Otherwise fall back to the four cardinal rotations (0°,90°,180°,270°)
+    /* Apply the best candidate (fallback: first available rotation at reasonable position) */
+    if (bestCandidate) {
+      newPackedComponent.center = bestCandidate.center
+      newPackedComponent.ccwRotationOffset = bestCandidate.angle
+      newPackedComponent.pads = bestCandidate.pads
+    } else {
+      /* no valid rotation found – fallback */
       const candidateAngles = this.getCandidateAngles(newPackedComponent)
-
-      const packedPads = this.packedComponents.flatMap((c) => c.pads)
-
-      for (const angle of candidateAngles) {
-        /* rotate FIRST pad of this network so it will hit bestPoint */
-        const firstPad = newPadsConnectedToNetworkId[0]
-        if (!firstPad) continue
-        const rotatedOffset = rotatePoint(
-          firstPad.offset,
-          (angle * Math.PI) / 180,
-        ) // Convert to radians for math
-        const candidateCenter = {
-          x: bestPoint.x - rotatedOffset.x,
-          y: bestPoint.y - rotatedOffset.y,
-        }
-
-        /* build pad list for the candidate */
-        const transformedPads = newPackedComponent.pads.map((p) => {
-          const ro = rotatePoint(p.offset, (angle * Math.PI) / 180) // Convert to radians for math
-          
-          /* rotate the pad dimensions based on component rotation */
-          const normalizedRotation = ((angle % 360) + 360) % 360
-          const shouldSwapDimensions = normalizedRotation === 90 || normalizedRotation === 270
-          
-          return {
-            ...p,
-            size: shouldSwapDimensions 
-              ? { x: p.size.y, y: p.size.x } // Swap width/height for 90°/270° rotations
-              : p.size, // Keep original dimensions for 0°/180° rotations
-            absoluteCenter: {
-              x: candidateCenter.x + ro.x,
-              y: candidateCenter.y + ro.y,
-            },
-          }
-        })
-
-        /* --- 1. overlap check (component bounds) ----------------------- */
-        const tempComponent: PackedComponent = {
-          ...newPackedComponent,
-          center: candidateCenter,
-          ccwRotationOffset: angle,
-          pads: transformedPads,
-        }
-
-        // Always add the initial candidate to visualization
-        this.lastEvaluatedPositionShadows?.push({ ...tempComponent })
-
-        if (this.checkOverlapWithPackedComponents(tempComponent)) continue
-
-        /* --- 2. cost (connection length) ------------------------------- */
-        let cost = 0
-        if (
-          packPlacementStrategy === "minimum_sum_distance_to_network" ||
-          packPlacementStrategy === "minimum_sum_squared_distance_to_network"
-        ) {
-          // For minimum sum distance strategy, optimize translation within available space
-          const useSquaredDistance =
-            packPlacementStrategy === "minimum_sum_squared_distance_to_network"
-          const optimizedCenter = optimizeTranslationForMinimumSumWithSampling({
-            component: tempComponent,
-            initialCenter: candidateCenter,
-            packedComponents: this.packedComponents,
-            minGap: minGap,
-            useSquaredDistance: useSquaredDistance,
-          })
-
-          // Rebuild transformedPads with optimized center, preserving rotated dimensions from transformedPads
-          const optimizedTransformedPads = transformedPads.map((p) => {
-            const ro = rotatePoint({ x: p.offset.x, y: p.offset.y }, (angle * Math.PI) / 180) // Convert to radians for math
-            return {
-              ...p, // This already has the correct rotated dimensions from transformedPads
-              absoluteCenter: {
-                x: optimizedCenter.x + ro.x,
-                y: optimizedCenter.y + ro.y,
-              },
-            }
-          })
-
-          // Update tempComponent with optimized position
-          tempComponent.center = optimizedCenter
-          tempComponent.pads = optimizedTransformedPads
-
-          // Add optimized position to visualization if different from initial
-          if (
-            optimizedCenter.x !== candidateCenter.x ||
-            optimizedCenter.y !== candidateCenter.y
-          ) {
-            this.lastEvaluatedPositionShadows?.push({ ...tempComponent })
-          }
-
-          // Recheck overlap with optimized position
-          if (this.checkOverlapWithPackedComponents(tempComponent)) continue
-
-          // Compute cost with optimized position
-          for (const tp of optimizedTransformedPads) {
-            const sameNetPads = packedPads.filter(
-              (pp) => pp.networkId === tp.networkId,
-            )
-            if (!sameNetPads.length) continue
-            let bestD = Infinity
-            for (const pp of sameNetPads) {
-              const dx = tp.absoluteCenter.x - pp.absoluteCenter.x
-              const dy = tp.absoluteCenter.y - pp.absoluteCenter.y
-              const d = Math.hypot(dx, dy)
-              if (d < bestD) bestD = d
-            }
-            cost += bestD === Infinity ? 0 : bestD
-          }
-        } else {
-          // Original strategy
-          for (const tp of transformedPads) {
-            const sameNetPads = packedPads.filter(
-              (pp) => pp.networkId === tp.networkId,
-            )
-            if (!sameNetPads.length) continue
-            let bestD = Infinity
-            for (const pp of sameNetPads) {
-              const dx = tp.absoluteCenter.x - pp.absoluteCenter.x
-              const dy = tp.absoluteCenter.y - pp.absoluteCenter.y
-              const d = Math.hypot(dx, dy)
-              if (d < bestD) bestD = d
-            }
-            cost += bestD
-          }
-        }
-
-        if (!bestCandidate || cost < bestCandidate.cost) {
-          const finalCenter =
-            packPlacementStrategy === "minimum_sum_distance_to_network" ||
-            packPlacementStrategy === "minimum_sum_squared_distance_to_network"
-              ? tempComponent.center // Use optimized center for both strategies
-              : candidateCenter // Use original center for other strategies
-          const finalPads = 
-            packPlacementStrategy === "minimum_sum_distance_to_network" ||
-            packPlacementStrategy === "minimum_sum_squared_distance_to_network"
-              ? tempComponent.pads // Use pads with rotated dimensions
-              : transformedPads // Use original transformed pads
-          bestCandidate = { center: finalCenter, angle, cost, pads: finalPads }
-        }
-      }
-
-      /* Apply the best candidate (fallback: first one with 0° rotation) */
-      if (bestCandidate) {
-        newPackedComponent.center = bestCandidate.center
-        newPackedComponent.ccwRotationOffset = bestCandidate.angle
-        newPackedComponent.pads = bestCandidate.pads // Apply pads with rotated dimensions
-      } else {
-        /* no valid rotation found – if rotation is constrained, this is a problem */
-        const availableAngles = candidateAngles
-          .map((a) => a.toFixed(0) + "°")
-          .join(", ")
-        console.warn(
-          `No valid rotation found for ${newPackedComponent.componentId} at point (${bestPoint.x.toFixed(1)}, ${bestPoint.y.toFixed(1)}). Available: ${availableAngles}. Fallback to first available rotation.`,
-        )
-
-        const firstPad = newPadsConnectedToNetworkId[0]!
-        const candidateCenter = {
-          x: bestPoint.x - firstPad.offset.x,
-          y: bestPoint.y - firstPad.offset.y,
-        }
-        newPackedComponent.center = candidateCenter
-        newPackedComponent.ccwRotationOffset = candidateAngles[0] // Use first available rotation, not always 0
-      }
-
-      /* recompute absolute pad centres */
+      console.warn(
+        `No valid placement found for ${newPackedComponent.componentId}. Using fallback position.`,
+      )
+      newPackedComponent.center = { x: 5, y: 5 } // Fallback position
+      newPackedComponent.ccwRotationOffset = candidateAngles[0]
       setPackedComponentPadCenters(newPackedComponent)
     }
 
