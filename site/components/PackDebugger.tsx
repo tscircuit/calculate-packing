@@ -2,7 +2,6 @@ import { InteractiveGraphics } from "graphics-debug/react"
 import type { PackInput, PackOutput } from "../../lib/types"
 import { getGraphicsFromPackOutput } from "../../lib/testing/getGraphicsFromPackOutput"
 import { convertPackOutputToPackInput } from "../../lib/plumbing/convertPackOutputToPackInput"
-import { PackSolver } from "../../lib/PackSolver/PackSolver"
 import { useMemo, useReducer } from "react"
 import { PhasedPackSolver } from "../../lib"
 

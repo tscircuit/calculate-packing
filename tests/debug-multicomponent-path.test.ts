@@ -1,5 +1,5 @@
 import { test, expect } from "bun:test"
-import { PackSolver } from "../lib/PackSolver/PackSolver"
+import { pack } from "../lib"
 import type { PackInput } from "../lib/types"
 
 test("debug multi-component placement path", () => {
@@ -32,10 +32,8 @@ test("debug multi-component placement path", () => {
 
   console.log(`=== Debugging Multi-Component Path ===`)
   
-  const solver = new PackSolver(input)
-  solver.solve()
-  
-  const result = solver.getResult()
+  const output = pack(input)
+  const result = output.components
   const u2 = result.find(c => c.componentId === "U2")!
   const bodyPad = u2.pads[0]!
 

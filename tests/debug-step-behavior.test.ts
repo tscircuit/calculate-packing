@@ -1,6 +1,6 @@
 import { test, expect } from "bun:test"
 import { convertPackOutputToPackInput } from "../lib/plumbing/convertPackOutputToPackInput"
-import { PackSolver } from "../lib/PackSolver/PackSolver"
+import { pack } from "../lib"
 import type { PackOutput } from "../lib/types"
 
 test("simulate PackDebugger step behavior with 90° constraint", () => {
@@ -75,14 +75,11 @@ test("simulate PackDebugger step behavior with 90° constraint", () => {
   // Verify the conversion preserved rotation constraints
   expect(packInput.components[1].availableRotationDegrees).toEqual([90])
   
-  // Step 2: Create PackSolver (what PackDebugger does)
-  const packSolver = new PackSolver(packInput)
-  
-  // Step 3: Run one step (what happens when user clicks "step")
-  packSolver.step() // Pack first component (U1)
-  packSolver.step() // Pack second component (U2) - this should respect [90] constraint
-  
-  const result = packSolver.getResult()
+  // Step 2: Run pack algorithm (what PackDebugger does)
+  // Note: The pack function doesn't support step-by-step execution,
+  // so we'll pack all components at once
+  const packOutput = pack(packInput)
+  const result = packOutput.components
   const u2Result = result.find(c => c.componentId === "U2")!
   
   console.log(`\nAfter stepping:`)

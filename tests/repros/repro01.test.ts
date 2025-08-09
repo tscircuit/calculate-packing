@@ -1,6 +1,6 @@
 import { test, expect } from "bun:test"
 import type { PackOutput } from "../../lib/types"
-import { PackSolver } from "../../lib"
+import { PhasedPackSolver } from "../../lib"
 import { getSvgFromGraphicsObject } from "graphics-debug"
 
 const manualPackOutput: PackOutput = {
@@ -246,7 +246,7 @@ const manualPackOutput: PackOutput = {
 }
 
 test("repro01", () => {
-  const packSolver = new PackSolver(manualPackOutput)
+  const packSolver = new PhasedPackSolver(manualPackOutput)
   packSolver.solve()
   const svg = getSvgFromGraphicsObject(packSolver.visualize(), {
     backgroundColor: "white",
