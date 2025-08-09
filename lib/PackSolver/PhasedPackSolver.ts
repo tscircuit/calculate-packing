@@ -795,7 +795,14 @@ export class PhasedPackSolver extends BaseSolver {
   private visualizeRotationTrials(graphics: GraphicsObject): void {
     if (!this.phaseData.rotationTrials) return
 
-    for (const trial of this.phaseData.rotationTrials) {
+    // Sort trials by cost (highest to lowest) for step assignment
+    const sortedTrials = [...this.phaseData.rotationTrials].sort((a, b) => b.cost - a.cost)
+
+    let trialIndex = 0
+
+    for (const trial of sortedTrials) {
+      const currentStep = trialIndex
+
       // Show component center as a point with rotation, cost and anchor info
       // Offset point slightly based on rotation to avoid overlap
       const rotationOffset = 0.02 * (trial.ccwRotationOffset / 90)
@@ -823,8 +830,11 @@ export class PhasedPackSolver extends BaseSolver {
           fill: padColor.fill,
           stroke: padColor.stroke,
           strokeWidth: 0.01,
+          step: currentStep,
         } as Rect)
       }
+
+      trialIndex++
     }
   }
 
