@@ -1,4 +1,5 @@
-import type { PackedComponent, Point, NetworkId } from "../types"
+import type { PackedComponent } from "../types"
+import type { Point } from "../geometry/types"
 import { getComponentBounds } from "../geometry/getComponentBounds"
 
 export interface TranslationBounds {
@@ -406,7 +407,7 @@ export function optimizeTranslationForMinimumSum(
 
       for (let j = 0; j < packedPads.length; j++) {
         const pp = packedPads[j]
-        if (pp.networkId !== pad.networkId) continue
+        if (!pp || pp.networkId !== pad.networkId) continue
         const d = Math.hypot(
           padAbs.x - pp.absoluteCenter.x,
           padAbs.y - pp.absoluteCenter.y,

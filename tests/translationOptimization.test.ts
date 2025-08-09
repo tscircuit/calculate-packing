@@ -48,12 +48,12 @@ describe("Translation Optimization", () => {
     expect(result).toHaveLength(2)
 
     // Check that components are positioned
-    expect(result[0].center).toBeDefined()
-    expect(result[1].center).toBeDefined()
+    expect(result[0]!.center).toBeDefined()
+    expect(result[1]!.center).toBeDefined()
 
     // Calculate the distance between the VCC pads
-    const u1VccPad = result[0].pads.find((p) => p.networkId === "VCC")
-    const u2VccPad = result[1].pads.find((p) => p.networkId === "VCC")
+    const u1VccPad = result[0]!.pads.find((p) => p.networkId === "VCC")
+    const u2VccPad = result[1]!.pads.find((p) => p.networkId === "VCC")
 
     expect(u1VccPad).toBeDefined()
     expect(u2VccPad).toBeDefined()
@@ -127,8 +127,8 @@ describe("Translation Optimization", () => {
     for (let i = 0; i < result.length; i++) {
       for (let j = i + 1; j < result.length; j++) {
         const dist = Math.hypot(
-          result[i].center.x - result[j].center.x,
-          result[i].center.y - result[j].center.y,
+          result[i]!.center.x - result[j]!.center.x,
+          result[i]!.center.y - result[j]!.center.y,
         )
         expect(dist).toBeGreaterThan(2) // Should respect minGap
       }
@@ -216,8 +216,8 @@ describe("Translation Optimization", () => {
         for (let i = 0; i < pads.length; i++) {
           for (let j = i + 1; j < pads.length; j++) {
             totalDistance += Math.hypot(
-              pads[i].absoluteCenter.x - pads[j].absoluteCenter.x,
-              pads[i].absoluteCenter.y - pads[j].absoluteCenter.y,
+              pads[i]!.absoluteCenter.x - pads[j]!.absoluteCenter.x,
+              pads[i]!.absoluteCenter.y - pads[j]!.absoluteCenter.y,
             )
           }
         }
