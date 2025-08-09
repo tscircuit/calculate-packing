@@ -6,15 +6,18 @@ import { PackSolver } from "../../lib/PackSolver/PackSolver"
 import { useMemo, useReducer } from "react"
 
 interface PackDebuggerProps {
-  initialPackOutput: PackOutput
+  initialPackOutput?: PackOutput
+  initialPackInput?: PackInput
   title?: string
 }
 
 export const PackDebugger = ({
   initialPackOutput,
+  initialPackInput,
   title = "Pack Debugger",
 }: PackDebuggerProps) => {
-  const packInput: PackInput = convertPackOutputToPackInput(initialPackOutput)
+  const packInput: PackInput =
+    initialPackInput ?? convertPackOutputToPackInput(initialPackOutput!)
   const packSolver = useMemo(() => new PackSolver(packInput), [])
   const [runCount, incRunCount] = useReducer((c) => c + 1, 0)
 
@@ -57,12 +60,14 @@ export const PackDebugger = ({
       <InteractiveGraphics graphics={packSolver.visualize()} />
 
       {/* Manual Pack Output (collapsible) */}
-      <details style={{ marginTop: "20px" }}>
-        <summary>Manual Pack Output</summary>
-        <InteractiveGraphics
-          graphics={getGraphicsFromPackOutput(initialPackOutput)}
-        />
-      </details>
+      {initialPackOutput && (
+        <details style={{ marginTop: "20px" }}>
+          <summary>Manual Pack Output</summary>
+          <InteractiveGraphics
+            graphics={getGraphicsFromPackOutput(initialPackOutput)}
+          />
+        </details>
+      )}
     </div>
   )
 }
