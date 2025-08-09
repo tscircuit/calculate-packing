@@ -15,8 +15,8 @@ const packInput: PackInput = {
             y: 0.1,
           },
           size: {
-            x: 0.001,
-            y: 0.001,
+            x: 0.1,
+            y: 0.1,
           },
         },
         {
@@ -28,21 +28,21 @@ const packInput: PackInput = {
             y: -0.1,
           },
           size: {
-            x: 0.001,
-            y: 0.001,
+            x: 0.1,
+            y: 0.1,
           },
         },
         {
           padId: "U1.3",
-          networkId: "C1.1",
+          networkId: "U1.3",
           type: "rect",
           offset: {
             x: 1,
             y: -0.1,
           },
           size: {
-            x: 0.001,
-            y: 0.001,
+            x: 0.1,
+            y: 0.1,
           },
         },
         {
@@ -54,8 +54,8 @@ const packInput: PackInput = {
             y: 0.1,
           },
           size: {
-            x: 0.001,
-            y: 0.001,
+            x: 0.1,
+            y: 0.1,
           },
         },
         {
@@ -85,8 +85,8 @@ const packInput: PackInput = {
             y: 0.5512093000000002,
           },
           size: {
-            x: 0.001,
-            y: 0.001,
+            x: 0.1,
+            y: 0.1,
           },
         },
         {
@@ -98,8 +98,8 @@ const packInput: PackInput = {
             y: -0.5512093000000002,
           },
           size: {
-            x: 0.001,
-            y: 0.001,
+            x: 0.1,
+            y: 0.1,
           },
         },
         {
@@ -129,8 +129,8 @@ const packInput: PackInput = {
             y: 0.5512093000000002,
           },
           size: {
-            x: 0.001,
-            y: 0.001,
+            x: 0.1,
+            y: 0.1,
           },
         },
         {
@@ -142,8 +142,8 @@ const packInput: PackInput = {
             y: -0.5512093000000002,
           },
           size: {
-            x: 0.001,
-            y: 0.001,
+            x: 0.1,
+            y: 0.1,
           },
         },
         {
@@ -173,8 +173,8 @@ const packInput: PackInput = {
             y: 0.5512093000000002,
           },
           size: {
-            x: 0.001,
-            y: 0.001,
+            x: 0.1,
+            y: 0.1,
           },
         },
         {
@@ -186,8 +186,8 @@ const packInput: PackInput = {
             y: -0.5512093000000002,
           },
           size: {
-            x: 0.001,
-            y: 0.001,
+            x: 0.1,
+            y: 0.1,
           },
         },
         {
