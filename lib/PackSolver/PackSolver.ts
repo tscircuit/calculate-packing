@@ -15,7 +15,7 @@ import type { Segment } from "../geometry/types"
 import { getSegmentsFromPad } from "./getSegmentsFromPad"
 import { computeNearestPointOnSegmentForSegmentSet } from "../math/computeNearestPointOnSegmentForSegmentSet"
 import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
-import { optimizeTranslationForMinimumSum } from "./translationOptimizer"
+import { optimizeTranslationForMinimumSum, optimizeTranslationForMinimumSumWithSampling } from "./translationOptimizer"
 
 /**
  * The pack algorithm performs the following steps:
@@ -178,7 +178,7 @@ export class PackSolver extends BaseSolver {
     let smallestDistance = Number.POSITIVE_INFINITY
     let bestPoints: (Point & { networkId: NetworkId })[] = []
 
-    if (packPlacementStrategy === "minimum_sum_distance_to_network") {
+    if (packPlacementStrategy === "minimum_sum_distance_to_network" || packPlacementStrategy === "minimum_sum_squared_distance_to_network") {
       // Store all candidate points for visualization
       this.lastCandidatePoints = []
       
@@ -191,7 +191,7 @@ export class PackSolver extends BaseSolver {
           for (const sharedNetworkId of sharedNetworkIds) {
             // Use ternary search to find optimal point along segment
             const { point: optimalPoint, distance: optimalDistance, candidatePoints } = 
-              this.findOptimalPointOnSegment(p1, p2, newPackedComponent, sharedNetworkId)
+              this.findOptimalPointOnSegment(p1, p2, newPackedComponent, sharedNetworkId, packPlacementStrategy === "minimum_sum_squared_distance_to_network")
             
             // Store all candidate points for visualization
             for (const candidatePoint of candidatePoints) {
@@ -260,7 +260,35 @@ export class PackSolver extends BaseSolver {
 
     this.lastEvaluatedPositionShadows = []
 
-    for (const bestPoint of bestPoints) {
+    // Instead of just trying bestPoints, try multiple promising positions
+    // especially when rotation is constrained
+    let allCandidatePoints = [...bestPoints]
+    
+    // Add additional candidate points if we have rotation constraints
+    for (const sharedNetworkId of sharedNetworkIds) {
+      const hasRotationConstraints = newPackedComponent.availableRotationDegrees && 
+                                   newPackedComponent.availableRotationDegrees.length < 4
+      
+      if (hasRotationConstraints) {
+        // Try more positions along the outline to find ones that work with constrained rotation
+        for (const outline of outlines) {
+          for (const outlineSegment of outline) {
+            const [p1, p2] = outlineSegment
+            // Sample multiple points along each segment
+            for (let t = 0; t <= 1; t += 0.25) {
+              const candidatePoint = {
+                x: p1.x + t * (p2.x - p1.x),
+                y: p1.y + t * (p2.y - p1.y),
+                networkId: sharedNetworkId,
+              }
+              allCandidatePoints.push(candidatePoint)
+            }
+          }
+        }
+      }
+    }
+
+    for (const bestPoint of allCandidatePoints) {
       const networkId = bestPoint.networkId
 
       const newPadsConnectedToNetworkId = newPackedComponent.pads.filter(
@@ -296,7 +324,7 @@ export class PackSolver extends BaseSolver {
         /* rotate FIRST pad of this network so it will hit bestPoint */
         const firstPad = newPadsConnectedToNetworkId[0]
         if (!firstPad) continue
-        const rotatedOffset = rotatePoint(firstPad.offset, angle)
+        const rotatedOffset = rotatePoint(firstPad.offset, angle * Math.PI / 180) // Convert to radians for math
         const candidateCenter = {
           x: bestPoint.x - rotatedOffset.x,
           y: bestPoint.y - rotatedOffset.y,
@@ -304,7 +332,7 @@ export class PackSolver extends BaseSolver {
 
         /* build pad list for the candidate */
         const transformedPads = newPackedComponent.pads.map((p) => {
-          const ro = rotatePoint(p.offset, angle)
+          const ro = rotatePoint(p.offset, angle * Math.PI / 180) // Convert to radians for math
           return {
             ...p,
             absoluteCenter: {
@@ -329,18 +357,20 @@ export class PackSolver extends BaseSolver {
 
         /* --- 2. cost (connection length) ------------------------------- */
         let cost = 0
-        if (packPlacementStrategy === "minimum_sum_distance_to_network") {
+        if (packPlacementStrategy === "minimum_sum_distance_to_network" || packPlacementStrategy === "minimum_sum_squared_distance_to_network") {
           // For minimum sum distance strategy, optimize translation within available space
-          const optimizedCenter = optimizeTranslationForMinimumSum({
+          const useSquaredDistance = packPlacementStrategy === "minimum_sum_squared_distance_to_network"
+          const optimizedCenter = optimizeTranslationForMinimumSumWithSampling({
             component: tempComponent,
             initialCenter: candidateCenter,
             packedComponents: this.packedComponents,
             minGap: minGap,
+            useSquaredDistance: useSquaredDistance,
           })
 
           // Rebuild transformedPads with optimized center
           const optimizedTransformedPads = newPackedComponent.pads.map((p) => {
-            const ro = rotatePoint(p.offset, angle)
+            const ro = rotatePoint(p.offset, angle * Math.PI / 180) // Convert to radians for math
             return {
               ...p,
               absoluteCenter: {
@@ -412,15 +442,17 @@ export class PackSolver extends BaseSolver {
         newPackedComponent.center = bestCandidate.center
         newPackedComponent.ccwRotationOffset = bestCandidate.angle
       } else {
-        /* no valid rotation found – default: put pad on point, 0° rot. */
-        console.log("no valid rotation found")
+        /* no valid rotation found – if rotation is constrained, this is a problem */
+        const availableAngles = candidateAngles.map(a => a.toFixed(0) + "°").join(", ")
+        console.warn(`No valid rotation found for ${newPackedComponent.componentId} at point (${bestPoint.x.toFixed(1)}, ${bestPoint.y.toFixed(1)}). Available: ${availableAngles}. Fallback to first available rotation.`)
+        
         const firstPad = newPadsConnectedToNetworkId[0]!
         const candidateCenter = {
           x: bestPoint.x - firstPad.offset.x,
           y: bestPoint.y - firstPad.offset.y,
         }
         newPackedComponent.center = candidateCenter
-        newPackedComponent.ccwRotationOffset = 0
+        newPackedComponent.ccwRotationOffset = candidateAngles[0] // Use first available rotation, not always 0
       }
 
       /* recompute absolute pad centres */
@@ -438,31 +470,32 @@ export class PackSolver extends BaseSolver {
   /* ---------- small helpers ------------------------------------------------ */
 
   private getCandidateAngles(c: InputComponent): number[] {
+    // Return angles in degrees, not radians  
     return (c.availableRotationDegrees ?? [0, 90, 180, 270]).map(
-      (d) => ((d % 360) * Math.PI) / 180,
+      (d) => d % 360,
     )
   }
 
   private checkOverlapWithPackedComponents(cand: PackedComponent): boolean {
-    const b = getComponentBounds(cand, 0)
-    const candBox = {
-      center: { x: (b.minX + b.maxX) / 2, y: (b.minY + b.maxY) / 2 },
-      width: b.maxX - b.minX,
-      height: b.maxY - b.minY,
-    }
-    for (const pc of this.packedComponents) {
-      for (const pad of pc.pads) {
-        if (
-          computeDistanceBetweenBoxes(
-            {
-              center: pad.absoluteCenter,
-              width: pad.size.x,
-              height: pad.size.y,
-            },
-            candBox,
-          ).distance < this.packInput.minGap
-        )
-          return true
+    // Use pad-to-pad distance checking for more accurate overlap detection
+    for (const candPad of cand.pads) {
+      for (const pc of this.packedComponents) {
+        for (const packedPad of pc.pads) {
+          // Calculate center-to-center distance
+          const centerDistance = Math.hypot(
+            candPad.absoluteCenter.x - packedPad.absoluteCenter.x,
+            candPad.absoluteCenter.y - packedPad.absoluteCenter.y,
+          )
+
+          // Calculate minimum required center-to-center distance
+          const candPadRadius = Math.max(candPad.size.x, candPad.size.y) / 2
+          const packedPadRadius = Math.max(packedPad.size.x, packedPad.size.y) / 2
+          const minRequiredDistance = this.packInput.minGap + candPadRadius + packedPadRadius
+
+          if (centerDistance < minRequiredDistance) {
+            return true // Overlap detected
+          }
+        }
       }
     }
     return false
@@ -512,7 +545,7 @@ export class PackSolver extends BaseSolver {
     this.lastEvaluatedPositionShadows = []
     for (const ang of this.getCandidateAngles(comp)) {
       const pads = comp.pads.map((p) => {
-        const ro = rotatePoint(p.offset, ang)
+        const ro = rotatePoint(p.offset, ang * Math.PI / 180) // Convert to radians for math
         return { ...p, absoluteCenter: { x: pt.x + ro.x, y: pt.y + ro.y } }
       })
       const cand: PackedComponent = {
@@ -584,7 +617,7 @@ export class PackSolver extends BaseSolver {
           width: bounds.maxX - bounds.minX,
           height: bounds.maxY - bounds.minY,
           fill: "rgba(0,255,255,0.2)",
-          label: ((shadow.ccwRotationOffset / Math.PI) * 180).toFixed(1),
+          label: shadow.ccwRotationOffset.toFixed(1) + "°",
         })
         for (const shadowPad of shadow.pads) {
           graphics.rects!.push({
@@ -611,6 +644,7 @@ export class PackSolver extends BaseSolver {
 
       if (this.lastBestPointsResult) {
         for (const bestPoint of this.lastBestPointsResult.bestPoints) {
+          // Add the green circle for bestPoint
           graphics.points!.push({
             x: bestPoint.x,
             y: bestPoint.y,
@@ -618,6 +652,27 @@ export class PackSolver extends BaseSolver {
             fill: "rgba(0,255,0,0.8)", // Green color for best points
             radius: 0.03,
           } as Point)
+          
+          // Add small "X" marker with two crossing lines
+          const crossSize = 0.04 // Size of the X marker
+          graphics.lines!.push(
+            {
+              points: [
+                { x: bestPoint.x - crossSize, y: bestPoint.y - crossSize },
+                { x: bestPoint.x + crossSize, y: bestPoint.y + crossSize }
+              ],
+              stroke: "#00AA00", // Bright green
+              strokeWidth: 2,
+            } as Line,
+            {
+              points: [
+                { x: bestPoint.x - crossSize, y: bestPoint.y + crossSize },
+                { x: bestPoint.x + crossSize, y: bestPoint.y - crossSize }
+              ],
+              stroke: "#00AA00", // Bright green
+              strokeWidth: 2,
+            } as Line
+          )
         }
       }
     }
@@ -633,6 +688,7 @@ export class PackSolver extends BaseSolver {
     component: PackedComponent,
     position: Point,
     targetNetworkId: NetworkId,
+    useSquaredDistance: boolean = false,
   ): number {
     // Get pads from the component that are on the target network
     const componentPadsOnNetwork = component.pads.filter(
@@ -661,10 +717,9 @@ export class PackSolver extends BaseSolver {
       // Find the minimum distance to any packed pad on the same network
       let minDistance = Number.POSITIVE_INFINITY
       for (const packedPad of packedPadsOnNetwork) {
-        const distance = Math.hypot(
-          padPosition.x - packedPad.absoluteCenter.x,
-          padPosition.y - packedPad.absoluteCenter.y,
-        )
+        const dx = padPosition.x - packedPad.absoluteCenter.x
+        const dy = padPosition.y - packedPad.absoluteCenter.y
+        const distance = useSquaredDistance ? (dx * dx + dy * dy) : Math.hypot(dx, dy)
         if (distance < minDistance) {
           minDistance = distance
         }
@@ -686,6 +741,7 @@ export class PackSolver extends BaseSolver {
     p2: Point,
     component: PackedComponent,
     networkId: NetworkId,
+    useSquaredDistance: boolean = false,
   ): {
     point: Point
     distance: number
@@ -705,7 +761,7 @@ export class PackSolver extends BaseSolver {
     // Function to evaluate sum distance at parameter t
     const evaluateDistance = (t: number): number => {
       const point = interpolatePoint(t)
-      const distance = this.computeSumDistanceForPosition(component, point, networkId)
+      const distance = this.computeSumDistanceForPosition(component, point, networkId, useSquaredDistance)
       
       // Store for visualization
       candidatePoints.push({
@@ -735,7 +791,7 @@ export class PackSolver extends BaseSolver {
     // Final optimal point
     const optimalT = (left + right) / 2
     const optimalPoint = interpolatePoint(optimalT)
-    const optimalDistance = this.computeSumDistanceForPosition(component, optimalPoint, networkId)
+    const optimalDistance = this.computeSumDistanceForPosition(component, optimalPoint, networkId, useSquaredDistance)
     
     // Add optimal point to candidates
     candidatePoints.push({

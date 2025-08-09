@@ -14,6 +14,7 @@ export interface OptimizationContext {
   initialCenter: Point
   packedComponents: PackedComponent[]
   minGap: number
+  useSquaredDistance?: boolean
 }
 
 /**
@@ -64,33 +65,31 @@ export function computeTranslationBounds(
     // This creates a complex constraint, but for simplicity we'll create conservative bounds
     // that ensure we don't get too close to any packed component
 
-    // Conservative approach: stay away from the packed component
-    if (
-      Math.abs(packedCenterX - initialCenter.x) >
-      Math.abs(packedCenterY - initialCenter.y)
-    ) {
-      // Packed component is more horizontally separated
-      if (packedCenterX < initialCenter.x) {
-        // Packed component is to the left, stay to the right
-        minX = Math.max(minX, rightBound)
+    // Instead of being overly conservative, we'll rely on overlap checking
+    // during optimization. This allows more exploration while maintaining safety.
+    // Only apply minimal constraints to prevent obvious overlaps.
+    
+    // Don't get too close to the packed component center
+    const safetyMargin = minGap + 1
+    if (Math.abs(initialCenter.x - packedCenterX) < safetyMargin) {
+      if (initialCenter.x < packedCenterX) {
+        maxX = Math.min(maxX, packedCenterX - safetyMargin)
       } else {
-        // Packed component is to the right, stay to the left
-        maxX = Math.min(maxX, leftBound)
+        minX = Math.max(minX, packedCenterX + safetyMargin)
       }
-    } else {
-      // Packed component is more vertically separated
-      if (packedCenterY < initialCenter.y) {
-        // Packed component is below, stay above
-        minY = Math.max(minY, topBound)
+    }
+    
+    if (Math.abs(initialCenter.y - packedCenterY) < safetyMargin) {
+      if (initialCenter.y < packedCenterY) {
+        maxY = Math.min(maxY, packedCenterY - safetyMargin)
       } else {
-        // Packed component is above, stay below
-        maxY = Math.min(maxY, bottomBound)
+        minY = Math.max(minY, packedCenterY + safetyMargin)
       }
     }
   }
 
   // Clamp to reasonable bounds around initial center
-  const maxTranslation = 5 // Don't translate more than 5 units from initial position
+  const maxTranslation = 10 // Allow more translation freedom for optimization
   minX = Math.max(minX, initialCenter.x - maxTranslation)
   maxX = Math.min(maxX, initialCenter.x + maxTranslation)
   minY = Math.max(minY, initialCenter.y - maxTranslation)
@@ -106,6 +105,7 @@ export function calculateSumDistance(
   component: PackedComponent,
   candidateCenter: Point,
   packedComponents: PackedComponent[],
+  useSquaredDistance: boolean = false,
 ): number {
   // Get all packed pads
   const packedPads = packedComponents.flatMap((c) => c.pads)
@@ -132,10 +132,9 @@ export function calculateSumDistance(
     let minDistance = Number.POSITIVE_INFINITY
 
     for (const packedPad of sameNetPads) {
-      const distance = Math.hypot(
-        padAbsolutePos.x - packedPad.absoluteCenter.x,
-        padAbsolutePos.y - packedPad.absoluteCenter.y,
-      )
+      const dx = padAbsolutePos.x - packedPad.absoluteCenter.x
+      const dy = padAbsolutePos.y - packedPad.absoluteCenter.y
+      const distance = useSquaredDistance ? (dx * dx + dy * dy) : Math.hypot(dx, dy)
       if (distance < minDistance) {
         minDistance = distance
       }
@@ -156,51 +155,37 @@ export function checkOverlap(
   packedComponents: PackedComponent[],
   minGap: number,
 ): boolean {
-  const tempComponent: PackedComponent = {
-    ...component,
-    center: candidateCenter,
-    pads: component.pads.map((p) => ({
-      ...p,
-      absoluteCenter: {
-        x: candidateCenter.x + p.offset.x,
-        y: candidateCenter.y + p.offset.y,
-      },
-    })),
-  }
-
-  const componentBounds = getComponentBounds(tempComponent, 0)
-  const componentBox = {
-    center: {
-      x: (componentBounds.minX + componentBounds.maxX) / 2,
-      y: (componentBounds.minY + componentBounds.maxY) / 2,
+  // Use pad-to-pad distance checking instead of component bounds
+  // This is more accurate and less conservative
+  
+  const tempPads = component.pads.map((p) => ({
+    ...p,
+    absoluteCenter: {
+      x: candidateCenter.x + p.offset.x,
+      y: candidateCenter.y + p.offset.y,
     },
-    width: componentBounds.maxX - componentBounds.minX,
-    height: componentBounds.maxY - componentBounds.minY,
-  }
+  }))
 
-  for (const packedComp of packedComponents) {
-    const packedBounds = getComponentBounds(packedComp, 0)
-    const packedBox = {
-      center: {
-        x: (packedBounds.minX + packedBounds.maxX) / 2,
-        y: (packedBounds.minY + packedBounds.maxY) / 2,
-      },
-      width: packedBounds.maxX - packedBounds.minX,
-      height: packedBounds.maxY - packedBounds.minY,
-    }
+  // Check distance between each new pad and each existing pad
+  for (const tempPad of tempPads) {
+    for (const packedComp of packedComponents) {
+      for (const packedPad of packedComp.pads) {
+        // Calculate center-to-center distance
+        const centerDistance = Math.hypot(
+          tempPad.absoluteCenter.x - packedPad.absoluteCenter.x,
+          tempPad.absoluteCenter.y - packedPad.absoluteCenter.y,
+        )
 
-    // Calculate distance between component centers
-    const centerDistance = Math.hypot(
-      componentBox.center.x - packedBox.center.x,
-      componentBox.center.y - packedBox.center.y,
-    )
+        // Calculate minimum required center-to-center distance
+        // This is minGap plus the sum of the pad radii (half sizes)
+        const tempPadRadius = Math.max(tempPad.size.x, tempPad.size.y) / 2
+        const packedPadRadius = Math.max(packedPad.size.x, packedPad.size.y) / 2
+        const minRequiredDistance = minGap + tempPadRadius + packedPadRadius
 
-    // Calculate minimum required distance
-    const minRequiredDistance =
-      minGap + (componentBox.width + packedBox.width) / 2
-
-    if (centerDistance < minRequiredDistance) {
-      return true // Overlap detected
+        if (centerDistance < minRequiredDistance) {
+          return true // Overlap detected
+        }
+      }
     }
   }
 
@@ -213,7 +198,7 @@ export function checkOverlap(
 export function optimizeTranslationForMinimumSumWithSampling(
   context: OptimizationContext,
 ): Point {
-  const { component, initialCenter, packedComponents, minGap } = context
+  const { component, initialCenter, packedComponents, minGap, useSquaredDistance = false } = context
 
   // Compute available translation freedom
   const translationBounds = computeTranslationBounds(
@@ -248,6 +233,7 @@ export function optimizeTranslationForMinimumSumWithSampling(
     component,
     initialCenter,
     packedComponents,
+    useSquaredDistance,
   )
 
   for (
@@ -274,6 +260,7 @@ export function optimizeTranslationForMinimumSumWithSampling(
         component,
         candidateCenter,
         packedComponents,
+        useSquaredDistance,
       )
 
       if (cost < bestCost) {
@@ -378,7 +365,7 @@ function geometricMedianConstrained(
 export function optimizeTranslationForMinimumSum(
   context: OptimizationContext,
 ): Point {
-  const { component, initialCenter, packedComponents, minGap } = context
+  const { component, initialCenter, packedComponents, minGap, useSquaredDistance = false } = context
 
   // Compute feasible translation box
   const bounds = computeTranslationBounds(
@@ -492,8 +479,9 @@ export function optimizeTranslationForMinimumSum(
     component,
     initialCenter,
     packedComponents,
+    useSquaredDistance,
   )
-  const finalCost = calculateSumDistance(component, center, packedComponents)
+  const finalCost = calculateSumDistance(component, center, packedComponents, useSquaredDistance)
   if (
     finalCost > initCost &&
     !checkOverlap(component, initialCenter, packedComponents, minGap)

@@ -8,7 +8,7 @@ export const setPackedComponentPadCenters = (
     ...pad,
     absoluteCenter: (() => {
       /* rotate the local offset, then translate by component centre */
-      const rotated = rotatePoint(pad.offset, packedComponent.ccwRotationOffset)
+      const rotated = rotatePoint(pad.offset, packedComponent.ccwRotationOffset * Math.PI / 180) // Convert to radians for math
       return {
         x: packedComponent.center.x + rotated.x,
         y: packedComponent.center.y + rotated.y,
