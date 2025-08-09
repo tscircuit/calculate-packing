@@ -157,7 +157,7 @@ const manualPackOutput: PackOutput = {
       pads: [
         {
           padId: "pcb_smtpad_8",
-          networkId: newNet(),
+          networkId: "net0", // Share with first component
           type: "rect",
           offset: {
             x: -0.5,
@@ -201,7 +201,7 @@ const manualPackOutput: PackOutput = {
       pads: [
         {
           padId: "pcb_smtpad_10",
-          networkId: newNet(),
+          networkId: "net4", // Share with first component
           type: "rect",
           offset: {
             x: -0.85,
@@ -243,7 +243,7 @@ const manualPackOutput: PackOutput = {
   ],
   minGap: 2,
   packOrderStrategy: "largest_to_smallest",
-  packPlacementStrategy: "minimum_sum_squared_distance_to_network",
+  packPlacementStrategy: "shortest_connection_along_outline",
 }
 
 export default () => (
