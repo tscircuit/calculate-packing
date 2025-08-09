@@ -1,24 +1,24 @@
-import { BaseSolver } from "../solver-utils/BaseSolver"
-import { getComponentBounds } from "../geometry/getComponentBounds"
+import type { GraphicsObject, Line, Point, Rect } from "graphics-debug"
+import { checkOverlapWithPackedComponents } from "./checkOverlapWithPackedComponents"
+import { computeNearestPointOnSegmentForSegmentSet } from "../math/computeNearestPointOnSegmentForSegmentSet"
 import { constructOutlinesFromPackedComponents } from "../constructOutlinesFromPackedComponents"
+import { findOptimalPointOnSegment } from "./findOptimalPointOnSegment"
+import { getComponentBounds } from "../geometry/getComponentBounds"
+import { getGraphicsFromPackOutput } from "../testing/getGraphicsFromPackOutput"
+import { getSegmentsFromPad } from "./getSegmentsFromPad"
+import { placeComponentDisconnected } from "./placeComponentDisconnected"
+import { rotatePoint } from "../math/rotatePoint"
+import { selectOptimalRotation } from "./RotationSelector"
+import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
+import { sortComponentQueue } from "./sortComponentQueue"
+import { BaseSolver } from "../solver-utils/BaseSolver"
+import type { Segment } from "../geometry/types"
 import type {
   InputComponent,
   NetworkId,
   PackedComponent,
   PackInput,
 } from "../types"
-import type { GraphicsObject, Line, Point, Rect } from "graphics-debug"
-import { getGraphicsFromPackOutput } from "../testing/getGraphicsFromPackOutput"
-import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
-import type { Segment } from "../geometry/types"
-import { getSegmentsFromPad } from "./getSegmentsFromPad"
-import { computeNearestPointOnSegmentForSegmentSet } from "../math/computeNearestPointOnSegmentForSegmentSet"
-import { selectOptimalRotation } from "./RotationSelector"
-import { sortComponentQueue } from "./sortComponentQueue"
-import { placeComponentDisconnected } from "./placeComponentDisconnected"
-import { checkOverlapWithPackedComponents } from "./checkOverlapWithPackedComponents"
-import { findOptimalPointOnSegment } from "./findOptimalPointOnSegment"
-import { rotatePoint } from "../math/rotatePoint"
 
 type PackingPhase =
   | "idle"

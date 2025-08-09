@@ -100,53 +100,30 @@ export const convertCircuitJsonToPackOutput = (
 
   const topLevelNodes = tree.childNodes ?? []
 
-  // If the tree parsing failed to find child nodes, fall back to processing all PCB components directly
-  if (topLevelNodes.length === 0) {
-    console.log("No tree nodes found, processing PCB components directly")
-    const allPcbComponents = db.pcb_component.list()
-    console.log(
-      `Found ${allPcbComponents.length} PCB components to process directly`,
-    )
-
-    for (const pcbComponent of allPcbComponents) {
-      if (pcbComponent) {
-        packOutput.components.push(
-          buildPackedComponent(
-            [pcbComponent],
-            pcbComponent.pcb_component_id,
-            db,
-            getNetworkId,
-          ),
-        )
-      }
-    }
-  } else {
-    // Original tree-based processing
-    for (const node of topLevelNodes) {
-      if (node.nodeType === "component") {
-        const pcbComponent = node.otherChildElements.find(
-          (e) => e.type === "pcb_component",
-        )
-        if (!pcbComponent) continue
-        packOutput.components.push(
-          buildPackedComponent(
-            [pcbComponent],
-            pcbComponent.pcb_component_id,
-            db,
-            getNetworkId,
-          ),
-        )
-      } else if (node.nodeType === "group") {
-        const pcbComps = collectPcbComponents(node, db)
-        if (!pcbComps.length) continue
-        const compId =
-          node.sourceGroup?.source_group_id ??
-          node.sourceGroup?.name ??
-          `group_${packOutput.components.length}`
-        packOutput.components.push(
-          buildPackedComponent(pcbComps, compId, db, getNetworkId),
-        )
-      }
+  for (const node of topLevelNodes) {
+    if (node.nodeType === "component") {
+      const pcbComponent = node.otherChildElements.find(
+        (e) => e.type === "pcb_component",
+      )
+      if (!pcbComponent) continue
+      packOutput.components.push(
+        buildPackedComponent(
+          [pcbComponent],
+          pcbComponent.pcb_component_id,
+          db,
+          getNetworkId,
+        ),
+      )
+    } else if (node.nodeType === "group") {
+      const pcbComps = collectPcbComponents(node, db)
+      if (!pcbComps.length) continue
+      const compId =
+        node.sourceGroup?.source_group_id ??
+        node.sourceGroup?.name ??
+        `group_${packOutput.components.length}`
+      packOutput.components.push(
+        buildPackedComponent(pcbComps, compId, db, getNetworkId),
+      )
     }
   }
 
