@@ -15,6 +15,7 @@ import type { Segment } from "../geometry/types"
 import { getSegmentsFromPad } from "./getSegmentsFromPad"
 import { computeNearestPointOnSegmentForSegmentSet } from "../math/computeNearestPointOnSegmentForSegmentSet"
 import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
+import { optimizeTranslationForMinimumSum } from "./translationOptimizer"
 
 /**
  * The pack algorithm performs the following steps:
@@ -84,8 +85,11 @@ export class PackSolver extends BaseSolver {
     // Already solved?
     if (this.solved) return
 
-    const { minGap = 0, disconnectedPackDirection = "nearest_to_center", packPlacementStrategy = "shortest_connection_along_outline" } =
-      this.packInput
+    const {
+      minGap = 0,
+      disconnectedPackDirection = "nearest_to_center",
+      packPlacementStrategy = "shortest_connection_along_outline",
+    } = this.packInput
 
     // If no more components to process -> solved
     if (this.unpackedComponentQueue.length === 0) {
@@ -201,7 +205,10 @@ export class PackSolver extends BaseSolver {
                   bestPoints = [{ ...samplePoint, networkId: sharedNetworkId }]
                   smallestDistance = sumDistance
                 } else {
-                  bestPoints.push({ ...samplePoint, networkId: sharedNetworkId })
+                  bestPoints.push({
+                    ...samplePoint,
+                    networkId: sharedNetworkId,
+                  })
                 }
               }
             }
@@ -226,7 +233,10 @@ export class PackSolver extends BaseSolver {
               alreadyPackedSegments,
             )
             if (outlineToAlreadyPackedSegmentsDist < smallestDistance + 1e-6) {
-              if (outlineToAlreadyPackedSegmentsDist < smallestDistance - 1e-6) {
+              if (
+                outlineToAlreadyPackedSegmentsDist <
+                smallestDistance - 1e-6
+              ) {
                 bestPoints = [
                   {
                     ...nearestPointOnOutlineToAlreadyPackedSegments,
@@ -315,15 +325,51 @@ export class PackSolver extends BaseSolver {
           pads: transformedPads,
         }
 
-        this.lastEvaluatedPositionShadows?.push(tempComponent)
+        // Always add the initial candidate to visualization
+        this.lastEvaluatedPositionShadows?.push({ ...tempComponent })
 
         if (this.checkOverlapWithPackedComponents(tempComponent)) continue
 
         /* --- 2. cost (connection length) ------------------------------- */
         let cost = 0
         if (packPlacementStrategy === "minimum_sum_distance_to_network") {
-          // For minimum sum distance strategy, compute sum of distances for all pads
-          for (const tp of transformedPads) {
+          // For minimum sum distance strategy, optimize translation within available space
+          const optimizedCenter = optimizeTranslationForMinimumSum({
+            component: tempComponent,
+            initialCenter: candidateCenter,
+            packedComponents: this.packedComponents,
+            minGap: minGap,
+          })
+
+          // Rebuild transformedPads with optimized center
+          const optimizedTransformedPads = newPackedComponent.pads.map((p) => {
+            const ro = rotatePoint(p.offset, angle)
+            return {
+              ...p,
+              absoluteCenter: {
+                x: optimizedCenter.x + ro.x,
+                y: optimizedCenter.y + ro.y,
+              },
+            }
+          })
+
+          // Update tempComponent with optimized position
+          tempComponent.center = optimizedCenter
+          tempComponent.pads = optimizedTransformedPads
+
+          // Add optimized position to visualization if different from initial
+          if (
+            optimizedCenter.x !== candidateCenter.x ||
+            optimizedCenter.y !== candidateCenter.y
+          ) {
+            this.lastEvaluatedPositionShadows?.push({ ...tempComponent })
+          }
+
+          // Recheck overlap with optimized position
+          if (this.checkOverlapWithPackedComponents(tempComponent)) continue
+
+          // Compute cost with optimized position
+          for (const tp of optimizedTransformedPads) {
             const sameNetPads = packedPads.filter(
               (pp) => pp.networkId === tp.networkId,
             )
@@ -356,7 +402,11 @@ export class PackSolver extends BaseSolver {
         }
 
         if (!bestCandidate || cost < bestCandidate.cost) {
-          bestCandidate = { center: candidateCenter, angle, cost }
+          const finalCenter =
+            packPlacementStrategy === "minimum_sum_distance_to_network"
+              ? tempComponent.center // Use optimized center
+              : candidateCenter // Use original center
+          bestCandidate = { center: finalCenter, angle, cost }
         }
       }
 
@@ -444,7 +494,6 @@ export class PackSolver extends BaseSolver {
       })),
     )
     if (!pts.length) return { x: 0, y: 0 }
-
 
     if (dir !== "nearest_to_center") {
       const extreme = dir === "left" || dir === "down" ? Math.min : Math.max
