@@ -508,34 +508,59 @@ export class PhasedPackSolver extends BaseSolver {
     // Create rotation trials for visualization - only for good candidate points
     for (const angle of candidateAngles) {
       for (const point of this.phaseData.goodCandidates) {
-        // Show rotation trials only at good candidate positions
-        
-        // Find the first pad that matches the network of this good candidate point
+        // Trial 1: Position component so a pad lands on the good candidate
         const componentPadsOnNetwork = newPackedComponent.pads.filter(
           (p) => p.networkId === point.networkId,
         )
-        if (!componentPadsOnNetwork.length) continue
+        if (componentPadsOnNetwork.length > 0) {
+          const firstPad = componentPadsOnNetwork[0]!
 
-        const firstPad = componentPadsOnNetwork[0]!
+          // Calculate where the component center should be to place the pad at the candidate point
+          const rotatedPadOffset = rotatePoint(
+            firstPad.offset,
+            (angle * Math.PI) / 180,
+          )
+          const componentCenter = {
+            x: point.x - rotatedPadOffset.x,
+            y: point.y - rotatedPadOffset.y,
+          }
 
-        // Calculate where the component center should be to place the pad at the candidate point
-        const rotatedPadOffset = rotatePoint(
-          firstPad.offset,
-          (angle * Math.PI) / 180,
-        )
-        const componentCenter = {
-          x: point.x - rotatedPadOffset.x,
-          y: point.y - rotatedPadOffset.y,
+          const trial = { ...newPackedComponent }
+          trial.center = componentCenter
+          trial.ccwRotationOffset = angle
+          setPackedComponentPadCenters(trial)
+
+          // Calculate cost
+          let cost = 0
+          for (const pad of trial.pads) {
+            let minDist = Number.POSITIVE_INFINITY
+            for (const packedComp of this.packedComponents) {
+              for (const packedPad of packedComp.pads) {
+                if (packedPad.networkId === pad.networkId) {
+                  const dx = pad.absoluteCenter.x - packedPad.absoluteCenter.x
+                  const dy = pad.absoluteCenter.y - packedPad.absoluteCenter.y
+                  const dist = Math.sqrt(dx * dx + dy * dy)
+                  minDist = Math.min(minDist, dist)
+                }
+              }
+            }
+            if (minDist < Number.POSITIVE_INFINITY) {
+              cost += useSquaredDistance ? minDist * minDist : minDist
+            }
+          }
+
+          rotationTrials.push({ ...trial, cost })
         }
 
-        const trial = { ...newPackedComponent }
-        trial.center = componentCenter
-        trial.ccwRotationOffset = angle
-        setPackedComponentPadCenters(trial)
+        // Trial 2: Position component center at the good candidate point
+        const centerTrial = { ...newPackedComponent }
+        centerTrial.center = { x: point.x, y: point.y }
+        centerTrial.ccwRotationOffset = angle
+        setPackedComponentPadCenters(centerTrial)
 
-        // Calculate cost
-        let cost = 0
-        for (const pad of trial.pads) {
+        // Calculate cost for center-positioned trial
+        let centerCost = 0
+        for (const pad of centerTrial.pads) {
           let minDist = Number.POSITIVE_INFINITY
           for (const packedComp of this.packedComponents) {
             for (const packedPad of packedComp.pads) {
@@ -548,11 +573,11 @@ export class PhasedPackSolver extends BaseSolver {
             }
           }
           if (minDist < Number.POSITIVE_INFINITY) {
-            cost += useSquaredDistance ? minDist * minDist : minDist
+            centerCost += useSquaredDistance ? minDist * minDist : minDist
           }
         }
 
-        rotationTrials.push({ ...trial, cost })
+        rotationTrials.push({ ...centerTrial, cost: centerCost })
       }
     }
 

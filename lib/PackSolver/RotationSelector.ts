@@ -51,117 +51,211 @@ export function selectOptimalRotation(
     for (const candidatePoint of candidatePoints) {
       const networkId = candidatePoint.networkId
 
+      // Trial 1: Position component so a pad lands on the candidate point
       const componentPadsOnNetwork = component.pads.filter(
         (p) => p.networkId === networkId,
       )
-      if (!componentPadsOnNetwork.length) continue
+      if (componentPadsOnNetwork.length > 0) {
+        const firstPad = componentPadsOnNetwork[0]!
 
-      const firstPad = componentPadsOnNetwork[0]!
-
-      // Use candidate point as the rotation anchor for the component
-      // First, calculate where the component center should be to place the first pad at the candidate point
-      const rotatedPadOffset = rotatePoint(
-        firstPad.offset,
-        (angle * Math.PI) / 180,
-      )
-      const initialCenter = {
-        x: candidatePoint.x - rotatedPadOffset.x,
-        y: candidatePoint.y - rotatedPadOffset.y,
-      }
-
-      // Create transformed pads with rotation applied around the candidate point as anchor
-      const transformedPads = component.pads.map((p) => {
-        // Rotate the pad offset around the origin (component center)
-        const rotatedOffset = rotatePoint(p.offset, (angle * Math.PI) / 180)
-
-        // Rotate pad dimensions for 90°/270° rotations
-        const normalizedRotation = ((angle % 360) + 360) % 360
-        const shouldSwapDimensions =
-          normalizedRotation === 90 || normalizedRotation === 270
-
-        return {
-          ...p,
-          size: shouldSwapDimensions ? { x: p.size.y, y: p.size.x } : p.size,
-          absoluteCenter: {
-            x: initialCenter.x + rotatedOffset.x,
-            y: initialCenter.y + rotatedOffset.y,
-          },
-        }
-      })
-
-      const tempComponent: PackedComponent = {
-        ...component,
-        center: initialCenter,
-        ccwRotationOffset: angle,
-        pads: transformedPads,
-      }
-
-      // Check for overlap at initial position
-      if (checkOverlap(tempComponent)) continue
-
-      // Optimize translation for this rotation at this point
-      const optimizedCenter = optimizeTranslationForMinimumSumWithSampling({
-        component: tempComponent,
-        initialCenter: initialCenter,
-        packedComponents: packedComponents,
-        minGap: minGap,
-        useSquaredDistance: useSquaredDistance,
-      })
-
-      // Create optimized pads using same rotation approach
-      const optimizedPads = component.pads.map((p) => {
-        const rotatedOffset = rotatePoint(p.offset, (angle * Math.PI) / 180)
-
-        // Rotate pad dimensions for 90°/270° rotations
-        const normalizedRotation = ((angle % 360) + 360) % 360
-        const shouldSwapDimensions =
-          normalizedRotation === 90 || normalizedRotation === 270
-
-        return {
-          ...p,
-          size: shouldSwapDimensions ? { x: p.size.y, y: p.size.x } : p.size,
-          absoluteCenter: {
-            x: optimizedCenter.x + rotatedOffset.x,
-            y: optimizedCenter.y + rotatedOffset.y,
-          },
-        }
-      })
-
-      const optimizedComponent: PackedComponent = {
-        ...component,
-        center: optimizedCenter,
-        ccwRotationOffset: angle,
-        pads: optimizedPads,
-      }
-
-      // Check for overlap at optimized position
-      if (checkOverlap(optimizedComponent)) continue
-
-      // Compute cost with optimized position using consistent distance metric
-      let cost = 0
-      for (const tp of optimizedPads) {
-        const sameNetPads = packedPads.filter(
-          (pp) => pp.networkId === tp.networkId,
+        // Use candidate point as the rotation anchor for the component
+        // First, calculate where the component center should be to place the first pad at the candidate point
+        const rotatedPadOffset = rotatePoint(
+          firstPad.offset,
+          (angle * Math.PI) / 180,
         )
-        if (!sameNetPads.length) continue
-
-        let bestD = Infinity
-        for (const pp of sameNetPads) {
-          const dx = tp.absoluteCenter.x - pp.absoluteCenter.x
-          const dy = tp.absoluteCenter.y - pp.absoluteCenter.y
-          const d = useSquaredDistance ? dx * dx + dy * dy : Math.hypot(dx, dy)
-          if (d < bestD) bestD = d
+        const initialCenter = {
+          x: candidatePoint.x - rotatedPadOffset.x,
+          y: candidatePoint.y - rotatedPadOffset.y,
         }
-        cost += bestD === Infinity ? 0 : bestD
+
+        // Create transformed pads with rotation applied around the candidate point as anchor
+        const transformedPads = component.pads.map((p) => {
+          // Rotate the pad offset around the origin (component center)
+          const rotatedOffset = rotatePoint(p.offset, (angle * Math.PI) / 180)
+
+          // Rotate pad dimensions for 90°/270° rotations
+          const normalizedRotation = ((angle % 360) + 360) % 360
+          const shouldSwapDimensions =
+            normalizedRotation === 90 || normalizedRotation === 270
+
+          return {
+            ...p,
+            size: shouldSwapDimensions ? { x: p.size.y, y: p.size.x } : p.size,
+            absoluteCenter: {
+              x: initialCenter.x + rotatedOffset.x,
+              y: initialCenter.y + rotatedOffset.y,
+            },
+          }
+        })
+
+        const tempComponent: PackedComponent = {
+          ...component,
+          center: initialCenter,
+          ccwRotationOffset: angle,
+          pads: transformedPads,
+        }
+
+        // Check for overlap at initial position
+        if (!checkOverlap(tempComponent)) {
+          // Optimize translation for this rotation at this point
+          const optimizedCenter = optimizeTranslationForMinimumSumWithSampling({
+            component: tempComponent,
+            initialCenter: initialCenter,
+            packedComponents: packedComponents,
+            minGap: minGap,
+            useSquaredDistance: useSquaredDistance,
+          })
+
+          // Create optimized pads using same rotation approach
+          const optimizedPads = component.pads.map((p) => {
+            const rotatedOffset = rotatePoint(p.offset, (angle * Math.PI) / 180)
+
+            // Rotate pad dimensions for 90°/270° rotations
+            const normalizedRotation = ((angle % 360) + 360) % 360
+            const shouldSwapDimensions =
+              normalizedRotation === 90 || normalizedRotation === 270
+
+            return {
+              ...p,
+              size: shouldSwapDimensions ? { x: p.size.y, y: p.size.x } : p.size,
+              absoluteCenter: {
+                x: optimizedCenter.x + rotatedOffset.x,
+                y: optimizedCenter.y + rotatedOffset.y,
+              },
+            }
+          })
+
+          const optimizedComponent: PackedComponent = {
+            ...component,
+            center: optimizedCenter,
+            ccwRotationOffset: angle,
+            pads: optimizedPads,
+          }
+
+          // Check for overlap at optimized position
+          if (!checkOverlap(optimizedComponent)) {
+            // Compute cost with optimized position using consistent distance metric
+            let cost = 0
+            for (const tp of optimizedPads) {
+              const sameNetPads = packedPads.filter(
+                (pp) => pp.networkId === tp.networkId,
+              )
+              if (!sameNetPads.length) continue
+
+              let bestD = Infinity
+              for (const pp of sameNetPads) {
+                const dx = tp.absoluteCenter.x - pp.absoluteCenter.x
+                const dy = tp.absoluteCenter.y - pp.absoluteCenter.y
+                const d = useSquaredDistance ? dx * dx + dy * dy : Math.hypot(dx, dy)
+                if (d < bestD) bestD = d
+              }
+              cost += bestD === Infinity ? 0 : bestD
+            }
+
+            // Track best candidate for this rotation
+            if (!bestForThisRotation || cost < bestForThisRotation.cost) {
+              bestForThisRotation = {
+                center: optimizedCenter,
+                angle: angle,
+                cost: cost,
+                pads: optimizedPads,
+              }
+            }
+          }
+        }
       }
 
-      // Track best candidate for this rotation
-      if (!bestForThisRotation || cost < bestForThisRotation.cost) {
-        bestForThisRotation = {
-          center: optimizedCenter,
-          angle: angle,
-          cost: cost,
-          pads: optimizedPads,
+      // Trial 2: Position component center at the candidate point
+      const centerTrial: PackedComponent = {
+        ...component,
+        center: { x: candidatePoint.x, y: candidatePoint.y },
+        ccwRotationOffset: angle,
+        pads: component.pads.map((p) => {
+          const rotatedOffset = rotatePoint(p.offset, (angle * Math.PI) / 180)
+
+          // Rotate pad dimensions for 90°/270° rotations
+          const normalizedRotation = ((angle % 360) + 360) % 360
+          const shouldSwapDimensions =
+            normalizedRotation === 90 || normalizedRotation === 270
+
+          return {
+            ...p,
+            size: shouldSwapDimensions ? { x: p.size.y, y: p.size.x } : p.size,
+            absoluteCenter: {
+              x: candidatePoint.x + rotatedOffset.x,
+              y: candidatePoint.y + rotatedOffset.y,
+            },
+          }
+        })
+      }
+
+      // Check for overlap at center position
+      if (!checkOverlap(centerTrial)) {
+        // Optimize translation for center-positioned trial
+        const optimizedCenterPosition = optimizeTranslationForMinimumSumWithSampling({
+          component: centerTrial,
+          initialCenter: { x: candidatePoint.x, y: candidatePoint.y },
+          packedComponents: packedComponents,
+          minGap: minGap,
+          useSquaredDistance: useSquaredDistance,
+        })
+
+        // Create optimized pads for center trial
+        const optimizedCenterPads = component.pads.map((p) => {
+          const rotatedOffset = rotatePoint(p.offset, (angle * Math.PI) / 180)
+
+          // Rotate pad dimensions for 90°/270° rotations
+          const normalizedRotation = ((angle % 360) + 360) % 360
+          const shouldSwapDimensions =
+            normalizedRotation === 90 || normalizedRotation === 270
+
+          return {
+            ...p,
+            size: shouldSwapDimensions ? { x: p.size.y, y: p.size.x } : p.size,
+            absoluteCenter: {
+              x: optimizedCenterPosition.x + rotatedOffset.x,
+              y: optimizedCenterPosition.y + rotatedOffset.y,
+            },
+          }
+        })
+
+        const optimizedCenterComponent: PackedComponent = {
+          ...component,
+          center: optimizedCenterPosition,
+          ccwRotationOffset: angle,
+          pads: optimizedCenterPads,
+        }
+
+        // Check for overlap at optimized center position
+        if (!checkOverlap(optimizedCenterComponent)) {
+          // Compute cost with optimized center position
+          let centerCost = 0
+          for (const tp of optimizedCenterPads) {
+            const sameNetPads = packedPads.filter(
+              (pp) => pp.networkId === tp.networkId,
+            )
+            if (!sameNetPads.length) continue
+
+            let bestD = Infinity
+            for (const pp of sameNetPads) {
+              const dx = tp.absoluteCenter.x - pp.absoluteCenter.x
+              const dy = tp.absoluteCenter.y - pp.absoluteCenter.y
+              const d = useSquaredDistance ? dx * dx + dy * dy : Math.hypot(dx, dy)
+              if (d < bestD) bestD = d
+            }
+            centerCost += bestD === Infinity ? 0 : bestD
+          }
+
+          // Track best candidate for this rotation
+          if (!bestForThisRotation || centerCost < bestForThisRotation.cost) {
+            bestForThisRotation = {
+              center: optimizedCenterPosition,
+              angle: angle,
+              cost: centerCost,
+              pads: optimizedCenterPads,
+            }
+          }
         }
       }
     }
