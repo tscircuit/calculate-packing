@@ -601,7 +601,7 @@ export class PhasedPackSolver extends BaseSolver {
         graphics.points!.push({
           x: bestPoint.x,
           y: bestPoint.y,
-          label: `BEST`,
+          label: `BEST (d=${this.phaseData.bestDistance?.toFixed(3)})`,
           fill: "rgba(0,255,0,0.8)", // Green color for best points
           radius: 0.03,
         } as Point)
