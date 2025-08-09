@@ -494,19 +494,10 @@ export class PhasedPackSolver extends BaseSolver {
       }
     }
 
-    // Use selectOptimalRotation to get the best placement
+    // We'll select the best rotation from the trials we create below
     const useSquaredDistance =
       this.packInput.packPlacementStrategy ===
       "minimum_sum_squared_distance_to_network"
-
-    const result = selectOptimalRotation({
-      component: newPackedComponent,
-      candidatePoints: allCandidatePoints,
-      packedComponents: this.packedComponents,
-      minGap: this.packInput.minGap ?? 0,
-      useSquaredDistance: useSquaredDistance,
-      checkOverlap: (comp) => this.checkOverlapWithPackedComponents(comp),
-    })
 
     // Create rotation trials for visualization - only for good candidate points
     for (const angle of candidateAngles) {
@@ -604,13 +595,30 @@ export class PhasedPackSolver extends BaseSolver {
 
     this.phaseData.rotationTrials = rotationTrials
 
-    // Convert RotationCandidate to PackedComponent
-    if (result) {
+    // Select the best rotation from our trials
+    const validTrials = rotationTrials.filter(trial => !trial.hasOverlap)
+    if (validTrials.length > 0) {
+      // Find the trial with the lowest cost
+      const bestTrial = validTrials.reduce((best, current) => 
+        current.cost < best.cost ? current : best
+      )
+      
       const selectedComponent = { ...newPackedComponent }
-      selectedComponent.center = result.center
-      selectedComponent.ccwRotationOffset = result.angle
-      selectedComponent.pads = result.pads
-      // Apply rotation to pads now that we have the final position and rotation
+      selectedComponent.center = bestTrial.center
+      selectedComponent.ccwRotationOffset = bestTrial.ccwRotationOffset
+      selectedComponent.pads = bestTrial.pads
+      setPackedComponentPadCenters(selectedComponent)
+      this.phaseData.selectedRotation = selectedComponent
+    } else if (rotationTrials.length > 0) {
+      // If no valid trials without overlap, pick the best overlapping one
+      const bestTrial = rotationTrials.reduce((best, current) => 
+        current.cost < best.cost ? current : best
+      )
+      
+      const selectedComponent = { ...newPackedComponent }
+      selectedComponent.center = bestTrial.center
+      selectedComponent.ccwRotationOffset = bestTrial.ccwRotationOffset
+      selectedComponent.pads = bestTrial.pads
       setPackedComponentPadCenters(selectedComponent)
       this.phaseData.selectedRotation = selectedComponent
     } else {
