@@ -397,19 +397,13 @@ export class PhasedPackSolver extends BaseSolver {
               (p) => p.networkId === sharedNetworkId,
             )
 
-            for (const componentPad of componentPadsOnNetwork) {
+            for (const _ of componentPadsOnNetwork) {
               let minDist = Number.POSITIVE_INFINITY
               for (const packedComponent of this.packedComponents) {
                 for (const packedPad of packedComponent.pads) {
                   if (packedPad.networkId === sharedNetworkId) {
-                    const dx =
-                      sampledPoint.x +
-                      componentPad.offset.x -
-                      packedPad.absoluteCenter.x
-                    const dy =
-                      sampledPoint.y +
-                      componentPad.offset.y -
-                      packedPad.absoluteCenter.y
+                    const dx = sampledPoint.x - packedPad.absoluteCenter.x
+                    const dy = sampledPoint.y - packedPad.absoluteCenter.y
                     const dist = Math.sqrt(dx * dx + dy * dy)
                     minDist = Math.min(minDist, dist)
                   }

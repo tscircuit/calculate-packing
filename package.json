@@ -27,7 +27,7 @@
     "@types/react-dom": "^19.1.6",
     "bun-match-svg": "^0.0.12",
     "circuit-json": "^0.0.220",
-    "graphics-debug": "^0.0.60",
+    "graphics-debug": "^0.0.62",
     "react": "^19.1.0",
     "react-cosmos": "^7.0.0",
     "react-cosmos-plugin-vite": "^7.0.0",
