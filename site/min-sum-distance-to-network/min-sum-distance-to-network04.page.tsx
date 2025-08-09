@@ -15,8 +15,8 @@ const packInput: PackInput = {
             y: 0.1,
           },
           size: {
-            x: 0.1,
-            y: 0.1,
+            x: 0.05,
+            y: 0.05,
           },
         },
         {
@@ -28,39 +28,39 @@ const packInput: PackInput = {
             y: -0.1,
           },
           size: {
-            x: 0.1,
-            y: 0.1,
+            x: 0.05,
+            y: 0.05,
           },
         },
         {
           padId: "U1.3",
-          networkId: "U1.3",
+          networkId: "disconnected_0",
           type: "rect",
           offset: {
             x: 1,
             y: -0.1,
           },
           size: {
-            x: 0.1,
-            y: 0.1,
+            x: 0.05,
+            y: 0.05,
           },
         },
         {
           padId: "U1.4",
-          networkId: "U1.4",
+          networkId: "disconnected_1",
           type: "rect",
           offset: {
             x: 1,
             y: 0.1,
           },
           size: {
-            x: 0.1,
-            y: 0.1,
+            x: 0.05,
+            y: 0.05,
           },
         },
         {
           padId: "U1-body",
-          networkId: "U1",
+          networkId: "disconnected_2",
           type: "rect",
           offset: {
             x: 0,
@@ -68,13 +68,14 @@ const packInput: PackInput = {
           },
           size: {
             x: 1.2000000000000002,
-            y: 3,
+            y: 0.6000000000000001,
           },
         },
       ],
     },
     {
       componentId: "C6",
+      availableRotationDegrees: [0, 180],
       pads: [
         {
           padId: "C6.1",
@@ -85,8 +86,8 @@ const packInput: PackInput = {
             y: 0.5512093000000002,
           },
           size: {
-            x: 0.1,
-            y: 0.1,
+            x: 0.05,
+            y: 0.05,
           },
         },
         {
@@ -98,13 +99,13 @@ const packInput: PackInput = {
             y: -0.5512093000000002,
           },
           size: {
-            x: 0.1,
-            y: 0.1,
+            x: 0.05,
+            y: 0.05,
           },
         },
         {
           padId: "C6-body",
-          networkId: "C6",
+          networkId: "disconnected_3",
           type: "rect",
           offset: {
             x: 0,
@@ -119,6 +120,7 @@ const packInput: PackInput = {
     },
     {
       componentId: "C1",
+      availableRotationDegrees: [0, 180],
       pads: [
         {
           padId: "C1.1",
@@ -129,8 +131,8 @@ const packInput: PackInput = {
             y: 0.5512093000000002,
           },
           size: {
-            x: 0.1,
-            y: 0.1,
+            x: 0.05,
+            y: 0.05,
           },
         },
         {
@@ -142,13 +144,13 @@ const packInput: PackInput = {
             y: -0.5512093000000002,
           },
           size: {
-            x: 0.1,
-            y: 0.1,
+            x: 0.05,
+            y: 0.05,
           },
         },
         {
           padId: "C1-body",
-          networkId: "C1",
+          networkId: "disconnected_4",
           type: "rect",
           offset: {
             x: 0,
@@ -163,6 +165,7 @@ const packInput: PackInput = {
     },
     {
       componentId: "C2",
+      availableRotationDegrees: [0, 180],
       pads: [
         {
           padId: "C2.1",
@@ -173,8 +176,8 @@ const packInput: PackInput = {
             y: 0.5512093000000002,
           },
           size: {
-            x: 0.1,
-            y: 0.1,
+            x: 0.05,
+            y: 0.05,
           },
         },
         {
@@ -186,13 +189,13 @@ const packInput: PackInput = {
             y: -0.5512093000000002,
           },
           size: {
-            x: 0.1,
-            y: 0.1,
+            x: 0.05,
+            y: 0.05,
           },
         },
         {
           padId: "C2-body",
-          networkId: "C2",
+          networkId: "disconnected_5",
           type: "rect",
           offset: {
             x: 0,
@@ -208,7 +211,7 @@ const packInput: PackInput = {
   ],
   minGap: 0.2,
   packOrderStrategy: "largest_to_smallest",
-  packPlacementStrategy: "minimum_sum_squared_distance_to_network",
+  packPlacementStrategy: "minimum_sum_distance_to_network",
 }
 
 export default () => {

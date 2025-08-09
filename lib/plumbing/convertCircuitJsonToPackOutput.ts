@@ -80,7 +80,7 @@ export const convertCircuitJsonToPackOutput = (
   }
 
   const tree = getCircuitJsonTree(circuitJson, {
-    source_group_id: opts.source_group_id!,
+    source_group_id: opts.source_group_id,
   })
   const db = cju(circuitJson)
   let unnamedCounter = 0

@@ -16,6 +16,7 @@ import type { PackInput, PackOutput } from "../types"
 export const convertPackOutputToPackInput = (packed: PackOutput): PackInput => {
   const strippedComponents = packed.components.map((pc) => ({
     componentId: pc.componentId,
+    availableRotationDegrees: pc.availableRotationDegrees, // Preserve rotation constraints
     pads: pc.pads.map(({ absoluteCenter: _ac, ...rest }) => rest),
   }))
 
