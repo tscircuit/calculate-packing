@@ -4,6 +4,7 @@ import { getGraphicsFromPackOutput } from "../../lib/testing/getGraphicsFromPack
 import { convertPackOutputToPackInput } from "../../lib/plumbing/convertPackOutputToPackInput"
 import { PackSolver } from "../../lib/PackSolver/PackSolver"
 import { useMemo, useReducer } from "react"
+import { PhasedPackSolver } from "../../lib"
 
 interface PackDebuggerProps {
   initialPackOutput?: PackOutput
@@ -18,7 +19,7 @@ export const PackDebugger = ({
 }: PackDebuggerProps) => {
   const packInput: PackInput =
     initialPackInput ?? convertPackOutputToPackInput(initialPackOutput!)
-  const packSolver = useMemo(() => new PackSolver(packInput), [])
+  const packSolver = useMemo(() => new PhasedPackSolver(packInput), [])
   const [runCount, incRunCount] = useReducer((c) => c + 1, 0)
 
   return (
