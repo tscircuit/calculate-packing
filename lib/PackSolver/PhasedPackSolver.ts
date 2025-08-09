@@ -505,15 +505,10 @@ export class PhasedPackSolver extends BaseSolver {
       checkOverlap: (comp) => this.checkOverlapWithPackedComponents(comp),
     })
 
-    // Create rotation trials for visualization - properly anchored at all candidate points
+    // Create rotation trials for visualization - only for good candidate points
     for (const angle of candidateAngles) {
-      for (const point of allCandidatePoints.filter((p, i, arr) => 
-        // Deduplicate points that are very close together
-        i === 0 || !arr.slice(0, i).some(prev => 
-          Math.abs(prev.x - p.x) < 0.01 && Math.abs(prev.y - p.y) < 0.01 && prev.networkId === p.networkId
-        )
-      )) {
-        // Show all candidate positions used in rotation selection
+      for (const point of this.phaseData.goodCandidates) {
+        // Show rotation trials only at good candidate positions
         
         // Find the first pad that matches the network of this good candidate point
         const componentPadsOnNetwork = newPackedComponent.pads.filter(
