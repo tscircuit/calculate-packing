@@ -28,6 +28,9 @@ type PackingPhase =
 
 interface RotationTrial extends PackedComponent {
   cost: number
+  anchorType: 'pad' | 'center'
+  anchorPadId?: string
+  hasOverlap: boolean
 }
 
 export class PhasedPackSolver extends BaseSolver {
@@ -210,7 +213,7 @@ export class PhasedPackSolver extends BaseSolver {
       })
 
       this.phaseData.selectedRotation = newPackedComponent
-      this.phaseData.rotationTrials = shadows.map((s) => ({ ...s, cost: 0 }))
+      this.phaseData.rotationTrials = shadows.map((s) => ({ ...s, cost: 0, anchorType: 'center' as const, hasOverlap: false }))
       return
     }
 
@@ -530,6 +533,9 @@ export class PhasedPackSolver extends BaseSolver {
           trial.ccwRotationOffset = angle
           setPackedComponentPadCenters(trial)
 
+          // Check for overlap
+          const hasOverlap = this.checkOverlapWithPackedComponents(trial)
+
           // Calculate cost
           let cost = 0
           for (const pad of trial.pads) {
@@ -549,7 +555,7 @@ export class PhasedPackSolver extends BaseSolver {
             }
           }
 
-          rotationTrials.push({ ...trial, cost })
+          rotationTrials.push({ ...trial, cost, anchorType: 'pad' as const, anchorPadId: firstPad.padId, hasOverlap })
         }
 
         // Trial 2: Position component center at the good candidate point
@@ -557,6 +563,9 @@ export class PhasedPackSolver extends BaseSolver {
         centerTrial.center = { x: point.x, y: point.y }
         centerTrial.ccwRotationOffset = angle
         setPackedComponentPadCenters(centerTrial)
+
+        // Check for overlap
+        const centerHasOverlap = this.checkOverlapWithPackedComponents(centerTrial)
 
         // Calculate cost for center-positioned trial
         let centerCost = 0
@@ -577,7 +586,7 @@ export class PhasedPackSolver extends BaseSolver {
           }
         }
 
-        rotationTrials.push({ ...centerTrial, cost: centerCost })
+        rotationTrials.push({ ...centerTrial, cost: centerCost, anchorType: 'center' as const, hasOverlap: centerHasOverlap })
       }
     }
 
@@ -772,23 +781,31 @@ export class PhasedPackSolver extends BaseSolver {
     if (!this.phaseData.rotationTrials) return
 
     for (const trial of this.phaseData.rotationTrials) {
-      // Show component center as a point with rotation and cost info
+      // Show component center as a point with rotation, cost and anchor info
+      // Offset point slightly based on rotation to avoid overlap
+      const rotationOffset = 0.02 * (trial.ccwRotationOffset / 90)
+      const anchorInfo = trial.anchorType === 'pad' ? `pad: ${trial.anchorPadId}` : 'center'
+      const overlapText = trial.hasOverlap ? '\nOVERLAP' : ''
       graphics.points!.push({
-        x: trial.center.x,
-        y: trial.center.y,
-        label: `${trial.ccwRotationOffset}° (cost: ${trial.cost.toFixed(3)})`,
+        x: trial.center.x + rotationOffset,
+        y: trial.center.y + rotationOffset,
+        label: `${trial.ccwRotationOffset}° (cost: ${trial.cost.toFixed(3)}, anchor: ${anchorInfo})${overlapText}`,
         fill: "rgba(0,255,255,0.8)",
         radius: 0.05,
       } as Point)
 
-      // Show pads for each rotation trial with more transparency
+      // Show pads for each rotation trial with color based on overlap status
       for (const pad of trial.pads) {
+        const padColor = trial.hasOverlap 
+          ? { fill: "rgba(255,165,0,0.15)", stroke: "rgba(255,165,0,0.4)" } // Orange for overlap
+          : { fill: "rgba(0,0,255,0.15)", stroke: "rgba(0,0,255,0.4)" } // Blue for no overlap
+        
         graphics.rects!.push({
           center: pad.absoluteCenter,
           width: pad.size.x,
           height: pad.size.y,
-          fill: "rgba(0,0,255,0.15)", // More transparent pads
-          stroke: "rgba(0,0,255,0.4)",
+          fill: padColor.fill,
+          stroke: padColor.stroke,
           strokeWidth: 0.01,
         } as Rect)
       }

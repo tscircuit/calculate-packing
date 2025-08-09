@@ -11,25 +11,58 @@ export function checkOverlapWithPackedComponents({
   packedComponents,
   minGap,
 }: CheckOverlapWithPackedComponentsParams): boolean {
-  // Use pad-to-pad distance checking for more accurate overlap detection
+  // Use proper rectangle-to-rectangle collision detection
   for (const componentPad of component.pads) {
     for (const packedComponent of packedComponents) {
       for (const packedPad of packedComponent.pads) {
-        // Calculate center-to-center distance
-        const centerDistance = Math.hypot(
-          componentPad.absoluteCenter.x - packedPad.absoluteCenter.x,
-          componentPad.absoluteCenter.y - packedPad.absoluteCenter.y,
-        )
+        // Calculate rectangle bounds
+        const comp1Bounds = {
+          left: componentPad.absoluteCenter.x - componentPad.size.x / 2,
+          right: componentPad.absoluteCenter.x + componentPad.size.x / 2,
+          bottom: componentPad.absoluteCenter.y - componentPad.size.y / 2,
+          top: componentPad.absoluteCenter.y + componentPad.size.y / 2
+        }
 
-        // Calculate minimum required center-to-center distance
-        const componentPadRadius =
-          Math.max(componentPad.size.x, componentPad.size.y) / 2
-        const packedPadRadius = Math.max(packedPad.size.x, packedPad.size.y) / 2
-        const minRequiredDistance =
-          minGap + componentPadRadius + packedPadRadius
+        const comp2Bounds = {
+          left: packedPad.absoluteCenter.x - packedPad.size.x / 2,
+          right: packedPad.absoluteCenter.x + packedPad.size.x / 2,
+          bottom: packedPad.absoluteCenter.y - packedPad.size.y / 2,
+          top: packedPad.absoluteCenter.y + packedPad.size.y / 2
+        }
 
-        if (centerDistance < minRequiredDistance) {
-          return true // Overlap detected
+        // Check for rectangle overlap (rectangles overlap if they overlap in BOTH X and Y)
+        const xOverlap = comp1Bounds.right > comp2Bounds.left && comp2Bounds.right > comp1Bounds.left
+        const yOverlap = comp1Bounds.top > comp2Bounds.bottom && comp2Bounds.top > comp1Bounds.bottom
+
+        if (xOverlap && yOverlap) {
+          return true // Actual rectangle overlap detected
+        }
+
+        // If no overlap, check if gap is sufficient
+        if (!xOverlap || !yOverlap) {
+          // Calculate gaps in both dimensions
+          let xGap = Infinity
+          let yGap = Infinity
+
+          if (!xOverlap) {
+            xGap = Math.min(
+              Math.abs(comp1Bounds.left - comp2Bounds.right),
+              Math.abs(comp2Bounds.left - comp1Bounds.right)
+            )
+          }
+
+          if (!yOverlap) {
+            yGap = Math.min(
+              Math.abs(comp1Bounds.bottom - comp2Bounds.top),
+              Math.abs(comp2Bounds.bottom - comp1Bounds.top)
+            )
+          }
+
+          // If rectangles don't overlap, we need sufficient gap in the separating dimension
+          const minGapInSeparatingDimension = Math.min(xGap, yGap)
+          if (minGapInSeparatingDimension < minGap) {
+            return true // Insufficient gap
+          }
         }
       }
     }
