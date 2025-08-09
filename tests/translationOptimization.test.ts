@@ -19,7 +19,7 @@ describe("Translation Optimization", () => {
         ],
       },
       {
-        componentId: "U2", 
+        componentId: "U2",
         pads: [
           {
             padId: "U2_P1",
@@ -46,23 +46,23 @@ describe("Translation Optimization", () => {
     const result = solver.getResult()
 
     expect(result).toHaveLength(2)
-    
+
     // Check that components are positioned
     expect(result[0].center).toBeDefined()
     expect(result[1].center).toBeDefined()
-    
+
     // Calculate the distance between the VCC pads
-    const u1VccPad = result[0].pads.find(p => p.networkId === "VCC")
-    const u2VccPad = result[1].pads.find(p => p.networkId === "VCC")
-    
+    const u1VccPad = result[0].pads.find((p) => p.networkId === "VCC")
+    const u2VccPad = result[1].pads.find((p) => p.networkId === "VCC")
+
     expect(u1VccPad).toBeDefined()
     expect(u2VccPad).toBeDefined()
-    
+
     const distance = Math.hypot(
       u1VccPad!.absoluteCenter.x - u2VccPad!.absoluteCenter.x,
-      u1VccPad!.absoluteCenter.y - u2VccPad!.absoluteCenter.y
+      u1VccPad!.absoluteCenter.y - u2VccPad!.absoluteCenter.y,
     )
-    
+
     // With optimization, the distance should be minimized while respecting minGap
     // The minimum possible distance should be around minGap + component sizes
     expect(distance).toBeGreaterThan(2) // Should respect minGap
@@ -88,7 +88,7 @@ describe("Translation Optimization", () => {
         componentId: "U2",
         pads: [
           {
-            padId: "U2_P1", 
+            padId: "U2_P1",
             networkId: "VCC",
             type: "rect",
             offset: { x: 2, y: 0 },
@@ -101,7 +101,7 @@ describe("Translation Optimization", () => {
         pads: [
           {
             padId: "U3_P1",
-            networkId: "VCC", 
+            networkId: "VCC",
             type: "rect",
             offset: { x: 0, y: 0 },
             size: { x: 1, y: 1 },
@@ -113,7 +113,7 @@ describe("Translation Optimization", () => {
     const solver = new PackSolver({
       components,
       minGap: 2,
-      packOrderStrategy: "largest_to_smallest", 
+      packOrderStrategy: "largest_to_smallest",
       packPlacementStrategy: "minimum_sum_distance_to_network",
       disconnectedPackDirection: "right",
     })
@@ -128,7 +128,7 @@ describe("Translation Optimization", () => {
       for (let j = i + 1; j < result.length; j++) {
         const dist = Math.hypot(
           result[i].center.x - result[j].center.x,
-          result[i].center.y - result[j].center.y
+          result[i].center.y - result[j].center.y,
         )
         expect(dist).toBeGreaterThan(2) // Should respect minGap
       }
@@ -143,7 +143,7 @@ describe("Translation Optimization", () => {
           {
             padId: "U1_P1",
             networkId: "VCC",
-            type: "rect", 
+            type: "rect",
             offset: { x: -3, y: 0 },
             size: { x: 1, y: 1 },
           },
@@ -167,7 +167,7 @@ describe("Translation Optimization", () => {
             size: { x: 1, y: 1 },
           },
           {
-            padId: "U2_P2", 
+            padId: "U2_P2",
             networkId: "GND",
             type: "rect",
             offset: { x: 1, y: 0 },
@@ -186,11 +186,11 @@ describe("Translation Optimization", () => {
       disconnectedPackDirection: "right",
     })
 
-    // Test without optimization (original strategy)  
+    // Test without optimization (original strategy)
     const originalSolver = new PackSolver({
       components,
       minGap: 2,
-      packOrderStrategy: "largest_to_smallest", 
+      packOrderStrategy: "largest_to_smallest",
       packPlacementStrategy: "shortest_connection_along_outline",
       disconnectedPackDirection: "right",
     })
@@ -208,14 +208,16 @@ describe("Translation Optimization", () => {
     const calculateTotalDistance = (result: PackedComponent[]) => {
       let totalDistance = 0
       const networks = ["VCC", "GND"]
-      
+
       for (const networkId of networks) {
-        const pads = result.flatMap(c => c.pads.filter(p => p.networkId === networkId))
+        const pads = result.flatMap((c) =>
+          c.pads.filter((p) => p.networkId === networkId),
+        )
         for (let i = 0; i < pads.length; i++) {
           for (let j = i + 1; j < pads.length; j++) {
             totalDistance += Math.hypot(
               pads[i].absoluteCenter.x - pads[j].absoluteCenter.x,
-              pads[i].absoluteCenter.y - pads[j].absoluteCenter.y
+              pads[i].absoluteCenter.y - pads[j].absoluteCenter.y,
             )
           }
         }

@@ -74,36 +74,63 @@ describe("Translation Optimizer Unit Tests", () => {
 
   describe("calculateSumDistance", () => {
     it("should return 0 for no connected pads", () => {
-      const component = createTestComponent("U1", { x: 0, y: 0 }, [{ x: 0, y: 0 }], ["NET1"])
+      const component = createTestComponent(
+        "U1",
+        { x: 0, y: 0 },
+        [{ x: 0, y: 0 }],
+        ["NET1"],
+      )
       const candidateCenter = { x: 0, y: 0 }
       const packedComponents = [
-        createTestComponent("U2", { x: 10, y: 0 }, [{ x: 0, y: 0 }], ["NET2"])
+        createTestComponent("U2", { x: 10, y: 0 }, [{ x: 0, y: 0 }], ["NET2"]),
       ]
 
-      const distance = calculateSumDistance(component, candidateCenter, packedComponents)
+      const distance = calculateSumDistance(
+        component,
+        candidateCenter,
+        packedComponents,
+      )
       expect(distance).toBe(0)
     })
 
     it("should calculate correct sum distance for connected pads", () => {
-      const component = createTestComponent("U1", { x: 0, y: 0 }, [{ x: 0, y: 0 }], ["VCC"])
+      const component = createTestComponent(
+        "U1",
+        { x: 0, y: 0 },
+        [{ x: 0, y: 0 }],
+        ["VCC"],
+      )
       const candidateCenter = { x: 0, y: 0 }
       const packedComponents = [
-        createTestComponent("U2", { x: 10, y: 0 }, [{ x: 0, y: 0 }], ["VCC"])
+        createTestComponent("U2", { x: 10, y: 0 }, [{ x: 0, y: 0 }], ["VCC"]),
       ]
 
-      const distance = calculateSumDistance(component, candidateCenter, packedComponents)
+      const distance = calculateSumDistance(
+        component,
+        candidateCenter,
+        packedComponents,
+      )
       expect(distance).toBe(10) // Distance between (0,0) and (10,0)
     })
 
     it("should find minimum distance when multiple same-network pads exist", () => {
-      const component = createTestComponent("U1", { x: 0, y: 0 }, [{ x: 0, y: 0 }], ["VCC"])
+      const component = createTestComponent(
+        "U1",
+        { x: 0, y: 0 },
+        [{ x: 0, y: 0 }],
+        ["VCC"],
+      )
       const candidateCenter = { x: 0, y: 0 }
       const packedComponents = [
         createTestComponent("U2", { x: 10, y: 0 }, [{ x: 0, y: 0 }], ["VCC"]),
-        createTestComponent("U3", { x: 3, y: 0 }, [{ x: 0, y: 0 }], ["VCC"])
+        createTestComponent("U3", { x: 3, y: 0 }, [{ x: 0, y: 0 }], ["VCC"]),
       ]
 
-      const distance = calculateSumDistance(component, candidateCenter, packedComponents)
+      const distance = calculateSumDistance(
+        component,
+        candidateCenter,
+        packedComponents,
+      )
       expect(distance).toBe(3) // Should pick closer pad at (3,0)
     })
   })
@@ -115,7 +142,12 @@ describe("Translation Optimizer Unit Tests", () => {
       const packedComponents = [createTestComponent("U2", { x: 20, y: 0 })]
       const minGap = 2
 
-      const hasOverlap = checkOverlap(component, candidateCenter, packedComponents, minGap)
+      const hasOverlap = checkOverlap(
+        component,
+        candidateCenter,
+        packedComponents,
+        minGap,
+      )
       expect(hasOverlap).toBe(false)
     })
 
@@ -125,17 +157,27 @@ describe("Translation Optimizer Unit Tests", () => {
       const packedComponents = [createTestComponent("U2", { x: 1, y: 0 })]
       const minGap = 2
 
-      const hasOverlap = checkOverlap(component, candidateCenter, packedComponents, minGap)
+      const hasOverlap = checkOverlap(
+        component,
+        candidateCenter,
+        packedComponents,
+        minGap,
+      )
       expect(hasOverlap).toBe(true)
     })
   })
 
   describe("optimizeTranslationForMinimumSum", () => {
     it("should optimize position to minimize distance", () => {
-      const component = createTestComponent("U1", { x: 0, y: 0 }, [{ x: 0, y: 0 }], ["VCC"])
+      const component = createTestComponent(
+        "U1",
+        { x: 0, y: 0 },
+        [{ x: 0, y: 0 }],
+        ["VCC"],
+      )
       const initialCenter = { x: 0, y: 0 }
       const packedComponents = [
-        createTestComponent("U2", { x: 10, y: 0 }, [{ x: 0, y: 0 }], ["VCC"])
+        createTestComponent("U2", { x: 10, y: 0 }, [{ x: 0, y: 0 }], ["VCC"]),
       ]
       const minGap = 2
 
@@ -151,10 +193,15 @@ describe("Translation Optimizer Unit Tests", () => {
     })
 
     it("should not move beyond bounds", () => {
-      const component = createTestComponent("U1", { x: 0, y: 0 }, [{ x: 0, y: 0 }], ["VCC"])
+      const component = createTestComponent(
+        "U1",
+        { x: 0, y: 0 },
+        [{ x: 0, y: 0 }],
+        ["VCC"],
+      )
       const initialCenter = { x: 0, y: 0 }
       const packedComponents = [
-        createTestComponent("U2", { x: 2, y: 0 }, [{ x: 0, y: 0 }], ["VCC"])
+        createTestComponent("U2", { x: 2, y: 0 }, [{ x: 0, y: 0 }], ["VCC"]),
       ]
       const minGap = 2
 
@@ -174,13 +221,16 @@ describe("Translation Optimizer Unit Tests", () => {
       const component = createTestComponent(
         "U1",
         { x: 0, y: 0 },
-        [{ x: -1, y: 0 }, { x: 1, y: 0 }],
-        ["VCC", "GND"]
+        [
+          { x: -1, y: 0 },
+          { x: 1, y: 0 },
+        ],
+        ["VCC", "GND"],
       )
       const initialCenter = { x: 0, y: 0 }
       const packedComponents = [
         createTestComponent("U2", { x: 10, y: 0 }, [{ x: 0, y: 0 }], ["VCC"]),
-        createTestComponent("U3", { x: -10, y: 0 }, [{ x: 0, y: 0 }], ["GND"])
+        createTestComponent("U3", { x: -10, y: 0 }, [{ x: 0, y: 0 }], ["GND"]),
       ]
       const minGap = 2
 
