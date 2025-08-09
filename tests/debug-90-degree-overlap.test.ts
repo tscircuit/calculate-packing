@@ -86,10 +86,14 @@ test.skip("debug why 90° rotation is rejected - overlap check", () => {
       const u2VCC = u2With90.pads[0]?.absoluteCenter
       const u2GND = u2With90.pads[1]?.absoluteCenter
 
-      const dist1 = u1VCC && u2VCC ? Math.hypot(u1VCC.x - u2VCC.x, u1VCC.y - u2VCC.y) : 0
-      const dist2 = u1VCC && u2GND ? Math.hypot(u1VCC.x - u2GND.x, u1VCC.y - u2GND.y) : 0
-      const dist3 = u1GND && u2VCC ? Math.hypot(u1GND.x - u2VCC.x, u1GND.y - u2VCC.y) : 0
-      const dist4 = u1GND && u2GND ? Math.hypot(u1GND.x - u2GND.x, u1GND.y - u2GND.y) : 0
+      const dist1 =
+        u1VCC && u2VCC ? Math.hypot(u1VCC.x - u2VCC.x, u1VCC.y - u2VCC.y) : 0
+      const dist2 =
+        u1VCC && u2GND ? Math.hypot(u1VCC.x - u2GND.x, u1VCC.y - u2GND.y) : 0
+      const dist3 =
+        u1GND && u2VCC ? Math.hypot(u1GND.x - u2VCC.x, u1GND.y - u2VCC.y) : 0
+      const dist4 =
+        u1GND && u2GND ? Math.hypot(u1GND.x - u2GND.x, u1GND.y - u2GND.y) : 0
 
       const minDist = Math.min(dist1, dist2, dist3, dist4)
       console.log(

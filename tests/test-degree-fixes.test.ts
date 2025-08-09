@@ -76,8 +76,12 @@ test("degrees should work correctly with rotation constraints", () => {
   expect(u2.ccwRotationOffset).toBe(90)
 
   // Should be vertical (same X, different Y)
-  const sameX = Math.abs((pad1?.absoluteCenter?.x ?? 0) - (pad2?.absoluteCenter?.x ?? 0)) < 0.5
-  const differentY = Math.abs((pad1?.absoluteCenter?.y ?? 0) - (pad2?.absoluteCenter?.y ?? 0)) > 8
+  const sameX =
+    Math.abs((pad1?.absoluteCenter?.x ?? 0) - (pad2?.absoluteCenter?.x ?? 0)) <
+    0.5
+  const differentY =
+    Math.abs((pad1?.absoluteCenter?.y ?? 0) - (pad2?.absoluteCenter?.y ?? 0)) >
+    8
 
   console.log(`Is vertical? ${sameX && differentY}`)
   expect(sameX).toBe(true)

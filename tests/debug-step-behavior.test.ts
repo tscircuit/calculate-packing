@@ -103,8 +103,10 @@ test("simulate PackDebugger step behavior with 90° constraint", () => {
 
   // Check if U2 is vertical (same X, different Y by ~10 units)
   const isVertical =
-    Math.abs((pad1?.absoluteCenter?.x ?? 0) - (pad2?.absoluteCenter?.x ?? 0)) < 1 &&
-    Math.abs((pad1?.absoluteCenter?.y ?? 0) - (pad2?.absoluteCenter?.y ?? 0)) > 8
+    Math.abs((pad1?.absoluteCenter?.x ?? 0) - (pad2?.absoluteCenter?.x ?? 0)) <
+      1 &&
+    Math.abs((pad1?.absoluteCenter?.y ?? 0) - (pad2?.absoluteCenter?.y ?? 0)) >
+      8
 
   console.log(`Is U2 vertical? ${isVertical}`)
 
