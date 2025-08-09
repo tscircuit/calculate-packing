@@ -1,5 +1,4 @@
 import { test, expect } from "bun:test"
-// import { checkOverlap } from "../lib/PackSolver/translationOptimizer"
 import type { PackedComponent } from "../lib/types"
 
 test.skip("debug why 90° rotation is rejected - overlap check", () => {
