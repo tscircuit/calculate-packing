@@ -31,7 +31,7 @@ export const getComponentBounds = (
     ]
 
     localCorners.forEach((corner) => {
-      const world = rotatePoint(corner, component.ccwRotationOffset)
+      const world = rotatePoint(corner, component.ccwRotationOffset * Math.PI / 180) // Convert to radians for math
       const x = world.x + component.center.x
       const y = world.y + component.center.y
       bounds.minX = Math.min(bounds.minX, x)

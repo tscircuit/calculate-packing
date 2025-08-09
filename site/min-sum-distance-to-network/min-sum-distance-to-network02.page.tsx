@@ -208,7 +208,7 @@ const packInput: PackInput = {
   ],
   minGap: 0.2,
   packOrderStrategy: "largest_to_smallest",
-  packPlacementStrategy: "minimum_sum_distance_to_network",
+  packPlacementStrategy: "minimum_sum_squared_distance_to_network",
 }
 
 export default () => {
