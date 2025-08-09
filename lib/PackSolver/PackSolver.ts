@@ -84,7 +84,7 @@ export class PackSolver extends BaseSolver {
     // Already solved?
     if (this.solved) return
 
-    const { minGap = 0, disconnectedPackDirection = "nearest_to_center" } =
+    const { minGap = 0, disconnectedPackDirection = "nearest_to_center", packPlacementStrategy = "shortest_connection_along_outline" } =
       this.packInput
 
     // If no more components to process -> solved
@@ -169,37 +169,77 @@ export class PackSolver extends BaseSolver {
       }
     }
 
-    // Find the point along the outline that minimizes the distance of the pad
-    // to the next nearest pad on the network
     let smallestDistance = Number.POSITIVE_INFINITY
     let bestPoints: (Point & { networkId: NetworkId })[] = []
-    for (const outline of outlines) {
-      for (const outlineSegment of outline) {
-        for (const sharedNetworkId of sharedNetworkIds) {
-          const alreadyPackedSegments =
-            networkIdToAlreadyPackedSegments.get(sharedNetworkId)
-          if (!alreadyPackedSegments) continue
-          const {
-            nearestPoint: nearestPointOnOutlineToAlreadyPackedSegments,
-            dist: outlineToAlreadyPackedSegmentsDist,
-          } = computeNearestPointOnSegmentForSegmentSet(
-            outlineSegment,
-            alreadyPackedSegments,
-          )
-          if (outlineToAlreadyPackedSegmentsDist < smallestDistance + 1e-6) {
-            if (outlineToAlreadyPackedSegmentsDist < smallestDistance - 1e-6) {
-              bestPoints = [
-                {
+
+    if (packPlacementStrategy === "minimum_sum_distance_to_network") {
+      // For minimum sum distance strategy, evaluate each outline point
+      // by computing the sum of distances for all pads to their nearest packed pads
+      for (const outline of outlines) {
+        for (const outlineSegment of outline) {
+          // Sample points along the outline segment
+          const samplePoints = [
+            outlineSegment[0],
+            {
+              x: (outlineSegment[0].x + outlineSegment[1].x) / 2,
+              y: (outlineSegment[0].y + outlineSegment[1].y) / 2,
+            },
+            outlineSegment[1],
+          ]
+
+          for (const samplePoint of samplePoints) {
+            for (const sharedNetworkId of sharedNetworkIds) {
+              // Calculate sum distance for this position and network
+              const sumDistance = this.computeSumDistanceForPosition(
+                newPackedComponent,
+                samplePoint,
+                sharedNetworkId,
+              )
+
+              if (sumDistance < smallestDistance + 1e-6) {
+                if (sumDistance < smallestDistance - 1e-6) {
+                  bestPoints = [{ ...samplePoint, networkId: sharedNetworkId }]
+                  smallestDistance = sumDistance
+                } else {
+                  bestPoints.push({ ...samplePoint, networkId: sharedNetworkId })
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      // Original shortest_connection_along_outline strategy
+      // Find the point along the outline that minimizes the distance of the pad
+      // to the next nearest pad on the network
+      for (const outline of outlines) {
+        for (const outlineSegment of outline) {
+          for (const sharedNetworkId of sharedNetworkIds) {
+            const alreadyPackedSegments =
+              networkIdToAlreadyPackedSegments.get(sharedNetworkId)
+            if (!alreadyPackedSegments) continue
+            const {
+              nearestPoint: nearestPointOnOutlineToAlreadyPackedSegments,
+              dist: outlineToAlreadyPackedSegmentsDist,
+            } = computeNearestPointOnSegmentForSegmentSet(
+              outlineSegment,
+              alreadyPackedSegments,
+            )
+            if (outlineToAlreadyPackedSegmentsDist < smallestDistance + 1e-6) {
+              if (outlineToAlreadyPackedSegmentsDist < smallestDistance - 1e-6) {
+                bestPoints = [
+                  {
+                    ...nearestPointOnOutlineToAlreadyPackedSegments,
+                    networkId: sharedNetworkId,
+                  },
+                ]
+                smallestDistance = outlineToAlreadyPackedSegmentsDist
+              } else {
+                bestPoints.push({
                   ...nearestPointOnOutlineToAlreadyPackedSegments,
                   networkId: sharedNetworkId,
-                },
-              ]
-              smallestDistance = outlineToAlreadyPackedSegmentsDist
-            } else {
-              bestPoints.push({
-                ...nearestPointOnOutlineToAlreadyPackedSegments,
-                networkId: sharedNetworkId,
-              })
+                })
+              }
             }
           }
         }
@@ -281,19 +321,38 @@ export class PackSolver extends BaseSolver {
 
         /* --- 2. cost (connection length) ------------------------------- */
         let cost = 0
-        for (const tp of transformedPads) {
-          const sameNetPads = packedPads.filter(
-            (pp) => pp.networkId === tp.networkId,
-          )
-          if (!sameNetPads.length) continue
-          let bestD = Infinity
-          for (const pp of sameNetPads) {
-            const dx = tp.absoluteCenter.x - pp.absoluteCenter.x
-            const dy = tp.absoluteCenter.y - pp.absoluteCenter.y
-            const d = Math.hypot(dx, dy)
-            if (d < bestD) bestD = d
+        if (packPlacementStrategy === "minimum_sum_distance_to_network") {
+          // For minimum sum distance strategy, compute sum of distances for all pads
+          for (const tp of transformedPads) {
+            const sameNetPads = packedPads.filter(
+              (pp) => pp.networkId === tp.networkId,
+            )
+            if (!sameNetPads.length) continue
+            let bestD = Infinity
+            for (const pp of sameNetPads) {
+              const dx = tp.absoluteCenter.x - pp.absoluteCenter.x
+              const dy = tp.absoluteCenter.y - pp.absoluteCenter.y
+              const d = Math.hypot(dx, dy)
+              if (d < bestD) bestD = d
+            }
+            cost += bestD === Infinity ? 0 : bestD
           }
-          cost += bestD
+        } else {
+          // Original strategy
+          for (const tp of transformedPads) {
+            const sameNetPads = packedPads.filter(
+              (pp) => pp.networkId === tp.networkId,
+            )
+            if (!sameNetPads.length) continue
+            let bestD = Infinity
+            for (const pp of sameNetPads) {
+              const dx = tp.absoluteCenter.x - pp.absoluteCenter.x
+              const dy = tp.absoluteCenter.y - pp.absoluteCenter.y
+              const d = Math.hypot(dx, dy)
+              if (d < bestD) bestD = d
+            }
+            cost += bestD
+          }
         }
 
         if (!bestCandidate || cost < bestCandidate.cost) {
@@ -386,12 +445,6 @@ export class PackSolver extends BaseSolver {
     )
     if (!pts.length) return { x: 0, y: 0 }
 
-    const cmp = {
-      left: (p: Point, v: number) => p.x < v,
-      right: (p: Point, v: number) => p.x > v,
-      down: (p: Point, v: number) => p.y < v,
-      up: (p: Point, v: number) => p.y > v,
-    }
 
     if (dir !== "nearest_to_center") {
       const extreme = dir === "left" || dir === "down" ? Math.min : Math.max
@@ -513,5 +566,53 @@ export class PackSolver extends BaseSolver {
 
   getResult(): PackedComponent[] {
     return this.packedComponents
+  }
+
+  private computeSumDistanceForPosition(
+    component: PackedComponent,
+    position: Point,
+    targetNetworkId: NetworkId,
+  ): number {
+    // Get pads from the component that are on the target network
+    const componentPadsOnNetwork = component.pads.filter(
+      (p) => p.networkId === targetNetworkId,
+    )
+
+    if (componentPadsOnNetwork.length === 0) return 0
+
+    // Get all packed pads on the same network
+    const packedPadsOnNetwork = this.packedComponents.flatMap((c) =>
+      c.pads.filter((p) => p.networkId === targetNetworkId),
+    )
+
+    if (packedPadsOnNetwork.length === 0) return 0
+
+    let sumDistance = 0
+
+    // For each pad on the target network in the component being placed
+    for (const componentPad of componentPadsOnNetwork) {
+      // Calculate where this pad would be if the component is placed at position
+      const padPosition = {
+        x: position.x + componentPad.offset.x,
+        y: position.y + componentPad.offset.y,
+      }
+
+      // Find the minimum distance to any packed pad on the same network
+      let minDistance = Number.POSITIVE_INFINITY
+      for (const packedPad of packedPadsOnNetwork) {
+        const distance = Math.hypot(
+          padPosition.x - packedPad.absoluteCenter.x,
+          padPosition.y - packedPad.absoluteCenter.y,
+        )
+        if (distance < minDistance) {
+          minDistance = distance
+        }
+      }
+
+      // Add to sum distance (if no packed pads found, distance is 0 as specified)
+      sumDistance += minDistance === Number.POSITIVE_INFINITY ? 0 : minDistance
+    }
+
+    return sumDistance
   }
 }
