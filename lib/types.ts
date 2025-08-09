@@ -35,7 +35,9 @@ export interface PackInput {
   minGap: number
 
   packOrderStrategy: "largest_to_smallest"
-  packPlacementStrategy: "shortest_connection_along_outline"
+  packPlacementStrategy:
+    | "shortest_connection_along_outline"
+    | "minimum_sum_distance_to_network"
 
   disconnectedPackDirection?:
     | "left"
