@@ -34,17 +34,11 @@ export function computeSumDistanceForPosition({
 
   // For each pad on the target network in the component being placed
   for (const componentPad of componentPadsOnNetwork) {
-    // Calculate where this pad would be if the component is placed at position
-    const padPosition = {
-      x: position.x + componentPad.offset.x,
-      y: position.y + componentPad.offset.y,
-    }
-
-    // Find the minimum distance to any packed pad on the same network
+    // Find the minimum distance from the candidate point directly to any packed pad on the same network
     let minDistance = Number.POSITIVE_INFINITY
     for (const packedPad of packedPadsOnNetwork) {
-      const dx = padPosition.x - packedPad.absoluteCenter.x
-      const dy = padPosition.y - packedPad.absoluteCenter.y
+      const dx = position.x - packedPad.absoluteCenter.x
+      const dy = position.y - packedPad.absoluteCenter.y
       const distance = useSquaredDistance
         ? dx * dx + dy * dy
         : Math.hypot(dx, dy)

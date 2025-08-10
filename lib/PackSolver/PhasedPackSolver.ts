@@ -397,19 +397,13 @@ export class PhasedPackSolver extends BaseSolver {
               (p) => p.networkId === sharedNetworkId,
             )
 
-            for (const componentPad of componentPadsOnNetwork) {
+            for (const _ of componentPadsOnNetwork) {
               let minDist = Number.POSITIVE_INFINITY
               for (const packedComponent of this.packedComponents) {
                 for (const packedPad of packedComponent.pads) {
                   if (packedPad.networkId === sharedNetworkId) {
-                    const dx =
-                      sampledPoint.x +
-                      componentPad.offset.x -
-                      packedPad.absoluteCenter.x
-                    const dy =
-                      sampledPoint.y +
-                      componentPad.offset.y -
-                      packedPad.absoluteCenter.y
+                    const dx = sampledPoint.x - packedPad.absoluteCenter.x
+                    const dy = sampledPoint.y - packedPad.absoluteCenter.y
                     const dist = Math.sqrt(dx * dx + dy * dy)
                     minDist = Math.min(minDist, dist)
                   }
@@ -500,19 +494,10 @@ export class PhasedPackSolver extends BaseSolver {
       }
     }
 
-    // Use selectOptimalRotation to get the best placement
+    // We'll select the best rotation from the trials we create below
     const useSquaredDistance =
       this.packInput.packPlacementStrategy ===
       "minimum_sum_squared_distance_to_network"
-
-    const result = selectOptimalRotation({
-      component: newPackedComponent,
-      candidatePoints: allCandidatePoints,
-      packedComponents: this.packedComponents,
-      minGap: this.packInput.minGap ?? 0,
-      useSquaredDistance: useSquaredDistance,
-      checkOverlap: (comp) => this.checkOverlapWithPackedComponents(comp),
-    })
 
     // Create rotation trials for visualization - only for good candidate points
     for (const angle of candidateAngles) {
@@ -610,14 +595,29 @@ export class PhasedPackSolver extends BaseSolver {
 
     this.phaseData.rotationTrials = rotationTrials
 
-    // Convert RotationCandidate to PackedComponent
-    if (result) {
+    // Select the best rotation from our trials
+    const validTrials = rotationTrials.filter((trial) => !trial.hasOverlap)
+    if (validTrials.length > 0) {
+      // Find the trial with the lowest cost
+      const bestTrial = validTrials.reduce((best, current) =>
+        current.cost < best.cost ? current : best,
+      )
+
       const selectedComponent = { ...newPackedComponent }
-      selectedComponent.center = result.center
-      selectedComponent.ccwRotationOffset = result.angle
-      selectedComponent.pads = result.pads
-      // Apply rotation to pads now that we have the final position and rotation
-      setPackedComponentPadCenters(selectedComponent)
+      selectedComponent.center = bestTrial.center
+      selectedComponent.ccwRotationOffset = bestTrial.ccwRotationOffset
+      selectedComponent.pads = bestTrial.pads
+      this.phaseData.selectedRotation = selectedComponent
+    } else if (rotationTrials.length > 0) {
+      // If no valid trials without overlap, pick the best overlapping one
+      const bestTrial = rotationTrials.reduce((best, current) =>
+        current.cost < best.cost ? current : best,
+      )
+
+      const selectedComponent = { ...newPackedComponent }
+      selectedComponent.center = bestTrial.center
+      selectedComponent.ccwRotationOffset = bestTrial.ccwRotationOffset
+      selectedComponent.pads = bestTrial.pads
       this.phaseData.selectedRotation = selectedComponent
     } else {
       this.phaseData.selectedRotation = undefined
@@ -801,7 +801,16 @@ export class PhasedPackSolver extends BaseSolver {
   private visualizeRotationTrials(graphics: GraphicsObject): void {
     if (!this.phaseData.rotationTrials) return
 
-    for (const trial of this.phaseData.rotationTrials) {
+    // Sort trials by cost (highest to lowest) for step assignment
+    const sortedTrials = [...this.phaseData.rotationTrials].sort(
+      (a, b) => b.cost - a.cost,
+    )
+
+    let trialIndex = 0
+
+    for (const trial of sortedTrials) {
+      const currentStep = trialIndex
+
       // Show component center as a point with rotation, cost and anchor info
       // Offset point slightly based on rotation to avoid overlap
       const rotationOffset = 0.02 * (trial.ccwRotationOffset / 90)
@@ -829,8 +838,11 @@ export class PhasedPackSolver extends BaseSolver {
           fill: padColor.fill,
           stroke: padColor.stroke,
           strokeWidth: 0.01,
+          step: currentStep,
         } as Rect)
       }
+
+      trialIndex++
     }
   }
 
