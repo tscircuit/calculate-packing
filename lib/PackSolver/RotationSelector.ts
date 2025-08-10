@@ -96,7 +96,7 @@ export function selectOptimalRotation(
 
         // Update the temp component with the transformed pads
         tempComponent.pads = transformedPads
-        
+
         // Apply dimension transformations
         setPackedComponentPadCenters(tempComponent)
 
