@@ -607,7 +607,6 @@ export class PhasedPackSolver extends BaseSolver {
       selectedComponent.center = bestTrial.center
       selectedComponent.ccwRotationOffset = bestTrial.ccwRotationOffset
       selectedComponent.pads = bestTrial.pads
-      setPackedComponentPadCenters(selectedComponent)
       this.phaseData.selectedRotation = selectedComponent
     } else if (rotationTrials.length > 0) {
       // If no valid trials without overlap, pick the best overlapping one
@@ -619,7 +618,6 @@ export class PhasedPackSolver extends BaseSolver {
       selectedComponent.center = bestTrial.center
       selectedComponent.ccwRotationOffset = bestTrial.ccwRotationOffset
       selectedComponent.pads = bestTrial.pads
-      setPackedComponentPadCenters(selectedComponent)
       this.phaseData.selectedRotation = selectedComponent
     } else {
       this.phaseData.selectedRotation = undefined

@@ -1,6 +1,7 @@
 import type { PackedComponent, InputComponent, NetworkId } from "../types"
 import type { Point } from "graphics-debug"
 import { rotatePoint } from "../math/rotatePoint"
+import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
 
 export interface RotationCandidate {
   center: Point
@@ -84,14 +85,8 @@ export function selectOptimalRotation(
           // Rotate the pad offset around the origin (component center)
           const rotatedOffset = rotatePoint(p.offset, (angle * Math.PI) / 180)
 
-          // Rotate pad dimensions for 90°/270° rotations
-          const normalizedRotation = ((angle % 360) + 360) % 360
-          const shouldSwapDimensions =
-            normalizedRotation === 90 || normalizedRotation === 270
-
           return {
             ...p,
-            size: shouldSwapDimensions ? { x: p.size.y, y: p.size.x } : p.size,
             absoluteCenter: {
               x: initialCenter.x + rotatedOffset.x,
               y: initialCenter.y + rotatedOffset.y,
@@ -101,6 +96,9 @@ export function selectOptimalRotation(
 
         // Update the temp component with the transformed pads
         tempComponent.pads = transformedPads
+        
+        // Apply dimension transformations
+        setPackedComponentPadCenters(tempComponent)
 
         // Check for overlap at initial position
         if (!checkOverlap(tempComponent)) {
@@ -147,14 +145,8 @@ export function selectOptimalRotation(
         pads: component.pads.map((p) => {
           const rotatedOffset = rotatePoint(p.offset, (angle * Math.PI) / 180)
 
-          // Rotate pad dimensions for 90°/270° rotations
-          const normalizedRotation = ((angle % 360) + 360) % 360
-          const shouldSwapDimensions =
-            normalizedRotation === 90 || normalizedRotation === 270
-
           return {
             ...p,
-            size: shouldSwapDimensions ? { x: p.size.y, y: p.size.x } : p.size,
             absoluteCenter: {
               x: candidatePoint.x + rotatedOffset.x,
               y: candidatePoint.y + rotatedOffset.y,
@@ -162,6 +154,9 @@ export function selectOptimalRotation(
           }
         }),
       }
+
+      // Apply dimension transformations
+      setPackedComponentPadCenters(centerTrial)
 
       // Check for overlap at center position
       if (!checkOverlap(centerTrial)) {

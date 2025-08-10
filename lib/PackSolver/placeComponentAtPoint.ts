@@ -22,15 +22,8 @@ export function placeComponentAtPoint({
     const pads = component.pads.map((pad) => {
       const rotatedOffset = rotatePoint(pad.offset, (angle * Math.PI) / 180)
 
-      const normalizedRotation = ((angle % 360) + 360) % 360
-      const shouldSwapDimensions =
-        normalizedRotation === 90 || normalizedRotation === 270
-
       return {
         ...pad,
-        size: shouldSwapDimensions
-          ? { x: pad.size.y, y: pad.size.x }
-          : pad.size,
         absoluteCenter: {
           x: point.x + rotatedOffset.x,
           y: point.y + rotatedOffset.y,
