@@ -7,7 +7,6 @@ const defaultPackInput: PackInput = {
   components: [
     {
       componentId: "U1",
-      size: { x: 10, y: 6 },
       pads: [
         {
           padId: "U1_P1",
@@ -27,7 +26,6 @@ const defaultPackInput: PackInput = {
     },
     {
       componentId: "U2",
-      size: { x: 8, y: 4 },
       pads: [
         {
           padId: "U2_P1",
