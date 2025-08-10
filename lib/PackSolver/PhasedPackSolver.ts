@@ -596,13 +596,13 @@ export class PhasedPackSolver extends BaseSolver {
     this.phaseData.rotationTrials = rotationTrials
 
     // Select the best rotation from our trials
-    const validTrials = rotationTrials.filter(trial => !trial.hasOverlap)
+    const validTrials = rotationTrials.filter((trial) => !trial.hasOverlap)
     if (validTrials.length > 0) {
       // Find the trial with the lowest cost
-      const bestTrial = validTrials.reduce((best, current) => 
-        current.cost < best.cost ? current : best
+      const bestTrial = validTrials.reduce((best, current) =>
+        current.cost < best.cost ? current : best,
       )
-      
+
       const selectedComponent = { ...newPackedComponent }
       selectedComponent.center = bestTrial.center
       selectedComponent.ccwRotationOffset = bestTrial.ccwRotationOffset
@@ -611,10 +611,10 @@ export class PhasedPackSolver extends BaseSolver {
       this.phaseData.selectedRotation = selectedComponent
     } else if (rotationTrials.length > 0) {
       // If no valid trials without overlap, pick the best overlapping one
-      const bestTrial = rotationTrials.reduce((best, current) => 
-        current.cost < best.cost ? current : best
+      const bestTrial = rotationTrials.reduce((best, current) =>
+        current.cost < best.cost ? current : best,
       )
-      
+
       const selectedComponent = { ...newPackedComponent }
       selectedComponent.center = bestTrial.center
       selectedComponent.ccwRotationOffset = bestTrial.ccwRotationOffset
@@ -804,7 +804,9 @@ export class PhasedPackSolver extends BaseSolver {
     if (!this.phaseData.rotationTrials) return
 
     // Sort trials by cost (highest to lowest) for step assignment
-    const sortedTrials = [...this.phaseData.rotationTrials].sort((a, b) => b.cost - a.cost)
+    const sortedTrials = [...this.phaseData.rotationTrials].sort(
+      (a, b) => b.cost - a.cost,
+    )
 
     let trialIndex = 0
 
