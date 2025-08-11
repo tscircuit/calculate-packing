@@ -173,12 +173,20 @@ export class PhasedPackSolver extends BaseSolver {
     const padMargins = newPackedComponent.pads.map(
       (p) => Math.max(p.size.x, p.size.y) / 2,
     )
-    const additionalGap = Math.max(...padMargins)
-
-    const outlines = constructOutlinesFromPackedComponents(
-      this.packedComponents,
-      { minGap: minGap + additionalGap },
-    )
+    const maxPadMargin = Math.max(...padMargins)
+    const minPadMargin = Math.min(...padMargins)
+    // HACK: We need to space away from the outline enough to avoid a basic pad
+    // overlap, but we don't know the exact pad that's going to be placed, so
+    // we just use the smallest (usually the pin size) and the largest (usually
+    // the body size)
+    const outlines = [
+      ...constructOutlinesFromPackedComponents(this.packedComponents, {
+        minGap: minGap + minPadMargin,
+      }),
+      ...constructOutlinesFromPackedComponents(this.packedComponents, {
+        minGap: minGap + maxPadMargin,
+      }),
+    ]
 
     this.phaseData.outlines = outlines
 

@@ -1,4 +1,5 @@
 import type { GraphicsObject } from "graphics-debug"
+import { makeNumbersRounded } from "./makeNumbersRounded"
 
 export class BaseSolver {
   MAX_ITERATIONS = 1000
@@ -92,5 +93,15 @@ export class BaseSolver {
       rects: [],
       circles: [],
     }
+  }
+
+  noisySolve() {
+    const startTime = Date.now()
+    while (!this.solved && !this.failed) {
+      this.step()
+      console.log(JSON.stringify(makeNumbersRounded(this.visualize())))
+    }
+    const endTime = Date.now()
+    this.timeToSolve = endTime - startTime
   }
 }

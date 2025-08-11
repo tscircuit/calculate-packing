@@ -1,0 +1,407 @@
+{
+  "components": [
+    {
+      "componentId": "partition_0",
+      "pads": [
+        {
+          "padId": "C6_body",
+          "networkId": "C6_body_disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 0.8625619949535703,
+            "y": 1.2583333
+          },
+          "size": {
+            "x": 0.5291665999999999,
+            "y": 1.0583333000000001
+          }
+        },
+        {
+          "padId": "C6.1",
+          "networkId": "U1.1-C6.1",
+          "type": "rect",
+          "offset": {
+            "x": 0.8622886449535707,
+            "y": 1.8095426000000003
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "C6.2",
+          "networkId": "U1.2-C6.2",
+          "type": "rect",
+          "offset": {
+            "x": 0.86283534495357,
+            "y": 0.7071239999999999
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U1_body",
+          "networkId": "U1_body_disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 2.6167286449535703,
+            "y": 1.004771698352237
+          },
+          "size": {
+            "x": 1.2000000000000002,
+            "y": 1
+          }
+        },
+        {
+          "padId": "U1.1",
+          "networkId": "U1.1-C6.1",
+          "type": "rect",
+          "offset": {
+            "x": 1.6167286449535703,
+            "y": 1.304771698352237
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U1.2",
+          "networkId": "U1.2-C6.2",
+          "type": "rect",
+          "offset": {
+            "x": 1.6167286449535703,
+            "y": 1.104771698352237
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U1.3",
+          "networkId": "U1.3-U1.1",
+          "type": "rect",
+          "offset": {
+            "x": 1.6167286449535703,
+            "y": 0.904771698352237
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U1.4",
+          "networkId": "U1.4-C5.1",
+          "type": "rect",
+          "offset": {
+            "x": 1.6167286449535703,
+            "y": 0.704771698352237
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U1.5",
+          "networkId": "U1.5",
+          "type": "rect",
+          "offset": {
+            "x": 3.6167286449535703,
+            "y": 0.704771698352237
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U1.6",
+          "networkId": "U1.6",
+          "type": "rect",
+          "offset": {
+            "x": 3.6167286449535703,
+            "y": 0.9047716983522369
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U1.7",
+          "networkId": "U1.7",
+          "type": "rect",
+          "offset": {
+            "x": 3.6167286449535703,
+            "y": 1.1047716983522369
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U1.8",
+          "networkId": "U1.8",
+          "type": "rect",
+          "offset": {
+            "x": 3.6167286449535703,
+            "y": 1.304771698352237
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "C5_body",
+          "networkId": "C5_body_disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 0.8628353449535702,
+            "y": 0
+          },
+          "size": {
+            "x": 0.5291665999999999,
+            "y": 1.0583333000000001
+          }
+        },
+        {
+          "padId": "C5.1",
+          "networkId": "U1.4-C5.1",
+          "type": "rect",
+          "offset": {
+            "x": 0.8625619949535703,
+            "y": 0.5512093000000002
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "C5.2",
+          "networkId": "C5.2",
+          "type": "rect",
+          "offset": {
+            "x": 0.8631086949535698,
+            "y": -0.5512093000000002
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "C2_body",
+          "networkId": "C2_body_disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 0,
+            "y": 1.8589379596674558
+          },
+          "size": {
+            "x": 0.5291665999999999,
+            "y": 1.0583333000000001
+          }
+        },
+        {
+          "padId": "C2.1",
+          "networkId": "U1.1-C2.1",
+          "type": "rect",
+          "offset": {
+            "x": -0.00027334999999961695,
+            "y": 2.410147259667456
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "C2.2",
+          "networkId": "U1.2-C2.2",
+          "type": "rect",
+          "offset": {
+            "x": 0.00027335000000006104,
+            "y": 1.3077286596674556
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "C1_body",
+          "networkId": "C1_body_disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 1.30510264495357,
+            "y": 2.233665058858984
+          },
+          "size": {
+            "x": 0.5291665999999999,
+            "y": 1.0583333000000001
+          }
+        },
+        {
+          "padId": "C1.1",
+          "networkId": "U1.1-C1.1",
+          "type": "rect",
+          "offset": {
+            "x": 1.30482929495357,
+            "y": 2.7848743588589846
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "C1.2",
+          "networkId": "U1.2-C1.2",
+          "type": "rect",
+          "offset": {
+            "x": 1.3053759949535697,
+            "y": 1.682455758858984
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "componentId": "partition_1",
+      "pads": [
+        {
+          "padId": "U2_body",
+          "networkId": "U2_body_disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "x": 1.2000000000000002,
+            "y": 1
+          }
+        },
+        {
+          "padId": "U2.1",
+          "networkId": "U2.1",
+          "type": "rect",
+          "offset": {
+            "x": -1,
+            "y": 0.30000000000000004
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U2.2",
+          "networkId": "U2.2",
+          "type": "rect",
+          "offset": {
+            "x": -1,
+            "y": 0.10000000000000003
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U2.3",
+          "networkId": "U2.3",
+          "type": "rect",
+          "offset": {
+            "x": -1,
+            "y": -0.09999999999999998
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U2.4",
+          "networkId": "U2.4",
+          "type": "rect",
+          "offset": {
+            "x": -1,
+            "y": -0.30000000000000004
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U2.5",
+          "networkId": "U2.5",
+          "type": "rect",
+          "offset": {
+            "x": 1,
+            "y": -0.30000000000000004
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U2.6",
+          "networkId": "U2.6",
+          "type": "rect",
+          "offset": {
+            "x": 1,
+            "y": -0.10000000000000003
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U2.7",
+          "networkId": "U2.7",
+          "type": "rect",
+          "offset": {
+            "x": 1,
+            "y": 0.09999999999999998
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U2.8",
+          "networkId": "U2.8",
+          "type": "rect",
+          "offset": {
+            "x": 1,
+            "y": 0.30000000000000004
+          },
+          "size": {
+            "x": 0.2,
+            "y": 0.2
+          }
+        }
+      ]
+    }
+  ],
+  "minGap": 0.5,
+  "packOrderStrategy": "largest_to_smallest",
+  "packPlacementStrategy": "minimum_sum_squared_distance_to_network"
+}
