@@ -401,7 +401,7 @@
       ]
     }
   ],
-  "minGap": 2,
+  "minGap": 0.5,
   "packOrderStrategy": "largest_to_smallest",
   "packPlacementStrategy": "minimum_sum_squared_distance_to_network"
 }
