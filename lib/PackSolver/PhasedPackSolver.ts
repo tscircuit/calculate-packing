@@ -136,7 +136,7 @@ export class PhasedPackSolver extends BaseSolver {
     const newPackedComponent: PackedComponent = {
       ...this.currentComponent,
       center: { x: 0, y: 0 },
-      ccwRotationOffset: 0,
+      ccwRotationOffsetDegrees: 0,
       pads: this.currentComponent.pads.map((p) => ({
         ...p,
         absoluteCenter: { x: 0, y: 0 },
@@ -144,7 +144,7 @@ export class PhasedPackSolver extends BaseSolver {
     }
 
     const candidateAngles = this.getCandidateAngles(newPackedComponent)
-    newPackedComponent.ccwRotationOffset =
+    newPackedComponent.ccwRotationOffsetDegrees =
       (((candidateAngles[0] ?? 0) % 360) + 360) % 360
     setPackedComponentPadCenters(newPackedComponent)
     this.packedComponents.push(newPackedComponent)
@@ -163,7 +163,7 @@ export class PhasedPackSolver extends BaseSolver {
     const newPackedComponent: PackedComponent = {
       ...this.currentComponent,
       center: { x: 0, y: 0 },
-      ccwRotationOffset: 0,
+      ccwRotationOffsetDegrees: 0,
       pads: this.currentComponent.pads.map((p) => ({
         ...p,
         absoluteCenter: { x: 0, y: 0 },
@@ -469,7 +469,7 @@ export class PhasedPackSolver extends BaseSolver {
     const newPackedComponent: PackedComponent = {
       ...this.currentComponent,
       center: { x: 0, y: 0 },
-      ccwRotationOffset: 0,
+      ccwRotationOffsetDegrees: 0,
       pads: this.currentComponent.pads.map((p) => ({
         ...p,
         absoluteCenter: { x: 0, y: 0 },
@@ -529,7 +529,7 @@ export class PhasedPackSolver extends BaseSolver {
 
           const trial = { ...newPackedComponent }
           trial.center = componentCenter
-          trial.ccwRotationOffset = ((angle % 360) + 360) % 360
+          trial.ccwRotationOffsetDegrees = ((angle % 360) + 360) % 360
           setPackedComponentPadCenters(trial)
 
           // Check for overlap
@@ -566,7 +566,7 @@ export class PhasedPackSolver extends BaseSolver {
         // Trial 2: Position component center at the good candidate point
         const centerTrial = { ...newPackedComponent }
         centerTrial.center = { x: point.x, y: point.y }
-        centerTrial.ccwRotationOffset = ((angle % 360) + 360) % 360
+        centerTrial.ccwRotationOffsetDegrees = ((angle % 360) + 360) % 360
         setPackedComponentPadCenters(centerTrial)
 
         // Check for overlap
@@ -613,7 +613,8 @@ export class PhasedPackSolver extends BaseSolver {
 
       const selectedComponent = { ...newPackedComponent }
       selectedComponent.center = bestTrial.center
-      selectedComponent.ccwRotationOffset = bestTrial.ccwRotationOffset
+      selectedComponent.ccwRotationOffsetDegrees =
+        bestTrial.ccwRotationOffsetDegrees
       selectedComponent.pads = bestTrial.pads
       this.phaseData.selectedRotation = selectedComponent
     } else if (rotationTrials.length > 0) {
@@ -624,7 +625,8 @@ export class PhasedPackSolver extends BaseSolver {
 
       const selectedComponent = { ...newPackedComponent }
       selectedComponent.center = bestTrial.center
-      selectedComponent.ccwRotationOffset = bestTrial.ccwRotationOffset
+      selectedComponent.ccwRotationOffsetDegrees =
+        bestTrial.ccwRotationOffsetDegrees
       selectedComponent.pads = bestTrial.pads
       this.phaseData.selectedRotation = selectedComponent
     } else {
@@ -642,14 +644,14 @@ export class PhasedPackSolver extends BaseSolver {
       const newPackedComponent: PackedComponent = {
         ...this.currentComponent,
         center: { x: 5, y: 5 },
-        ccwRotationOffset: 0,
+        ccwRotationOffsetDegrees: 0,
         pads: this.currentComponent.pads.map((p) => ({
           ...p,
           absoluteCenter: { x: 0, y: 0 },
         })),
       }
       const candidateAngles = this.getCandidateAngles(newPackedComponent)
-      newPackedComponent.ccwRotationOffset =
+      newPackedComponent.ccwRotationOffsetDegrees =
         (((candidateAngles[0] ?? 0) % 360) + 360) % 360
       setPackedComponentPadCenters(newPackedComponent)
       this.phaseData.selectedRotation = newPackedComponent
@@ -821,14 +823,14 @@ export class PhasedPackSolver extends BaseSolver {
 
       // Show component center as a point with rotation, cost and anchor info
       // Offset point slightly based on rotation to avoid overlap
-      const rotationOffset = 0.02 * (trial.ccwRotationOffset / 90)
+      const rotationOffset = 0.02 * (trial.ccwRotationOffsetDegrees / 90)
       const anchorInfo =
         trial.anchorType === "pad" ? `pad: ${trial.anchorPadId}` : "center"
       const overlapText = trial.hasOverlap ? "\nOVERLAP" : ""
       graphics.points!.push({
         x: trial.center.x + rotationOffset,
         y: trial.center.y + rotationOffset,
-        label: `${trial.ccwRotationOffset}° (cost: ${trial.cost.toFixed(3)}, anchor: ${anchorInfo})${overlapText}`,
+        label: `${trial.ccwRotationOffsetDegrees}° (cost: ${trial.cost.toFixed(3)}, anchor: ${anchorInfo})${overlapText}`,
         fill: "rgba(0,255,255,0.8)",
         radius: 0.05,
       } as Point)
@@ -868,7 +870,7 @@ export class PhasedPackSolver extends BaseSolver {
       fill: "rgba(0,255,0,0.3)",
       stroke: "#00FF00",
       strokeWidth: 0.05,
-      label: `PLACED at ${component.ccwRotationOffset}°`,
+      label: `PLACED at ${component.ccwRotationOffsetDegrees}°`,
     } as Rect)
 
     // Show the pads

@@ -34,7 +34,7 @@ export function placeComponentAtPoint({
     const candidate: PackedComponent = {
       ...component,
       center: point,
-      ccwRotationOffset: angle,
+      ccwRotationOffsetDegrees: angle,
       pads,
     }
 
@@ -48,7 +48,7 @@ export function placeComponentAtPoint({
 
   // Fallback: 0° rotation
   component.center = point
-  component.ccwRotationOffset = 0
+  component.ccwRotationOffsetDegrees = 0
   setPackedComponentPadCenters(component)
   return evaluatedPositionShadows
 }

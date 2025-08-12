@@ -29,13 +29,13 @@ test("single component forced to 90° should have swapped pad dimensions", () =>
   const pad = u1.pads[0]!
 
   console.log(`=== Single Component 90° Rotation Test ===`)
-  console.log(`U1 rotation: ${u1.ccwRotationOffset}°`)
+  console.log(`U1 rotation: ${u1.ccwRotationOffsetDegrees}°`)
   console.log(`Available rotations: ${u1.availableRotationDegrees}`)
   console.log(`Original pad size: 4x2`)
   console.log(`Rotated pad size: ${pad.size.x}x${pad.size.y}`)
 
   // Should be exactly 90 degrees since that's the only option
-  expect(u1.ccwRotationOffset).toBe(90)
+  expect(u1.ccwRotationOffsetDegrees).toBe(90)
 
   // At 90° rotation, 4x2 should become 2x4
   expect(pad.size.x).toBe(2) // was height (2)

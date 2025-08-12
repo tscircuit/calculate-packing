@@ -49,7 +49,7 @@ const buildPackedComponent = (
   return {
     componentId,
     center,
-    ccwRotationOffset: 0,
+    ccwRotationOffsetDegrees: 0,
     pads,
   } as PackedComponent
 }

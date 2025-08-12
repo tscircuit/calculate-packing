@@ -26,7 +26,7 @@ const createPadPolygons = (
     const worldCorners = localCorners.map((corner) => {
       const rotated = rotatePoint(
         corner,
-        (component.ccwRotationOffset * Math.PI) / 180,
+        (component.ccwRotationOffsetDegrees * Math.PI) / 180,
       )
       return [
         rotated.x + component.center.x,

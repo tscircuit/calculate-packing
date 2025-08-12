@@ -8,12 +8,12 @@ export const setPackedComponentPadCenters = (
     /* rotate the local offset, then translate by component centre */
     const rotated = rotatePoint(
       pad.offset,
-      (packedComponent.ccwRotationOffset * Math.PI) / 180,
+      (packedComponent.ccwRotationOffsetDegrees * Math.PI) / 180,
     ) // Convert to radians for math
 
     /* rotate the pad dimensions based on component rotation */
     const normalizedRotation =
-      ((packedComponent.ccwRotationOffset % 360) + 360) % 360
+      ((packedComponent.ccwRotationOffsetDegrees % 360) + 360) % 360
     const shouldSwapDimensions =
       normalizedRotation === 90 || normalizedRotation === 270
 

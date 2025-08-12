@@ -98,7 +98,7 @@ test("test actual packing with 90 degree constraint", () => {
   const u2 = result.components.find((c: any) => c.componentId === "U2")!
 
   console.log("\n=== Actual Packing Result ===")
-  console.log(`U2 rotation: ${u2.ccwRotationOffset.toFixed(1)}°`)
+  console.log(`U2 rotation: ${u2.ccwRotationOffsetDegrees.toFixed(1)}°`)
   console.log(
     `U2 center: (${u2.center.x.toFixed(1)}, ${u2.center.y.toFixed(1)})`,
   )
@@ -131,7 +131,7 @@ test("test actual packing with 90 degree constraint", () => {
   }
 
   // Must be exactly 90 degrees
-  expect(Math.abs(u2.ccwRotationOffset - 90)).toBeLessThan(0.01)
+  expect(Math.abs(u2.ccwRotationOffsetDegrees - 90)).toBeLessThan(0.01)
   // Must be vertical
   expect(sameX).toBe(true)
   expect(differentY).toBe(true)
