@@ -221,7 +221,13 @@ export class PhasedPackSolver extends BaseSolver {
         checkOverlap: (comp) => this.checkOverlapWithPackedComponents(comp),
       })
 
-      this.phaseData.selectedRotation = newPackedComponent
+      // The first shadow is the successfully placed component
+      if (shadows.length > 0) {
+        this.phaseData.selectedRotation = shadows[0]
+      } else {
+        // Fallback if no valid placement found
+        this.phaseData.selectedRotation = newPackedComponent
+      }
       this.phaseData.rotationTrials = shadows.map((s) => ({
         ...s,
         cost: 0,
@@ -465,6 +471,11 @@ export class PhasedPackSolver extends BaseSolver {
 
   private computeRotationTrials(): void {
     if (!this.currentComponent || !this.phaseData.goodCandidates) return
+
+    // If we already have rotation trials from disconnected placement, skip
+    if (this.phaseData.rotationTrials && this.phaseData.rotationTrials.length > 0) {
+      return
+    }
 
     const newPackedComponent: PackedComponent = {
       ...this.currentComponent,
