@@ -6,9 +6,7 @@ import { findOptimalPointOnSegment } from "./findOptimalPointOnSegment"
 import { getComponentBounds } from "../geometry/getComponentBounds"
 import { getGraphicsFromPackOutput } from "../testing/getGraphicsFromPackOutput"
 import { getSegmentsFromPad } from "./getSegmentsFromPad"
-import { placeComponentDisconnected } from "./placeComponentDisconnected"
 import { rotatePoint } from "../math/rotatePoint"
-import { selectOptimalRotation } from "./RotationSelector"
 import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
 import { sortComponentQueue } from "./sortComponentQueue"
 import { BaseSolver } from "../solver-utils/BaseSolver"
@@ -204,34 +202,9 @@ export class PhasedPackSolver extends BaseSolver {
       ),
     )
 
-    if (sharedNetworkIds.size === 0) {
-      // No shared networks - use disconnected placement
-      this.phaseData.candidatePoints = []
-      this.phaseData.goodCandidates = []
+    const isDisconnected = sharedNetworkIds.size === 0
 
-      // Handle disconnected placement separately
-      const shadows = placeComponentDisconnected({
-        component: newPackedComponent,
-        outlines,
-        direction: disconnectedPackDirection as NonNullable<
-          PackInput["disconnectedPackDirection"]
-        >,
-        packedComponents: this.packedComponents,
-        candidateAngles: this.getCandidateAngles(newPackedComponent),
-        checkOverlap: (comp) => this.checkOverlapWithPackedComponents(comp),
-      })
-
-      this.phaseData.selectedRotation = newPackedComponent
-      this.phaseData.rotationTrials = shadows.map((s) => ({
-        ...s,
-        cost: 0,
-        anchorType: "center" as const,
-        hasOverlap: false,
-      }))
-      return
-    }
-
-    // Compute candidate points for connected placement
+    // Compute candidate points
     const candidatePoints: Array<
       Point & { networkId: NetworkId; distance: number }
     > = []
@@ -250,25 +223,112 @@ export class PhasedPackSolver extends BaseSolver {
       return `${p1.x.toFixed(6)},${p1.y.toFixed(6)}-${p2.x.toFixed(6)},${p2.y.toFixed(6)}`
     }
 
-    // Get segments for each shared network
+    // Calculate center of packed components for disconnected direction reference
+    const packedClusterCenter =
+      this.packedComponents.length > 0
+        ? {
+            x:
+              this.packedComponents.reduce((sum, c) => sum + c.center.x, 0) /
+              this.packedComponents.length,
+            y:
+              this.packedComponents.reduce((sum, c) => sum + c.center.y, 0) /
+              this.packedComponents.length,
+          }
+        : { x: 0, y: 0 }
+
+    // Get segments for each shared network (only needed for connected components)
     const networkIdToAlreadyPackedSegments = new Map<NetworkId, Segment[]>()
-    for (const sharedNetworkId of sharedNetworkIds) {
-      const segments: Segment[] = []
-      for (const packedComponent of this.packedComponents) {
-        for (const pad of packedComponent.pads) {
-          if (pad.networkId === sharedNetworkId) {
-            segments.push(...getSegmentsFromPad(pad))
+    if (!isDisconnected) {
+      for (const sharedNetworkId of sharedNetworkIds) {
+        const segments: Segment[] = []
+        for (const packedComponent of this.packedComponents) {
+          for (const pad of packedComponent.pads) {
+            if (pad.networkId === sharedNetworkId) {
+              segments.push(...getSegmentsFromPad(pad))
+            }
+          }
+        }
+        networkIdToAlreadyPackedSegments.set(sharedNetworkId, segments)
+      }
+    }
+
+    if (isDisconnected) {
+      // For disconnected components, sample points along outlines
+      for (const outline of outlines) {
+        for (const outlineSegment of outline) {
+          const [p1, p2] = outlineSegment
+          for (let t = 0; t <= 1; t += 0.1) {
+            const sampledPoint = {
+              x: p1.x + t * (p2.x - p1.x),
+              y: p1.y + t * (p2.y - p1.y),
+            }
+
+            // Calculate distance based on disconnectedPackDirection
+            let distance = 0
+            if (disconnectedPackDirection === "nearest_to_center") {
+              distance = Math.sqrt(
+                Math.pow(sampledPoint.x - packedClusterCenter.x, 2) +
+                  Math.pow(sampledPoint.y - packedClusterCenter.y, 2),
+              )
+            } else if (disconnectedPackDirection === "left") {
+              distance = sampledPoint.x
+              // Add small factor for y-centrality
+              distance +=
+                1e-3 * Math.abs(sampledPoint.y - packedClusterCenter.y)
+            } else if (disconnectedPackDirection === "right") {
+              distance = -sampledPoint.x
+              // Add small factor for y-centrality
+              distance +=
+                1e-3 * Math.abs(sampledPoint.y - packedClusterCenter.y)
+            } else if (disconnectedPackDirection === "up") {
+              distance = -sampledPoint.y
+              // Add small factor for x-centrality
+              distance +=
+                1e-3 * Math.abs(sampledPoint.x - packedClusterCenter.x)
+            } else if (disconnectedPackDirection === "down") {
+              distance = sampledPoint.y
+              // Add small factor for x-centrality
+              distance +=
+                1e-3 * Math.abs(sampledPoint.x - packedClusterCenter.x)
+            }
+
+            const point = {
+              ...sampledPoint,
+              networkId: "disconnected" as NetworkId,
+              distance,
+            }
+            candidatePoints.push(point)
+
+            // Track best point for this segment
+            const segmentKey = getSegmentKey(outlineSegment)
+            const currentSegmentBest = segmentBestPoints.get(segmentKey)
+            if (!currentSegmentBest || distance < currentSegmentBest.distance) {
+              segmentBestPoints.set(segmentKey, {
+                point: {
+                  ...sampledPoint,
+                  networkId: "disconnected" as NetworkId,
+                },
+                distance,
+              })
+            }
+
+            if (distance < smallestDistance + 1e-6) {
+              if (distance < smallestDistance - 1e-6) {
+                goodCandidates.length = 0
+                goodCandidates.push(point)
+                smallestDistance = distance
+              } else {
+                goodCandidates.push(point)
+              }
+            }
           }
         }
       }
-      networkIdToAlreadyPackedSegments.set(sharedNetworkId, segments)
-    }
-
-    if (
+    } else if (
       packPlacementStrategy === "minimum_sum_distance_to_network" ||
       packPlacementStrategy === "minimum_sum_squared_distance_to_network"
     ) {
-      // Use ternary search strategy
+      // Use ternary search strategy for connected components
       for (const outline of outlines) {
         for (const outlineSegment of outline) {
           const [p1, p2] = outlineSegment
@@ -326,7 +386,7 @@ export class PhasedPackSolver extends BaseSolver {
         }
       }
     } else {
-      // Original shortest_connection_along_outline strategy
+      // Original shortest_connection_along_outline strategy for connected components
       for (const outline of outlines) {
         for (const outlineSegment of outline) {
           for (const sharedNetworkId of sharedNetworkIds) {
@@ -388,51 +448,53 @@ export class PhasedPackSolver extends BaseSolver {
       }
     }
 
-    // Add systematic sampling points
-    for (const sharedNetworkId of sharedNetworkIds) {
-      for (const outline of outlines) {
-        for (const outlineSegment of outline) {
-          const [p1, p2] = outlineSegment
-          for (let t = 0; t <= 1; t += 0.2) {
-            const sampledPoint = {
-              x: p1.x + t * (p2.x - p1.x),
-              y: p1.y + t * (p2.y - p1.y),
-            }
+    // Add systematic sampling points (only for connected components)
+    if (!isDisconnected) {
+      for (const sharedNetworkId of sharedNetworkIds) {
+        for (const outline of outlines) {
+          for (const outlineSegment of outline) {
+            const [p1, p2] = outlineSegment
+            for (let t = 0; t <= 1; t += 0.2) {
+              const sampledPoint = {
+                x: p1.x + t * (p2.x - p1.x),
+                y: p1.y + t * (p2.y - p1.y),
+              }
 
-            // Calculate distance for this point
-            let distance = 0
-            const componentPadsOnNetwork = newPackedComponent.pads.filter(
-              (p) => p.networkId === sharedNetworkId,
-            )
+              // Calculate distance for this point
+              let distance = 0
+              const componentPadsOnNetwork = newPackedComponent.pads.filter(
+                (p) => p.networkId === sharedNetworkId,
+              )
 
-            for (const _ of componentPadsOnNetwork) {
-              let minDist = Number.POSITIVE_INFINITY
-              for (const packedComponent of this.packedComponents) {
-                for (const packedPad of packedComponent.pads) {
-                  if (packedPad.networkId === sharedNetworkId) {
-                    const dx = sampledPoint.x - packedPad.absoluteCenter.x
-                    const dy = sampledPoint.y - packedPad.absoluteCenter.y
-                    const dist = Math.sqrt(dx * dx + dy * dy)
-                    minDist = Math.min(minDist, dist)
+              for (const _ of componentPadsOnNetwork) {
+                let minDist = Number.POSITIVE_INFINITY
+                for (const packedComponent of this.packedComponents) {
+                  for (const packedPad of packedComponent.pads) {
+                    if (packedPad.networkId === sharedNetworkId) {
+                      const dx = sampledPoint.x - packedPad.absoluteCenter.x
+                      const dy = sampledPoint.y - packedPad.absoluteCenter.y
+                      const dist = Math.sqrt(dx * dx + dy * dy)
+                      minDist = Math.min(minDist, dist)
+                    }
                   }
                 }
+                distance += minDist
               }
-              distance += minDist
-            }
 
-            const point = {
-              ...sampledPoint,
-              networkId: sharedNetworkId,
-              distance,
-            }
-            candidatePoints.push(point)
+              const point = {
+                ...sampledPoint,
+                networkId: sharedNetworkId,
+                distance,
+              }
+              candidatePoints.push(point)
 
-            if (distance < smallestDistance) {
-              smallestDistance = distance
-              goodCandidates.length = 0
-              goodCandidates.push(point)
-            } else if (distance === smallestDistance) {
-              goodCandidates.push(point)
+              if (distance < smallestDistance) {
+                smallestDistance = distance
+                goodCandidates.length = 0
+                goodCandidates.push(point)
+              } else if (distance === smallestDistance) {
+                goodCandidates.push(point)
+              }
             }
           }
         }
@@ -502,6 +564,26 @@ export class PhasedPackSolver extends BaseSolver {
       }
     }
 
+    // Check if this is a disconnected component
+    const isDisconnected = this.phaseData.goodCandidates.some(
+      (c) => c.networkId === "disconnected",
+    )
+
+    // Calculate center of packed components for disconnected cost calculation
+    const packedClusterCenter =
+      this.packedComponents.length > 0
+        ? {
+            x:
+              this.packedComponents.reduce((sum, c) => sum + c.center.x, 0) /
+              this.packedComponents.length,
+            y:
+              this.packedComponents.reduce((sum, c) => sum + c.center.y, 0) /
+              this.packedComponents.length,
+          }
+        : { x: 0, y: 0 }
+
+    const { disconnectedPackDirection = "nearest_to_center" } = this.packInput
+
     // We'll select the best rotation from the trials we create below
     const useSquaredDistance =
       this.packInput.packPlacementStrategy ===
@@ -537,20 +619,43 @@ export class PhasedPackSolver extends BaseSolver {
 
           // Calculate cost
           let cost = 0
-          for (const pad of trial.pads) {
-            let minDist = Number.POSITIVE_INFINITY
-            for (const packedComp of this.packedComponents) {
-              for (const packedPad of packedComp.pads) {
-                if (packedPad.networkId === pad.networkId) {
-                  const dx = pad.absoluteCenter.x - packedPad.absoluteCenter.x
-                  const dy = pad.absoluteCenter.y - packedPad.absoluteCenter.y
-                  const dist = Math.sqrt(dx * dx + dy * dy)
-                  minDist = Math.min(minDist, dist)
+          if (isDisconnected) {
+            // For disconnected components, use direction-based cost
+            if (disconnectedPackDirection === "nearest_to_center") {
+              cost = Math.sqrt(
+                Math.pow(componentCenter.x - packedClusterCenter.x, 2) +
+                  Math.pow(componentCenter.y - packedClusterCenter.y, 2),
+              )
+            } else if (disconnectedPackDirection === "left") {
+              cost = componentCenter.x
+              cost += 1e-3 * Math.abs(componentCenter.y - packedClusterCenter.y)
+            } else if (disconnectedPackDirection === "right") {
+              cost = -componentCenter.x
+              cost += 1e-3 * Math.abs(componentCenter.y - packedClusterCenter.y)
+            } else if (disconnectedPackDirection === "up") {
+              cost = -componentCenter.y
+              cost += 1e-3 * Math.abs(componentCenter.x - packedClusterCenter.x)
+            } else if (disconnectedPackDirection === "down") {
+              cost = componentCenter.y
+              cost += 1e-3 * Math.abs(componentCenter.x - packedClusterCenter.x)
+            }
+          } else {
+            // For connected components, use network distance cost
+            for (const pad of trial.pads) {
+              let minDist = Number.POSITIVE_INFINITY
+              for (const packedComp of this.packedComponents) {
+                for (const packedPad of packedComp.pads) {
+                  if (packedPad.networkId === pad.networkId) {
+                    const dx = pad.absoluteCenter.x - packedPad.absoluteCenter.x
+                    const dy = pad.absoluteCenter.y - packedPad.absoluteCenter.y
+                    const dist = Math.sqrt(dx * dx + dy * dy)
+                    minDist = Math.min(minDist, dist)
+                  }
                 }
               }
-            }
-            if (minDist < Number.POSITIVE_INFINITY) {
-              cost += useSquaredDistance ? minDist * minDist : minDist
+              if (minDist < Number.POSITIVE_INFINITY) {
+                cost += useSquaredDistance ? minDist * minDist : minDist
+              }
             }
           }
 
@@ -575,20 +680,47 @@ export class PhasedPackSolver extends BaseSolver {
 
         // Calculate cost for center-positioned trial
         let centerCost = 0
-        for (const pad of centerTrial.pads) {
-          let minDist = Number.POSITIVE_INFINITY
-          for (const packedComp of this.packedComponents) {
-            for (const packedPad of packedComp.pads) {
-              if (packedPad.networkId === pad.networkId) {
-                const dx = pad.absoluteCenter.x - packedPad.absoluteCenter.x
-                const dy = pad.absoluteCenter.y - packedPad.absoluteCenter.y
-                const dist = Math.sqrt(dx * dx + dy * dy)
-                minDist = Math.min(minDist, dist)
+        if (isDisconnected) {
+          // For disconnected components, use direction-based cost
+          if (disconnectedPackDirection === "nearest_to_center") {
+            centerCost = Math.sqrt(
+              Math.pow(centerTrial.center.x - packedClusterCenter.x, 2) +
+                Math.pow(centerTrial.center.y - packedClusterCenter.y, 2),
+            )
+          } else if (disconnectedPackDirection === "left") {
+            centerCost = centerTrial.center.x
+            centerCost +=
+              1e-3 * Math.abs(centerTrial.center.y - packedClusterCenter.y)
+          } else if (disconnectedPackDirection === "right") {
+            centerCost = -centerTrial.center.x
+            centerCost +=
+              1e-3 * Math.abs(centerTrial.center.y - packedClusterCenter.y)
+          } else if (disconnectedPackDirection === "up") {
+            centerCost = -centerTrial.center.y
+            centerCost +=
+              1e-3 * Math.abs(centerTrial.center.x - packedClusterCenter.x)
+          } else if (disconnectedPackDirection === "down") {
+            centerCost = centerTrial.center.y
+            centerCost +=
+              1e-3 * Math.abs(centerTrial.center.x - packedClusterCenter.x)
+          }
+        } else {
+          // For connected components, use network distance cost
+          for (const pad of centerTrial.pads) {
+            let minDist = Number.POSITIVE_INFINITY
+            for (const packedComp of this.packedComponents) {
+              for (const packedPad of packedComp.pads) {
+                if (packedPad.networkId === pad.networkId) {
+                  const dx = pad.absoluteCenter.x - packedPad.absoluteCenter.x
+                  const dy = pad.absoluteCenter.y - packedPad.absoluteCenter.y
+                  const dist = Math.sqrt(dx * dx + dy * dy)
+                  minDist = Math.min(minDist, dist)
+                }
               }
             }
-          }
-          if (minDist < Number.POSITIVE_INFINITY) {
-            centerCost += useSquaredDistance ? minDist * minDist : minDist
+            if (minDist < Number.POSITIVE_INFINITY) {
+              centerCost += useSquaredDistance ? minDist * minDist : minDist
+            }
           }
         }
 
