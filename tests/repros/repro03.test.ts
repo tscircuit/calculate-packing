@@ -152,14 +152,14 @@ test("pack soic8 with resistor and capacitor without overlap", () => {
   // Get bounding boxes for each component
   const componentBounds = output.components.map((component) => {
     // Calculate the bounding box of all pads after rotation
-    let minX = Infinity,
-      maxX = -Infinity
-    let minY = Infinity,
-      maxY = -Infinity
+    let minX = Infinity
+    let maxX = -Infinity
+    let minY = Infinity
+    let maxY = -Infinity
 
     for (const pad of component.pads) {
       // Apply rotation to pad offset
-      const angle = ((component.ccwRotationOffsetDegrees || 0) * Math.PI) / 180
+      const angle = ((component.ccwRotationOffset || 0) * Math.PI) / 180
       const cos = Math.cos(angle)
       const sin = Math.sin(angle)
 
@@ -189,9 +189,9 @@ test("pack soic8 with resistor and capacitor without overlap", () => {
   // Log component positions for debugging
   console.log("Component positions and bounds:")
   componentBounds.forEach((bounds, i) => {
-    const component = output.components[i]
+    const component = output.components[i]!
     console.log(
-      `${component.componentId}: center=(${component.center.x.toFixed(3)}, ${component.center.y.toFixed(3)}), rotation=${component.ccwRotationOffsetDegrees}°`,
+      `${component.componentId}: center=(${component.center.x.toFixed(3)}, ${component.center.y.toFixed(3)}), rotation=${component.ccwRotationOffset}°`,
     )
     console.log(
       `  bounds: x=${bounds.x.toFixed(3)}, y=${bounds.y.toFixed(3)}, width=${bounds.width.toFixed(3)}, height=${bounds.height.toFixed(3)}`,
@@ -202,19 +202,19 @@ test("pack soic8 with resistor and capacitor without overlap", () => {
   for (let i = 0; i < componentBounds.length; i++) {
     for (let j = i + 1; j < componentBounds.length; j++) {
       const overlaps = rectanglesOverlap(
-        componentBounds[i],
-        componentBounds[j],
+        componentBounds[i]!,
+        componentBounds[j]!,
         input.minGap,
       )
 
       if (overlaps) {
         console.log(
-          `\nOVERLAP DETECTED between ${componentBounds[i].componentId} and ${componentBounds[j].componentId}`,
+          `\nOVERLAP DETECTED between ${componentBounds[i]!.componentId} and ${componentBounds[j]!.componentId}`,
         )
         console.log(`Required gap: ${input.minGap}`)
         const dist = Math.sqrt(
-          Math.pow(componentBounds[i].x - componentBounds[j].x, 2) +
-            Math.pow(componentBounds[i].y - componentBounds[j].y, 2),
+          Math.pow(componentBounds[i]!.x - componentBounds[j]!.x, 2) +
+            Math.pow(componentBounds[i]!.y - componentBounds[j]!.y, 2),
         )
         console.log(`Center distance: ${dist.toFixed(3)}`)
 
