@@ -112,6 +112,9 @@ test("pack soic8 with resistor and capacitor without overlap", () => {
     packPlacementStrategy: "shortest_connection_along_outline"
   }
 
+  // Save input for debugging
+  // fs.writeFileSync("tests/no-overlap-soic8-resistor-capacitor-input.json", JSON.stringify(input, null, 2))
+  
   const output = pack(input)
 
   // Generate visualization
