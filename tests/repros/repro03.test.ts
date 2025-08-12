@@ -236,7 +236,7 @@ test("pack soic8 with resistor and capacitor without overlap", () => {
 
         // This appears to be a bug in the packing algorithm where components
         // are placed at the same position
-        expect(overlaps).toBe(false)
+        expect(overlaps as any).toBe(false)
       }
     }
   }
