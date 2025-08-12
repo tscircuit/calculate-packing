@@ -219,8 +219,8 @@ test("pack soic8 with resistor and capacitor without overlap", () => {
         console.log(`Center distance: ${dist.toFixed(3)}`)
 
         // Calculate actual gap
-        const bounds1 = componentBounds[i]
-        const bounds2 = componentBounds[j]
+        const bounds1 = componentBounds[i]!
+        const bounds2 = componentBounds[j]!
 
         const xGap = Math.max(
           0,
