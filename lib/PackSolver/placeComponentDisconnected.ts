@@ -32,7 +32,7 @@ export function placeComponentDisconnected({
         })
       }
       return points
-    })
+    }),
   )
 
   // If no outline points, create a grid of candidate points
@@ -46,12 +46,17 @@ export function placeComponentDisconnected({
   }
 
   // Sort candidate points based on direction preference
-  const center = packedComponents.length > 0
-    ? {
-        x: packedComponents.reduce((sum, c) => sum + c.center.x, 0) / packedComponents.length,
-        y: packedComponents.reduce((sum, c) => sum + c.center.y, 0) / packedComponents.length,
-      }
-    : { x: 0, y: 0 }
+  const center =
+    packedComponents.length > 0
+      ? {
+          x:
+            packedComponents.reduce((sum, c) => sum + c.center.x, 0) /
+            packedComponents.length,
+          y:
+            packedComponents.reduce((sum, c) => sum + c.center.y, 0) /
+            packedComponents.length,
+        }
+      : { x: 0, y: 0 }
 
   let sortedPoints = candidatePoints
   if (direction === "nearest_to_center") {
@@ -88,7 +93,9 @@ export function placeComponentDisconnected({
   }
 
   // If all points failed, use the first point as fallback
-  console.warn(`[WARNING] Could not find non-overlapping position for component ${component.componentId}`)
+  console.warn(
+    `[WARNING] Could not find non-overlapping position for component ${component.componentId}`,
+  )
   return placeComponentAtPoint({
     component,
     point: sortedPoints[0] || { x: 0, y: 0 },

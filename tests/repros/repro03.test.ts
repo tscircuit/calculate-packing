@@ -119,8 +119,8 @@ test("pack soic8 with resistor and capacitor without overlap", () => {
 
   // Generate visualization
   const graphics = getGraphicsFromPackOutput(output)
-  const svg = getSvgFromGraphicsObject(graphics, { backgroundColor: "white" })
-  fs.writeFileSync("tests/no-overlap-soic8-resistor-capacitor-debug.svg", svg)
+  // const svg = getSvgFromGraphicsObject(graphics, { backgroundColor: "white" })
+  // fs.writeFileSync("tests/no-overlap-soic8-resistor-capacitor-debug.svg", svg)
 
   // Check that all components were placed
   expect(output.components).toHaveLength(3)

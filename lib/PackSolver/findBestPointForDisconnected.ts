@@ -20,22 +20,22 @@ export function findBestPointForDisconnected({
       y: (p1.y + p2.y) / 2,
     })),
   )
-  
+
   // Handle empty outlines case - place components in a grid pattern
   if (!points.length) {
     // Count all previously packed components to determine position
     const index = packedComponents.length
-    
+
     // Place in a grid pattern with spacing
     // Use larger spacing to ensure components don't overlap
     const spacing = 20 // Default spacing for disconnected components
     const gridSize = Math.ceil(Math.sqrt(index + 1))
     const row = Math.floor(index / gridSize)
     const col = index % gridSize
-    
+
     const point = {
       x: col * spacing,
-      y: row * spacing
+      y: row * spacing,
     }
     return point
   }
