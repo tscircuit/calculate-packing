@@ -11,7 +11,7 @@ import type { PackInput, PackOutput } from "../types"
  *   We therefore have to:
  *     • copy componentId
  *     • copy each pad but drop `absoluteCenter`
- *     • drop `center` and `ccwRotationOffset`
+ *     • drop `center` and `ccwRotationOffsetDegrees`
  */
 export const convertPackOutputToPackInput = (packed: PackOutput): PackInput => {
   const strippedComponents = packed.components.map((pc) => ({

@@ -45,12 +45,12 @@ test("debug exactly where pad dimensions get lost", () => {
   const u2 = result.components.find((c) => c.componentId === "U2")!
   const bodyPad = u2.pads[0]!
 
-  console.log(`Output U2 rotation: ${u2.ccwRotationOffset}°`)
+  console.log(`Output U2 rotation: ${u2.ccwRotationOffsetDegrees}°`)
   console.log(`Output U2 body pad: ${bodyPad.size.x} x ${bodyPad.size.y}`)
   console.log(`Expected after 90°: 4 x 2`)
 
   // At 90°, should swap from 2x4 to 4x2
-  expect(u2.ccwRotationOffset).toBe(90)
+  expect(u2.ccwRotationOffsetDegrees).toBe(90)
   expect(bodyPad.size.x).toBe(4) // was height
   expect(bodyPad.size.y).toBe(2) // was width
 

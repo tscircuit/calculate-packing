@@ -73,7 +73,7 @@ export function selectOptimalRotation(
         const tempComponent: PackedComponent = {
           ...component,
           center: initialCenter,
-          ccwRotationOffset: ((angle % 360) + 360) % 360,
+          ccwRotationOffsetDegrees: ((angle % 360) + 360) % 360,
           pads: component.pads.map((p) => ({
             ...p,
             absoluteCenter: { x: 0, y: 0 }, // Will be set by setPackedComponentPadCenters
@@ -141,7 +141,7 @@ export function selectOptimalRotation(
       const centerTrial: PackedComponent = {
         ...component,
         center: { x: candidatePoint.x, y: candidatePoint.y },
-        ccwRotationOffset: ((angle % 360) + 360) % 360,
+        ccwRotationOffsetDegrees: ((angle % 360) + 360) % 360,
         pads: component.pads.map((p) => {
           const rotatedOffset = rotatePoint(p.offset, (angle * Math.PI) / 180)
 

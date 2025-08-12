@@ -60,7 +60,7 @@ test("degrees should work correctly with rotation constraints", () => {
   console.log(
     `U2 center: (${u2.center.x.toFixed(1)}, ${u2.center.y.toFixed(1)})`,
   )
-  console.log(`U2 rotation: ${u2.ccwRotationOffset}° (should be 90°)`)
+  console.log(`U2 rotation: ${u2.ccwRotationOffsetDegrees}° (should be 90°)`)
 
   const pad1 = u2.pads[0]
   const pad2 = u2.pads[1]
@@ -73,7 +73,7 @@ test("degrees should work correctly with rotation constraints", () => {
   )
 
   // Should be exactly 90 degrees (not radians!)
-  expect(u2.ccwRotationOffset).toBe(90)
+  expect(u2.ccwRotationOffsetDegrees).toBe(90)
 
   // Should be vertical (same X, different Y)
   const sameX =
@@ -142,10 +142,12 @@ test("multiple rotation options should work", () => {
   const u2 = result.components.find((c) => c.componentId === "U2")!
 
   console.log(`\n=== Multiple Rotation Options ===`)
-  console.log(`U2 rotation: ${u2.ccwRotationOffset}° (should be 90° or 270°)`)
+  console.log(
+    `U2 rotation: ${u2.ccwRotationOffsetDegrees}° (should be 90° or 270°)`,
+  )
 
   // Should be one of the allowed rotations (270° is equivalent to -90°)
-  expect([90, 270]).toContain(u2.ccwRotationOffset)
+  expect([90, 270]).toContain(u2.ccwRotationOffsetDegrees)
 
-  console.log(`✅ U2 correctly chose rotation: ${u2.ccwRotationOffset}°`)
+  console.log(`✅ U2 correctly chose rotation: ${u2.ccwRotationOffsetDegrees}°`)
 })

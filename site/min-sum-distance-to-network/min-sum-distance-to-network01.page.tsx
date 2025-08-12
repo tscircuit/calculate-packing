@@ -6,7 +6,7 @@ const manualPackOutput: PackOutput = {
     {
       componentId: "U1",
       center: { x: 0, y: 0 },
-      ccwRotationOffset: 0,
+      ccwRotationOffsetDegrees: 0,
       availableRotationDegrees: [0],
       pads: [
         {
@@ -46,7 +46,7 @@ const manualPackOutput: PackOutput = {
     {
       componentId: "U2",
       center: { x: 0, y: 10 },
-      ccwRotationOffset: 90, // 90 degrees
+      ccwRotationOffsetDegrees: 90, // 90 degrees
       availableRotationDegrees: [-90, 90],
       pads: [
         {

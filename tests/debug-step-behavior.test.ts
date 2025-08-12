@@ -10,7 +10,7 @@ test("simulate PackDebugger step behavior with 90° constraint", () => {
       {
         componentId: "U1",
         center: { x: 0, y: 0 },
-        ccwRotationOffset: 0,
+        ccwRotationOffsetDegrees: 0,
         availableRotationDegrees: [0],
         pads: [
           {
@@ -34,7 +34,7 @@ test("simulate PackDebugger step behavior with 90° constraint", () => {
       {
         componentId: "U2",
         center: { x: 0, y: 10 },
-        ccwRotationOffset: Math.PI / 2, // 90°
+        ccwRotationOffsetDegrees: Math.PI / 2, // 90°
         availableRotationDegrees: [90], // Should force vertical
         pads: [
           {
@@ -85,8 +85,8 @@ test("simulate PackDebugger step behavior with 90° constraint", () => {
   const u2Result = result.find((c) => c.componentId === "U2")!
 
   console.log(`\nAfter stepping:`)
-  console.log(`U2 rotation (raw): ${u2Result.ccwRotationOffset}`)
-  console.log(`U2 rotation: ${u2Result.ccwRotationOffset.toFixed(1)}°`)
+  console.log(`U2 rotation (raw): ${u2Result.ccwRotationOffsetDegrees}`)
+  console.log(`U2 rotation: ${u2Result.ccwRotationOffsetDegrees.toFixed(1)}°`)
   console.log(
     `U2 center: (${u2Result.center.x.toFixed(1)}, ${u2Result.center.y.toFixed(1)})`,
   )
@@ -111,12 +111,12 @@ test("simulate PackDebugger step behavior with 90° constraint", () => {
   console.log(`Is U2 vertical? ${isVertical}`)
 
   // U2 should be constrained to 90° and therefore vertical
-  const rotation90 = Math.abs(u2Result.ccwRotationOffset - 90) < 0.1
+  const rotation90 = Math.abs(u2Result.ccwRotationOffsetDegrees - 90) < 0.1
   console.log(`Is U2 at 90°? ${rotation90}`)
 
   if (!rotation90) {
     console.log(
-      `❌ BUG: U2 should be forced to 90° but got ${u2Result.ccwRotationOffset.toFixed(1)}°`,
+      `❌ BUG: U2 should be forced to 90° but got ${u2Result.ccwRotationOffsetDegrees.toFixed(1)}°`,
     )
   }
 

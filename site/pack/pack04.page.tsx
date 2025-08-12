@@ -150,7 +150,7 @@ const manualPackOutput: PackOutput = {
         x: 0,
         y: 0,
       },
-      ccwRotationOffset: 0,
+      ccwRotationOffsetDegrees: 0,
     },
     {
       componentId: "pcb_component_1",
@@ -194,7 +194,7 @@ const manualPackOutput: PackOutput = {
         x: 0,
         y: 0,
       },
-      ccwRotationOffset: 0,
+      ccwRotationOffsetDegrees: 0,
     },
     {
       componentId: "pcb_component_2",
@@ -238,7 +238,7 @@ const manualPackOutput: PackOutput = {
         x: 0,
         y: 0,
       },
-      ccwRotationOffset: 0,
+      ccwRotationOffsetDegrees: 0,
     },
   ],
   minGap: 2,

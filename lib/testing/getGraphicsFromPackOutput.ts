@@ -27,7 +27,7 @@ export const getGraphicsFromPackOutput = (
       fill: "rgba(0,0,0,0.25)",
       label: [
         component.componentId,
-        `ccwRotationOffset: ${component.ccwRotationOffset.toFixed(1)}°`,
+        `ccwRotationOffsetDegrees: ${component.ccwRotationOffsetDegrees.toFixed(1)}°`,
       ].join("\n"),
     }
     rects.push(rect)
