@@ -88,7 +88,7 @@ export const constructOutlinesFromPackedComponents = (
       ])
       edge = edge.next
     } while (edge !== face.first)
-    
+
     // Simplify collinear segments in the outline
     const simplifiedOutline = simplifyCollinearSegments(outline)
     outlines.push(simplifiedOutline)
