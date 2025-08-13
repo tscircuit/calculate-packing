@@ -23,6 +23,6 @@ export const pack = (input: PackInput): PackOutput => {
   solver.solve()
   return {
     ...input,
-    components: solver.packedComponents,
+    components: solver.getResult(),
   }
 }

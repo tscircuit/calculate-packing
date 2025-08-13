@@ -1019,7 +1019,10 @@ export class PhasedPackSolver extends BaseSolver {
   }
 
   getResult(): PackedComponent[] {
-    return this.packedComponents
+    return this.packedComponents.map((component) => ({
+      ...component,
+      ccwRotationDegrees: component.ccwRotationOffset,
+    }))
   }
 
   /* ---------- small helpers ------------------------------------------------ */

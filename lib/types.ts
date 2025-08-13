@@ -25,8 +25,10 @@ export interface InputComponent {
 
 export interface PackedComponent extends InputComponent {
   center: { x: number; y: number }
-  /** Rotation in degrees (counterclockwise) */
+  /** @deprecated Rotation in degrees (counterclockwise) */
   ccwRotationOffset: number
+  /** Rotation in degrees (counterclockwise) - output field */
+  ccwRotationDegrees?: number
   pads: OutputPad[]
 }
 
