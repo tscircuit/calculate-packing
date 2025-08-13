@@ -2,6 +2,7 @@ import type { PackedComponent } from "./types"
 import type { Point } from "@tscircuit/math-utils"
 import Flatten from "@flatten-js/core"
 import { rotatePoint } from "./math/rotatePoint"
+import { simplifyCollinearSegments } from "./geometry/simplify-collinear-segments"
 
 type Outline = Array<[Point, Point]>
 
@@ -87,7 +88,10 @@ export const constructOutlinesFromPackedComponents = (
       ])
       edge = edge.next
     } while (edge !== face.first)
-    outlines.push(outline)
+    
+    // Simplify collinear segments in the outline
+    const simplifiedOutline = simplifyCollinearSegments(outline)
+    outlines.push(simplifiedOutline)
   }
 
   return outlines
