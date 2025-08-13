@@ -1,0 +1,1134 @@
+import type { PackInput } from "lib/types"
+import { PackDebugger } from "../components/PackDebugger"
+
+const packInput: PackInput = {
+  components: [
+    {
+      componentId: "U3",
+      pads: [
+        {
+          padId: "U3_body",
+          networkId: "U3_body_disconnected",
+          type: "rect",
+          offset: {
+            x: 0,
+            y: 0,
+          },
+          size: {
+            x: 3,
+            y: 8.400000000000004,
+          },
+        },
+        {
+          padId: "U3.1",
+          networkId: "V3_3",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 1.2000000000000015,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.2",
+          networkId: "U3.2_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -1.8000000000000007,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.3",
+          networkId: "U3.3_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -2.000000000000001,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.4",
+          networkId: "U3.4_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -2.200000000000001,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.5",
+          networkId: "U3.5_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -2.4000000000000012,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.6",
+          networkId: "U3.6_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -2.6000000000000014,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.7",
+          networkId: "U3.7_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -2.8000000000000016,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.8",
+          networkId: "U3.8_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -3.0000000000000018,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.9",
+          networkId: "U3.9_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -3.200000000000002,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.10",
+          networkId: "V3_3",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 1.0000000000000013,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.11",
+          networkId: "U3.11_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -3.400000000000002,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.12",
+          networkId: "U3.12_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -3.6000000000000023,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.13",
+          networkId: "U3.13_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -3.8000000000000025,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.14",
+          networkId: "U3.14_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -4.000000000000002,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.15",
+          networkId: "U3.15_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: -0.5000000000000009,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.16",
+          networkId: "U3.16_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: -0.7000000000000011,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.17",
+          networkId: "U3.17_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: -0.9000000000000012,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.18",
+          networkId: "U3.18_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: -1.1000000000000014,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.19",
+          networkId: "U3.19_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: -1.3000000000000014,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.20",
+          networkId: "U3.20_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: -1.9000000000000015,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.21",
+          networkId: "U3.21_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: -2.1000000000000014,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.22",
+          networkId: "V3_3",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 0.8000000000000012,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.23",
+          networkId: "V1_1",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 2.8000000000000016,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.24",
+          networkId: "U3.24_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: -2.7000000000000015,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.25",
+          networkId: "U3.25_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: -2.9000000000000012,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.26",
+          networkId: "U3.26_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: -3.1000000000000014,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.27",
+          networkId: "U3.27_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 0.0999999999999992,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.28",
+          networkId: "U3.28_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 0.2999999999999994,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.29",
+          networkId: "U3.29_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 0.49999999999999956,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.30",
+          networkId: "U3.30_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 0.6999999999999997,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.31",
+          networkId: "U3.31_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 0.8999999999999995,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.32",
+          networkId: "U3.32_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 1.0999999999999996,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.33",
+          networkId: "V3_3",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 0.600000000000001,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.34",
+          networkId: "U3.34_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 1.2999999999999998,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.35",
+          networkId: "U3.35_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 1.5,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.36",
+          networkId: "U3.36_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 1.7000000000000002,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.37",
+          networkId: "U3.37_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 1.9000000000000004,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.38",
+          networkId: "U3.38_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 2.500000000000001,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.39",
+          networkId: "U3.39_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 2.700000000000001,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.40",
+          networkId: "U3.40_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 2.9000000000000012,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.41",
+          networkId: "U3.41_isolated",
+          type: "rect",
+          offset: {
+            x: 1.9,
+            y: 3.1000000000000014,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.42",
+          networkId: "V3_3",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 0.4000000000000008,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.43",
+          networkId: "U3.43_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -1.6000000000000005,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.44",
+          networkId: "U3.44_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 2.0000000000000018,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.45",
+          networkId: "U3.45_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 1.8000000000000016,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.46",
+          networkId: "U3.46_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -1.4000000000000004,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.47",
+          networkId: "U3.47_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -1.2000000000000002,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.48",
+          networkId: "U3.48_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -1,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.49",
+          networkId: "V3_3",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 0.20000000000000062,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.50",
+          networkId: "V1_1",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 2.600000000000002,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.51",
+          networkId: "U3.51_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 3.0000000000000018,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.52",
+          networkId: "U3.52_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 3.200000000000002,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.53",
+          networkId: "U3.53_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 3.4000000000000017,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.54",
+          networkId: "U3.54_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 3.600000000000002,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.55",
+          networkId: "U3.55_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 3.8000000000000016,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.56",
+          networkId: "U3.56_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: 4.000000000000002,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "U3.57",
+          networkId: "U3.57_isolated",
+          type: "rect",
+          offset: {
+            x: -1.9,
+            y: -0.39999999999999947,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+      ],
+      availableRotationDegrees: [0, 90, 180, 270],
+    },
+    {
+      componentId: "C7",
+      pads: [
+        {
+          padId: "C7_body",
+          networkId: "C7_body_disconnected",
+          type: "rect",
+          offset: {
+            x: 0,
+            y: 0,
+          },
+          size: {
+            x: 0.5291665999999999,
+            y: 1.0583333000000001,
+          },
+        },
+        {
+          padId: "C7.1",
+          networkId: "V1_1",
+          type: "rect",
+          offset: {
+            x: -0.00027334999999961695,
+            y: 0.5512093000000005,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "C7.2",
+          networkId: "GND",
+          type: "rect",
+          offset: {
+            x: 0.00027334999999961695,
+            y: -0.5512093,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+      ],
+      availableRotationDegrees: [0],
+    },
+    {
+      componentId: "C18",
+      pads: [
+        {
+          padId: "C18_body",
+          networkId: "C18_body_disconnected",
+          type: "rect",
+          offset: {
+            x: 0,
+            y: 0,
+          },
+          size: {
+            x: 0.5291665999999999,
+            y: 1.0583333000000001,
+          },
+        },
+        {
+          padId: "C18.1",
+          networkId: "V1_1",
+          type: "rect",
+          offset: {
+            x: -0.00027334999999961695,
+            y: 0.5512093,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "C18.2",
+          networkId: "GND",
+          type: "rect",
+          offset: {
+            x: 0.00027334999999961695,
+            y: -0.5512093000000002,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+      ],
+      availableRotationDegrees: [0],
+    },
+    {
+      componentId: "C19",
+      pads: [
+        {
+          padId: "C19_body",
+          networkId: "C19_body_disconnected",
+          type: "rect",
+          offset: {
+            x: 0,
+            y: 0,
+          },
+          size: {
+            x: 0.5291665999999999,
+            y: 1.0583333000000001,
+          },
+        },
+        {
+          padId: "C19.1",
+          networkId: "V3_3",
+          type: "rect",
+          offset: {
+            x: -0.00027335000000050513,
+            y: 0.5512093000000009,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "C19.2",
+          networkId: "GND",
+          type: "rect",
+          offset: {
+            x: 0.00027335000000050513,
+            y: -0.5512093,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+      ],
+      availableRotationDegrees: [0],
+    },
+    {
+      componentId: "C15",
+      pads: [
+        {
+          padId: "C15_body",
+          networkId: "C15_body_disconnected",
+          type: "rect",
+          offset: {
+            x: 0,
+            y: 0,
+          },
+          size: {
+            x: 0.5291665999999999,
+            y: 1.0583333000000001,
+          },
+        },
+        {
+          padId: "C15.1",
+          networkId: "V3_3",
+          type: "rect",
+          offset: {
+            x: -0.0002733499999987288,
+            y: 0.5512093000000009,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "C15.2",
+          networkId: "GND",
+          type: "rect",
+          offset: {
+            x: 0.0002733499999987288,
+            y: -0.5512093,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+      ],
+      availableRotationDegrees: [0],
+    },
+    {
+      componentId: "C13",
+      pads: [
+        {
+          padId: "C13_body",
+          networkId: "C13_body_disconnected",
+          type: "rect",
+          offset: {
+            x: 0,
+            y: 0,
+          },
+          size: {
+            x: 0.5291665999999999,
+            y: 1.0583333000000001,
+          },
+        },
+        {
+          padId: "C13.1",
+          networkId: "V3_3",
+          type: "rect",
+          offset: {
+            x: -0.0002733499999987288,
+            y: 0.5512093000000009,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "C13.2",
+          networkId: "GND",
+          type: "rect",
+          offset: {
+            x: 0.0002733499999987288,
+            y: -0.5512093,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+      ],
+      availableRotationDegrees: [0],
+    },
+    {
+      componentId: "C8",
+      pads: [
+        {
+          padId: "C8_body",
+          networkId: "C8_body_disconnected",
+          type: "rect",
+          offset: {
+            x: 0,
+            y: 0,
+          },
+          size: {
+            x: 0.5291665999999999,
+            y: 1.0583333000000001,
+          },
+        },
+        {
+          padId: "C8.1",
+          networkId: "V3_3",
+          type: "rect",
+          offset: {
+            x: -0.00027335000000050513,
+            y: 0.5512093000000009,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "C8.2",
+          networkId: "GND",
+          type: "rect",
+          offset: {
+            x: 0.00027335000000050513,
+            y: -0.5512093,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+      ],
+      availableRotationDegrees: [0],
+    },
+    {
+      componentId: "C14",
+      pads: [
+        {
+          padId: "C14_body",
+          networkId: "C14_body_disconnected",
+          type: "rect",
+          offset: {
+            x: 0,
+            y: 0,
+          },
+          size: {
+            x: 0.5291665999999999,
+            y: 1.0583333000000001,
+          },
+        },
+        {
+          padId: "C14.1",
+          networkId: "V3_3",
+          type: "rect",
+          offset: {
+            x: -0.0002733499999987288,
+            y: 0.5512093000000009,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "C14.2",
+          networkId: "GND",
+          type: "rect",
+          offset: {
+            x: 0.00027335000000050513,
+            y: -0.5512093,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+      ],
+      availableRotationDegrees: [0],
+    },
+    {
+      componentId: "C12",
+      pads: [
+        {
+          padId: "C12_body",
+          networkId: "C12_body_disconnected",
+          type: "rect",
+          offset: {
+            x: 0,
+            y: 0,
+          },
+          size: {
+            x: 0.5291665999999999,
+            y: 1.0583333000000001,
+          },
+        },
+        {
+          padId: "C12.1",
+          networkId: "V3_3",
+          type: "rect",
+          offset: {
+            x: -0.00027334999999961695,
+            y: 0.5512093,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+        {
+          padId: "C12.2",
+          networkId: "GND",
+          type: "rect",
+          offset: {
+            x: 0.00027334999999961695,
+            y: -0.5512093,
+          },
+          size: {
+            x: 0.1,
+            y: 0.1,
+          },
+        },
+      ],
+      availableRotationDegrees: [0],
+    },
+  ],
+  minGap: 0.2,
+  packOrderStrategy: "largest_to_smallest",
+  packPlacementStrategy: "minimum_sum_squared_distance_to_network",
+}
+
+export default () => {
+  return <PackDebugger initialPackInput={packInput} />
+}
