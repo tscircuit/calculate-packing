@@ -24,7 +24,10 @@ export function transformComponentBodyBounds(
   }
 
   const originalBounds = component.bodyBounds
-  const rotationAngle = ((component.ccwRotationDegrees ?? component.ccwRotationOffset ?? 0) * Math.PI) / 180
+  const rotationAngle =
+    ((component.ccwRotationDegrees ?? component.ccwRotationOffset ?? 0) *
+      Math.PI) /
+    180
 
   // Get the four corners of the original body bounds rectangle
   const corners = [

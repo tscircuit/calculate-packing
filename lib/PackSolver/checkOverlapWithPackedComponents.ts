@@ -13,22 +13,24 @@ export function checkOverlapWithPackedComponents({
   minGap,
 }: CheckOverlapWithPackedComponentsParams): boolean {
   // Cache the transformed body bounds for the component being placed
-  const comp1Body = component.bodyBounds ? transformComponentBodyBounds(component) : null
+  const comp1Body = component.bodyBounds
+    ? transformComponentBodyBounds(component)
+    : null
 
   // Check body bounds overlaps if available
   if (comp1Body) {
     for (const packedComponent of packedComponents) {
       // Cache the transformed body bounds for each packed component
-      const comp2Body = packedComponent.bodyBounds ? transformComponentBodyBounds(packedComponent) : null
-      
+      const comp2Body = packedComponent.bodyBounds
+        ? transformComponentBodyBounds(packedComponent)
+        : null
+
       if (comp2Body) {
         // Check for body-to-body rectangle overlap
         const xOverlap =
-          comp1Body.maxX >= comp2Body.minX &&
-          comp2Body.maxX >= comp1Body.minX
+          comp1Body.maxX >= comp2Body.minX && comp2Body.maxX >= comp1Body.minX
         const yOverlap =
-          comp1Body.maxY >= comp2Body.minY &&
-          comp2Body.maxY >= comp1Body.minY
+          comp1Body.maxY >= comp2Body.minY && comp2Body.maxY >= comp1Body.minY
 
         if (xOverlap && yOverlap) {
           return true // Component body overlap detected

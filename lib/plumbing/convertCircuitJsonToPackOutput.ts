@@ -59,11 +59,11 @@ const buildPackedComponent = (
       const silkscreenPaths = db.pcb_silkscreen_path.list({
         pcb_component_id: pc.pcb_component_id,
       })
-      
+
       for (const path of silkscreenPaths) {
         if (path.route && Array.isArray(path.route)) {
           for (const point of path.route) {
-            if (typeof point.x === 'number' && typeof point.y === 'number') {
+            if (typeof point.x === "number" && typeof point.y === "number") {
               bodyMinX = Math.min(bodyMinX, point.x)
               bodyMaxX = Math.max(bodyMaxX, point.x)
               bodyMinY = Math.min(bodyMinY, point.y)
