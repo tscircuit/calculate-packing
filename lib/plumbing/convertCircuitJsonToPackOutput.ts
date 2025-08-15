@@ -46,11 +46,53 @@ const buildPackedComponent = (
     },
   }))
 
+  /* ----- extract component body bounds from silkscreen ----- */
+  let bodyBounds
+  try {
+    let bodyMinX = Infinity
+    let bodyMinY = Infinity
+    let bodyMaxX = -Infinity
+    let bodyMaxY = -Infinity
+
+    // Look for silkscreen paths for this component
+    for (const pc of pcbComponents) {
+      const silkscreenPaths = db.pcb_silkscreen_path.list({
+        pcb_component_id: pc.pcb_component_id,
+      })
+      
+      for (const path of silkscreenPaths) {
+        if (path.route && Array.isArray(path.route)) {
+          for (const point of path.route) {
+            if (typeof point.x === 'number' && typeof point.y === 'number') {
+              bodyMinX = Math.min(bodyMinX, point.x)
+              bodyMaxX = Math.max(bodyMaxX, point.x)
+              bodyMinY = Math.min(bodyMinY, point.y)
+              bodyMaxY = Math.max(bodyMaxY, point.y)
+            }
+          }
+        }
+      }
+    }
+
+    // Only set bodyBounds if we found valid silkscreen data
+    if (bodyMinX !== Infinity) {
+      bodyBounds = {
+        minX: bodyMinX,
+        maxX: bodyMaxX,
+        minY: bodyMinY,
+        maxY: bodyMaxY,
+      }
+    }
+  } catch (error) {
+    // Silently fall back to pad-only detection if we can't extract body bounds
+  }
+
   return {
     componentId,
     center,
     ccwRotationOffset: 0,
     pads,
+    bodyBounds,
   } as PackedComponent
 }
 
