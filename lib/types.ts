@@ -14,6 +14,17 @@ export interface OutputPad extends InputPad {
   absoluteCenter: { x: number; y: number }
 }
 
+export interface ComponentBodyBounds {
+  /** Min X coordinate of component body (silkscreen/outline) */
+  minX: number
+  /** Max X coordinate of component body (silkscreen/outline) */
+  maxX: number
+  /** Min Y coordinate of component body (silkscreen/outline) */
+  minY: number
+  /** Max Y coordinate of component body (silkscreen/outline) */
+  maxY: number
+}
+
 export interface InputComponent {
   componentId: string
   /**
@@ -21,6 +32,8 @@ export interface InputComponent {
    */
   availableRotationDegrees?: number[]
   pads: InputPad[]
+  /** Component body bounds for overlap detection beyond just pads */
+  bodyBounds?: ComponentBodyBounds
 }
 
 export interface PackedComponent extends InputComponent {
