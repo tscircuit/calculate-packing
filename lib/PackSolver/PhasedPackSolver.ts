@@ -749,15 +749,64 @@ export class PhasedPackSolver extends BaseSolver {
       selectedComponent.pads = bestTrial.pads
       this.phaseData.selectedRotation = selectedComponent
     } else if (rotationTrials.length > 0) {
-      // If no valid trials without overlap, pick the best overlapping one
+      // If no valid trials without overlap, find the best trial and push it further away
       const bestTrial = rotationTrials.reduce((best, current) =>
         current.cost < best.cost ? current : best,
       )
 
+      // Calculate center of mass of packed components to determine direction to move away
+      const packedCenterX =
+        this.packedComponents.length > 0
+          ? this.packedComponents.reduce((sum, c) => sum + c.center.x, 0) /
+            this.packedComponents.length
+          : 0
+      const packedCenterY =
+        this.packedComponents.length > 0
+          ? this.packedComponents.reduce((sum, c) => sum + c.center.y, 0) /
+            this.packedComponents.length
+          : 0
+
+      // Calculate direction vector from packed center to best trial position
+      const dirX = bestTrial.center.x - packedCenterX
+      const dirY = bestTrial.center.y - packedCenterY
+      const dirLength = Math.sqrt(dirX * dirX + dirY * dirY)
+
+      // Normalize direction vector and push component further out
+      // Use a multiple of the component's largest dimension to ensure sufficient separation
+      const componentBounds = getComponentBounds(newPackedComponent)
+      const componentWidth = componentBounds.maxX - componentBounds.minX
+      const componentHeight = componentBounds.maxY - componentBounds.minY
+      const componentSize = Math.max(componentWidth, componentHeight)
+      // Calculate push distance: component size + gap + safety margin for body bounds
+      const componentSizeMultiplier = 2.0 // How many component sizes to push away
+      const safetyMargin = 2.0 // Additional margin for body bounds (mm)
+      const pushDistance =
+        componentSize * componentSizeMultiplier +
+        (this.packInput.minGap ?? 0) +
+        safetyMargin
+
+      let newX = bestTrial.center.x
+      let newY = bestTrial.center.y
+
+      if (dirLength > 0) {
+        const normalizedDirX = dirX / dirLength
+        const normalizedDirY = dirY / dirLength
+        newX = packedCenterX + normalizedDirX * (dirLength + pushDistance)
+        newY = packedCenterY + normalizedDirY * (dirLength + pushDistance)
+      } else {
+        // If at same position, push in a default direction
+        newX = bestTrial.center.x + pushDistance
+        newY = bestTrial.center.y
+      }
+
       const selectedComponent = { ...newPackedComponent }
-      selectedComponent.center = bestTrial.center
+      selectedComponent.center = { x: newX, y: newY }
       selectedComponent.ccwRotationOffset = bestTrial.ccwRotationOffset
       selectedComponent.pads = bestTrial.pads
+
+      // Recalculate pad centers with new position
+      setPackedComponentPadCenters(selectedComponent)
+
       this.phaseData.selectedRotation = selectedComponent
     } else {
       this.phaseData.selectedRotation = undefined
