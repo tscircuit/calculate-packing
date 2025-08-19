@@ -20,6 +20,7 @@ import { pointInOutline } from "lib/geometry/pointInOutline"
  */
 export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   outlineSegment: [Point, Point]
+  viableOutlineSegment: [Point, Point] | null = null
   fullOutline: [Point, Point][] // The entire outline containing the segment
   componentRotationDegrees: number
   packStrategy:
@@ -89,6 +90,8 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       )
       return this.adjustPositionForOutlineCollision(projectedPoint)
     }
+
+    // TODO compute viable outline segment
 
     // Use segment midpoint as initial position
     const [p1, p2] = this.outlineSegment
