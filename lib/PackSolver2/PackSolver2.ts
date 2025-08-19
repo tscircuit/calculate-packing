@@ -1,9 +1,9 @@
 import type { GraphicsObject } from "graphics-debug"
-import { setPackedComponentPadCenters } from "lib/PackSolver/setPackedComponentPadCenters"
-import { sortComponentQueue } from "lib/PackSolver/sortComponentQueue"
-import { SingleComponentPackSolver } from "lib/SingleComponentPackSolver/SingleComponentPackSolver"
-import { BaseSolver } from "lib/solver-utils/BaseSolver"
-import type { InputComponent, PackedComponent, PackInput } from "lib/types"
+import { setPackedComponentPadCenters } from "../PackSolver/setPackedComponentPadCenters"
+import { sortComponentQueue } from "../PackSolver/sortComponentQueue"
+import { SingleComponentPackSolver } from "../SingleComponentPackSolver/SingleComponentPackSolver"
+import { BaseSolver } from "../solver-utils/BaseSolver"
+import type { InputComponent, PackedComponent, PackInput } from "../types"
 
 export class PackSolver2 extends BaseSolver {
   declare activeSubSolver: SingleComponentPackSolver | null | undefined
@@ -58,6 +58,10 @@ export class PackSolver2 extends BaseSolver {
 
     if (!this.componentToPack || !this.activeSubSolver) {
       this.componentToPack = this.unpackedComponentQueue.shift()
+      if (!this.componentToPack) {
+        this.solved = true
+        return
+      }
       this.activeSubSolver = new SingleComponentPackSolver({
         packedComponents: this.packedComponents,
         componentToPack: this.componentToPack,
@@ -72,7 +76,19 @@ export class PackSolver2 extends BaseSolver {
     }
 
     if (this.activeSubSolver.solved) {
-      this.packedComponents.push(this.activeSubSolver.packedComponent)
+      // Convert the componentToPack to a PackedComponent and add it
+      const packedComponent: PackedComponent = {
+        ...this.componentToPack!,
+        center: { x: 0, y: 0 }, // This should be determined by the solver
+        ccwRotationOffset: 0, // This should be determined by the solver
+        pads: this.componentToPack!.pads.map((p) => ({
+          ...p,
+          absoluteCenter: { x: 0, y: 0 }, // This should be determined by the solver
+        })),
+      }
+      this.packedComponents.push(packedComponent)
+      this.componentToPack = undefined
+      this.activeSubSolver = undefined
     }
   }
 

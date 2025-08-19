@@ -1,6 +1,6 @@
 import type { GraphicsObject } from "graphics-debug"
-import { BaseSolver } from "lib/solver-utils/BaseSolver"
-import type { InputComponent, PackedComponent } from "lib/types"
+import { BaseSolver } from "../solver-utils/BaseSolver"
+import type { InputComponent, PackedComponent } from "../types"
 
 /**
  * Packs a single component given a set of already packed components.
