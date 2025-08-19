@@ -5,6 +5,7 @@ import { convertPackOutputToPackInput } from "../../lib/plumbing/convertPackOutp
 import { useMemo, useReducer, useState } from "react"
 import { PhasedPackSolver } from "../../lib"
 import { PackSolver2 } from "../../lib/PackSolver2/PackSolver2"
+import type { BaseSolver } from "../../lib/solver-utils/BaseSolver"
 
 type SolverType = "PhasedPackSolver" | "PackSolver2"
 
@@ -12,6 +13,28 @@ interface PackDebuggerProps {
   initialPackOutput?: PackOutput
   initialPackInput?: PackInput
   title?: string
+}
+
+// Function to build breadcrumb of active sub-solvers
+function buildSolverBreadcrumb(solver: BaseSolver): string[] {
+  const formatSolverName = (s: BaseSolver): string => {
+    let name = s.constructor.name
+    // Check if solver has currentPhase property
+    if ('currentPhase' in s && s.currentPhase) {
+      name += ` (${s.currentPhase})`
+    }
+    return name
+  }
+  
+  const breadcrumb: string[] = [formatSolverName(solver)]
+  
+  let current = solver.activeSubSolver
+  while (current && current !== null) {
+    breadcrumb.push(formatSolverName(current))
+    current = current.activeSubSolver
+  }
+  
+  return breadcrumb
 }
 
 export const PackDebugger = ({
@@ -32,6 +55,8 @@ export const PackDebugger = ({
     }
     return new PhasedPackSolver(packInput)
   }, [selectedSolver, packInput])
+
+  const solverBreadcrumb = buildSolverBreadcrumb(packSolver)
 
   return (
     <div>
@@ -66,6 +91,20 @@ export const PackDebugger = ({
         </div>
         <div style={{ marginBottom: "10px" }}>
           <strong>Iterations:</strong> {packSolver.iterations}
+        </div>
+        <div style={{ marginBottom: "10px" }}>
+          <strong>Active Solvers:</strong>{" "}
+          <span
+            style={{
+              fontFamily: "monospace",
+              backgroundColor: "#f5f5f5",
+              padding: "2px 6px",
+              borderRadius: "3px",
+              fontSize: "0.9em",
+            }}
+          >
+            {solverBreadcrumb.join(" → ")}
+          </span>
         </div>
         <button
           onClick={() => {

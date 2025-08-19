@@ -28,7 +28,7 @@ export class PackSolver2 extends BaseSolver {
       packFirst,
     })
     this.packedComponents = []
-    this.packFirstComponent()
+
   }
 
   private packFirstComponent(): void {
@@ -51,12 +51,24 @@ export class PackSolver2 extends BaseSolver {
   override _step() {
     if (this.solved || this.failed) return
 
-    if (this.unpackedComponentQueue.length === 0) {
-      this.solved = true
+    // Special case: first component (when no components are packed yet)
+    if (this.packedComponents.length === 0) {
+      if (this.unpackedComponentQueue.length === 0) {
+        this.solved = true
+        return
+      }
+      this.packFirstComponent()
       return
     }
 
-    if (!this.componentToPack || !this.activeSubSolver) {
+    // If we have an active sub-solver, continue with it
+    if (!this.activeSubSolver) {
+      // Need to start a new component
+      if (this.unpackedComponentQueue.length === 0) {
+        this.solved = true
+        return
+      }
+      
       this.componentToPack = this.unpackedComponentQueue.shift()
       if (!this.componentToPack) {
         this.solved = true
@@ -65,10 +77,13 @@ export class PackSolver2 extends BaseSolver {
       this.activeSubSolver = new SingleComponentPackSolver({
         packedComponents: this.packedComponents,
         componentToPack: this.componentToPack,
+        packPlacementStrategy: this.packInput.packPlacementStrategy,
+        minGap: this.packInput.minGap,
       })
+      this.activeSubSolver.setup()
     }
 
-    this.activeSubSolver._step()
+    this.activeSubSolver.step()
 
     if (this.activeSubSolver.failed) {
       this.failed = true
@@ -76,24 +91,33 @@ export class PackSolver2 extends BaseSolver {
     }
 
     if (this.activeSubSolver.solved) {
-      // Convert the componentToPack to a PackedComponent and add it
-      // TODO get the position and rotation from the solver
-      const packedComponent: PackedComponent = {
-        ...this.componentToPack!,
-        center: { x: 0, y: 0 }, // This should be determined by the solver
-        ccwRotationOffset: 0, // This should be determined by the solver
-        pads: this.componentToPack!.pads.map((p) => ({
-          ...p,
-          absoluteCenter: { x: 0, y: 0 }, // This should be determined by the solver
-        })),
+      // Get the result from the SingleComponentPackSolver
+      const result = this.activeSubSolver.getResult()
+      if (result) {
+        this.packedComponents.push(result)
+      } else {
+        // Fallback if solver didn't produce a result
+        const packedComponent: PackedComponent = {
+          ...this.componentToPack!,
+          center: { x: 0, y: 0 },
+          ccwRotationOffset: 0,
+          pads: this.componentToPack!.pads.map((p) => ({
+            ...p,
+            absoluteCenter: { x: 0, y: 0 },
+          })),
+        }
+        setPackedComponentPadCenters(packedComponent)
+        this.packedComponents.push(packedComponent)
       }
-      this.packedComponents.push(packedComponent)
       this.componentToPack = undefined
       this.activeSubSolver = undefined
     }
   }
 
   override visualize(): GraphicsObject {
+    if (this.activeSubSolver) {
+      return this.activeSubSolver.visualize()
+    }
     return super.visualize()
   }
 }
