@@ -1,6 +1,10 @@
 import type { GraphicsObject } from "graphics-debug"
 import { BaseSolver } from "../solver-utils/BaseSolver"
-import type { InputComponent, PackedComponent } from "../types"
+import type {
+  InputComponent,
+  PackedComponent,
+  PackPlacementStrategy,
+} from "../types"
 
 /**
  * Packs a single component given a set of already packed components.
@@ -18,14 +22,17 @@ import type { InputComponent, PackedComponent } from "../types"
 export class SingleComponentPackSolver extends BaseSolver {
   componentToPack: InputComponent
   packedComponents: PackedComponent[]
+  packPlacementStrategy: PackPlacementStrategy
 
   constructor(params: {
     componentToPack: InputComponent
     packedComponents: PackedComponent[]
+    packPlacementStrategy: PackPlacementStrategy
   }) {
     super()
     this.componentToPack = params.componentToPack
     this.packedComponents = params.packedComponents
+    this.packPlacementStrategy = params.packPlacementStrategy
   }
 
   override _setup() {
