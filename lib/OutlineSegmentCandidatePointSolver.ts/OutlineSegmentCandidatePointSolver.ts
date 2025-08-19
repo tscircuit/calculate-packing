@@ -5,6 +5,7 @@ import { IrlsSolver } from "lib/solver-utils/IrlsSolver"
 import type { InputComponent, PackedComponent } from "lib/types"
 import { rotatePoint } from "lib/math/rotatePoint"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
+import { getColorForString } from "lib/testing/createColorMapFromStrings"
 
 /**
  * Given a single segment on the outline, the component's rotation, compute the
@@ -345,7 +346,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
           center: padPos,
           width: pad.size.x,
           height: pad.size.y,
-          fill: "TODO",
+          fill: getColorForString(pad.networkId, 0.5),
           stroke: "#333",
           label: `${pad.padId} (${pad.networkId})`,
         })
