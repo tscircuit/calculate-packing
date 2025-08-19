@@ -258,12 +258,12 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
 
     for (const corner of boundsCorners) {
       const location = pointInOutline(corner, outlineSegments)
-      
+
       if (location === "inside") {
         // This corner is inside the outline - we need to move it out
         // Find the distance to the nearest outline segment
         const distanceToSegment = this.getDistanceToNearestSegment(corner)
-        
+
         if (distanceToSegment > maxPenetrationDistance) {
           maxPenetrationDistance = distanceToSegment
           worstCorner = corner
@@ -296,7 +296,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       const projectedPoint = this.projectPointOntoSegment(point, segment)
       const distance = Math.hypot(
         point.x - projectedPoint.x,
-        point.y - projectedPoint.y
+        point.y - projectedPoint.y,
       )
       minDistance = Math.min(minDistance, distance)
     }
@@ -446,40 +446,41 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       }
     }
 
-    // Draw component to pack at optimal position if solver has found one
-    if (this.optimalPosition) {
-      const pos = this.optimalPosition
+    const pos = this.optimalPosition ??
+      this.irlsSolver?.currentPosition ?? {
+        x: 0,
+        y: 0,
+      }
 
-      // Get rotated pads for drawing at optimal position
-      const rotatedPads = this.getRotatedComponentPads()
+    // Get rotated pads for drawing at optimal position
+    const rotatedPads = this.getRotatedComponentPads()
 
-      // Draw pads at optimal position with proper rotation
-      for (const pad of rotatedPads) {
-        const padPos = {
-          x: pos.x + pad.offset.x,
-          y: pos.y + pad.offset.y,
-        }
+    // Draw pads at optimal position with proper rotation
+    for (const pad of rotatedPads) {
+      const padPos = {
+        x: pos.x + pad.offset.x,
+        y: pos.y + pad.offset.y,
+      }
 
-        graphics.rects!.push({
-          center: padPos,
-          width: pad.size.x,
-          height: pad.size.y,
-          fill: getColorForString(pad.networkId, 0.5),
-          stroke: "#333",
-          label: `${pad.padId} (${pad.networkId})`,
-        })
+      graphics.rects!.push({
+        center: padPos,
+        width: pad.size.x,
+        height: pad.size.y,
+        fill: getColorForString(pad.networkId, 0.5),
+        stroke: "#333",
+        label: `${pad.padId} (${pad.networkId})`,
+      })
 
-        // Draw connections to existing pads of same network
-        for (const packedComponent of this.packedComponents) {
-          for (const packedPad of packedComponent.pads) {
-            if (packedPad.networkId === pad.networkId) {
-              graphics.lines!.push({
-                points: [padPos, packedPad.absoluteCenter],
-                strokeColor: pad.networkId === "VCC" ? "#FF6B6B" : "#4ECDC4",
-                strokeDash: [2, 2],
-                label: `${pad.networkId} connection`,
-              })
-            }
+      // Draw connections to existing pads of same network
+      for (const packedComponent of this.packedComponents) {
+        for (const packedPad of packedComponent.pads) {
+          if (packedPad.networkId === pad.networkId) {
+            graphics.lines!.push({
+              points: [padPos, packedPad.absoluteCenter],
+              strokeColor: pad.networkId === "VCC" ? "#FF6B6B" : "#4ECDC4",
+              strokeDash: [2, 2],
+              label: `${pad.networkId} connection`,
+            })
           }
         }
       }
