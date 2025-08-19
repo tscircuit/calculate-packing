@@ -31,7 +31,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
 
   optimalPosition?: Point
   irlsSolver?: IrlsSolver
-  private outlineCentroid?: Point
 
   constructor(params: {
     outlineSegment: [Point, Point]
@@ -288,24 +287,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
 
     throw new Error("unreachable")
-  }
-
-  /**
-   * Get the distance from a point to the nearest outline segment
-   */
-  private getDistanceToNearestSegment(point: Point): number {
-    let minDistance = Infinity
-
-    for (const segment of this.fullOutline) {
-      const projectedPoint = this.projectPointOntoSegment(point, segment)
-      const distance = Math.hypot(
-        point.x - projectedPoint.x,
-        point.y - projectedPoint.y,
-      )
-      minDistance = Math.min(minDistance, distance)
-    }
-
-    return minDistance
   }
 
   /**
