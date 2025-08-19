@@ -8,6 +8,10 @@ import type { InputComponent, PackedComponent } from "lib/types"
  * optimal position for the rotated component (the position that minimizes the
  * packStrategy, generally minimizing the sum of the distances to other pads in
  * the network)
+ *
+ * To do this, we use the IRLS/Weiszfeld Weighted Least Squares algorithm, look
+ * at the site/algorithm-visualizations/irls-weiszfeld-algorithm.page.tsx for
+ * an interactive visualization of how it works.
  */
 export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   outlineSegment: [Point, Point]
