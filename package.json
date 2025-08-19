@@ -28,6 +28,7 @@
     "@vitejs/plugin-react": "^5.0.0",
     "bun-match-svg": "^0.0.12",
     "circuit-json": "^0.0.220",
+    "framer-motion": "^12.23.12",
     "graphics-debug": "^0.0.62",
     "react": "^19.1.0",
     "react-cosmos": "^7.0.0",
