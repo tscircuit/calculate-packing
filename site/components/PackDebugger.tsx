@@ -20,20 +20,20 @@ function buildSolverBreadcrumb(solver: BaseSolver): string[] {
   const formatSolverName = (s: BaseSolver): string => {
     let name = s.constructor.name
     // Check if solver has currentPhase property
-    if ('currentPhase' in s && s.currentPhase) {
+    if ("currentPhase" in s && s.currentPhase) {
       name += ` (${s.currentPhase})`
     }
     return name
   }
-  
+
   const breadcrumb: string[] = [formatSolverName(solver)]
-  
+
   let current = solver.activeSubSolver
   while (current && current !== null) {
     breadcrumb.push(formatSolverName(current))
     current = current.activeSubSolver
   }
-  
+
   return breadcrumb
 }
 
@@ -46,7 +46,7 @@ export const PackDebugger = ({
     initialPackInput ?? convertPackOutputToPackInput(initialPackOutput!)
 
   const [selectedSolver, setSelectedSolver] =
-    useState<SolverType>("PhasedPackSolver")
+    useState<SolverType>("PackSolver2")
   const [runCount, incRunCount] = useReducer((c) => c + 1, 0)
 
   const packSolver = useMemo(() => {
@@ -127,7 +127,7 @@ export const PackDebugger = ({
       {/* Automatic Pack Visualization */}
       <h3>Automatic Pack Visualization</h3>
       <InteractiveGraphics
-        key={`iter${packSolver.iterations >= 1}`}
+        key={`iter${packSolver.iterations >= 2}`}
         graphics={packSolver.visualize()}
       />
 
