@@ -32,16 +32,18 @@ export interface PackedComponent extends InputComponent {
   pads: OutputPad[]
 }
 
+export type PackPlacementStrategy =
+  | "shortest_connection_along_outline"
+  | "minimum_sum_distance_to_network"
+  | "minimum_sum_squared_distance_to_network"
+
 export interface PackInput {
   components: InputComponent[]
 
   minGap: number
 
   packOrderStrategy: "largest_to_smallest"
-  packPlacementStrategy:
-    | "shortest_connection_along_outline"
-    | "minimum_sum_distance_to_network"
-    | "minimum_sum_squared_distance_to_network"
+  packPlacementStrategy: PackPlacementStrategy
 
   disconnectedPackDirection?:
     | "left"
