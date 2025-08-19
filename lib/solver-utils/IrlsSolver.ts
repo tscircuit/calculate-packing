@@ -192,7 +192,6 @@ export class IrlsSolver extends BaseSolver {
       graphics.lines!.push({
         points: [this.currentPosition, point],
         strokeColor: "#666",
-        strokeWidth: 1,
       })
     }
 

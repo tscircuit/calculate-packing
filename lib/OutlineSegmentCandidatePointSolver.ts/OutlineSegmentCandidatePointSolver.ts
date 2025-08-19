@@ -316,7 +316,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     graphics.lines!.push({
       points: [p1, p2],
       strokeColor: "#2196F3",
-      strokeWidth: 3,
       label: "Outline Segment",
     })
 
@@ -365,7 +364,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
               graphics.lines!.push({
                 points: [padPos, packedPad.absoluteCenter],
                 strokeColor: pad.networkId === "VCC" ? "#FF6B6B" : "#4ECDC4",
-                strokeWidth: 1,
                 strokeDash: [2, 2],
                 label: `${pad.networkId} connection`,
               })

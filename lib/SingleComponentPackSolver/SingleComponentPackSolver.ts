@@ -309,6 +309,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     graphics.lines ??= []
     graphics.rects ??= []
     graphics.texts ??= []
+    graphics.circles ??= []
 
     switch (this.currentPhase) {
       case "outline":
