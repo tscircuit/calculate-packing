@@ -314,22 +314,12 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
 
     // Draw packed components
     for (const component of this.packedComponents) {
-      // Draw component body
-      graphics.rects!.push({
-        center: component.center,
-        width: 30,
-        height: 20,
-        fill: "rgba(200, 200, 200, 0.7)",
-        stroke: "#666",
-        label: `${component.componentId} (existing)`,
-      })
-
       // Draw pads
       for (const pad of component.pads) {
         graphics.rects!.push({
           center: pad.absoluteCenter,
-          width: 4,
-          height: 4,
+          width: pad.size.x,
+          height: pad.size.y,
           fill: pad.networkId === "VCC" ? "#FF6B6B" : "#4ECDC4",
           stroke: "#333",
           label: `${pad.padId} (${pad.networkId})`,
@@ -340,16 +330,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     // Draw component to pack at optimal position if solver has found one
     if (this.optimalPosition) {
       const pos = this.optimalPosition
-
-      // Draw component body
-      graphics.rects!.push({
-        center: pos,
-        width: 30,
-        height: 20,
-        fill: "rgba(100, 255, 100, 0.7)",
-        stroke: "#0a5",
-        label: `${this.componentToPack.componentId} (optimal)`,
-      })
 
       // Get rotated pads for drawing at optimal position
       const rotatedPads = this.getRotatedComponentPads()
@@ -363,9 +343,9 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
 
         graphics.rects!.push({
           center: padPos,
-          width: 4,
-          height: 4,
-          fill: pad.networkId === "VCC" ? "#FF6B6B" : "#4ECDC4",
+          width: pad.size.x,
+          height: pad.size.y,
+          fill: "TODO",
           stroke: "#333",
           label: `${pad.padId} (${pad.networkId})`,
         })

@@ -41,6 +41,13 @@ export default function OutlineSegmentCandidatePointSolverExample() {
         offset: { x: 10, y: 0 },
         size: { x: 4, y: 4 },
       },
+      {
+        padId: "U2_body",
+        networkId: "U2-disconnected-body",
+        type: "rect",
+        offset: { x: 0, y: 0 },
+        size: { x: 25, y: 15 },
+      },
     ],
   }
 
@@ -92,55 +99,6 @@ export default function OutlineSegmentCandidatePointSolverExample() {
       ],
     },
   ]
-
-  const getGraphics = (): GraphicsObject => {
-    if (solver) {
-      return solver.visualize()
-    }
-
-    // Fallback graphics when no solver exists
-    const graphics: GraphicsObject = {
-      lines: [],
-      circles: [],
-      rects: [],
-      points: [],
-    }
-
-    // Draw outline segment
-    graphics.lines!.push({
-      points: [outlineSegment[0], outlineSegment[1]],
-      strokeColor: "#2196F3",
-      strokeWidth: 3,
-      label: "Outline Segment",
-    })
-
-    // Draw packed components
-    for (const component of packedComponents) {
-      // Draw component body
-      graphics.rects!.push({
-        center: component.center,
-        width: 30,
-        height: 20,
-        fill: "rgba(200, 200, 200, 0.7)",
-        stroke: "#666",
-        label: `${component.componentId} (existing)`,
-      })
-
-      // Draw pads
-      for (const pad of component.pads) {
-        graphics.rects!.push({
-          center: pad.absoluteCenter,
-          width: 4,
-          height: 4,
-          fill: pad.networkId === "VCC" ? "#FF6B6B" : "#4ECDC4",
-          stroke: "#333",
-          label: `${pad.padId} (${pad.networkId})`,
-        })
-      }
-    }
-
-    return graphics
-  }
 
   const runSolver = () => {
     setIsRunning(true)
@@ -290,7 +248,7 @@ export default function OutlineSegmentCandidatePointSolverExample() {
         className="border-2 border-gray-800 mx-auto"
         style={{ maxWidth: "600px" }}
       >
-        <InteractiveGraphics graphics={getGraphics()} />
+        {solver && <InteractiveGraphics graphics={solver.visualize()} />}
       </div>
 
       <div className="flex justify-center gap-8 mt-4 text-sm">
