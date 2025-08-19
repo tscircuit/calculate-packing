@@ -13,6 +13,9 @@ export default function OutlineSegmentCandidatePointSolverExample() {
     | "minimum_sum_distance_to_network"
     | "minimum_sum_squared_distance_to_network"
   >("minimum_sum_distance_to_network")
+  const [componentRotationDegrees, setComponentRotationDegrees] = useState<
+    0 | 90 | 180 | 270
+  >(0)
   const [runCount, incRunCount] = useReducer((c) => c + 1, 0)
 
   // Define a simple example scenario
@@ -205,7 +208,7 @@ export default function OutlineSegmentCandidatePointSolverExample() {
 
     const newSolver = new OutlineSegmentCandidatePointSolver({
       outlineSegment,
-      componentRotationDegrees: 0,
+      componentRotationDegrees,
       packStrategy,
       minGap: 1,
       packedComponents,
@@ -281,6 +284,24 @@ export default function OutlineSegmentCandidatePointSolverExample() {
           </select>
         </div>
 
+        <div className="flex items-center gap-2">
+          <label htmlFor="componentRotation" className="text-sm font-medium">
+            Rotation:
+          </label>
+          <select
+            id="componentRotation"
+            value={componentRotationDegrees}
+            onChange={(e) => setComponentRotationDegrees(Number(e.target.value) as 0 | 90 | 180 | 270)}
+            disabled={isRunning}
+            className="px-2 py-1 border border-gray-300 rounded text-sm"
+          >
+            <option value={0}>0°</option>
+            <option value={90}>90°</option>
+            <option value={180}>180°</option>
+            <option value={270}>270°</option>
+          </select>
+        </div>
+
         <button
           onClick={runSolver}
           disabled={isRunning}
@@ -294,7 +315,7 @@ export default function OutlineSegmentCandidatePointSolverExample() {
             if (!solver) {
               const newSolver = new OutlineSegmentCandidatePointSolver({
                 outlineSegment,
-                componentRotationDegrees: 0,
+                componentRotationDegrees,
                 packStrategy,
                 minGap: 1,
                 packedComponents,
