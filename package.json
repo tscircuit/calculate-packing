@@ -25,6 +25,7 @@
     "@types/bun": "latest",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^5.0.0",
     "bun-match-svg": "^0.0.12",
     "circuit-json": "^0.0.220",
     "graphics-debug": "^0.0.62",

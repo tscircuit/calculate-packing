@@ -1,5 +1,5 @@
-import { BaseSolver } from "./BaseSolver"
 import type { GraphicsObject } from "graphics-debug"
+import { BaseSolver } from "./BaseSolver"
 
 export interface Point {
   x: number
@@ -17,6 +17,8 @@ export interface IrlsSolverParams {
   epsilon?: number
   /** Maximum iterations before giving up */
   maxIterations?: number
+  /** Whether to use squared distances (for sum of squared distances optimization) */
+  useSquaredDistance?: boolean
 }
 
 /**
@@ -31,6 +33,7 @@ export class IrlsSolver extends BaseSolver {
   public currentPosition: Point
   public constraintFn?: (point: Point) => Point
   public epsilon: number
+  public useSquaredDistance: boolean
   public optimalPosition?: Point
 
   private readonly initialPosition: Point
@@ -42,6 +45,7 @@ export class IrlsSolver extends BaseSolver {
     this.currentPosition = { ...params.initialPosition }
     this.constraintFn = params.constraintFn
     this.epsilon = params.epsilon ?? 1e-6
+    this.useSquaredDistance = params.useSquaredDistance ?? false
     this.MAX_ITERATIONS = params.maxIterations ?? 100
   }
 
@@ -51,6 +55,7 @@ export class IrlsSolver extends BaseSolver {
       initialPosition: this.initialPosition,
       constraintFn: this.constraintFn,
       epsilon: this.epsilon,
+      useSquaredDistance: this.useSquaredDistance,
       maxIterations: this.MAX_ITERATIONS,
     }
   }
@@ -81,9 +86,17 @@ export class IrlsSolver extends BaseSolver {
       const dy = currentY - targetPoint.y
       const distance = Math.sqrt(dx * dx + dy * dy)
 
-      // Weight is inverse of distance (IRLS weighting)
-      // Use large weight for very close points to avoid division by zero
-      const weight = distance < this.epsilon ? 1e6 : 1 / distance
+      // For squared distance optimization, we use different weighting
+      let weight: number
+      if (this.useSquaredDistance) {
+        // For sum of squared distances, the optimal point is just the centroid
+        // But we still use IRLS for consistency with constraints
+        weight = 1
+      } else {
+        // Weight is inverse of distance (IRLS weighting for geometric median)
+        // Use large weight for very close points to avoid division by zero
+        weight = distance < this.epsilon ? 1e6 : 1 / distance
+      }
 
       weightedSumX += weight * targetPoint.x
       weightedSumY += weight * targetPoint.y
@@ -130,7 +143,11 @@ export class IrlsSolver extends BaseSolver {
     return this.targetPoints.reduce((sum, target) => {
       const dx = pos.x - target.x
       const dy = pos.y - target.y
-      return sum + Math.sqrt(dx * dx + dy * dy)
+      if (this.useSquaredDistance) {
+        return sum + (dx * dx + dy * dy)
+      } else {
+        return sum + Math.sqrt(dx * dx + dy * dy)
+      }
     }, 0)
   }
 
@@ -158,20 +175,16 @@ export class IrlsSolver extends BaseSolver {
 
     // Draw target points
     for (const point of this.targetPoints) {
-      graphics.circles!.push({
-        center: point,
-        radius: 4,
-        fill: "#4CAF50",
-        stroke: "#2E7D32",
+      graphics.points!.push({
+        ...point,
+        color: "#4CAF50",
       })
     }
 
     // Draw current position
-    graphics.circles!.push({
-      center: this.currentPosition,
-      radius: 6,
-      fill: "#f44336",
-      stroke: "#d32f2f",
+    graphics.points!.push({
+      ...this.currentPosition,
+      color: "#f44336",
     })
 
     // Draw lines from current position to target points
@@ -185,11 +198,9 @@ export class IrlsSolver extends BaseSolver {
 
     // Draw optimal position if found
     if (this.optimalPosition) {
-      graphics.circles!.push({
-        center: this.optimalPosition,
-        radius: 8,
-        fill: "rgba(76, 175, 80, 0.3)",
-        stroke: "#4CAF50",
+      graphics.points!.push({
+        ...this.optimalPosition,
+        color: "rgba(76, 175, 80, 0.3)",
       })
     }
 

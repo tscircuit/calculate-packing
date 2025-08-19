@@ -23,7 +23,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   minGap: number
   packedComponents: PackedComponent[]
   componentToPack: InputComponent
-  
+
   optimalPosition?: Point
   irlsSolver?: IrlsSolver
 
@@ -60,7 +60,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   override _setup() {
     // Find target points from network connections
     const targetPoints = this.getNetworkTargetPoints()
-    
+
     if (targetPoints.length === 0) {
       // No network connections, just place at segment midpoint
       const [p1, p2] = this.outlineSegment
@@ -90,6 +90,8 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       constraintFn,
       epsilon: 1e-6,
       maxIterations: 50,
+      useSquaredDistance:
+        this.packStrategy === "minimum_sum_squared_distance_to_network",
     })
   }
 
@@ -100,7 +102,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
 
     this.irlsSolver.step()
-    
+
     if (this.irlsSolver.solved) {
       this.optimalPosition = this.irlsSolver.getBestPosition()
       this.solved = true
@@ -115,12 +117,12 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
    */
   private getNetworkTargetPoints(): Point[] {
     const targetPoints: Point[] = []
-    
+
     // Get network IDs from component being placed
     const componentNetworkIds = new Set(
-      this.componentToPack.pads.map(pad => pad.networkId)
+      this.componentToPack.pads.map((pad) => pad.networkId),
     )
-    
+
     // Find all packed pads that share networks with this component
     for (const packedComponent of this.packedComponents) {
       for (const pad of packedComponent.pads) {
@@ -129,35 +131,41 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
         }
       }
     }
-    
+
     return targetPoints
   }
 
   /**
    * Project a point onto the outline segment
    */
-  private projectPointOntoSegment(point: Point, segment: [Point, Point]): Point {
+  private projectPointOntoSegment(
+    point: Point,
+    segment: [Point, Point],
+  ): Point {
     const [p1, p2] = segment
-    
+
     // Vector from p1 to p2
     const segmentX = p2.x - p1.x
     const segmentY = p2.y - p1.y
-    
+
     // Vector from p1 to point
     const pointX = point.x - p1.x
     const pointY = point.y - p1.y
-    
+
     // Project point onto segment line
     const segmentLengthSq = segmentX * segmentX + segmentY * segmentY
-    
+
     if (segmentLengthSq === 0) {
       // Degenerate segment, return p1
       return { x: p1.x, y: p1.y }
     }
-    
+
     // Parameter t represents position along segment (0 = p1, 1 = p2)
-    const t = Math.max(0, Math.min(1, (pointX * segmentX + pointY * segmentY) / segmentLengthSq))
-    
+    const t = Math.max(
+      0,
+      Math.min(1, (pointX * segmentX + pointY * segmentY) / segmentLengthSq),
+    )
+
     return {
       x: p1.x + t * segmentX,
       y: p1.y + t * segmentY,
@@ -184,31 +192,25 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     if (this.irlsSolver) {
       const targetPoints = this.getNetworkTargetPoints()
       for (const point of targetPoints) {
-        graphics.circles!.push({
-          center: point,
-          radius: 4,
-          fill: "#4CAF50",
-          stroke: "#2E7D32",
+        graphics.points!.push({
+          ...point,
+          color: "#4CAF50",
         })
       }
 
       // Draw current solver position
       const currentPos = this.irlsSolver.currentPosition
-      graphics.circles!.push({
-        center: currentPos,
-        radius: 6,
-        fill: "#f44336",
-        stroke: "#d32f2f",
+      graphics.points!.push({
+        ...currentPos,
+        color: "#f44336",
       })
     }
 
     // Draw optimal position if found
     if (this.optimalPosition) {
-      graphics.circles!.push({
-        center: this.optimalPosition,
-        radius: 8,
-        fill: "rgba(76, 175, 80, 0.3)",
-        stroke: "#4CAF50",
+      graphics.points!.push({
+        ...this.optimalPosition,
+        color: "rgba(76, 175, 80, 0.3)",
       })
     }
 

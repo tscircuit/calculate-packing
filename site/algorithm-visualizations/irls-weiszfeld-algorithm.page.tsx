@@ -164,7 +164,7 @@ export default function OptimalPointFinder() {
     // Create constraint function to keep point on the horizontal line
     const constraintFn = (point: Point): Point => ({
       x: Math.max(lineStart, Math.min(lineEnd, point.x)),
-      y: lineY
+      y: lineY,
     })
 
     const irlsSolver = new IrlsSolver({
@@ -172,7 +172,7 @@ export default function OptimalPointFinder() {
       initialPosition: movingPoint,
       constraintFn,
       epsilon: 1e-6,
-      maxIterations: 100
+      maxIterations: 100,
     })
 
     setSolver(irlsSolver)
@@ -192,9 +192,13 @@ export default function OptimalPointFinder() {
     setMovingPoint({ x: 400, y: lineY })
   }
 
-  const totalDistance = solver ? solver.getTotalDistance(movingPoint) : calculateTotalDistance(movingPoint.x)
+  const totalDistance = solver
+    ? solver.getTotalDistance(movingPoint)
+    : calculateTotalDistance(movingPoint.x)
   const optimalDistance = optimalPoint
-    ? (solver ? solver.getTotalDistance(optimalPoint) : calculateTotalDistance(optimalPoint.x))
+    ? solver
+      ? solver.getTotalDistance(optimalPoint)
+      : calculateTotalDistance(optimalPoint.x)
     : null
 
   return (
