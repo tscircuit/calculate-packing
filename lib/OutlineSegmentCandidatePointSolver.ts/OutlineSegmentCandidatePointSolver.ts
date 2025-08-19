@@ -189,6 +189,13 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     const rotationRadians = (this.componentRotationDegrees * Math.PI) / 180
     return this.componentToPack.pads.map((pad) => ({
       ...pad,
+      size:
+        (this.componentRotationDegrees + 90) % 180 === 0
+          ? {
+              x: pad.size.y,
+              y: pad.size.x,
+            }
+          : pad.size,
       offset: rotatePoint(pad.offset, rotationRadians),
     }))
   }
