@@ -77,6 +77,7 @@ export class PackSolver2 extends BaseSolver {
 
     if (this.activeSubSolver.solved) {
       // Convert the componentToPack to a PackedComponent and add it
+      // TODO get the position and rotation from the solver
       const packedComponent: PackedComponent = {
         ...this.componentToPack!,
         center: { x: 0, y: 0 }, // This should be determined by the solver

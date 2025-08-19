@@ -1,19 +1,21 @@
 // @ts-nocheck
 import React, { useState, useRef, useEffect, useCallback } from "react"
+import { IrlsSolver, type Point } from "../../lib/solver-utils/IrlsSolver"
 
 export default function OptimalPointFinder() {
   const canvasRef = useRef(null)
-  const [staticPoints, setStaticPoints] = useState([
+  const [staticPoints, setStaticPoints] = useState<Point[]>([
     { x: 150, y: 100 },
     { x: 300, y: 80 },
     { x: 450, y: 150 },
     { x: 600, y: 120 },
     { x: 700, y: 200 },
   ])
-  const [movingPoint, setMovingPoint] = useState({ x: 400, y: 350 })
+  const [movingPoint, setMovingPoint] = useState<Point>({ x: 400, y: 350 })
   const [isDragging, setIsDragging] = useState(false)
-  const [optimalPoint, setOptimalPoint] = useState(null)
-  const [iterationCount, setIterationCount] = useState(null)
+  const [solver, setSolver] = useState<IrlsSolver | null>(null)
+  const [optimalPoint, setOptimalPoint] = useState<Point | null>(null)
+  const [iterationCount, setIterationCount] = useState<number | null>(null)
 
   const lineY = 350
   const lineStart = 50
@@ -155,62 +157,44 @@ export default function OptimalPointFinder() {
     setIsDragging(false)
   }
 
-  // IRLS / Weiszfeld algorithm for geometric median on a line
+  // IRLS / Weiszfeld algorithm for geometric median on a line using IrlsSolver
   const solve = () => {
     if (staticPoints.length === 0) return
 
-    let x = movingPoint.x
-    const maxIterations = 5
-    const epsilon = 1e-6 // Small value to avoid division by zero
-    let iterations = 0
+    // Create constraint function to keep point on the horizontal line
+    const constraintFn = (point: Point): Point => ({
+      x: Math.max(lineStart, Math.min(lineEnd, point.x)),
+      y: lineY
+    })
 
-    for (let i = 0; i < maxIterations; i++) {
-      iterations = i + 1
+    const irlsSolver = new IrlsSolver({
+      targetPoints: staticPoints,
+      initialPosition: movingPoint,
+      constraintFn,
+      epsilon: 1e-6,
+      maxIterations: 100
+    })
 
-      let weightedSum = 0
-      let totalWeight = 0
+    setSolver(irlsSolver)
+    irlsSolver.solve()
 
-      // Calculate weights and weighted sum using Weiszfeld method
-      for (const point of staticPoints) {
-        const dx = Math.abs(x - point.x)
-        const dy = Math.abs(lineY - point.y)
-        const distance = Math.sqrt(dx * dx + dy * dy)
-
-        // Weight is inverse of distance (IRLS weighting)
-        const weight = distance < epsilon ? 1e6 : 1 / distance
-
-        weightedSum += weight * point.x
-        totalWeight += weight
-      }
-
-      const newX = totalWeight > 0 ? weightedSum / totalWeight : x
-
-      // Constrain to line bounds
-      const constrainedX = Math.max(lineStart, Math.min(lineEnd, newX))
-
-      // Check for convergence
-      if (Math.abs(constrainedX - x) < epsilon) {
-        break
-      }
-
-      x = constrainedX
-    }
-
-    setOptimalPoint({ x, y: lineY })
-    setMovingPoint((prev) => ({ ...prev, x }))
-    setIterationCount(iterations)
+    const result = irlsSolver.getBestPosition()
+    setOptimalPoint(result)
+    setMovingPoint(result)
+    setIterationCount(irlsSolver.iterations)
   }
 
   const clearPoints = () => {
     setStaticPoints([])
     setOptimalPoint(null)
     setIterationCount(null)
+    setSolver(null)
     setMovingPoint({ x: 400, y: lineY })
   }
 
-  const totalDistance = calculateTotalDistance(movingPoint.x)
+  const totalDistance = solver ? solver.getTotalDistance(movingPoint) : calculateTotalDistance(movingPoint.x)
   const optimalDistance = optimalPoint
-    ? calculateTotalDistance(optimalPoint.x)
+    ? (solver ? solver.getTotalDistance(optimalPoint) : calculateTotalDistance(optimalPoint.x))
     : null
 
   return (
