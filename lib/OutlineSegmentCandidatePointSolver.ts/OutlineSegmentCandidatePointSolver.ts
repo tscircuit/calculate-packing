@@ -3,6 +3,8 @@ import type { GraphicsObject } from "graphics-debug"
 import { BaseSolver } from "lib/solver-utils/BaseSolver"
 import { IrlsSolver } from "lib/solver-utils/IrlsSolver"
 import type { InputComponent, PackedComponent } from "lib/types"
+import { rotatePoint } from "lib/math/rotatePoint"
+import { getComponentBounds } from "lib/geometry/getComponentBounds"
 
 /**
  * Given a single segment on the outline, the component's rotation, compute the
@@ -64,25 +66,30 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     if (targetPoints.length === 0) {
       // No network connections, just place at segment midpoint
       const [p1, p2] = this.outlineSegment
-      this.optimalPosition = {
+      const midpoint = {
         x: (p1.x + p2.x) / 2,
         y: (p1.y + p2.y) / 2,
       }
+      this.optimalPosition = this.adjustPositionForOutlineCollision(midpoint)
       this.solved = true
       return
     }
 
-    // Create constraint function to keep position on outline segment
+    // Create constraint function to keep position on outline segment and avoid collision
     const constraintFn = (point: Point): Point => {
-      return this.projectPointOntoSegment(point, this.outlineSegment)
+      const projectedPoint = this.projectPointOntoSegment(
+        point,
+        this.outlineSegment,
+      )
+      return this.adjustPositionForOutlineCollision(projectedPoint)
     }
 
     // Use segment midpoint as initial position
     const [p1, p2] = this.outlineSegment
-    const initialPosition = {
+    const initialPosition = this.adjustPositionForOutlineCollision({
       x: (p1.x + p2.x) / 2,
       y: (p1.y + p2.y) / 2,
-    }
+    })
 
     this.irlsSolver = new IrlsSolver({
       targetPoints,
@@ -104,7 +111,8 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     this.irlsSolver.step()
 
     if (this.irlsSolver.solved) {
-      this.optimalPosition = this.irlsSolver.getBestPosition()
+      const rawPosition = this.irlsSolver.getBestPosition()
+      this.optimalPosition = this.adjustPositionForOutlineCollision(rawPosition)
       this.solved = true
     } else if (this.irlsSolver.failed) {
       this.failed = true
@@ -113,15 +121,16 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   }
 
   /**
-   * Get target points from network connections
+   * Get target points from network connections, considering the component's rotation
    */
   private getNetworkTargetPoints(): Point[] {
     const targetPoints: Point[] = []
 
+    // Get rotated pads for the component being placed
+    const rotatedPads = this.getRotatedComponentPads()
+
     // Get network IDs from component being placed
-    const componentNetworkIds = new Set(
-      this.componentToPack.pads.map((pad) => pad.networkId),
-    )
+    const componentNetworkIds = new Set(rotatedPads.map((pad) => pad.networkId))
 
     // Find all packed pads that share networks with this component
     for (const packedComponent of this.packedComponents) {
@@ -169,6 +178,120 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     return {
       x: p1.x + t * segmentX,
       y: p1.y + t * segmentY,
+    }
+  }
+
+  /**
+   * Get rotated pads for the component being placed
+   */
+  private getRotatedComponentPads() {
+    const rotationRadians = (this.componentRotationDegrees * Math.PI) / 180
+    return this.componentToPack.pads.map((pad) => ({
+      ...pad,
+      offset: rotatePoint(pad.offset, rotationRadians),
+    }))
+  }
+
+  /**
+   * Create a temporary PackedComponent with the given center position and applied rotation
+   */
+  private createTemporaryPackedComponent(center: Point): PackedComponent {
+    const rotationRadians = (this.componentRotationDegrees * Math.PI) / 180
+
+    return {
+      componentId: this.componentToPack.componentId,
+      center,
+      ccwRotationOffset: this.componentRotationDegrees,
+      pads: this.componentToPack.pads.map((pad) => {
+        const rotatedOffset = rotatePoint(pad.offset, rotationRadians)
+        return {
+          ...pad,
+          absoluteCenter: {
+            x: center.x + rotatedOffset.x,
+            y: center.y + rotatedOffset.y,
+          },
+        }
+      }),
+    }
+  }
+
+  /**
+   * Adjust position to avoid component bounds crossing to the inside of the outline
+   */
+  private adjustPositionForOutlineCollision(center: Point): Point {
+    // Create temporary component at this position
+    const tempComponent = this.createTemporaryPackedComponent(center)
+
+    // Get bounds of the rotated component
+    const bounds = getComponentBounds(tempComponent, this.minGap)
+
+    // Get outline segment vector and normal
+    const [p1, p2] = this.outlineSegment
+    const segmentX = p2.x - p1.x
+    const segmentY = p2.y - p1.y
+    const segmentLength = Math.hypot(segmentX, segmentY)
+
+    if (segmentLength === 0) {
+      return center // Degenerate segment
+    }
+
+    // Normalized segment direction
+    const segmentDirX = segmentX / segmentLength
+    const segmentDirY = segmentY / segmentLength
+
+    // Normal pointing "outward" (perpendicular to segment)
+    // We'll use the right-hand rule: rotate segment 90° counterclockwise
+    const normalX = -segmentDirY
+    const normalY = segmentDirX
+
+    // Check if any part of the component bounds crosses to the "inside" of the outline
+    // The "inside" is the side opposite to the normal direction
+
+    // Find the minimum distance from bounds to the outline segment
+    const boundsCorners = [
+      { x: bounds.minX, y: bounds.minY },
+      { x: bounds.maxX, y: bounds.minY },
+      { x: bounds.maxX, y: bounds.maxY },
+      { x: bounds.minX, y: bounds.maxY },
+    ]
+
+    let minDistanceToSegment = Infinity
+    let worstCorner: Point | null = null
+
+    for (const corner of boundsCorners) {
+      const projectedCorner = this.projectPointOntoSegment(
+        corner,
+        this.outlineSegment,
+      )
+
+      // Vector from projected point to corner
+      const toCornerX = corner.x - projectedCorner.x
+      const toCornerY = corner.y - projectedCorner.y
+
+      // Dot product with normal to determine which side of the outline
+      const sideTest = toCornerX * normalX + toCornerY * normalY
+
+      if (sideTest < 0) {
+        // This corner is on the "inside" side - we need to move it
+        const distanceToSegment = Math.hypot(toCornerX, toCornerY)
+        if (distanceToSegment < minDistanceToSegment) {
+          minDistanceToSegment = distanceToSegment
+          worstCorner = corner
+        }
+      }
+    }
+
+    // If no corner is on the wrong side, return the original center
+    if (worstCorner === null) {
+      return center
+    }
+
+    // Move the component center to push the worst corner to the correct side
+    const pushDistance = minDistanceToSegment + 0.1 // Small buffer
+
+    return {
+      x: center.x + normalX * pushDistance,
+      y: center.y + normalY * pushDistance,
     }
   }
 

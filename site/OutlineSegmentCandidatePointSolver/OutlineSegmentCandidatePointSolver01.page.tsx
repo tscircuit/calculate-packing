@@ -291,7 +291,11 @@ export default function OutlineSegmentCandidatePointSolverExample() {
           <select
             id="componentRotation"
             value={componentRotationDegrees}
-            onChange={(e) => setComponentRotationDegrees(Number(e.target.value) as 0 | 90 | 180 | 270)}
+            onChange={(e) =>
+              setComponentRotationDegrees(
+                Number(e.target.value) as 0 | 90 | 180 | 270,
+              )
+            }
             disabled={isRunning}
             className="px-2 py-1 border border-gray-300 rounded text-sm"
           >
@@ -347,10 +351,7 @@ export default function OutlineSegmentCandidatePointSolverExample() {
         className="border-2 border-gray-800 mx-auto"
         style={{ maxWidth: "600px" }}
       >
-        <InteractiveGraphics
-          key={`run-${runCount}`}
-          graphics={createGraphics()}
-        />
+        <InteractiveGraphics graphics={createGraphics()} />
       </div>
 
       <div className="flex justify-center gap-8 mt-4 text-sm">
