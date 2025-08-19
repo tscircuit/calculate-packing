@@ -217,19 +217,23 @@ test("PackSolver2 with min-sum-distance-to-network04 input", () => {
   }
 
   const solver = new PackSolver2(packInput)
-  solver.solve()
+  while (!solver.solved && !solver.failed) {
+    console.log(`iteration ${solver.iterations}`)
+    solver.step()
+    solver.visualize()
+  }
 
   expect(solver.solved).toBe(true)
   expect(solver.failed).toBe(false)
   expect(solver.packedComponents).toHaveLength(4)
 
   // All components should be placed
-  const componentIds = solver.packedComponents.map(c => c.componentId).sort()
+  const componentIds = solver.packedComponents.map((c) => c.componentId).sort()
   expect(componentIds).toEqual(["C1", "C2", "C6", "U1"])
 
   // Components should be properly positioned (not all at origin)
   const nonOriginComponents = solver.packedComponents.filter(
-    c => c.center.x !== 0 || c.center.y !== 0
+    (c) => c.center.x !== 0 || c.center.y !== 0,
   )
   expect(nonOriginComponents.length).toBeGreaterThan(0)
 
