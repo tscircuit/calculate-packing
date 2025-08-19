@@ -212,6 +212,8 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   private createTemporaryPackedComponent(center: Point): PackedComponent {
     const rotationRadians = (this.componentRotationDegrees * Math.PI) / 180
 
+    const flipWidthHeight = (this.componentRotationDegrees + 90) % 180 === 0
+
     return {
       componentId: this.componentToPack.componentId,
       center,
@@ -220,6 +222,10 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
         const rotatedOffset = rotatePoint(pad.offset, rotationRadians)
         return {
           ...pad,
+          size: {
+            x: flipWidthHeight ? pad.size.y : pad.size.x,
+            y: flipWidthHeight ? pad.size.x : pad.size.y,
+          },
           absoluteCenter: {
             x: center.x + rotatedOffset.x,
             y: center.y + rotatedOffset.y,
@@ -239,12 +245,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     // Get bounds of the rotated component
     const bounds = getComponentBounds(tempComponent, this.minGap)
 
-    // Convert outline segments to the format expected by pointInOutline
-    const outlineSegments = this.fullOutline.map(([p1, p2]) => ({
-      a: p1,
-      b: p2,
-    }))
-
     // Check if any corner of the component bounds is inside the outline
     const boundsCorners = [
       { x: bounds.minX, y: bounds.minY },
@@ -257,7 +257,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     let maxPenetrationDistance = 0
 
     for (const corner of boundsCorners) {
-      const location = pointInOutline(corner, outlineSegments)
+      const location = pointInOutline(corner, this.fullOutline)
 
       if (location === "inside") {
         // This corner is inside the outline - we need to move it out
@@ -387,7 +387,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
 
     // Test points slightly offset from the segment midpoint in both normal directions
-    const testDistance = 0.1
+    const testDistance = 0.0001
     const testPoint1 = {
       x: segmentMidpoint.x + normal1X * testDistance,
       y: segmentMidpoint.y + normal1Y * testDistance,
@@ -397,22 +397,14 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       y: segmentMidpoint.y + normal2Y * testDistance,
     }
 
-    // Calculate distances from test points to centroid
-    const dist1ToCentroid = Math.hypot(
-      testPoint1.x - centroid.x,
-      testPoint1.y - centroid.y,
-    )
-    const dist2ToCentroid = Math.hypot(
-      testPoint2.x - centroid.x,
-      testPoint2.y - centroid.y,
-    )
-
-    // The outward normal points toward the test point that is farther from the centroid
-    if (dist1ToCentroid > dist2ToCentroid) {
+    if (pointInOutline(testPoint1, this.fullOutline) === "outside") {
       return { x: normal1X, y: normal1Y }
-    } else {
+    }
+    if (pointInOutline(testPoint2, this.fullOutline) === "outside") {
       return { x: normal2X, y: normal2Y }
     }
+
+    throw new Error("No outward normal found")
   }
 
   override visualize(): GraphicsObject {
