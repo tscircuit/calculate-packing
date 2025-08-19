@@ -24,6 +24,14 @@ export default function OutlineSegmentCandidatePointSolverExample() {
     { x: 500, y: 200 },
   ]
 
+  // Define the full outline containing the segment
+  const fullOutline: [Point, Point][] = [
+    [{ x: 100, y: 200 }, { x: 500, y: 200 }], // bottom edge (our segment)
+    [{ x: 500, y: 200 }, { x: 500, y: 50 }],  // right edge
+    [{ x: 500, y: 50 }, { x: 100, y: 50 }],   // top edge
+    [{ x: 100, y: 50 }, { x: 100, y: 200 }],  // left edge
+  ]
+
   const componentToPack: InputComponent = {
     componentId: "U2",
     pads: [
@@ -105,6 +113,7 @@ export default function OutlineSegmentCandidatePointSolverExample() {
 
     const newSolver = new OutlineSegmentCandidatePointSolver({
       outlineSegment,
+      fullOutline,
       componentRotationDegrees,
       packStrategy,
       minGap: 1,
@@ -216,6 +225,7 @@ export default function OutlineSegmentCandidatePointSolverExample() {
             if (!solver) {
               const newSolver = new OutlineSegmentCandidatePointSolver({
                 outlineSegment,
+                fullOutline,
                 componentRotationDegrees,
                 packStrategy,
                 minGap: 1,

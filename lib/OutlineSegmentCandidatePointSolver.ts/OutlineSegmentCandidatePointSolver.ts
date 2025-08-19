@@ -6,6 +6,7 @@ import type { InputComponent, PackedComponent } from "lib/types"
 import { rotatePoint } from "lib/math/rotatePoint"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
+import { pointInOutline } from "lib/geometry/pointInOutline"
 
 /**
  * Given a single segment on the outline, the component's rotation, compute the
@@ -19,6 +20,7 @@ import { getColorForString } from "lib/testing/createColorMapFromStrings"
  */
 export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   outlineSegment: [Point, Point]
+  fullOutline: [Point, Point][] // The entire outline containing the segment
   componentRotationDegrees: number
   packStrategy:
     | "minimum_sum_squared_distance_to_network"
@@ -29,9 +31,11 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
 
   optimalPosition?: Point
   irlsSolver?: IrlsSolver
+  private outlineCentroid?: Point
 
   constructor(params: {
     outlineSegment: [Point, Point]
+    fullOutline: [Point, Point][] // The entire outline containing the segment
     componentRotationDegrees: number
     packStrategy:
       | "minimum_sum_squared_distance_to_network"
@@ -42,6 +46,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   }) {
     super()
     this.outlineSegment = params.outlineSegment
+    this.fullOutline = params.fullOutline
     this.componentRotationDegrees = params.componentRotationDegrees
     this.packStrategy = params.packStrategy
     this.minGap = params.minGap
@@ -52,6 +57,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   override getConstructorParams() {
     return {
       outlineSegment: this.outlineSegment,
+      fullOutline: this.fullOutline,
       componentRotationDegrees: this.componentRotationDegrees,
       packStrategy: this.packStrategy,
       minGap: this.minGap,
@@ -233,29 +239,13 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     // Get bounds of the rotated component
     const bounds = getComponentBounds(tempComponent, this.minGap)
 
-    // Get outline segment vector and normal
-    const [p1, p2] = this.outlineSegment
-    const segmentX = p2.x - p1.x
-    const segmentY = p2.y - p1.y
-    const segmentLength = Math.hypot(segmentX, segmentY)
+    // Convert outline segments to the format expected by pointInOutline
+    const outlineSegments = this.fullOutline.map(([p1, p2]) => ({
+      a: p1,
+      b: p2,
+    }))
 
-    if (segmentLength === 0) {
-      return center // Degenerate segment
-    }
-
-    // Normalized segment direction
-    const segmentDirX = segmentX / segmentLength
-    const segmentDirY = segmentY / segmentLength
-
-    // Normal pointing "outward" (perpendicular to segment)
-    // We'll use the right-hand rule: rotate segment 90° counterclockwise
-    const normalX = -segmentDirY
-    const normalY = segmentDirX
-
-    // Check if any part of the component bounds crosses to the "inside" of the outline
-    // The "inside" is the side opposite to the normal direction
-
-    // Find the minimum distance from bounds to the outline segment
+    // Check if any corner of the component bounds is inside the outline
     const boundsCorners = [
       { x: bounds.minX, y: bounds.minY },
       { x: bounds.maxX, y: bounds.minY },
@@ -263,43 +253,165 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       { x: bounds.minX, y: bounds.maxY },
     ]
 
-    let minDistanceToSegment = Infinity
     let worstCorner: Point | null = null
+    let maxPenetrationDistance = 0
 
     for (const corner of boundsCorners) {
-      const projectedCorner = this.projectPointOntoSegment(
-        corner,
-        this.outlineSegment,
-      )
-
-      // Vector from projected point to corner
-      const toCornerX = corner.x - projectedCorner.x
-      const toCornerY = corner.y - projectedCorner.y
-
-      // Dot product with normal to determine which side of the outline
-      const sideTest = toCornerX * normalX + toCornerY * normalY
-
-      if (sideTest < 0) {
-        // This corner is on the "inside" side - we need to move it
-        const distanceToSegment = Math.hypot(toCornerX, toCornerY)
-        if (distanceToSegment < minDistanceToSegment) {
-          minDistanceToSegment = distanceToSegment
+      const location = pointInOutline(corner, outlineSegments)
+      
+      if (location === "inside") {
+        // This corner is inside the outline - we need to move it out
+        // Find the distance to the nearest outline segment
+        const distanceToSegment = this.getDistanceToNearestSegment(corner)
+        
+        if (distanceToSegment > maxPenetrationDistance) {
+          maxPenetrationDistance = distanceToSegment
           worstCorner = corner
         }
       }
     }
 
-    // If no corner is on the wrong side, return the original center
+    // If no corner is inside the outline, return the original center
     if (worstCorner === null) {
       return center
     }
 
-    // Move the component center to push the worst corner to the correct side
-    const pushDistance = minDistanceToSegment + 0.1 // Small buffer
+    // Get the outward normal for the current segment to push the component out
+    const outwardNormal = this.getOutwardNormal()
+    const pushDistance = maxPenetrationDistance + 0.1 // Small buffer
 
     return {
-      x: center.x + normalX * pushDistance,
-      y: center.y + normalY * pushDistance,
+      x: center.x + outwardNormal.x * pushDistance,
+      y: center.y + outwardNormal.y * pushDistance,
+    }
+  }
+
+  /**
+   * Get the distance from a point to the nearest outline segment
+   */
+  private getDistanceToNearestSegment(point: Point): number {
+    let minDistance = Infinity
+
+    for (const segment of this.fullOutline) {
+      const projectedPoint = this.projectPointOntoSegment(point, segment)
+      const distance = Math.hypot(
+        point.x - projectedPoint.x,
+        point.y - projectedPoint.y
+      )
+      minDistance = Math.min(minDistance, distance)
+    }
+
+    return minDistance
+  }
+
+  /**
+   * Calculate the centroid of the entire outline
+   */
+  private getOutlineCentroid(): Point {
+    if (this.outlineCentroid) {
+      return this.outlineCentroid
+    }
+
+    let totalX = 0
+    let totalY = 0
+    let totalPoints = 0
+
+    // Collect all unique points from the outline
+    const uniquePoints = new Set<string>()
+    const points: Point[] = []
+
+    for (const segment of this.fullOutline) {
+      const [p1, p2] = segment
+      const p1Key = `${p1.x},${p1.y}`
+      const p2Key = `${p2.x},${p2.y}`
+
+      if (!uniquePoints.has(p1Key)) {
+        uniquePoints.add(p1Key)
+        points.push(p1)
+        totalX += p1.x
+        totalY += p1.y
+        totalPoints++
+      }
+      if (!uniquePoints.has(p2Key)) {
+        uniquePoints.add(p2Key)
+        points.push(p2)
+        totalX += p2.x
+        totalY += p2.y
+        totalPoints++
+      }
+    }
+
+    if (totalPoints === 0) {
+      this.outlineCentroid = { x: 0, y: 0 }
+    } else {
+      this.outlineCentroid = {
+        x: totalX / totalPoints,
+        y: totalY / totalPoints,
+      }
+    }
+
+    return this.outlineCentroid
+  }
+
+  /**
+   * Get the outward normal for the current segment by determining which side
+   * is farther from the outline centroid
+   */
+  private getOutwardNormal(): Point {
+    const [p1, p2] = this.outlineSegment
+    const segmentX = p2.x - p1.x
+    const segmentY = p2.y - p1.y
+    const segmentLength = Math.hypot(segmentX, segmentY)
+
+    if (segmentLength === 0) {
+      return { x: 0, y: 1 } // Default normal for degenerate segment
+    }
+
+    // Normalized segment direction
+    const segmentDirX = segmentX / segmentLength
+    const segmentDirY = segmentY / segmentLength
+
+    // Two possible normals (perpendicular to segment)
+    const normal1X = -segmentDirY
+    const normal1Y = segmentDirX
+    const normal2X = segmentDirY
+    const normal2Y = -segmentDirX
+
+    // Get the outline centroid
+    const centroid = this.getOutlineCentroid()
+
+    // Get the midpoint of the segment
+    const segmentMidpoint = {
+      x: (p1.x + p2.x) / 2,
+      y: (p1.y + p2.y) / 2,
+    }
+
+    // Test points slightly offset from the segment midpoint in both normal directions
+    const testDistance = 0.1
+    const testPoint1 = {
+      x: segmentMidpoint.x + normal1X * testDistance,
+      y: segmentMidpoint.y + normal1Y * testDistance,
+    }
+    const testPoint2 = {
+      x: segmentMidpoint.x + normal2X * testDistance,
+      y: segmentMidpoint.y + normal2Y * testDistance,
+    }
+
+    // Calculate distances from test points to centroid
+    const dist1ToCentroid = Math.hypot(
+      testPoint1.x - centroid.x,
+      testPoint1.y - centroid.y,
+    )
+    const dist2ToCentroid = Math.hypot(
+      testPoint2.x - centroid.x,
+      testPoint2.y - centroid.y,
+    )
+
+    // The outward normal points toward the test point that is farther from the centroid
+    if (dist1ToCentroid > dist2ToCentroid) {
+      return { x: normal1X, y: normal1Y }
+    } else {
+      return { x: normal2X, y: normal2Y }
     }
   }
 
