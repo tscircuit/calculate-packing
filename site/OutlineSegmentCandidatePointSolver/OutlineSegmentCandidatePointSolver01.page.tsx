@@ -93,7 +93,12 @@ export default function OutlineSegmentCandidatePointSolverExample() {
     },
   ]
 
-  const createGraphics = (): GraphicsObject => {
+  const getGraphics = (): GraphicsObject => {
+    if (solver) {
+      return solver.visualize()
+    }
+
+    // Fallback graphics when no solver exists
     const graphics: GraphicsObject = {
       lines: [],
       circles: [],
@@ -131,72 +136,6 @@ export default function OutlineSegmentCandidatePointSolverExample() {
           stroke: "#333",
           label: `${pad.padId} (${pad.networkId})`,
         })
-      }
-    }
-
-    // Draw component to pack at optimal position if solver has found one
-    if (solver?.optimalPosition) {
-      const pos = solver.optimalPosition
-
-      // Draw component body
-      graphics.rects!.push({
-        center: pos,
-        width: 30,
-        height: 20,
-        fill: "rgba(100, 255, 100, 0.7)",
-        stroke: "#0a5",
-        label: `${componentToPack.componentId} (optimal)`,
-      })
-
-      // Draw pads at optimal position
-      for (const pad of componentToPack.pads) {
-        const padPos = {
-          x: pos.x + pad.offset.x,
-          y: pos.y + pad.offset.y,
-        }
-
-        graphics.rects!.push({
-          center: padPos,
-          width: 4,
-          height: 4,
-          fill: pad.networkId === "VCC" ? "#FF6B6B" : "#4ECDC4",
-          stroke: "#333",
-          label: `${pad.padId} (${pad.networkId})`,
-        })
-
-        // Draw connections to existing pads of same network
-        for (const packedComponent of packedComponents) {
-          for (const packedPad of packedComponent.pads) {
-            if (packedPad.networkId === pad.networkId) {
-              graphics.lines!.push({
-                points: [padPos, packedPad.absoluteCenter],
-                strokeColor: pad.networkId === "VCC" ? "#FF6B6B" : "#4ECDC4",
-                strokeWidth: 1,
-                strokeDash: [2, 2],
-                label: `${pad.networkId} connection`,
-              })
-            }
-          }
-        }
-      }
-    }
-
-    // Include solver visualization if available
-    if (solver?.irlsSolver) {
-      const solverViz = solver.irlsSolver.visualize()
-
-      // Merge solver graphics
-      if (solverViz.lines) {
-        graphics.lines!.push(...solverViz.lines)
-      }
-      if (solverViz.circles) {
-        graphics.circles!.push(...solverViz.circles)
-      }
-      if (solverViz.rects) {
-        graphics.rects!.push(...solverViz.rects)
-      }
-      if (solverViz.points) {
-        graphics.points!.push(...solverViz.points)
       }
     }
 
@@ -351,7 +290,7 @@ export default function OutlineSegmentCandidatePointSolverExample() {
         className="border-2 border-gray-800 mx-auto"
         style={{ maxWidth: "600px" }}
       >
-        <InteractiveGraphics graphics={createGraphics()} />
+        <InteractiveGraphics graphics={getGraphics()} />
       </div>
 
       <div className="flex justify-center gap-8 mt-4 text-sm">

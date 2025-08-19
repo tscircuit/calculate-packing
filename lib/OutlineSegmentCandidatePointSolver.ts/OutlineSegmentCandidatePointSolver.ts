@@ -309,7 +309,83 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       points: [p1, p2],
       strokeColor: "#2196F3",
       strokeWidth: 3,
+      label: "Outline Segment",
     })
+
+    // Draw packed components
+    for (const component of this.packedComponents) {
+      // Draw component body
+      graphics.rects!.push({
+        center: component.center,
+        width: 30,
+        height: 20,
+        fill: "rgba(200, 200, 200, 0.7)",
+        stroke: "#666",
+        label: `${component.componentId} (existing)`,
+      })
+
+      // Draw pads
+      for (const pad of component.pads) {
+        graphics.rects!.push({
+          center: pad.absoluteCenter,
+          width: 4,
+          height: 4,
+          fill: pad.networkId === "VCC" ? "#FF6B6B" : "#4ECDC4",
+          stroke: "#333",
+          label: `${pad.padId} (${pad.networkId})`,
+        })
+      }
+    }
+
+    // Draw component to pack at optimal position if solver has found one
+    if (this.optimalPosition) {
+      const pos = this.optimalPosition
+
+      // Draw component body
+      graphics.rects!.push({
+        center: pos,
+        width: 30,
+        height: 20,
+        fill: "rgba(100, 255, 100, 0.7)",
+        stroke: "#0a5",
+        label: `${this.componentToPack.componentId} (optimal)`,
+      })
+
+      // Get rotated pads for drawing at optimal position
+      const rotatedPads = this.getRotatedComponentPads()
+
+      // Draw pads at optimal position with proper rotation
+      for (const pad of rotatedPads) {
+        const padPos = {
+          x: pos.x + pad.offset.x,
+          y: pos.y + pad.offset.y,
+        }
+
+        graphics.rects!.push({
+          center: padPos,
+          width: 4,
+          height: 4,
+          fill: pad.networkId === "VCC" ? "#FF6B6B" : "#4ECDC4",
+          stroke: "#333",
+          label: `${pad.padId} (${pad.networkId})`,
+        })
+
+        // Draw connections to existing pads of same network
+        for (const packedComponent of this.packedComponents) {
+          for (const packedPad of packedComponent.pads) {
+            if (packedPad.networkId === pad.networkId) {
+              graphics.lines!.push({
+                points: [padPos, packedPad.absoluteCenter],
+                strokeColor: pad.networkId === "VCC" ? "#FF6B6B" : "#4ECDC4",
+                strokeWidth: 1,
+                strokeDash: [2, 2],
+                label: `${pad.networkId} connection`,
+              })
+            }
+          }
+        }
+      }
+    }
 
     // Draw target points if available
     if (this.irlsSolver) {
@@ -327,9 +403,26 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
         ...currentPos,
         color: "#f44336",
       })
+
+      // Include IRLS solver visualization
+      const solverViz = this.irlsSolver.visualize()
+
+      // Merge solver graphics
+      if (solverViz.lines) {
+        graphics.lines!.push(...solverViz.lines)
+      }
+      if (solverViz.circles) {
+        graphics.circles!.push(...solverViz.circles)
+      }
+      if (solverViz.rects) {
+        graphics.rects!.push(...solverViz.rects)
+      }
+      if (solverViz.points) {
+        graphics.points!.push(...solverViz.points)
+      }
     }
 
-    // Draw optimal position if found
+    // Draw optimal position if found (as a point)
     if (this.optimalPosition) {
       graphics.points!.push({
         ...this.optimalPosition,
