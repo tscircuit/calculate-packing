@@ -243,47 +243,51 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     const tempComponent = this.createTemporaryPackedComponent(center)
 
     // Get bounds of the rotated component
-    const bounds = getComponentBounds(tempComponent, this.minGap)
+    const bounds = getComponentBounds(tempComponent, 0)
 
-    // Check if any corner of the component bounds is inside the outline
-    const boundsCorners = [
-      { x: bounds.minX, y: bounds.minY },
-      { x: bounds.maxX, y: bounds.minY },
-      { x: bounds.maxX, y: bounds.maxY },
-      { x: bounds.minX, y: bounds.maxY },
-    ]
+    // Get the outward normal for the current segment to push the component out
+    const outwardNormal = this.getOutwardNormal()
 
-    let worstCorner: Point | null = null
-    let maxPenetrationDistance = 0
+    // To compute push distance, we need to consider the direction of the
+    // outward normal and the distance we need to push using the minX/maxX or
+    // minY/maxY relative to the center
+    const isHorizontalNormal =
+      Math.abs(outwardNormal.x) > Math.abs(outwardNormal.y)
+    const isVerticalNormal = !isHorizontalNormal
 
-    for (const corner of boundsCorners) {
-      const location = pointInOutline(corner, this.fullOutline)
-
-      if (location === "inside") {
-        // This corner is inside the outline - we need to move it out
-        // Find the distance to the nearest outline segment
-        const distanceToSegment = this.getDistanceToNearestSegment(corner)
-
-        if (distanceToSegment > maxPenetrationDistance) {
-          maxPenetrationDistance = distanceToSegment
-          worstCorner = corner
+    if (isHorizontalNormal) {
+      const isXPlusFacing = outwardNormal.x > 0
+      const isXMinusFacing = !isXPlusFacing
+      if (isXPlusFacing) {
+        return {
+          x: bounds.maxX,
+          y: center.y,
+        }
+      } else if (isXMinusFacing) {
+        return {
+          x: bounds.minX,
+          y: center.y,
         }
       }
     }
 
-    // If no corner is inside the outline, return the original center
-    if (worstCorner === null) {
-      return center
+    if (isVerticalNormal) {
+      const isYPlusFacing = outwardNormal.y > 0
+      const isYMinusFacing = !isYPlusFacing
+      if (isYPlusFacing) {
+        return {
+          x: center.x,
+          y: bounds.maxY,
+        }
+      } else if (isYMinusFacing) {
+        return {
+          x: center.x,
+          y: bounds.minY,
+        }
+      }
     }
 
-    // Get the outward normal for the current segment to push the component out
-    const outwardNormal = this.getOutwardNormal()
-    const pushDistance = maxPenetrationDistance + 0.1 // Small buffer
-
-    return {
-      x: center.x + outwardNormal.x * pushDistance,
-      y: center.y + outwardNormal.y * pushDistance,
-    }
+    throw new Error("unreachable")
   }
 
   /**
@@ -302,55 +306,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
 
     return minDistance
-  }
-
-  /**
-   * Calculate the centroid of the entire outline
-   */
-  private getOutlineCentroid(): Point {
-    if (this.outlineCentroid) {
-      return this.outlineCentroid
-    }
-
-    let totalX = 0
-    let totalY = 0
-    let totalPoints = 0
-
-    // Collect all unique points from the outline
-    const uniquePoints = new Set<string>()
-    const points: Point[] = []
-
-    for (const segment of this.fullOutline) {
-      const [p1, p2] = segment
-      const p1Key = `${p1.x},${p1.y}`
-      const p2Key = `${p2.x},${p2.y}`
-
-      if (!uniquePoints.has(p1Key)) {
-        uniquePoints.add(p1Key)
-        points.push(p1)
-        totalX += p1.x
-        totalY += p1.y
-        totalPoints++
-      }
-      if (!uniquePoints.has(p2Key)) {
-        uniquePoints.add(p2Key)
-        points.push(p2)
-        totalX += p2.x
-        totalY += p2.y
-        totalPoints++
-      }
-    }
-
-    if (totalPoints === 0) {
-      this.outlineCentroid = { x: 0, y: 0 }
-    } else {
-      this.outlineCentroid = {
-        x: totalX / totalPoints,
-        y: totalY / totalPoints,
-      }
-    }
-
-    return this.outlineCentroid
   }
 
   /**
@@ -376,9 +331,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     const normal1Y = segmentDirX
     const normal2X = segmentDirY
     const normal2Y = -segmentDirX
-
-    // Get the outline centroid
-    const centroid = this.getOutlineCentroid()
 
     // Get the midpoint of the segment
     const segmentMidpoint = {
@@ -459,7 +411,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
         width: pad.size.x,
         height: pad.size.y,
         fill: getColorForString(pad.networkId, 0.5),
-        stroke: "#333",
         label: `${pad.padId} (${pad.networkId})`,
       })
 
