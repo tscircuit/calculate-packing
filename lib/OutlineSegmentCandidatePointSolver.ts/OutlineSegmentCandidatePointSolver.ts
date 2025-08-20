@@ -122,7 +122,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
 
     if (this.irlsSolver.solved) {
       const rawPosition = this.irlsSolver.getBestPosition()
-      this.optimalPosition = this.adjustPositionForOutlineCollision(rawPosition)
+      this.optimalPosition = rawPosition
       this.solved = true
     } else if (this.irlsSolver.failed) {
       this.failed = true
@@ -375,8 +375,16 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     graphics.lines!.push({
       points: [p1, p2],
       strokeColor: "#2196F3",
-      label: "Outline Segment",
     })
+
+    // Draw full outline
+    for (const [p1, p2] of this.fullOutline) {
+      graphics.lines!.push({
+        points: [p1, p2],
+        strokeColor: "rgba(0,0,0,0.5)",
+        strokeDash: [2, 8],
+      })
+    }
 
     // Draw packed components
     for (const component of this.packedComponents) {
