@@ -1,4 +1,4 @@
-import { clamp, type Point } from "@tscircuit/math-utils"
+import { clamp, type Bounds, type Point } from "@tscircuit/math-utils"
 import type { GraphicsObject } from "graphics-debug"
 import { BaseSolver } from "lib/solver-utils/BaseSolver"
 import { IrlsSolver } from "lib/solver-utils/IrlsSolver"
@@ -31,10 +31,10 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   minGap: number
   packedComponents: PackedComponent[]
   componentToPack: InputComponent
+  viableBounds?: Bounds
 
   optimalPosition?: Point
   irlsSolver?: IrlsSolver
-  private outlineCentroid?: Point
 
   constructor(params: {
     outlineSegment: [Point, Point]
@@ -69,6 +69,31 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
   }
 
+  _getPackedComponentBounds(params: { margin?: number } = {}): Bounds {
+    const bounds = this.packedComponents.reduce(
+      (acc, component) => {
+        const componentBounds = getComponentBounds(component, 0)
+        return {
+          minX: Math.min(acc.minX, componentBounds.minX),
+          minY: Math.min(acc.minY, componentBounds.minY),
+          maxX: Math.max(acc.maxX, componentBounds.maxX),
+          maxY: Math.max(acc.maxY, componentBounds.maxY),
+        }
+      },
+      { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity },
+    )
+
+    if (params?.margin) {
+      return {
+        minX: bounds.minX - params.margin,
+        minY: bounds.minY - params.margin,
+        maxX: bounds.maxX + params.margin,
+        maxY: bounds.maxY + params.margin,
+      }
+    }
+    return bounds
+  }
+
   override _setup() {
     // Find target points from network connections
     const targetPoints = this.getNetworkTargetPoints()
@@ -96,16 +121,19 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
 
     const outwardNormal = this.getOutwardNormal()
+    const componentBounds = getInputComponentBounds(this.componentToPack, {
+      rotationDegrees: this.componentRotationDegrees,
+    })
 
-    // TODO compute viable outline segment
+    const packedComponentBoundsWithMargin = this._getPackedComponentBounds({
+      margin: Math.max(
+        componentBounds.maxX - componentBounds.minX,
+        componentBounds.maxY - componentBounds.minY,
+      ),
+    })
     const largestRectSolver = new LargestRectOutsideOutlineFromPointSolver({
       fullOutline: this.fullOutline.flatMap(([p]) => p),
-      globalBounds: {
-        maxX: 10e3,
-        maxY: 10e3,
-        minX: -10e3,
-        minY: -10e3,
-      },
+      globalBounds: packedComponentBoundsWithMargin,
       origin: {
         x: (p1.x + p2.x) / 2 + outwardNormal.x * 0.0001,
         y: (p1.y + p2.y) / 2 + outwardNormal.y * 0.0001,
@@ -113,10 +141,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     })
     largestRectSolver.solve()
     const largestRectBounds = largestRectSolver.getLargestRectBounds()
-
-    const componentBounds = getInputComponentBounds(this.componentToPack, {
-      rotationDegrees: this.componentRotationDegrees,
-    })
 
     // The viable bounds is the largest rect bounds minus padding for the
     // component
@@ -130,6 +154,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       maxX: largestRectBounds.maxX - componentBounds.maxX * segmentNormAbs.x,
       maxY: largestRectBounds.maxY - componentBounds.maxY * segmentNormAbs.y,
     }
+    this.viableBounds = viableBounds
 
     // The viable segment is the segment adjusted to fit inside the viable bounds
     const [s1, s2] = this.outlineSegment
@@ -399,6 +424,19 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       points: [],
       rects: [],
       circles: [],
+    }
+
+    if (this.viableBounds) {
+      graphics.rects!.push({
+        center: {
+          x: (this.viableBounds.minX + this.viableBounds.maxX) / 2,
+          y: (this.viableBounds.minY + this.viableBounds.maxY) / 2,
+        },
+        width: this.viableBounds.maxX - this.viableBounds.minX,
+        height: this.viableBounds.maxY - this.viableBounds.minY,
+        fill: "rgba(0,255,0,0.1)",
+        label: "Viable Bounds",
+      })
     }
 
     // Draw outline segment

@@ -79,22 +79,6 @@ export default function OutlineSegmentCandidatePointSolver03Example() {
 
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-lg p-6 shadow-lg">
-      <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">
-        OutlineSegmentCandidatePointSolver Example 03
-      </h1>
-
-      <div className="mb-4 text-sm text-gray-600">
-        <p>
-          This example shows a capacitor (C6) being placed on an outline segment
-          with connections to networks C1.1 and C1.2 from the existing U1
-          component.
-        </p>
-        <p>
-          The solver uses the IRLS/Weiszfeld algorithm to minimize connection
-          distances to existing components with shared networks.
-        </p>
-      </div>
-
       <div className="flex justify-center gap-4 mb-4 flex-wrap">
         <div className="flex items-center gap-2">
           <label htmlFor="packStrategy" className="text-sm font-medium">
