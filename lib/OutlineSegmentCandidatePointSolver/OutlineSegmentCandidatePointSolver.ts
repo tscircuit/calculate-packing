@@ -166,16 +166,18 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
     this.viableBounds = viableBounds
 
+    const viableBoundsWidth = viableBounds.maxX - viableBounds.minX
+    const viableBoundsHeight = viableBounds.maxY - viableBounds.minY
+    const componentBoundsWidth = componentBounds.maxX - componentBounds.minX
+    const componentBoundsHeight = componentBounds.maxY - componentBounds.minY
+
     if (
-      this.viableBounds.minX > this.viableBounds.maxX ||
-      this.viableBounds.minY > this.viableBounds.maxY
+      viableBoundsWidth < componentBoundsWidth ||
+      viableBoundsHeight < componentBoundsHeight
     ) {
       this.failed = true
       this.error =
         "There is nowhere for the component to fit along this outline section"
-      console.log("NOWHERE FOR COMPONENT ON OUTLINE", {
-        viableBounds: this.viableBounds,
-      })
       return
     }
 
