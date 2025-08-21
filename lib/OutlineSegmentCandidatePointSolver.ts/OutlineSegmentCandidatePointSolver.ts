@@ -1,4 +1,4 @@
-import type { Point } from "@tscircuit/math-utils"
+import { clamp, type Point } from "@tscircuit/math-utils"
 import type { GraphicsObject } from "graphics-debug"
 import { BaseSolver } from "lib/solver-utils/BaseSolver"
 import { IrlsSolver } from "lib/solver-utils/IrlsSolver"
@@ -7,6 +7,8 @@ import { rotatePoint } from "lib/math/rotatePoint"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
 import { pointInOutline } from "lib/geometry/pointInOutline"
+import { LargestRectOutsideOutlineFromPointSolver } from "lib/LargestRectOutsideOutlineFromPointSolver"
+import { getInputComponentBounds } from "lib/geometry/getInputComponentBounds"
 
 /**
  * Given a single segment on the outline, the component's rotation, compute the
@@ -71,13 +73,14 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     // Find target points from network connections
     const targetPoints = this.getNetworkTargetPoints()
 
+    const [p1, p2] = this.outlineSegment
+    const midpoint = {
+      x: (p1.x + p2.x) / 2,
+      y: (p1.y + p2.y) / 2,
+    }
+
     if (targetPoints.length === 0) {
       // No network connections, just place at segment midpoint
-      const [p1, p2] = this.outlineSegment
-      const midpoint = {
-        x: (p1.x + p2.x) / 2,
-        y: (p1.y + p2.y) / 2,
-      }
       this.optimalPosition = this.adjustPositionForOutlineCollision(midpoint)
       this.solved = true
       return
@@ -92,10 +95,56 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       return this.adjustPositionForOutlineCollision(projectedPoint)
     }
 
+    const outwardNormal = this.getOutwardNormal()
+
     // TODO compute viable outline segment
+    const largestRectSolver = new LargestRectOutsideOutlineFromPointSolver({
+      fullOutline: this.fullOutline.flatMap(([p]) => p),
+      globalBounds: {
+        maxX: 10e3,
+        maxY: 10e3,
+        minX: -10e3,
+        minY: -10e3,
+      },
+      origin: {
+        x: (p1.x + p2.x) / 2 + outwardNormal.x * 0.0001,
+        y: (p1.y + p2.y) / 2 + outwardNormal.y * 0.0001,
+      },
+    })
+    largestRectSolver.solve()
+    const largestRectBounds = largestRectSolver.getLargestRectBounds()
+
+    const componentBounds = getInputComponentBounds(this.componentToPack, {
+      rotationDegrees: this.componentRotationDegrees,
+    })
+
+    // The viable bounds is the largest rect bounds minus padding for the
+    // component
+    const segmentNormAbs = {
+      x: Math.sign(this.outlineSegment[1].x - this.outlineSegment[0].x),
+      y: Math.sign(this.outlineSegment[1].y - this.outlineSegment[0].y),
+    }
+    const viableBounds = {
+      minX: largestRectBounds.minX - componentBounds.minX * segmentNormAbs.x,
+      minY: largestRectBounds.minY - componentBounds.minY * segmentNormAbs.y,
+      maxX: largestRectBounds.maxX - componentBounds.maxX * segmentNormAbs.x,
+      maxY: largestRectBounds.maxY - componentBounds.maxY * segmentNormAbs.y,
+    }
+
+    // The viable segment is the segment adjusted to fit inside the viable bounds
+    const [s1, s2] = this.outlineSegment
+    this.viableOutlineSegment = [
+      {
+        x: clamp(s1.x, viableBounds.minX, viableBounds.maxX),
+        y: clamp(s1.y, viableBounds.minY, viableBounds.maxY),
+      },
+      {
+        x: clamp(s2.x, viableBounds.minX, viableBounds.maxX),
+        y: clamp(s2.y, viableBounds.minY, viableBounds.maxY),
+      },
+    ]
 
     // Use segment midpoint as initial position
-    const [p1, p2] = this.outlineSegment
     const initialPosition = this.adjustPositionForOutlineCollision({
       x: (p1.x + p2.x) / 2,
       y: (p1.y + p2.y) / 2,
@@ -107,8 +156,8 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       constraintFn,
       epsilon: 1e-6,
       maxIterations: 50,
-      useSquaredDistance:
-        this.packStrategy === "minimum_sum_squared_distance_to_network",
+      useSquaredDistance: true,
+      // this.packStrategy === "minimum_sum_squared_distance_to_network",
     })
   }
 
@@ -371,7 +420,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
 
     // Draw outline segment
-    const [p1, p2] = this.outlineSegment
+    const [p1, p2] = this.viableOutlineSegment ?? this.outlineSegment
     graphics.lines!.push({
       points: [p1, p2],
       strokeColor: "#2196F3",

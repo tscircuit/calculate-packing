@@ -1,22 +1,26 @@
 import { BaseSolver } from "./solver-utils/BaseSolver"
 import type { Point, Segment } from "./geometry/types"
+import type { Bounds } from "@tscircuit/math-utils"
 
 export type Rect = { x: number; y: number; w: number; h: number }
-export type GlobalBounds = { minX: number; maxX: number; minY: number; maxY: number }
 
 export type { Point } from "./geometry/types"
 
 export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
   fullOutline: Point[]
   origin: Point
-  globalBounds: GlobalBounds
-  result: Rect | null = null
+  globalBounds: Bounds
+  largestRect: Rect | null = null
 
-  constructor(fullOutline: Point[], origin: Point, globalBounds: GlobalBounds) {
+  constructor(params: {
+    fullOutline: Point[]
+    origin: Point
+    globalBounds: Bounds
+  }) {
     super()
-    this.fullOutline = fullOutline
-    this.origin = origin
-    this.globalBounds = globalBounds
+    this.fullOutline = params.fullOutline
+    this.origin = params.origin
+    this.globalBounds = params.globalBounds
   }
 
   override getConstructorParams() {
@@ -32,7 +36,7 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
   }
 
   override _step() {
-    this.result = this.computeLargestRectOutside()
+    this.largestRect = this.computeLargestRectOutside()
     this.solved = true
   }
 
@@ -45,7 +49,12 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
       h: this.globalBounds.maxY - this.globalBounds.minY,
     }
 
-    return this.largestRectContainingPointRegion(edges, this.origin, bounds, "outside")
+    return this.largestRectContainingPointRegion(
+      edges,
+      this.origin,
+      bounds,
+      "outside",
+    )
   }
 
   private almostEqual(a: number, b: number, eps = 1e-9): boolean {
@@ -73,7 +82,10 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
     return this.almostEqual(e[0].y, e[1].y)
   }
 
-  private scanlineIntervalsAtY(edges: Segment[], y0: number): [number, number][] {
+  private scanlineIntervalsAtY(
+    edges: Segment[],
+    y0: number,
+  ): [number, number][] {
     const xs: number[] = []
     for (const e of edges) {
       if (!this.isVertical(e)) continue
@@ -120,7 +132,11 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
     bx2: number,
     mode: "outside",
   ): [number, number][] {
-    const inside = this.clipIntervals(this.scanlineIntervalsAtY(edges, y0), bx1, bx2)
+    const inside = this.clipIntervals(
+      this.scanlineIntervalsAtY(edges, y0),
+      bx1,
+      bx2,
+    )
     // outside: complement of inside within [bx1,bx2]
     const outs: [number, number][] = []
     let prev = bx1
@@ -170,7 +186,7 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
       const xi = xs[i]
       const xi1 = xs[i + 1]
       if (xi === undefined || xi1 === undefined) continue
-      
+
       let xm = 0.5 * (xi + xi1)
       // Nudge xm if it sits exactly on a vertical edge to avoid corner ambiguity
       if (xset.has(xm)) xm += 1e-6
@@ -222,7 +238,7 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
         const topJ = top[j]
         const botJ = bot[j]
         if (topJ === undefined || botJ === undefined) continue
-        
+
         minTop = Math.min(minTop, topJ)
         maxBot = Math.max(maxBot, botJ)
         if (j < s0) continue
@@ -233,7 +249,7 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
         const xi = xs[i]
         const xj1 = xs[j + 1]
         if (xi === undefined || xj1 === undefined) continue
-        
+
         const width = xj1 - xi
         const area = width * height
         if (area > bestArea) {
@@ -249,6 +265,21 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
     if (!this.solved) {
       this.solve()
     }
-    return this.result
+    return this.largestRect
+  }
+
+  getLargestRectBounds(): Bounds {
+    if (!this.solved) {
+      this.solve()
+    }
+    if (!this.largestRect) {
+      return { minX: 0, minY: 0, maxX: 0, maxY: 0 }
+    }
+    return {
+      minX: this.largestRect.x,
+      minY: this.largestRect.y,
+      maxX: this.largestRect.x + this.largestRect.w,
+      maxY: this.largestRect.y + this.largestRect.h,
+    }
   }
 }
