@@ -152,7 +152,7 @@ export class SingleComponentPackSolver extends BaseSolver {
 
   private executeSegmentCandidatePhase() {
     // Check if we need to start a new segment-rotation pair
-    if (!this.activeSubSolver) {
+    while (!this.activeSubSolver) {
       if (this.currentSegmentIndex >= this.queuedOutlineSegments.length) {
         // All segments processed, move to evaluation phase
         this.currentPhase = "evaluate"
@@ -167,7 +167,7 @@ export class SingleComponentPackSolver extends BaseSolver {
         // All rotations for this segment processed, move to next segment
         this.currentSegmentIndex++
         this.currentRotationIndex = 0
-        return
+        continue
       }
 
       const rotation =
@@ -178,17 +178,14 @@ export class SingleComponentPackSolver extends BaseSolver {
         outlineSegment: queuedSegment.segment,
         fullOutline: queuedSegment.fullOutline,
         componentRotationDegrees: rotation,
-        packStrategy:
-          this.packPlacementStrategy ===
-          "minimum_sum_squared_distance_to_network"
-            ? "minimum_sum_squared_distance_to_network"
-            : "minimum_sum_distance_to_network",
+        packStrategy: "minimum_sum_squared_distance_to_network",
         minGap: this.minGap,
         packedComponents: this.packedComponents,
         componentToPack: this.componentToPack,
       })
 
       this.activeSubSolver.setup()
+      break
     }
 
     // Step the active subsolver
@@ -208,17 +205,17 @@ export class SingleComponentPackSolver extends BaseSolver {
 
         // Calculate distance based on pack strategy
         distance = this.calculateDistance(optimalPosition, rotation)
-      }
 
-      // Store candidate result
-      this.candidateResults.push({
-        segment: queuedSegment.segment,
-        rotation,
-        optimalPosition,
-        distance,
-        segmentIndex: queuedSegment.segmentIndex,
-        rotationIndex: this.currentRotationIndex,
-      })
+        // Store candidate result
+        this.candidateResults.push({
+          segment: queuedSegment.segment,
+          rotation,
+          optimalPosition,
+          distance,
+          segmentIndex: queuedSegment.segmentIndex,
+          rotationIndex: this.currentRotationIndex,
+        })
+      }
 
       // Move to next rotation
       this.currentRotationIndex++

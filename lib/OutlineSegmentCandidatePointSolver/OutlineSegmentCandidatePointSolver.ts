@@ -166,6 +166,19 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
     this.viableBounds = viableBounds
 
+    if (
+      this.viableBounds.minX > this.viableBounds.maxX ||
+      this.viableBounds.minY > this.viableBounds.maxY
+    ) {
+      this.failed = true
+      this.error =
+        "There is nowhere for the component to fit along this outline section"
+      console.log("NOWHERE FOR COMPONENT ON OUTLINE", {
+        viableBounds: this.viableBounds,
+      })
+      return
+    }
+
     // The viable segment is the segment adjusted to fit inside the viable bounds
     const [s1, s2] = this.outlineSegment
     this.viableOutlineSegment = [
