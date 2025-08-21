@@ -1,7 +1,7 @@
 import { useState, useReducer } from "react"
 import { InteractiveGraphics } from "graphics-debug/react"
 import type { GraphicsObject } from "graphics-debug"
-import { OutlineSegmentCandidatePointSolver } from "../../lib/OutlineSegmentCandidatePointSolver.ts/OutlineSegmentCandidatePointSolver"
+import { OutlineSegmentCandidatePointSolver } from "../../lib/OutlineSegmentCandidatePointSolver/OutlineSegmentCandidatePointSolver"
 import type { Point } from "@tscircuit/math-utils"
 import type { InputComponent, PackedComponent } from "../../lib/types"
 

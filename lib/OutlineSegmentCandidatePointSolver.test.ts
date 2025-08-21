@@ -1,5 +1,5 @@
 import { test, expect } from "bun:test"
-import { OutlineSegmentCandidatePointSolver } from "./OutlineSegmentCandidatePointSolver.ts/OutlineSegmentCandidatePointSolver"
+import { OutlineSegmentCandidatePointSolver } from "./OutlineSegmentCandidatePointSolver/OutlineSegmentCandidatePointSolver"
 import type { InputComponent, PackedComponent } from "./types"
 import type { Point } from "@tscircuit/math-utils"
 

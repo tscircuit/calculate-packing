@@ -1,6 +1,6 @@
 import type { GraphicsObject, Line, Point, Rect } from "graphics-debug"
 import { constructOutlinesFromPackedComponents } from "../constructOutlinesFromPackedComponents"
-import { OutlineSegmentCandidatePointSolver } from "../OutlineSegmentCandidatePointSolver.ts/OutlineSegmentCandidatePointSolver"
+import { OutlineSegmentCandidatePointSolver } from "../OutlineSegmentCandidatePointSolver/OutlineSegmentCandidatePointSolver"
 import { setPackedComponentPadCenters } from "../PackSolver/setPackedComponentPadCenters"
 import { BaseSolver } from "../solver-utils/BaseSolver"
 import { getGraphicsFromPackOutput } from "../testing/getGraphicsFromPackOutput"
