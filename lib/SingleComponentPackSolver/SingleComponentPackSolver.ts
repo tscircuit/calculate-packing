@@ -360,6 +360,9 @@ export class SingleComponentPackSolver extends BaseSolver {
   }
 
   private visualizeEvaluatePhase(graphics: GraphicsObject) {
+    if (this.activeSubSolver) {
+      return this.activeSubSolver.visualize()
+    }
     // Show all outlines
     this.visualizeOutlinePhase(graphics)
 

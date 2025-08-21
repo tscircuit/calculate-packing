@@ -37,6 +37,35 @@ function buildSolverBreadcrumb(solver: BaseSolver): string[] {
   return breadcrumb
 }
 
+// Function to find the deepest active sub-solver
+function findDeepestActiveSolver(solver: BaseSolver): BaseSolver {
+  let current = solver
+  while (current.activeSubSolver && current.activeSubSolver !== null) {
+    current = current.activeSubSolver
+  }
+  return current
+}
+
+// Function to download constructor parameters as JSON
+function downloadConstructorParams(solver: BaseSolver) {
+  try {
+    const params = solver.getConstructorParams()
+    const blob = new Blob([JSON.stringify(params, null, 2)], {
+      type: "application/json",
+    })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement("a")
+    link.href = url
+    link.download = `${solver.constructor.name}_constructor_params.json`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  } catch (error) {
+    alert(`Failed to get constructor parameters: ${error}`)
+  }
+}
+
 export const PackDebugger = ({
   initialPackOutput,
   initialPackInput,
@@ -57,6 +86,7 @@ export const PackDebugger = ({
   }, [selectedSolver, packInput])
 
   const solverBreadcrumb = buildSolverBreadcrumb(packSolver)
+  const deepestSolver = findDeepestActiveSolver(packSolver)
 
   return (
     <div>
@@ -118,9 +148,24 @@ export const PackDebugger = ({
             border: "none",
             borderRadius: "4px",
             cursor: "pointer",
+            marginRight: "10px",
           }}
         >
           Step
+        </button>
+        <button
+          onClick={() => downloadConstructorParams(deepestSolver)}
+          style={{
+            padding: "8px 16px",
+            backgroundColor: "#28a745",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+          title={`Download constructor parameters for ${deepestSolver.constructor.name}`}
+        >
+          Download {deepestSolver.constructor.name} Parameters
         </button>
       </div>
 

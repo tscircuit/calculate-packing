@@ -28,7 +28,6 @@ export class PackSolver2 extends BaseSolver {
       packFirst,
     })
     this.packedComponents = []
-
   }
 
   private packFirstComponent(): void {
@@ -68,7 +67,7 @@ export class PackSolver2 extends BaseSolver {
         this.solved = true
         return
       }
-      
+
       this.componentToPack = this.unpackedComponentQueue.shift()
       if (!this.componentToPack) {
         this.solved = true
