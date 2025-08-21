@@ -17,6 +17,7 @@ export const convertPackOutputToPackInput = (packed: PackOutput): PackInput => {
   const strippedComponents = packed.components.map((pc) => ({
     componentId: pc.componentId,
     availableRotationDegrees: pc.availableRotationDegrees, // Preserve rotation constraints
+    bodyBounds: pc.bodyBounds, // Preserve component body bounds for overlap detection
     pads: pc.pads.map(({ absoluteCenter: _ac, ...rest }) => rest),
   }))
 
