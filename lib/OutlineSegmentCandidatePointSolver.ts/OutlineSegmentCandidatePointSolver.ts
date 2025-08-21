@@ -343,24 +343,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   }
 
   /**
-   * Get the distance from a point to the nearest outline segment
-   */
-  private getDistanceToNearestSegment(point: Point): number {
-    let minDistance = Infinity
-
-    for (const segment of this.fullOutline) {
-      const projectedPoint = this.projectPointOntoSegment(point, segment)
-      const distance = Math.hypot(
-        point.x - projectedPoint.x,
-        point.y - projectedPoint.y,
-      )
-      minDistance = Math.min(minDistance, distance)
-    }
-
-    return minDistance
-  }
-
-  /**
    * Get the outward normal for the current segment by determining which side
    * is farther from the outline centroid
    */
