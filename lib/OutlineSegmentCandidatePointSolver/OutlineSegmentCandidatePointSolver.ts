@@ -9,6 +9,7 @@ import { getColorForString } from "lib/testing/createColorMapFromStrings"
 import { pointInOutline } from "lib/geometry/pointInOutline"
 import { LargestRectOutsideOutlineFromPointSolver } from "lib/LargestRectOutsideOutlineFromPointSolver"
 import { getInputComponentBounds } from "lib/geometry/getInputComponentBounds"
+import { expandSegment } from "lib/math/expandSegment"
 
 /**
  * Given a single segment on the outline, the component's rotation, compute the
@@ -126,10 +127,11 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     })
 
     const packedComponentBoundsWithMargin = this._getPackedComponentBounds({
-      margin: Math.max(
-        componentBounds.maxX - componentBounds.minX,
-        componentBounds.maxY - componentBounds.minY,
-      ),
+      margin:
+        Math.max(
+          componentBounds.maxX - componentBounds.minX,
+          componentBounds.maxY - componentBounds.minY,
+        ) * 2,
     })
     const largestRectSolverParams: ConstructorParameters<
       typeof LargestRectOutsideOutlineFromPointSolver
@@ -182,7 +184,12 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
 
     // The viable segment is the segment adjusted to fit inside the viable bounds
-    const [s1, s2] = this.outlineSegment
+    const segmentLength = Math.hypot(p2.x - p1.x, p2.y - p1.y)
+    const expandedOutlineSegment = expandSegment(
+      this.outlineSegment,
+      segmentLength,
+    )
+    const [s1, s2] = expandedOutlineSegment
     this.viableOutlineSegment = [
       {
         x: clamp(s1.x, viableBounds.minX, viableBounds.maxX),
@@ -195,9 +202,10 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     ]
 
     // Use segment midpoint as initial position
+    const [vp1, vp2] = this.viableOutlineSegment
     const initialPosition = this.adjustPositionForOutlineCollision({
-      x: (p1.x + p2.x) / 2,
-      y: (p1.y + p2.y) / 2,
+      x: (vp1.x + vp2.x) / 2,
+      y: (vp1.y + vp2.y) / 2,
     })
 
     this.irlsSolver = new IrlsSolver({
