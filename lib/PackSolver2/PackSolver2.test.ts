@@ -52,18 +52,18 @@ test("PackSolver2 uses SingleComponentPackSolver output correctly", () => {
   // Second component should be positioned by SingleComponentPackSolver
   const secondComponent = solver.packedComponents[1]!
   expect(secondComponent.componentId).toBe("comp2")
-  
+
   // The center should not be at (0,0) since SingleComponentPackSolver should place it properly
   // This verifies that we're actually using the solver's output
-  expect(
-    secondComponent.center.x !== 0 || secondComponent.center.y !== 0
-  ).toBe(true)
+  expect(secondComponent.center.x !== 0 || secondComponent.center.y !== 0).toBe(
+    true,
+  )
 
   // Pads should have proper absolute centers
   expect(secondComponent.pads[0]!.absoluteCenter).toBeDefined()
   expect(
     typeof secondComponent.pads[0]!.absoluteCenter.x === "number" &&
-    typeof secondComponent.pads[0]!.absoluteCenter.y === "number"
+      typeof secondComponent.pads[0]!.absoluteCenter.y === "number",
   ).toBe(true)
 })
 
@@ -106,12 +106,12 @@ test("PackSolver2 visualization works", () => {
   }
 
   const solver = new PackSolver2(packInput)
-  
+
   // Test visualization during setup
   solver.setup()
   const setupViz = solver.visualize()
   expect(setupViz).toBeDefined()
-  
+
   // Test visualization during stepping
   solver.step() // Should create activeSubSolver
   if (solver.activeSubSolver) {
@@ -120,11 +120,11 @@ test("PackSolver2 visualization works", () => {
     // Should return the sub-solver's visualization
     expect(stepViz).toEqual(solver.activeSubSolver.visualize())
   }
-  
+
   // Complete solving
   solver.solve()
   expect(solver.solved).toBe(true)
-  
+
   const finalViz = solver.visualize()
   expect(finalViz).toBeDefined()
 })

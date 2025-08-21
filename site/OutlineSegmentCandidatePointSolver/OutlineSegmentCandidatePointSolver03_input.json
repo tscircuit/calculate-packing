@@ -233,10 +233,7 @@
   ],
   "componentToPack": {
     "componentId": "C6",
-    "availableRotationDegrees": [
-      0,
-      180
-    ],
+    "availableRotationDegrees": [0, 180],
     "pads": [
       {
         "padId": "C6.1",

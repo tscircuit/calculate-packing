@@ -1,7 +1,12 @@
 // @ts-nocheck
 import React, { useMemo, useState, useCallback } from "react"
 import { motion } from "framer-motion"
-import { LargestRectOutsideOutlineFromPointSolver, type Point, type Rect, type GlobalBounds } from "../../lib/LargestRectOutsideOutlineFromPointSolver"
+import {
+  LargestRectOutsideOutlineFromPointSolver,
+  type Point,
+  type Rect,
+  type GlobalBounds,
+} from "../../lib/LargestRectOutsideOutlineFromPointSolver"
 
 // Visualization for the LargestRectOutsideOutlineFromPointSolver class
 // Shows how the solver finds the largest rectangle outside a polygon outline that contains a given point
@@ -143,10 +148,14 @@ export default function LargestRectOutsideOutlineSolverDemo() {
   const globalBounds: GlobalBounds = { minX: 0, maxX: 600, minY: 0, maxY: 400 }
 
   const inPoly = useMemo(() => pointInPolygonOrth(edges, p), [edges, p])
-  
+
   // Use the solver to find the largest rectangle
   const solverResult = useMemo(() => {
-    const solver = new LargestRectOutsideOutlineFromPointSolver(sample.poly, p, globalBounds)
+    const solver = new LargestRectOutsideOutlineFromPointSolver(
+      sample.poly,
+      p,
+      globalBounds,
+    )
     const rect = solver.getLargestRect()
     return {
       rect,
@@ -158,19 +167,22 @@ export default function LargestRectOutsideOutlineSolverDemo() {
     }
   }, [sample.poly, p, globalBounds])
 
-  const onDrag = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
-    const svg = e.currentTarget
-    const rect = svg.getBoundingClientRect()
-    const x = Math.max(
-      globalBounds.minX,
-      Math.min(globalBounds.maxX, e.clientX - rect.left),
-    )
-    const y = Math.max(
-      globalBounds.minY,
-      Math.min(globalBounds.maxY, e.clientY - rect.top),
-    )
-    setP({ x, y })
-  }, [globalBounds])
+  const onDrag = useCallback(
+    (e: React.MouseEvent<SVGSVGElement>) => {
+      const svg = e.currentTarget
+      const rect = svg.getBoundingClientRect()
+      const x = Math.max(
+        globalBounds.minX,
+        Math.min(globalBounds.maxX, e.clientX - rect.left),
+      )
+      const y = Math.max(
+        globalBounds.minY,
+        Math.min(globalBounds.maxY, e.clientY - rect.top),
+      )
+      setP({ x, y })
+    },
+    [globalBounds],
+  )
 
   return (
     <div className="w-full h-full p-4">
@@ -232,21 +244,23 @@ export default function LargestRectOutsideOutlineSolverDemo() {
               />
 
               {/* Largest rectangle from solver */}
-              {solverResult.rect && solverResult.rect.w > 0 && solverResult.rect.h > 0 && (
-                <motion.rect
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 0.8, scale: 1 }}
-                  transition={{ duration: 0.2 }}
-                  x={solverResult.rect.x}
-                  y={solverResult.rect.y}
-                  width={solverResult.rect.w}
-                  height={solverResult.rect.h}
-                  fill="#fbbf24"
-                  stroke="#d97706"
-                  strokeWidth={2}
-                  rx={4}
-                />
-              )}
+              {solverResult.rect &&
+                solverResult.rect.w > 0 &&
+                solverResult.rect.h > 0 && (
+                  <motion.rect
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 0.8, scale: 1 }}
+                    transition={{ duration: 0.2 }}
+                    x={solverResult.rect.x}
+                    y={solverResult.rect.y}
+                    width={solverResult.rect.w}
+                    height={solverResult.rect.h}
+                    fill="#fbbf24"
+                    stroke="#d97706"
+                    strokeWidth={2}
+                    rx={4}
+                  />
+                )}
 
               {/* Origin point */}
               <g>
@@ -265,7 +279,13 @@ export default function LargestRectOutsideOutlineSolverDemo() {
 
               {/* Status indicator */}
               {solverResult.failed && (
-                <text x={10} y={30} fontSize={14} fill="#dc2626" fontWeight="bold">
+                <text
+                  x={10}
+                  y={30}
+                  fontSize={14}
+                  fill="#dc2626"
+                  fontWeight="bold"
+                >
                   SOLVER FAILED
                 </text>
               )}
@@ -278,27 +298,20 @@ export default function LargestRectOutsideOutlineSolverDemo() {
           <div className="p-3 bg-white rounded-2xl shadow border">
             <h3 className="text-lg font-semibold mb-2">How the Solver Works</h3>
             <ol className="list-decimal list-inside text-sm text-slate-700 space-y-1">
-              <li>
-                Extends BaseSolver with iterative solving approach
-              </li>
-              <li>
-                Converts the outline into horizontal/vertical segments
-              </li>
+              <li>Extends BaseSolver with iterative solving approach</li>
+              <li>Converts the outline into horizontal/vertical segments</li>
               <li>
                 Uses scanline algorithm to find regions outside the polygon
               </li>
               <li>
-                Partitions the horizontal corridor into x-slabs at vertical edges
+                Partitions the horizontal corridor into x-slabs at vertical
+                edges
               </li>
-              <li>
-                Shoots vertical rays to find local top/bottom bounds
-              </li>
+              <li>Shoots vertical rays to find local top/bottom bounds</li>
               <li>
                 Enumerates consecutive slab runs containing the origin point
               </li>
-              <li>
-                Returns the run with maximum area as the result rectangle
-              </li>
+              <li>Returns the run with maximum area as the result rectangle</li>
             </ol>
           </div>
 
@@ -308,15 +321,23 @@ export default function LargestRectOutsideOutlineSolverDemo() {
               <p>
                 <strong>Status:</strong>{" "}
                 <span className={inPoly ? "text-red-600" : "text-green-600"}>
-                  {inPoly 
-                    ? "Point is inside polygon (drag outside for results)" 
+                  {inPoly
+                    ? "Point is inside polygon (drag outside for results)"
                     : "Point is outside polygon"}
                 </span>
               </p>
               <p>
                 <strong>Solver Status:</strong>{" "}
-                <span className={solverResult.failed ? "text-red-600" : "text-green-600"}>
-                  {solverResult.failed ? "Failed" : solverResult.solved ? "Solved" : "Running"}
+                <span
+                  className={
+                    solverResult.failed ? "text-red-600" : "text-green-600"
+                  }
+                >
+                  {solverResult.failed
+                    ? "Failed"
+                    : solverResult.solved
+                      ? "Solved"
+                      : "Running"}
                 </span>
               </p>
               {solverResult.rect ? (
@@ -324,18 +345,23 @@ export default function LargestRectOutsideOutlineSolverDemo() {
                   <p>
                     <strong>Rectangle:</strong>{" "}
                     <code>
-                      ({solverResult.rect.x.toFixed(1)}, {solverResult.rect.y.toFixed(1)})
+                      ({solverResult.rect.x.toFixed(1)},{" "}
+                      {solverResult.rect.y.toFixed(1)})
                     </code>{" "}
                     • w=<code>{solverResult.rect.w.toFixed(1)}</code>, h=
                     <code>{solverResult.rect.h.toFixed(1)}</code>
                   </p>
                   <p>
                     <strong>Area:</strong>{" "}
-                    <code>{(solverResult.rect.w * solverResult.rect.h).toFixed(1)}</code>
+                    <code>
+                      {(solverResult.rect.w * solverResult.rect.h).toFixed(1)}
+                    </code>
                   </p>
                 </>
               ) : (
-                <p><strong>Rectangle:</strong> None found</p>
+                <p>
+                  <strong>Rectangle:</strong> None found
+                </p>
               )}
               {showSolverInfo && (
                 <>
@@ -353,30 +379,41 @@ export default function LargestRectOutsideOutlineSolverDemo() {
           </div>
 
           <div className="p-3 bg-white rounded-2xl shadow border">
-            <h3 className="text-lg font-semibold mb-2">Implementation Details</h3>
+            <h3 className="text-lg font-semibold mb-2">
+              Implementation Details
+            </h3>
             <div className="text-sm text-slate-700 space-y-2">
               <p>
                 This solver is built on the BaseSolver framework used throughout
                 the calculate-packing library. It provides a clean interface for
-                finding the largest axis-aligned rectangle outside a polygon outline.
+                finding the largest axis-aligned rectangle outside a polygon
+                outline.
               </p>
               <p>
                 <strong>Constructor Parameters:</strong>
               </p>
               <ul className="list-disc list-inside ml-2 space-y-1">
-                <li><code>fullOutline</code>: Array of points defining the polygon</li>
-                <li><code>origin</code>: Point that must be contained in result</li>
-                <li><code>globalBounds</code>: Bounding limits (minX, maxX, minY, maxY)</li>
+                <li>
+                  <code>fullOutline</code>: Array of points defining the polygon
+                </li>
+                <li>
+                  <code>origin</code>: Point that must be contained in result
+                </li>
+                <li>
+                  <code>globalBounds</code>: Bounding limits (minX, maxX, minY,
+                  maxY)
+                </li>
               </ul>
               <p>
-                The solver uses an efficient O(n²) algorithm where n is the number
-                of vertical edges intersecting the horizontal corridor at the origin's y-coordinate.
+                The solver uses an efficient O(n²) algorithm where n is the
+                number of vertical edges intersecting the horizontal corridor at
+                the origin's y-coordinate.
               </p>
               <p className="text-xs text-slate-500">
-                Drag the origin point around to see how the solver adapts to find
-                the optimal rectangle for different positions. Points inside the
-                polygon will not produce results since we're looking for rectangles
-                in the outside region.
+                Drag the origin point around to see how the solver adapts to
+                find the optimal rectangle for different positions. Points
+                inside the polygon will not produce results since we're looking
+                for rectangles in the outside region.
               </p>
             </div>
           </div>

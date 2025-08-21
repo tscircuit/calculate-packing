@@ -353,6 +353,39 @@ export class SingleComponentPackSolver extends BaseSolver {
       if (subSolverViz.rects) graphics.rects!.push(...subSolverViz.rects)
       if (subSolverViz.circles)
         graphics.circles!.push(...(subSolverViz.circles ?? []))
+    } else {
+      // Show all candidate results with their pads when no active sub solver
+      for (let i = 0; i < this.candidateResults.length; i++) {
+        const candidate = this.candidateResults[i]!
+
+        if (candidate.optimalPosition) {
+          // Create a temporary packed component at this candidate position
+          const tempComponent = this.createPackedComponent(
+            candidate.optimalPosition,
+            candidate.rotation,
+          )
+
+          // Draw all pads for this candidate
+          for (const pad of tempComponent.pads) {
+            graphics.rects!.push({
+              center: pad.absoluteCenter,
+              width: pad.size.x,
+              height: pad.size.y,
+              fill: `rgba(255,165,0,0.3)`,
+              stroke: `rgba(255,165,0,0.8)`,
+              strokeWidth: 1,
+            } as Rect)
+          }
+
+          // Draw the candidate point
+          graphics.points!.push({
+            x: candidate.optimalPosition.x,
+            y: candidate.optimalPosition.y,
+            label: `c${i}, d=${candidate.distance.toFixed(3)}`,
+            color: "rgba(255,165,0,0.8)",
+          } as Point)
+        }
+      }
     }
   }
 
