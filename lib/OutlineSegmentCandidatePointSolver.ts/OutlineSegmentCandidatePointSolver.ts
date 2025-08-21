@@ -90,7 +90,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     const constraintFn = (point: Point): Point => {
       const projectedPoint = this.projectPointOntoSegment(
         point,
-        this.outlineSegment,
+        this.viableOutlineSegment!,
       )
       return this.adjustPositionForOutlineCollision(projectedPoint)
     }
