@@ -2,7 +2,7 @@ import { InteractiveGraphics } from "graphics-debug/react"
 import type { PackInput, PackOutput } from "../../lib/types"
 import { getGraphicsFromPackOutput } from "../../lib/testing/getGraphicsFromPackOutput"
 import { convertPackOutputToPackInput } from "../../lib/plumbing/convertPackOutputToPackInput"
-import { useMemo, useReducer, useState } from "react"
+import { useMemo, useReducer, useState, useRef, useEffect } from "react"
 import { PhasedPackSolver } from "../../lib"
 import { PackSolver2 } from "../../lib/PackSolver2/PackSolver2"
 import type { BaseSolver } from "../../lib/solver-utils/BaseSolver"
@@ -77,6 +77,8 @@ export const PackDebugger = ({
   const [selectedSolver, setSelectedSolver] =
     useState<SolverType>("PackSolver2")
   const [runCount, incRunCount] = useReducer((c) => c + 1, 0)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   const packSolver = useMemo(() => {
     if (selectedSolver === "PackSolver2") {
@@ -87,6 +89,33 @@ export const PackDebugger = ({
 
   const solverBreadcrumb = buildSolverBreadcrumb(packSolver)
   const deepestSolver = findDeepestActiveSolver(packSolver)
+
+  // Cleanup animation on unmount
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+    }
+  }, [])
+
+  const handleAnimateToggle = () => {
+    if (isAnimating) {
+      // Stop animation
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+      setIsAnimating(false)
+    } else {
+      // Start animation at 40 iterations per second
+      intervalRef.current = setInterval(() => {
+        packSolver.step()
+        incRunCount()
+      }, 1000 / 40)
+      setIsAnimating(true)
+    }
+  }
 
   return (
     <div>
@@ -152,6 +181,20 @@ export const PackDebugger = ({
           }}
         >
           Step
+        </button>
+        <button
+          onClick={handleAnimateToggle}
+          style={{
+            padding: "8px 16px",
+            backgroundColor: isAnimating ? "#dc3545" : "#17a2b8",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+            marginRight: "10px",
+          }}
+        >
+          {isAnimating ? "Stop" : "Animate"}
         </button>
         <button
           onClick={() => downloadConstructorParams(deepestSolver)}
