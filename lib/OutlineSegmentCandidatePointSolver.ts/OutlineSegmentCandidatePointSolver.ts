@@ -91,14 +91,17 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       return this.adjustPositionForOutlineCollision(projectedPoint)
     }
 
+    const [p1, p2] = this.outlineSegment
+    const segmentMidpoint = {
+      x: (p1.x + p2.x) / 2,
+      y: (p1.y + p2.y) / 2,
+    }
+
     // TODO compute viable outline segment
 
     // Use segment midpoint as initial position
-    const [p1, p2] = this.outlineSegment
-    const initialPosition = this.adjustPositionForOutlineCollision({
-      x: (p1.x + p2.x) / 2,
-      y: (p1.y + p2.y) / 2,
-    })
+    const initialPosition =
+      this.adjustPositionForOutlineCollision(segmentMidpoint)
 
     this.irlsSolver = new IrlsSolver({
       targetPoints,
@@ -106,8 +109,8 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       constraintFn,
       epsilon: 1e-6,
       maxIterations: 50,
-      useSquaredDistance:
-        this.packStrategy === "minimum_sum_squared_distance_to_network",
+      useSquaredDistance: true,
+      // this.packStrategy === "minimum_sum_squared_distance_to_network",
     })
   }
 
