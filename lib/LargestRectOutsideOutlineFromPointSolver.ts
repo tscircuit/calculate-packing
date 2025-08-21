@@ -1,6 +1,7 @@
 import { BaseSolver } from "./solver-utils/BaseSolver"
 import type { Point, Segment } from "./geometry/types"
 import type { Bounds } from "@tscircuit/math-utils"
+import type { GraphicsObject } from "graphics-debug"
 
 export type Rect = { x: number; y: number; w: number; h: number }
 
@@ -281,5 +282,71 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
       maxX: this.largestRect.x + this.largestRect.w,
       maxY: this.largestRect.y + this.largestRect.h,
     }
+  }
+
+  override visualize(): GraphicsObject {
+    const graphics: GraphicsObject = {
+      lines: [],
+      points: [],
+      rects: [],
+      circles: [],
+    }
+
+    // Draw global bounds as dashed rectangle
+    // graphics.rects!.push({
+    //   center: {
+    //     x: (this.globalBounds.minX + this.globalBounds.maxX) / 2,
+    //     y: (this.globalBounds.minY + this.globalBounds.maxY) / 2,
+    //   },
+    //   width: this.globalBounds.maxX - this.globalBounds.minX,
+    //   height: this.globalBounds.maxY - this.globalBounds.minY,
+    //   stroke: "#ddd",
+    //   fill: "transparent",
+    //   label: "Global Bounds",
+    // })
+
+    // Draw outline as lines
+    for (let i = 0; i < this.fullOutline.length; i++) {
+      const p1 = this.fullOutline[i]
+      const p2 = this.fullOutline[(i + 1) % this.fullOutline.length]
+      if (p1 && p2) {
+        graphics.lines!.push({
+          points: [p1, p2],
+          strokeColor: "rgba(0,0,0,0.5)",
+        })
+      }
+    }
+
+    // Fill the outline polygon
+    graphics.lines!.push({
+      points: [...this.fullOutline, this.fullOutline[0]!],
+      strokeColor: "rgba(200, 200, 200, 0.5)",
+      strokeDash: [10, 5],
+    })
+
+    // Draw origin point
+    graphics.circles!.push({
+      center: this.origin,
+      radius: 0.05,
+      fill: "#f44336",
+      label: "Origin",
+    })
+
+    // Draw result rectangle if found
+    if (this.largestRect) {
+      graphics.rects!.push({
+        center: {
+          x: this.largestRect.x + this.largestRect.w / 2,
+          y: this.largestRect.y + this.largestRect.h / 2,
+        },
+        width: this.largestRect.w,
+        height: this.largestRect.h,
+        fill: "rgba(0, 255, 0, 0.3)",
+        stroke: "#4CAF50",
+        label: `Largest Rectangle (Area: ${(this.largestRect.w * this.largestRect.h).toFixed(3)})`,
+      })
+    }
+
+    return graphics
   }
 }

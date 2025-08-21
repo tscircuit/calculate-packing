@@ -131,22 +131,32 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
         componentBounds.maxY - componentBounds.minY,
       ),
     })
-    const largestRectSolver = new LargestRectOutsideOutlineFromPointSolver({
+    const largestRectSolverParams: ConstructorParameters<
+      typeof LargestRectOutsideOutlineFromPointSolver
+    >[0] = {
       fullOutline: this.fullOutline.flatMap(([p]) => p),
       globalBounds: packedComponentBoundsWithMargin,
       origin: {
         x: (p1.x + p2.x) / 2 + outwardNormal.x * 0.0001,
         y: (p1.y + p2.y) / 2 + outwardNormal.y * 0.0001,
       },
-    })
+    }
+    const largestRectSolver = new LargestRectOutsideOutlineFromPointSolver(
+      largestRectSolverParams,
+    )
     largestRectSolver.solve()
+
     const largestRectBounds = largestRectSolver.getLargestRectBounds()
 
     // The viable bounds is the largest rect bounds minus padding for the
     // component
     const segmentNormAbs = {
-      x: Math.sign(this.outlineSegment[1].x - this.outlineSegment[0].x),
-      y: Math.sign(this.outlineSegment[1].y - this.outlineSegment[0].y),
+      x: Math.abs(
+        Math.sign(this.outlineSegment[1].x - this.outlineSegment[0].x),
+      ),
+      y: Math.abs(
+        Math.sign(this.outlineSegment[1].y - this.outlineSegment[0].y),
+      ),
     }
     const viableBounds = {
       minX: largestRectBounds.minX - componentBounds.minX * segmentNormAbs.x,
