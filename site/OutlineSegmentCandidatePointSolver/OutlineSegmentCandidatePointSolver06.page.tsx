@@ -1,9 +1,9 @@
 import type { Point } from "@tscircuit/math-utils"
 import type { InputComponent, PackedComponent } from "../../lib/types"
 import { OutlineSegmentCandidatePointDebugger } from "./OutlineSegmentCandidatePointDebugger"
-import inputData from "./OutlineSegmentCandidatePointSolver05_input.json"
+import inputData from "./OutlineSegmentCandidatePointSolver06_input.json"
 
-export default function OutlineSegmentCandidatePointSolver05Example() {
+export default function OutlineSegmentCandidatePointSolver06Example() {
   return (
     <OutlineSegmentCandidatePointDebugger
       {...(inputData as any)}

@@ -57,7 +57,9 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     this.componentToPack = params.componentToPack
   }
 
-  override getConstructorParams() {
+  override getConstructorParams(): ConstructorParameters<
+    typeof OutlineSegmentCandidatePointSolver
+  >[0] {
     return {
       outlineSegment: this.outlineSegment,
       fullOutline: this.fullOutline,
@@ -99,17 +101,15 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     const targetPoints = this.getNetworkTargetPoints()
 
     const [p1, p2] = this.outlineSegment
-    const midpoint = {
-      x: (p1.x + p2.x) / 2,
-      y: (p1.y + p2.y) / 2,
-    }
 
-    if (targetPoints.length === 0) {
-      // No network connections, just place at segment midpoint
-      this.optimalPosition = this.adjustPositionForOutlineCollision(midpoint)
-      this.solved = true
-      return
-    }
+    // if (targetPoints.length === 0) {
+    //   // No network connections, just place at segment midpoint
+    //   this.optimalPosition = this.adjustPositionForOutlineCollision(
+    //     this.projectPointOntoSegment(midpoint, this.outlineSegment),
+    //   )
+    //   this.solved = true
+    //   return
+    // }
 
     // Create constraint function to keep position on outline segment and avoid collision
     const constraintFn = (point: Point): Point => {
@@ -465,10 +465,19 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
 
     // Draw outline segment
-    const [p1, p2] = this.viableOutlineSegment ?? this.outlineSegment
+    if (this.viableOutlineSegment) {
+      const [p1, p2] = this.viableOutlineSegment
+      graphics.lines!.push({
+        points: [p1, p2],
+        strokeColor: "#2196F3",
+      })
+    }
+
+    const [osp1, osp2] = this.outlineSegment
     graphics.lines!.push({
-      points: [p1, p2],
-      strokeColor: "#2196F3",
+      points: [osp1, osp2],
+      strokeColor: "rgba(255,0,0,1)",
+      strokeDash: "3 3",
     })
 
     // Draw full outline
@@ -476,7 +485,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       graphics.lines!.push({
         points: [p1, p2],
         strokeColor: "rgba(0,0,0,0.5)",
-        strokeDash: [2, 8],
+        strokeDash: "4 4",
       })
     }
 
@@ -488,7 +497,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
           center: pad.absoluteCenter,
           width: pad.size.x,
           height: pad.size.y,
-          fill: pad.networkId === "VCC" ? "#FF6B6B" : "#4ECDC4",
+          fill: getColorForString(pad.networkId, 0.5),
           stroke: "#333",
           label: `${pad.padId} (${pad.networkId})`,
         })
@@ -515,7 +524,9 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
         center: padPos,
         width: pad.size.x,
         height: pad.size.y,
-        fill: getColorForString(pad.networkId, 0.5),
+        fill: this.failed
+          ? "rgba(255,0,0,0.5)"
+          : getColorForString(pad.networkId, 0.5),
         label: `${pad.padId} (${pad.networkId})`,
       })
 

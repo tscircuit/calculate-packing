@@ -298,6 +298,9 @@ export class SingleComponentPackSolver extends BaseSolver {
   }
 
   override visualize(): GraphicsObject {
+    if (this.activeSubSolver) {
+      return this.activeSubSolver.visualize()
+    }
     const graphics: GraphicsObject = getGraphicsFromPackOutput({
       components: this.packedComponents,
       minGap: this.minGap,
@@ -390,9 +393,6 @@ export class SingleComponentPackSolver extends BaseSolver {
   }
 
   private visualizeEvaluatePhase(graphics: GraphicsObject) {
-    if (this.activeSubSolver) {
-      return this.activeSubSolver.visualize()
-    }
     // Show all outlines
     this.visualizeOutlinePhase(graphics)
 
