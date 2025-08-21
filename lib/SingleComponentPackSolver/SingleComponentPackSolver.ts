@@ -151,6 +151,37 @@ export class SingleComponentPackSolver extends BaseSolver {
   }
 
   private executeSegmentCandidatePhase() {
+    if (this.activeSubSolver?.solved || this.activeSubSolver?.failed) {
+      const queuedSegment =
+        this.queuedOutlineSegments[this.currentSegmentIndex]!
+      const rotation =
+        queuedSegment.availableRotations[this.currentRotationIndex]!
+
+      let distance = Infinity
+      let optimalPosition: Point | undefined
+
+      if (this.activeSubSolver.solved && this.activeSubSolver.optimalPosition) {
+        optimalPosition = this.activeSubSolver.optimalPosition
+
+        // Calculate distance based on pack strategy
+        distance = this.calculateDistance(optimalPosition, rotation)
+
+        // Store candidate result
+        this.candidateResults.push({
+          segment: queuedSegment.segment,
+          rotation,
+          optimalPosition,
+          distance,
+          segmentIndex: queuedSegment.segmentIndex,
+          rotationIndex: this.currentRotationIndex,
+        })
+      }
+
+      // Move to next rotation
+      this.currentRotationIndex++
+      this.activeSubSolver = undefined
+    }
+
     // Check if we need to start a new segment-rotation pair
     while (!this.activeSubSolver) {
       if (this.currentSegmentIndex >= this.queuedOutlineSegments.length) {
@@ -190,37 +221,6 @@ export class SingleComponentPackSolver extends BaseSolver {
 
     // Step the active subsolver
     this.activeSubSolver.step()
-
-    if (this.activeSubSolver.solved || this.activeSubSolver.failed) {
-      const queuedSegment =
-        this.queuedOutlineSegments[this.currentSegmentIndex]!
-      const rotation =
-        queuedSegment.availableRotations[this.currentRotationIndex]!
-
-      let distance = Infinity
-      let optimalPosition: Point | undefined
-
-      if (this.activeSubSolver.solved && this.activeSubSolver.optimalPosition) {
-        optimalPosition = this.activeSubSolver.optimalPosition
-
-        // Calculate distance based on pack strategy
-        distance = this.calculateDistance(optimalPosition, rotation)
-
-        // Store candidate result
-        this.candidateResults.push({
-          segment: queuedSegment.segment,
-          rotation,
-          optimalPosition,
-          distance,
-          segmentIndex: queuedSegment.segmentIndex,
-          rotationIndex: this.currentRotationIndex,
-        })
-      }
-
-      // Move to next rotation
-      this.currentRotationIndex++
-      this.activeSubSolver = undefined
-    }
   }
 
   private executeEvaluatePhase() {
