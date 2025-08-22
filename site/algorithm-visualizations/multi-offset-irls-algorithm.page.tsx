@@ -85,11 +85,11 @@ export default function MultiOffsetIrlsVisualizer() {
     for (const pad of offsetPadPoints) {
       const assignedTargets = targetPointMap.get(pad.id) || []
       const color = getColorForPad(pad.id)
-      
+
       // Calculate current absolute position of this offset pad
       const padAbsolutePos = {
         x: centerPosition.x + pad.offsetX,
-        y: centerPosition.y + pad.offsetY
+        y: centerPosition.y + pad.offsetY,
       }
 
       ctx.strokeStyle = `${color}60` // Semi-transparent
@@ -153,7 +153,7 @@ export default function MultiOffsetIrlsVisualizer() {
     ctx.beginPath()
     ctx.arc(centerPosition.x, centerPosition.y, 8, 0, 2 * Math.PI)
     ctx.fill()
-    
+
     ctx.strokeStyle = "#333"
     ctx.lineWidth = 2
     ctx.stroke()
@@ -161,12 +161,12 @@ export default function MultiOffsetIrlsVisualizer() {
     // Draw offset pad points (relative to center)
     for (const pad of offsetPadPoints) {
       const color = getColorForPad(pad.id)
-      
+
       const padAbsolutePos = {
         x: centerPosition.x + pad.offsetX,
-        y: centerPosition.y + pad.offsetY
+        y: centerPosition.y + pad.offsetY,
       }
-      
+
       // Main circle
       ctx.fillStyle = color
       ctx.beginPath()
@@ -199,7 +199,11 @@ export default function MultiOffsetIrlsVisualizer() {
       ctx.fillStyle = "#FFF"
       ctx.font = "bold 10px Arial"
       ctx.textAlign = "center"
-      ctx.fillText(pad.id.replace("pad", ""), padAbsolutePos.x, padAbsolutePos.y + 3)
+      ctx.fillText(
+        pad.id.replace("pad", ""),
+        padAbsolutePos.x,
+        padAbsolutePos.y + 3,
+      )
     }
 
     // Draw optimal position if calculated
@@ -246,7 +250,7 @@ export default function MultiOffsetIrlsVisualizer() {
     for (const pad of offsetPadPoints) {
       const padAbsolutePos = {
         x: centerPosition.x + pad.offsetX,
-        y: centerPosition.y + pad.offsetY
+        y: centerPosition.y + pad.offsetY,
       }
       if (isNearPoint(pos, padAbsolutePos, 15)) {
         return pad
@@ -254,7 +258,7 @@ export default function MultiOffsetIrlsVisualizer() {
     }
     return null
   }
-  
+
   const isNearCenter = (pos: Point) => {
     return isNearPoint(pos, centerPosition, 12)
   }
@@ -319,7 +323,7 @@ export default function MultiOffsetIrlsVisualizer() {
     } else if (mode === "drag") {
       const nearestPad = findNearestPad(pos)
       const nearestTarget = findNearestTarget(pos)
-      
+
       if (isNearCenter(pos)) {
         setIsDragging(true)
         setDraggedItem({ type: "center", id: "center" })
@@ -458,9 +462,7 @@ export default function MultiOffsetIrlsVisualizer() {
 
   const totalDistance = solver ? solver.getTotalDistance() : 0
   const optimalDistance =
-    optimalPosition && solver
-      ? solver.getTotalDistance(optimalPosition)
-      : null
+    optimalPosition && solver ? solver.getTotalDistance(optimalPosition) : null
 
   return (
     <div className="max-w-6xl mx-auto bg-white rounded-lg p-6 shadow-lg">
@@ -469,7 +471,8 @@ export default function MultiOffsetIrlsVisualizer() {
       </h1>
 
       <div className="text-center mb-4 text-gray-600 text-sm">
-        Single center position (red) with multiple offset pads relative to it, optimizing distance to assigned targets
+        Single center position (red) with multiple offset pads relative to it,
+        optimizing distance to assigned targets
       </div>
 
       <div className="flex justify-center gap-2 mb-4 flex-wrap">
@@ -579,18 +582,25 @@ export default function MultiOffsetIrlsVisualizer() {
 
       <div className="mt-4 text-xs text-gray-500 text-center">
         <div>
-          <strong>Add Pad:</strong> Click to add offset pad points relative to center (large colored circles)
+          <strong>Add Pad:</strong> Click to add offset pad points relative to
+          center (large colored circles)
         </div>
         <div>
-          <strong>Add Target:</strong> Click to add target points (small circles)
+          <strong>Add Target:</strong> Click to add target points (small
+          circles)
         </div>
         <div>
-          <strong>Assign Targets:</strong> Click a pad to select, then click targets to assign/unassign
+          <strong>Assign Targets:</strong> Click a pad to select, then click
+          targets to assign/unassign
         </div>
         <div>
-          <strong>Drag:</strong> Drag the red center point, offset pads, or targets
+          <strong>Drag:</strong> Drag the red center point, offset pads, or
+          targets
         </div>
-        <div>Colors indicate which targets are assigned to which pads. Dashed lines show pad offsets.</div>
+        <div>
+          Colors indicate which targets are assigned to which pads. Dashed lines
+          show pad offsets.
+        </div>
       </div>
     </div>
   )
