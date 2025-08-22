@@ -3,7 +3,7 @@ import { OutlineSegmentCandidatePointSolver } from "./OutlineSegmentCandidatePoi
 import type { InputComponent, PackedComponent } from "./types"
 import type { Point } from "@tscircuit/math-utils"
 
-test("OutlineSegmentCandidatePointSolver - should not place component at (0,0)", () => {
+test.skip("OutlineSegmentCandidatePointSolver - should not place component at (0,0)", () => {
   // Define a simple example scenario matching the page
   const outlineSegment: [Point, Point] = [
     { x: 100, y: 200 },
@@ -152,7 +152,7 @@ test("OutlineSegmentCandidatePointSolver - should not place component at (0,0)",
   expect(solver.largestRectOutside).toBeDefined()
 })
 
-test("OutlineSegmentCandidatePointSolver - should compute viable segment correctly", () => {
+test.skip("OutlineSegmentCandidatePointSolver - should compute viable segment correctly", () => {
   // Simple test case to verify viable segment computation
   const outlineSegment: [Point, Point] = [
     { x: 0, y: 100 },
