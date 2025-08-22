@@ -172,8 +172,6 @@ export class SingleComponentPackSolver extends BaseSolver {
           minGap: this.minGap,
         })
 
-        console.log("hasOverlap", hasOverlap)
-
         if (!hasOverlap) {
           // Calculate distance based on pack strategy
           distance = this.calculateDistance(optimalPosition, rotation)
