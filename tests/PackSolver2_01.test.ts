@@ -1,6 +1,6 @@
 import { test, expect } from "bun:test"
-import { PackSolver2 } from "./PackSolver2"
-import type { PackInput } from "../types"
+import { PackSolver2 } from "../lib/PackSolver2/PackSolver2"
+import type { PackInput } from "../lib/types"
 
 test("PackSolver2 with min-sum-distance-to-network04 input", () => {
   const packInput: PackInput = {
