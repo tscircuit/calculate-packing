@@ -1,7 +1,10 @@
 import { clamp, type Bounds, type Point } from "@tscircuit/math-utils"
 import type { GraphicsObject } from "graphics-debug"
 import { BaseSolver } from "lib/solver-utils/BaseSolver"
-import { IrlsSolver } from "lib/solver-utils/IrlsSolver"
+import {
+  MultiOffsetIrlsSolver,
+  type OffsetPadPoint,
+} from "lib/solver-utils/MultiOffsetIrlsSolver"
 import type { InputComponent, PackedComponent } from "lib/types"
 import { rotatePoint } from "lib/math/rotatePoint"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
@@ -35,7 +38,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   viableBounds?: Bounds
 
   optimalPosition?: Point
-  irlsSolver?: IrlsSolver
+  irlsSolver?: MultiOffsetIrlsSolver
 
   constructor(params: {
     outlineSegment: [Point, Point]
@@ -72,45 +75,35 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
   }
 
-  _getPackedComponentBounds(params: { margin?: number } = {}): Bounds {
-    const bounds = this.packedComponents.reduce(
-      (acc, component) => {
-        const componentBounds = getComponentBounds(component, 0)
-        return {
-          minX: Math.min(acc.minX, componentBounds.minX),
-          minY: Math.min(acc.minY, componentBounds.minY),
-          maxX: Math.max(acc.maxX, componentBounds.maxX),
-          maxY: Math.max(acc.maxY, componentBounds.maxY),
-        }
-      },
-      { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity },
-    )
+  _getOutlineBoundsWithMargin(params: { margin?: number } = {}): Bounds {
+    let minX = Infinity
+    let minY = Infinity
+    let maxX = -Infinity
+    let maxY = -Infinity
 
-    if (params?.margin) {
-      return {
-        minX: bounds.minX - params.margin,
-        minY: bounds.minY - params.margin,
-        maxX: bounds.maxX + params.margin,
-        maxY: bounds.maxY + params.margin,
-      }
+    for (const [p1, p2] of this.fullOutline) {
+      minX = Math.min(minX, p1.x, p2.x)
+      minY = Math.min(minY, p1.y, p2.y)
+      maxX = Math.max(maxX, p1.x, p2.x)
+      maxY = Math.max(maxY, p1.y, p2.y)
     }
-    return bounds
+
+    const margin = params.margin ?? 0
+
+    return {
+      minX: minX - margin,
+      minY: minY - margin,
+      maxX: maxX + margin,
+      maxY: maxY + margin,
+    }
   }
 
   override _setup() {
-    // Find target points from network connections
-    const targetPoints = this.getNetworkTargetPoints()
+    // Get pad offset points and target point mappings
+    const { offsetPadPoints, targetPointMap } =
+      this.getNetworkTargetPointMappings()
 
     const [p1, p2] = this.outlineSegment
-
-    // if (targetPoints.length === 0) {
-    //   // No network connections, just place at segment midpoint
-    //   this.optimalPosition = this.adjustPositionForOutlineCollision(
-    //     this.projectPointOntoSegment(midpoint, this.outlineSegment),
-    //   )
-    //   this.solved = true
-    //   return
-    // }
 
     // Create constraint function to keep position on outline segment and avoid collision
     const constraintFn = (point: Point): Point => {
@@ -126,12 +119,14 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       rotationDegrees: this.componentRotationDegrees,
     })
 
-    const packedComponentBoundsWithMargin = this._getPackedComponentBounds({
+    const packedComponentBoundsWithMargin = this._getOutlineBoundsWithMargin({
       margin:
         Math.max(
           componentBounds.maxX - componentBounds.minX,
           componentBounds.maxY - componentBounds.minY,
-        ) * 2,
+        ) *
+          2 +
+        this.minGap * 2,
     })
     const largestRectSolverParams: ConstructorParameters<
       typeof LargestRectOutsideOutlineFromPointSolver
@@ -208,14 +203,15 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       y: (vp1.y + vp2.y) / 2,
     })
 
-    this.irlsSolver = new IrlsSolver({
-      targetPoints,
+    this.irlsSolver = new MultiOffsetIrlsSolver({
+      offsetPadPoints,
+      targetPointMap,
       initialPosition,
       constraintFn,
       epsilon: 1e-6,
       maxIterations: 50,
-      useSquaredDistance: true,
-      // this.packStrategy === "minimum_sum_squared_distance_to_network",
+      useSquaredDistance:
+        this.packStrategy === "minimum_sum_squared_distance_to_network",
     })
   }
 
@@ -238,27 +234,41 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   }
 
   /**
-   * Get target points from network connections, considering the component's rotation
+   * Get pad offset points and target point mappings for network connections
    */
-  private getNetworkTargetPoints(): Point[] {
-    const targetPoints: Point[] = []
-
+  private getNetworkTargetPointMappings(): {
+    offsetPadPoints: OffsetPadPoint[]
+    targetPointMap: Map<string, Point[]>
+  } {
     // Get rotated pads for the component being placed
     const rotatedPads = this.getRotatedComponentPads()
 
-    // Get network IDs from component being placed
-    const componentNetworkIds = new Set(rotatedPads.map((pad) => pad.networkId))
+    // Create offset pad points from the component's rotated pads
+    const offsetPadPoints: OffsetPadPoint[] = rotatedPads.map((pad) => ({
+      id: pad.padId,
+      offsetX: pad.offset.x,
+      offsetY: pad.offset.y,
+    }))
 
-    // Find all packed pads that share networks with this component
-    for (const packedComponent of this.packedComponents) {
-      for (const pad of packedComponent.pads) {
-        if (componentNetworkIds.has(pad.networkId)) {
-          targetPoints.push(pad.absoluteCenter)
+    // Create target point mappings: each pad maps to other pads with same networkId
+    const targetPointMap = new Map<string, Point[]>()
+
+    for (const pad of rotatedPads) {
+      const targetPoints: Point[] = []
+
+      // Find all packed pads that share the same network with this pad
+      for (const packedComponent of this.packedComponents) {
+        for (const packedPad of packedComponent.pads) {
+          if (packedPad.networkId === pad.networkId) {
+            targetPoints.push(packedPad.absoluteCenter)
+          }
         }
       }
+
+      targetPointMap.set(pad.padId, targetPoints)
     }
 
-    return targetPoints
+    return { offsetPadPoints, targetPointMap }
   }
 
   /**
@@ -553,16 +563,8 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       }
     }
 
-    // Draw target points if available
+    // Include IRLS solver visualization if available
     if (this.irlsSolver) {
-      const targetPoints = this.getNetworkTargetPoints()
-      for (const point of targetPoints) {
-        graphics.points!.push({
-          ...point,
-          color: "#4CAF50",
-        })
-      }
-
       // Draw current solver position
       const currentPos = this.irlsSolver.currentPosition
       graphics.points!.push({
@@ -570,7 +572,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
         color: "#f44336",
       })
 
-      // Include IRLS solver visualization
+      // Include MultiOffsetIrlsSolver visualization
       const solverViz = this.irlsSolver.visualize()
 
       // Merge solver graphics
