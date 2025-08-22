@@ -97,6 +97,29 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     return bounds
   }
 
+  _getOutlineBoundsWithMargin(params: { margin?: number } = {}): Bounds {
+    let minX = Infinity
+    let minY = Infinity
+    let maxX = -Infinity
+    let maxY = -Infinity
+
+    for (const [p1, p2] of this.fullOutline) {
+      minX = Math.min(minX, p1.x, p2.x)
+      minY = Math.min(minY, p1.y, p2.y)
+      maxX = Math.max(maxX, p1.x, p2.x)
+      maxY = Math.max(maxY, p1.y, p2.y)
+    }
+
+    const margin = params.margin ?? 0
+
+    return {
+      minX: minX - margin,
+      minY: minY - margin,
+      maxX: maxX + margin,
+      maxY: maxY + margin,
+    }
+  }
+
   override _setup() {
     // Find target points from network connections
     const targetPoints = this.getNetworkTargetPoints()
@@ -126,12 +149,14 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       rotationDegrees: this.componentRotationDegrees,
     })
 
-    const packedComponentBoundsWithMargin = this._getPackedComponentBounds({
+    const packedComponentBoundsWithMargin = this._getOutlineBoundsWithMargin({
       margin:
         Math.max(
           componentBounds.maxX - componentBounds.minX,
           componentBounds.maxY - componentBounds.minY,
-        ) * 2,
+        ) *
+          2 +
+        this.minGap * 2,
     })
     const largestRectSolverParams: ConstructorParameters<
       typeof LargestRectOutsideOutlineFromPointSolver
