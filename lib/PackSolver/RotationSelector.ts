@@ -201,16 +201,7 @@ export function selectOptimalRotation(
       (!globalBestCandidate ||
         bestForThisRotation.cost < globalBestCandidate.cost)
     ) {
-      if (component.componentId === "C6") {
-        console.log(
-          `C6 rotation ${angle}°: best cost=${bestForThisRotation.cost.toFixed(3)} ${!globalBestCandidate ? "[FIRST ROTATION]" : "[NEW BEST ROTATION]"}`,
-        )
-      }
       globalBestCandidate = bestForThisRotation
-    } else if (bestForThisRotation && component.componentId === "C6") {
-      console.log(
-        `C6 rotation ${angle}°: cost=${bestForThisRotation.cost.toFixed(3)} [WORSE THAN ${globalBestCandidate?.cost.toFixed(3)}]`,
-      )
     }
   }
 

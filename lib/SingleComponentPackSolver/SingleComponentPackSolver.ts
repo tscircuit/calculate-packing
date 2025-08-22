@@ -152,7 +152,6 @@ export class SingleComponentPackSolver extends BaseSolver {
   }
 
   private executeSegmentCandidatePhase() {
-    console.log("executeSegmentCandidatePhase")
     if (this.activeSubSolver?.solved || this.activeSubSolver?.failed) {
       const queuedSegment =
         this.queuedOutlineSegments[this.currentSegmentIndex]!
