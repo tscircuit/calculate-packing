@@ -1,0 +1,232 @@
+{
+  "components": [
+    {
+      "componentId": "U1",
+      "pads": [
+        {
+          "padId": "U1_body",
+          "networkId": "U1_body_disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "x": 1.2000000000000002,
+            "y": 1
+          },
+          "absoluteCenter": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "padId": "U1.1",
+          "networkId": "VSYS",
+          "type": "rect",
+          "offset": {
+            "x": -1,
+            "y": 0.30000000000000004
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": -1,
+            "y": 0.30000000000000004
+          }
+        },
+        {
+          "padId": "U1.2",
+          "networkId": "U1.2_opposite-strong-side-disconnected",
+          "type": "rect",
+          "offset": {
+            "x": -1,
+            "y": 0.10000000000000003
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": -1,
+            "y": 0.10000000000000003
+          }
+        },
+        {
+          "padId": "U1.3",
+          "networkId": "VSYS",
+          "type": "rect",
+          "offset": {
+            "x": -1,
+            "y": -0.09999999999999998
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": -1,
+            "y": -0.09999999999999998
+          }
+        },
+        {
+          "padId": "U1.4",
+          "networkId": "V3_3",
+          "type": "rect",
+          "offset": {
+            "x": -1,
+            "y": -0.30000000000000004
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": -1,
+            "y": -0.30000000000000004
+          }
+        },
+        {
+          "padId": "U1.5",
+          "networkId": "U1.5_isolated",
+          "type": "rect",
+          "offset": {
+            "x": 1,
+            "y": -0.30000000000000004
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": 1,
+            "y": -0.30000000000000004
+          }
+        },
+        {
+          "padId": "U1.6",
+          "networkId": "U1.6_isolated",
+          "type": "rect",
+          "offset": {
+            "x": 1,
+            "y": -0.10000000000000003
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": 1,
+            "y": -0.10000000000000003
+          }
+        },
+        {
+          "padId": "U1.7",
+          "networkId": "U1.7_isolated",
+          "type": "rect",
+          "offset": {
+            "x": 1,
+            "y": 0.09999999999999998
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": 1,
+            "y": 0.09999999999999998
+          }
+        },
+        {
+          "padId": "U1.8",
+          "networkId": "U1.8_isolated",
+          "type": "rect",
+          "offset": {
+            "x": 1,
+            "y": 0.30000000000000004
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": 1,
+            "y": 0.30000000000000004
+          }
+        }
+      ],
+      "availableRotationDegrees": [0, 90, 180, 270],
+      "center": {
+        "x": 0,
+        "y": 0
+      },
+      "ccwRotationOffset": 0
+    },
+    {
+      "componentId": "C6",
+      "pads": [
+        {
+          "padId": "C6_body",
+          "networkId": "C6_body_disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "x": 0.5291665999999999,
+            "y": 1.0583333000000001
+          },
+          "absoluteCenter": {
+            "x": -1.5145833,
+            "y": 0.10000000000000031
+          }
+        },
+        {
+          "padId": "C6.1",
+          "networkId": "VSYS",
+          "type": "rect",
+          "offset": {
+            "x": -0.00027334999999961695,
+            "y": 0.5512093000000002
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": -1.5148566499999996,
+            "y": 0.6512093000000005
+          }
+        },
+        {
+          "padId": "C6.2",
+          "networkId": "U1.2_opposite-strong-side-disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 0.00027334999999961695,
+            "y": -0.5512093000000002
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": -1.5143099500000003,
+            "y": -0.4512092999999999
+          }
+        }
+      ],
+      "availableRotationDegrees": [0, 90, 180, 270],
+      "center": {
+        "x": -1.5145833,
+        "y": 0.10000000000000031
+      },
+      "ccwRotationOffset": 0
+    }
+  ],
+  "minGap": 0.2,
+  "stepNumber": 1
+}
