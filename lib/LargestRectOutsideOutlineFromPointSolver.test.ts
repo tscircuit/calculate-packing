@@ -138,11 +138,11 @@ test.skip("LargestRectOutsideOutlineFromPointSolver - staircase pattern", () => 
   const origin: Point = { x: 500, y: 180 } // Point to the right of the staircase
   const globalBounds: GlobalBounds = { minX: 0, maxX: 600, minY: 0, maxY: 400 }
 
-  const solver = new LargestRectOutsideOutlineFromPointSolver(
-    outline,
+  const solver = new LargestRectOutsideOutlineFromPointSolver({
+    fullOutline: outline,
     origin,
     globalBounds,
-  )
+  })
   const result = solver.getLargestRect()
 
   expect(result).not.toBeNull()

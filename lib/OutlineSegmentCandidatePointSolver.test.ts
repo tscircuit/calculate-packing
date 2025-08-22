@@ -149,7 +149,6 @@ test.skip("OutlineSegmentCandidatePointSolver - should not place component at (0
 
   // Check that viable outline segment was computed
   expect(solver.viableOutlineSegment).toBeDefined()
-  expect(solver.largestRectOutside).toBeDefined()
 })
 
 test.skip("OutlineSegmentCandidatePointSolver - should compute viable segment correctly", () => {
@@ -205,5 +204,4 @@ test.skip("OutlineSegmentCandidatePointSolver - should compute viable segment co
 
   expect(solver.failed).toBe(false)
   expect(solver.viableOutlineSegment).toBeDefined()
-  expect(solver.largestRectOutside).toBeDefined()
 })

@@ -11,7 +11,7 @@ export const expandSegment = (
   }
   const normalizedDirection = normalizeVector(direction)
 
-  const expandedSegment = [
+  const expandedSegment: [Point, Point] = [
     {
       x: p1.x - normalizedDirection.x * amount,
       y: p1.y - normalizedDirection.y * amount,

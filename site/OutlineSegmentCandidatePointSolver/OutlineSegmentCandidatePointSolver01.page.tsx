@@ -113,7 +113,6 @@ export default function OutlineSegmentCandidatePointSolverExample() {
     },
   ]
 
-
   return (
     <OutlineSegmentCandidatePointDebugger
       title="OutlineSegmentCandidatePointSolver Example"

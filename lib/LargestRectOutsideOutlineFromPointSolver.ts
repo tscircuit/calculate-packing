@@ -6,6 +6,7 @@ import type { GraphicsObject } from "graphics-debug"
 export type Rect = { x: number; y: number; w: number; h: number }
 
 export type { Point } from "./geometry/types"
+export type GlobalBounds = Bounds
 
 export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
   fullOutline: Point[]
