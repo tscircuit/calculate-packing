@@ -58,7 +58,9 @@ export const constructOutlinesFromPackedComponents = (
 ): Outline[] => {
   const { minGap = 0 } = opts
   if (components.length === 0) return []
-  const bounds = combineBounds(components.map(getComponentBounds))
+  const bounds = combineBounds(
+    components.map((c) => getComponentBounds(c, minGap)),
+  )
 
   /* --- build polygon for every pad (inflated by minGap) --- */
   const allPadPolys: Flatten.Polygon[] = []
