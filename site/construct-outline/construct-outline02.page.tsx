@@ -10,7 +10,7 @@ const ConstructOutline02: React.FC = () => {
     <ConstructOutlineDebugger
       components={components as PackedComponent[]}
       minGap={minGap}
-      title={`Construct Outline 02 - Step ${stepNumber} (${components.length} component${components.length !== 1 ? 's' : ''})`}
+      title={`Construct Outline 02 - Step ${stepNumber} (${components.length} component${components.length !== 1 ? "s" : ""})`}
       stepNumber={stepNumber}
     />
   )

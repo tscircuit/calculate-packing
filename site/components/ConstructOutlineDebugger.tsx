@@ -25,9 +25,7 @@ const getGraphicsFromConstructOutlineData = (
 
   // Create color map for networks
   const allNetworkIds = Array.from(
-    new Set(
-      components.flatMap((c) => c.pads.map((p) => p.networkId)),
-    ),
+    new Set(components.flatMap((c) => c.pads.map((p) => p.networkId))),
   )
   const colorMap = createColorMapFromStrings(allNetworkIds)
 
@@ -36,7 +34,7 @@ const getGraphicsFromConstructOutlineData = (
     const bounds = getComponentBounds(component, 0)
     const width = bounds.maxX - bounds.minX
     const height = bounds.maxY - bounds.minY
-    
+
     // Component body
     const rect: Rect = {
       center: { x: component.center.x, y: component.center.y },
@@ -45,7 +43,7 @@ const getGraphicsFromConstructOutlineData = (
       fill: "rgba(224,224,224,0.8)",
       label: [
         component.componentId,
-        `rotation: ${(component.ccwRotationOffset * 180 / Math.PI).toFixed(1)}°`,
+        `rotation: ${((component.ccwRotationOffset * 180) / Math.PI).toFixed(1)}°`,
       ].join("\n"),
     }
     rects.push(rect)
@@ -72,7 +70,7 @@ const getGraphicsFromConstructOutlineData = (
       const line: Line = {
         points: [
           { x: segment[0].x, y: segment[0].y },
-          { x: segment[1].x, y: segment[1].y }
+          { x: segment[1].x, y: segment[1].y },
         ],
         strokeColor: "#ff4444",
       }
@@ -100,11 +98,11 @@ export const ConstructOutlineDebugger = ({
   return (
     <div>
       <h2 className="text-xl font-bold mb-2">{title}</h2>
-      
+
       {stepNumber !== undefined && (
         <p className="text-gray-600 mb-2">Step: {stepNumber}</p>
       )}
-      
+
       <p className="text-gray-600 mb-4">
         Components: {components.length}, Min Gap: {minGap}
       </p>
@@ -138,7 +136,7 @@ export const ConstructOutlineDebugger = ({
           />
           <span>{minGap.toFixed(3)}</span>
         </div>
-        
+
         <button
           onClick={() => setMinGap(initialMinGap)}
           style={{

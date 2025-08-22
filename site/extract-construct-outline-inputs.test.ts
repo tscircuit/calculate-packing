@@ -22,11 +22,11 @@ class LoggingSingleComponentPackSolver extends SingleComponentPackSolver {
       capturedInputs.push({
         components: JSON.parse(JSON.stringify(this.packedComponents)),
         minGap: this.minGap,
-        stepNumber: capturedInputs.length
+        stepNumber: capturedInputs.length,
       })
     }
   }
-  
+
   override _step() {
     const prevLength = capturedInputs.length
     super._step()
@@ -36,15 +36,16 @@ class LoggingSingleComponentPackSolver extends SingleComponentPackSolver {
       const currentState = {
         components: JSON.parse(JSON.stringify(this.packedComponents)),
         minGap: this.minGap,
-        stepNumber: capturedInputs.length
+        stepNumber: capturedInputs.length,
       }
-      
+
       // Simple check to avoid duplicates
-      const isDuplicate = capturedInputs.some(prev => 
-        prev.components.length === currentState.components.length &&
-        prev.minGap === currentState.minGap
+      const isDuplicate = capturedInputs.some(
+        (prev) =>
+          prev.components.length === currentState.components.length &&
+          prev.minGap === currentState.minGap,
       )
-      
+
       if (!isDuplicate) {
         capturedInputs.push(currentState)
       }
@@ -65,25 +66,26 @@ class LoggingPackSolver2 extends PackSolver2 {
         packPlacementStrategy: this.packInput.packPlacementStrategy,
       })
     }
-    
+
     // Log initial state if we have packed components
     if (this.packedComponents.length > 0) {
       const currentState = {
         components: JSON.parse(JSON.stringify(this.packedComponents)),
         minGap: this.packInput.minGap ?? 0,
-        stepNumber: capturedInputs.length
+        stepNumber: capturedInputs.length,
       }
-      
-      const isDuplicate = capturedInputs.some(prev => 
-        prev.components.length === currentState.components.length &&
-        prev.minGap === currentState.minGap
+
+      const isDuplicate = capturedInputs.some(
+        (prev) =>
+          prev.components.length === currentState.components.length &&
+          prev.minGap === currentState.minGap,
       )
-      
+
       if (!isDuplicate) {
         capturedInputs.push(currentState)
       }
     }
-    
+
     super._step()
   }
 }
@@ -92,17 +94,19 @@ describe("Extract construct outline inputs", () => {
   it("should capture all constructOutlinesFromPackedComponents inputs from repro04", async () => {
     const packInput = input as PackInput
     const solver = new LoggingPackSolver2(packInput)
-    
+
     // Clear any previous captures
     capturedInputs.length = 0
-    
+
     // Run the solver to completion
     while (!solver.solved && !solver.failed && solver.iterations < 1000) {
       solver.step()
     }
-    
-    console.log(`Captured ${capturedInputs.length} constructOutlinesFromPackedComponents calls`)
-    
+
+    console.log(
+      `Captured ${capturedInputs.length} constructOutlinesFromPackedComponents calls`,
+    )
+
     // Create output directory
     const outputDir = join(process.cwd(), "site", "construct-outline-inputs")
     try {
@@ -110,20 +114,22 @@ describe("Extract construct outline inputs", () => {
     } catch (e) {
       // Directory might already exist
     }
-    
+
     // Write each captured input to a JSON file
     for (let i = 0; i < capturedInputs.length; i++) {
       const input = capturedInputs[i]
-      const filename = `construct-outline-input-${i.toString().padStart(2, '0')}.json`
+      const filename = `construct-outline-input-${i.toString().padStart(2, "0")}.json`
       const filepath = join(outputDir, filename)
-      
+
       writeFileSync(filepath, JSON.stringify(input, null, 2))
-      console.log(`Wrote ${filename} with ${input.components.length} components, minGap: ${input.minGap}`)
+      console.log(
+        `Wrote ${filename} with ${input.components.length} components, minGap: ${input.minGap}`,
+      )
     }
-    
+
     // Verify we captured at least some inputs
     expect(capturedInputs.length).toBeGreaterThan(0)
     expect(capturedInputs[0].components).toBeDefined()
-    expect(typeof capturedInputs[0].minGap).toBe('number')
+    expect(typeof capturedInputs[0].minGap).toBe("number")
   })
 })
