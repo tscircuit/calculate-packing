@@ -6,7 +6,7 @@ import packInput from "./repro02-pack-input.json"
 test("repro02", () => {
   const packSolver = new PhasedPackSolver(packInput as any)
 
-  packSolver.noisySolve()
+  packSolver.solve()
 
   const svg = getSvgFromGraphicsObject(packSolver.visualize(), {
     backgroundColor: "white",

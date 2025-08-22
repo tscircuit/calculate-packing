@@ -3,7 +3,13 @@ import { setPackedComponentPadCenters } from "../PackSolver/setPackedComponentPa
 import { sortComponentQueue } from "../PackSolver/sortComponentQueue"
 import { SingleComponentPackSolver } from "../SingleComponentPackSolver/SingleComponentPackSolver"
 import { BaseSolver } from "../solver-utils/BaseSolver"
-import type { InputComponent, PackedComponent, PackInput } from "../types"
+import type {
+  InputComponent,
+  OutputPad,
+  PackedComponent,
+  PackInput,
+} from "../types"
+import { getColorForString } from "lib/testing/createColorMapFromStrings"
 
 export class PackSolver2 extends BaseSolver {
   declare activeSubSolver: SingleComponentPackSolver | null | undefined
@@ -28,7 +34,6 @@ export class PackSolver2 extends BaseSolver {
       packFirst,
     })
     this.packedComponents = []
-    this.packFirstComponent()
   }
 
   private packFirstComponent(): void {
@@ -51,12 +56,24 @@ export class PackSolver2 extends BaseSolver {
   override _step() {
     if (this.solved || this.failed) return
 
-    if (this.unpackedComponentQueue.length === 0) {
-      this.solved = true
+    // Special case: first component (when no components are packed yet)
+    if (this.packedComponents.length === 0) {
+      if (this.unpackedComponentQueue.length === 0) {
+        this.solved = true
+        return
+      }
+      this.packFirstComponent()
       return
     }
 
-    if (!this.componentToPack || !this.activeSubSolver) {
+    // If we have an active sub-solver, continue with it
+    if (!this.activeSubSolver) {
+      // Need to start a new component
+      if (this.unpackedComponentQueue.length === 0) {
+        this.solved = true
+        return
+      }
+
       this.componentToPack = this.unpackedComponentQueue.shift()
       if (!this.componentToPack) {
         this.solved = true
@@ -65,10 +82,13 @@ export class PackSolver2 extends BaseSolver {
       this.activeSubSolver = new SingleComponentPackSolver({
         packedComponents: this.packedComponents,
         componentToPack: this.componentToPack,
+        packPlacementStrategy: this.packInput.packPlacementStrategy,
+        minGap: this.packInput.minGap,
       })
+      this.activeSubSolver.setup()
     }
 
-    this.activeSubSolver._step()
+    this.activeSubSolver.step()
 
     if (this.activeSubSolver.failed) {
       this.failed = true
@@ -76,24 +96,92 @@ export class PackSolver2 extends BaseSolver {
     }
 
     if (this.activeSubSolver.solved) {
-      // Convert the componentToPack to a PackedComponent and add it
-      // TODO get the position and rotation from the solver
-      const packedComponent: PackedComponent = {
-        ...this.componentToPack!,
-        center: { x: 0, y: 0 }, // This should be determined by the solver
-        ccwRotationOffset: 0, // This should be determined by the solver
-        pads: this.componentToPack!.pads.map((p) => ({
-          ...p,
-          absoluteCenter: { x: 0, y: 0 }, // This should be determined by the solver
-        })),
+      // Get the result from the SingleComponentPackSolver
+      const result = this.activeSubSolver.getResult()
+      if (result) {
+        this.packedComponents.push(result)
+      } else {
+        // Fallback if solver didn't produce a result
+        const packedComponent: PackedComponent = {
+          ...this.componentToPack!,
+          center: { x: 0, y: 0 },
+          ccwRotationOffset: 0,
+          pads: this.componentToPack!.pads.map((p) => ({
+            ...p,
+            absoluteCenter: { x: 0, y: 0 },
+          })),
+        }
+        setPackedComponentPadCenters(packedComponent)
+        this.packedComponents.push(packedComponent)
       }
-      this.packedComponents.push(packedComponent)
       this.componentToPack = undefined
       this.activeSubSolver = undefined
     }
   }
 
   override visualize(): GraphicsObject {
-    return super.visualize()
+    if (this.activeSubSolver) {
+      return this.activeSubSolver.visualize()
+    }
+
+    // Create a visualization of the packed components
+    const graphics: Required<GraphicsObject> = {
+      coordinateSystem: "cartesian",
+      title: "Pack Solver 2",
+      points: [],
+      lines: [],
+      rects: [],
+      circles: [],
+      texts: [],
+    }
+
+    if (this.packedComponents.length === 0) {
+      // Show all the components in the queue at (0,0)
+      for (const component of this.unpackedComponentQueue) {
+        for (const pad of component.pads) {
+          graphics.rects!.push({
+            center: { x: 0, y: 0 },
+            width: pad.size.x,
+            height: pad.size.y,
+            fill: "rgba(0,0,0,0.1)",
+          })
+        }
+      }
+    }
+
+    const allPads = this.packedComponents.flatMap((c) => c.pads)
+    const networkToPadMap = new Map<string, OutputPad[]>()
+    for (const pad of allPads) {
+      if (pad.networkId) {
+        networkToPadMap.set(pad.networkId, [
+          ...(networkToPadMap.get(pad.networkId) || []),
+          pad,
+        ])
+      }
+    }
+
+    for (const pad of allPads) {
+      graphics.rects!.push({
+        center: pad.absoluteCenter,
+        width: pad.size.x,
+        height: pad.size.y,
+        fill: "rgba(255,0,0,0.5)",
+      })
+    }
+
+    for (const [networkId, pads] of networkToPadMap.entries()) {
+      for (let i = 0; i < pads.length; i++) {
+        for (let j = i + 1; j < pads.length; j++) {
+          const pad1 = pads[i]!
+          const pad2 = pads[j]!
+          graphics.lines!.push({
+            points: [pad1.absoluteCenter, pad2.absoluteCenter],
+            strokeColor: getColorForString(networkId, 0.5),
+          })
+        }
+      }
+    }
+
+    return graphics
   }
 }

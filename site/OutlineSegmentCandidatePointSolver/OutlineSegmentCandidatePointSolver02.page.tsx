@@ -5,8 +5,8 @@ import { OutlineSegmentCandidatePointDebugger } from "./OutlineSegmentCandidateP
 export default function OutlineSegmentCandidatePointSolverExample() {
   // Define a simple example scenario
   const outlineSegment: [Point, Point] = [
-    { x: 100, y: 200 },
     { x: 500, y: 200 },
+    { x: 500, y: 300 },
   ]
 
   // Define the full outline containing the segment
@@ -122,7 +122,6 @@ export default function OutlineSegmentCandidatePointSolverExample() {
       componentToPack={componentToPack}
       packedComponents={packedComponents}
       minGap={1}
-      showLegend
     />
   )
 }
