@@ -10,6 +10,7 @@ import type {
   PackedComponent,
   PackPlacementStrategy,
 } from "../types"
+import { checkOverlapWithPackedComponents } from "lib/PackSolver/checkOverlapWithPackedComponents"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 
@@ -151,6 +152,7 @@ export class SingleComponentPackSolver extends BaseSolver {
   }
 
   private executeSegmentCandidatePhase() {
+    console.log("executeSegmentCandidatePhase")
     if (this.activeSubSolver?.solved || this.activeSubSolver?.failed) {
       const queuedSegment =
         this.queuedOutlineSegments[this.currentSegmentIndex]!
@@ -163,18 +165,29 @@ export class SingleComponentPackSolver extends BaseSolver {
       if (this.activeSubSolver.solved && this.activeSubSolver.optimalPosition) {
         optimalPosition = this.activeSubSolver.optimalPosition
 
-        // Calculate distance based on pack strategy
-        distance = this.calculateDistance(optimalPosition, rotation)
-
-        // Store candidate result
-        this.candidateResults.push({
-          segment: queuedSegment.segment,
-          rotation,
-          optimalPosition,
-          distance,
-          segmentIndex: queuedSegment.segmentIndex,
-          rotationIndex: this.currentRotationIndex,
+        // Check if this candidate overlaps with any packed components
+        const hasOverlap = checkOverlapWithPackedComponents({
+          component: this.createPackedComponent(optimalPosition, rotation),
+          packedComponents: this.packedComponents,
+          minGap: this.minGap,
         })
+
+        console.log("hasOverlap", hasOverlap)
+
+        if (!hasOverlap) {
+          // Calculate distance based on pack strategy
+          distance = this.calculateDistance(optimalPosition, rotation)
+
+          // Store candidate result
+          this.candidateResults.push({
+            segment: queuedSegment.segment,
+            rotation,
+            optimalPosition,
+            distance,
+            segmentIndex: queuedSegment.segmentIndex,
+            rotationIndex: this.currentRotationIndex,
+          })
+        }
       }
 
       // Move to next rotation
