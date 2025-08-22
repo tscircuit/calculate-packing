@@ -72,31 +72,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
   }
 
-  _getPackedComponentBounds(params: { margin?: number } = {}): Bounds {
-    const bounds = this.packedComponents.reduce(
-      (acc, component) => {
-        const componentBounds = getComponentBounds(component, 0)
-        return {
-          minX: Math.min(acc.minX, componentBounds.minX),
-          minY: Math.min(acc.minY, componentBounds.minY),
-          maxX: Math.max(acc.maxX, componentBounds.maxX),
-          maxY: Math.max(acc.maxY, componentBounds.maxY),
-        }
-      },
-      { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity },
-    )
-
-    if (params?.margin) {
-      return {
-        minX: bounds.minX - params.margin,
-        minY: bounds.minY - params.margin,
-        maxX: bounds.maxX + params.margin,
-        maxY: bounds.maxY + params.margin,
-      }
-    }
-    return bounds
-  }
-
   _getOutlineBoundsWithMargin(params: { margin?: number } = {}): Bounds {
     let minX = Infinity
     let minY = Infinity
