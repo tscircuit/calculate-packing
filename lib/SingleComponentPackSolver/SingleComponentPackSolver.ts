@@ -431,13 +431,11 @@ export class SingleComponentPackSolver extends BaseSolver {
   }
 
   override getConstructorParams() {
-    return [
-      {
-        componentToPack: this.componentToPack,
-        packedComponents: this.packedComponents,
-        packPlacementStrategy: this.packPlacementStrategy,
-        minGap: this.minGap,
-      },
-    ]
+    return {
+      componentToPack: this.componentToPack,
+      packedComponents: this.packedComponents,
+      packPlacementStrategy: this.packPlacementStrategy,
+      minGap: this.minGap,
+    }
   }
 }

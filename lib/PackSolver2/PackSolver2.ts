@@ -25,6 +25,10 @@ export class PackSolver2 extends BaseSolver {
     this.packInput = packInput
   }
 
+  override getConstructorParams() {
+    return this.packInput
+  }
+
   override _setup() {
     const { components, packOrderStrategy, packFirst = [] } = this.packInput
 
