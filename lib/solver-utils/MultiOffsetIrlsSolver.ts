@@ -6,6 +6,10 @@ export interface Point {
   y: number
 }
 
+export interface PointWithNetworkId extends Point {
+  networkId?: string
+}
+
 export interface OffsetPadPoint {
   id: string
   offsetX: number
@@ -40,7 +44,7 @@ export interface MultiOffsetIrlsSolverParams {
  */
 export class MultiOffsetIrlsSolver extends BaseSolver {
   public offsetPadPoints: OffsetPadPoint[]
-  public targetPointMap: Map<string, Point[]>
+  public targetPointMap: Map<string, PointWithNetworkId[]>
   public currentPosition: Point
   public constraintFn?: (point: Point) => Point
   public epsilon: number

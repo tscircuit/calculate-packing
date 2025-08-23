@@ -1,0 +1,288 @@
+{
+  "componentToPack": {
+    "componentId": "C2",
+    "pads": [
+      {
+        "padId": "C2_body",
+        "networkId": "C2_body_disconnected",
+        "type": "rect",
+        "offset": {
+          "x": 0,
+          "y": 0
+        },
+        "size": {
+          "x": 0.5291665999999999,
+          "y": 1.0583333000000001
+        }
+      },
+      {
+        "padId": "C2.1",
+        "networkId": "U1.1_opposite-strong-side-disconnected",
+        "type": "rect",
+        "offset": {
+          "x": -0.00027334999999965165,
+          "y": 0.5512093000000002
+        },
+        "size": {
+          "x": 0.1,
+          "y": 0.1
+        }
+      },
+      {
+        "padId": "C2.2",
+        "networkId": "U1.2_opposite-strong-side-disconnected",
+        "type": "rect",
+        "offset": {
+          "x": 0.00027334999999965165,
+          "y": -0.5512093000000002
+        },
+        "size": {
+          "x": 0.1,
+          "y": 0.1
+        }
+      }
+    ],
+    "availableRotationDegrees": [0]
+  },
+  "packedComponents": [
+    {
+      "componentId": "U1",
+      "pads": [
+        {
+          "padId": "U1_body",
+          "networkId": "U1_body_disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "x": 1.2000000000000002,
+            "y": 0.8
+          },
+          "absoluteCenter": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "padId": "U1.1",
+          "networkId": "U1.3_opposite-strong-side-disconnected",
+          "type": "rect",
+          "offset": {
+            "x": -1,
+            "y": 0.2
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": -1,
+            "y": 0.2
+          }
+        },
+        {
+          "padId": "U1.2",
+          "networkId": "U1.2_opposite-strong-side-disconnected",
+          "type": "rect",
+          "offset": {
+            "x": -1,
+            "y": 0
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": -1,
+            "y": 0
+          }
+        },
+        {
+          "padId": "U1.3",
+          "networkId": "U1.3_opposite-strong-side-disconnected",
+          "type": "rect",
+          "offset": {
+            "x": -1,
+            "y": -0.2
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": -1,
+            "y": -0.2
+          }
+        },
+        {
+          "padId": "U1.4",
+          "networkId": "U1.4_isolated",
+          "type": "rect",
+          "offset": {
+            "x": 1,
+            "y": -0.1
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": 1,
+            "y": -0.1
+          }
+        },
+        {
+          "padId": "U1.5",
+          "networkId": "U1.5_opposite-strong-side-disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 1,
+            "y": 0.1
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": 1,
+            "y": 0.1
+          }
+        }
+      ],
+      "availableRotationDegrees": [0, 90, 180, 270],
+      "center": {
+        "x": 0,
+        "y": 0
+      },
+      "ccwRotationOffset": 0
+    },
+    {
+      "componentId": "C6",
+      "pads": [
+        {
+          "padId": "C6_body",
+          "networkId": "C6_body_disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "x": 0.5291665999999999,
+            "y": 1.0583333000000001
+          },
+          "absoluteCenter": {
+            "x": -1.7145833000000001,
+            "y": 0.5512093
+          }
+        },
+        {
+          "padId": "C6.1",
+          "networkId": "U1.1_opposite-strong-side-disconnected",
+          "type": "rect",
+          "offset": {
+            "x": -0.00027334999999965165,
+            "y": 0.5512093000000002
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": -1.7148566499999998,
+            "y": 1.1024186000000002
+          }
+        },
+        {
+          "padId": "C6.2",
+          "networkId": "U1.2_opposite-strong-side-disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 0.00027334999999965165,
+            "y": -0.5512093000000002
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": -1.7143099500000005,
+            "y": -2.220446049250313e-16
+          }
+        }
+      ],
+      "availableRotationDegrees": [0],
+      "center": {
+        "x": -1.7145833000000001,
+        "y": 0.5512093
+      },
+      "ccwRotationOffset": 0
+    },
+    {
+      "componentId": "C5",
+      "pads": [
+        {
+          "padId": "C5_body",
+          "networkId": "C5_body_disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "x": 0.5291665999999999,
+            "y": 1.0583333000000001
+          },
+          "absoluteCenter": {
+            "x": 1.7145833,
+            "y": -0.45120930000000015
+          }
+        },
+        {
+          "padId": "C5.1",
+          "networkId": "U1.5_opposite-strong-side-disconnected",
+          "type": "rect",
+          "offset": {
+            "x": -0.00027334999999965165,
+            "y": 0.5512093000000002
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": 1.7143099500000003,
+            "y": 0.10000000000000009
+          }
+        },
+        {
+          "padId": "C5.2",
+          "networkId": "C5.2_opposite-strong-side-disconnected",
+          "type": "rect",
+          "offset": {
+            "x": 0.00027334999999965165,
+            "y": -0.5512093000000002
+          },
+          "size": {
+            "x": 0.1,
+            "y": 0.1
+          },
+          "absoluteCenter": {
+            "x": 1.7148566499999995,
+            "y": -1.0024186000000004
+          }
+        }
+      ],
+      "availableRotationDegrees": [0],
+      "center": {
+        "x": 1.7145833,
+        "y": -0.45120930000000015
+      },
+      "ccwRotationOffset": 0
+    }
+  ],
+  "packPlacementStrategy": "minimum_sum_squared_distance_to_network",
+  "minGap": 0.4
+}

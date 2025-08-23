@@ -1038,6 +1038,6 @@ export class PhasedPackSolver extends BaseSolver {
       component,
       packedComponents: this.packedComponents,
       minGap: this.packInput.minGap ?? 0,
-    })
+    }).hasOverlap
   }
 }
