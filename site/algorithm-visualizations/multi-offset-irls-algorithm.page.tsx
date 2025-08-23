@@ -18,13 +18,15 @@ export default function MultiOffsetIrlsVisualizer() {
     { id: "pad1", offsetX: -200, offsetY: -50 },
     { id: "pad2", offsetX: 200, offsetY: 50 },
   ])
-  const [targetPoints, setTargetPoints] = useState<Point[]>([
+  const [targetPoints, setTargetPoints] = useState<PointWithNetworkId[]>([
     { x: 150, y: 100 },
     { x: 250, y: 150 },
     { x: 550, y: 200 },
     { x: 650, y: 250 },
   ])
-  const [targetPointMap, setTargetPointMap] = useState<Map<string, Point[]>>(
+  const [targetPointMap, setTargetPointMap] = useState<
+    Map<string, PointWithNetworkId[]>
+  >(
     new Map([
       [
         "pad1",

@@ -57,6 +57,7 @@ export class SingleComponentPackSolver extends BaseSolver {
   currentRotationIndex = 0
   override activeSubSolver?: OutlineSegmentCandidatePointSolver | null = null
   candidateResults: CandidateResult[] = []
+  rejectedCandidates: Array<CandidateResult & { gapDistance: number }> = []
   bestCandidate?: CandidateResult
   outputPackedComponent?: PackedComponent
 
@@ -165,16 +166,26 @@ export class SingleComponentPackSolver extends BaseSolver {
         optimalPosition = this.activeSubSolver.optimalPosition
 
         // Check if this candidate overlaps with any packed components
-        const hasOverlap = checkOverlapWithPackedComponents({
+        const { hasOverlap, gapDistance } = checkOverlapWithPackedComponents({
           component: this.createPackedComponent(optimalPosition, rotation),
           packedComponents: this.packedComponents,
           minGap: this.minGap,
         })
 
-        if (!hasOverlap) {
-          // Calculate distance based on pack strategy
-          distance = this.calculateDistance(optimalPosition, rotation)
+        // Calculate distance based on pack strategy
+        distance = this.calculateDistance(optimalPosition, rotation)
 
+        if (hasOverlap) {
+          this.rejectedCandidates.push({
+            segment: queuedSegment.segment,
+            rotation,
+            optimalPosition,
+            distance,
+            segmentIndex: queuedSegment.segmentIndex,
+            rotationIndex: this.currentRotationIndex,
+            gapDistance: gapDistance!,
+          })
+        } else {
           // Store candidate result
           this.candidateResults.push({
             segment: queuedSegment.segment,
@@ -409,18 +420,27 @@ export class SingleComponentPackSolver extends BaseSolver {
     // Show all candidate points with step values (step=0 is best)
     for (let i = 0; i < this.candidateResults.length; i++) {
       const candidate = this.candidateResults[i]!
+      if (!candidate.optimalPosition) continue
+      const step = i // Since we sorted by distance, index is the step
+      const isBest = step === 0
 
-      if (candidate.optimalPosition) {
-        const step = i // Since we sorted by distance, index is the step
-        const isBest = step === 0
+      graphics.points!.push({
+        x: candidate.optimalPosition.x,
+        y: candidate.optimalPosition.y,
+        label: `step=${step}, d=${candidate.distance.toFixed(3)}`,
+        color: isBest ? "rgba(0,255,0,0.8)" : "rgba(255,165,0,0.6)",
+      } as Point)
+    }
 
-        graphics.points!.push({
-          x: candidate.optimalPosition.x,
-          y: candidate.optimalPosition.y,
-          label: `step=${step}, d=${candidate.distance.toFixed(3)}`,
-          color: isBest ? "rgba(0,255,0,0.8)" : "rgba(255,165,0,0.6)",
-        } as Point)
-      }
+    for (let i = 0; i < this.rejectedCandidates.length; i++) {
+      const candidate = this.rejectedCandidates[i]!
+      if (!candidate.optimalPosition) continue
+      graphics.points!.push({
+        x: candidate.optimalPosition.x,
+        y: candidate.optimalPosition.y,
+        label: `rejected, d=${candidate.distance.toFixed(3)}\ngap_distance=${candidate.gapDistance}`,
+        color: "rgba(255,0,0,0.8)",
+      } as Point)
     }
 
     // Show the final placed component if available

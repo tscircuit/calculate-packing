@@ -4,6 +4,7 @@ import { BaseSolver } from "lib/solver-utils/BaseSolver"
 import {
   MultiOffsetIrlsSolver,
   type OffsetPadPoint,
+  type PointWithNetworkId,
 } from "lib/solver-utils/MultiOffsetIrlsSolver"
 import type { InputComponent, PackedComponent } from "lib/types"
 import { rotatePoint } from "lib/math/rotatePoint"
@@ -254,13 +255,16 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     const targetPointMap = new Map<string, Point[]>()
 
     for (const pad of rotatedPads) {
-      const targetPoints: Point[] = []
+      const targetPoints: PointWithNetworkId[] = []
 
       // Find all packed pads that share the same network with this pad
       for (const packedComponent of this.packedComponents) {
         for (const packedPad of packedComponent.pads) {
           if (packedPad.networkId === pad.networkId) {
-            targetPoints.push(packedPad.absoluteCenter)
+            targetPoints.push({
+              ...packedPad.absoluteCenter,
+              networkId: packedPad.networkId,
+            })
           }
         }
       }

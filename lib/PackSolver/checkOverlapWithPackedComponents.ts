@@ -11,7 +11,10 @@ export function checkOverlapWithPackedComponents({
   component,
   packedComponents,
   minGap,
-}: CheckOverlapWithPackedComponentsParams): boolean {
+}: CheckOverlapWithPackedComponentsParams): {
+  hasOverlap: boolean
+  gapDistance?: number
+} {
   const allPackedPadBoxes = packedComponents.flatMap((c) =>
     c.pads.map((p) => ({
       center: { x: p.absoluteCenter.x, y: p.absoluteCenter.y },
@@ -31,11 +34,16 @@ export function checkOverlapWithPackedComponents({
         newComponentPadBox,
         packedPadBox,
       )
-      if (boxDist < minGap) {
-        return true
+      if (boxDist + 1e-6 < minGap) {
+        return {
+          hasOverlap: true,
+          gapDistance: boxDist,
+        }
       }
     }
   }
 
-  return false
+  return {
+    hasOverlap: false,
+  }
 }
