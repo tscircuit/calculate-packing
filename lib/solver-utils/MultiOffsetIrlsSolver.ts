@@ -7,7 +7,7 @@ export interface Point {
 }
 
 export interface PointWithNetworkId extends Point {
-  networkId: string
+  networkId?: string
 }
 
 export interface OffsetPadPoint {

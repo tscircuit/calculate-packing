@@ -42,9 +42,7 @@
         }
       }
     ],
-    "availableRotationDegrees": [
-      0
-    ]
+    "availableRotationDegrees": [0]
   },
   "packedComponents": [
     {
@@ -153,12 +151,7 @@
           }
         }
       ],
-      "availableRotationDegrees": [
-        0,
-        90,
-        180,
-        270
-      ],
+      "availableRotationDegrees": [0, 90, 180, 270],
       "center": {
         "x": 0,
         "y": 0
@@ -220,9 +213,7 @@
           }
         }
       ],
-      "availableRotationDegrees": [
-        0
-      ],
+      "availableRotationDegrees": [0],
       "center": {
         "x": -1.7145833000000001,
         "y": 0.5512093
@@ -284,9 +275,7 @@
           }
         }
       ],
-      "availableRotationDegrees": [
-        0
-      ],
+      "availableRotationDegrees": [0],
       "center": {
         "x": 1.7145833,
         "y": -0.45120930000000015
