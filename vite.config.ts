@@ -16,6 +16,7 @@ export default defineConfig({
   resolve: {
     alias: {
       lib: resolve(__dirname, "lib"),
+      site: resolve(__dirname, "site"),
     },
   },
 })
