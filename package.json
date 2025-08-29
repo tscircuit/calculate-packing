@@ -19,7 +19,7 @@
     "@biomejs/biome": "^2.1.1",
     "@flatten-js/core": "^1.6.2",
     "@react-hook/resize-observer": "^2.0.2",
-    "@tscircuit/circuit-json-util": "^0.0.57",
+    "@tscircuit/circuit-json-util": "^0.0.66",
     "@tscircuit/footprinter": "^0.0.203",
     "@tscircuit/math-utils": "^0.0.19",
     "@types/bun": "latest",

@@ -218,7 +218,6 @@ test("PackSolver2 with min-sum-distance-to-network04 input", () => {
 
   const solver = new PackSolver2(packInput)
   while (!solver.solved && !solver.failed) {
-    console.log(`iteration ${solver.iterations}`)
     solver.step()
     solver.visualize()
   }

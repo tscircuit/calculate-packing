@@ -16,6 +16,7 @@ const buildPackedComponent = (
   componentId: string,
   db: ReturnType<typeof cju>,
   getNetworkId: (pcbPortId?: string) => string,
+  shouldAddInnerObstacles?: boolean,
 ): PackedComponent => {
   const padInfos = pcbComponents.flatMap((pc) =>
     extractPadInfos(pc, db, getNetworkId),
@@ -46,6 +47,20 @@ const buildPackedComponent = (
     },
   }))
 
+  if (shouldAddInnerObstacles) {
+    // Create a pad that represents the inside of the component using the
+    // bounds
+    const innerPad: OutputPad = {
+      padId: `${componentId}-inner`,
+      networkId: `${componentId}-inner`,
+      type: "rect",
+      size: { x: maxX - minX, y: maxY - minY },
+      absoluteCenter: center,
+      offset: { x: 0, y: 0 },
+    }
+    pads.push(innerPad)
+  }
+
   return {
     componentId,
     center,
@@ -70,6 +85,7 @@ export const convertCircuitJsonToPackOutput = (
   circuitJson: CircuitJson,
   opts: {
     source_group_id?: string
+    shouldAddInnerObstacles?: boolean
   } = {},
 ): PackOutput => {
   const packOutput: PackOutput = {
@@ -99,6 +115,7 @@ export const convertCircuitJsonToPackOutput = (
   }
 
   const topLevelNodes = tree.childNodes ?? []
+  console.log({ tree })
 
   for (const node of topLevelNodes) {
     if (node.nodeType === "component") {
@@ -112,6 +129,7 @@ export const convertCircuitJsonToPackOutput = (
           pcbComponent.pcb_component_id,
           db,
           getNetworkId,
+          opts.shouldAddInnerObstacles,
         ),
       )
     } else if (node.nodeType === "group") {
