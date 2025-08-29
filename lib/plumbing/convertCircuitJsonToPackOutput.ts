@@ -115,7 +115,6 @@ export const convertCircuitJsonToPackOutput = (
   }
 
   const topLevelNodes = tree.childNodes ?? []
-  console.log({ tree })
 
   for (const node of topLevelNodes) {
     if (node.nodeType === "component") {

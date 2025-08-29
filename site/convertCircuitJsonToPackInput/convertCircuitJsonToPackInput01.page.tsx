@@ -1983,13 +1983,12 @@ const packInput: PackInput = {
   ...convertPackOutputToPackInput(
     convertCircuitJsonToPackOutput(circuitJson as any, {
       source_group_id: "source_group_0",
+      shouldAddInnerObstacles: true,
     }),
   ),
   packOrderStrategy: "largest_to_smallest",
   packPlacementStrategy: "minimum_sum_squared_distance_to_network",
   minGap: 1,
 }
-
-console.log(packInput)
 
 export default () => <PackDebugger initialPackInput={packInput} />
