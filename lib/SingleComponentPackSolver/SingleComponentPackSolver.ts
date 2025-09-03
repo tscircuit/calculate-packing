@@ -230,10 +230,7 @@ export class SingleComponentPackSolver extends BaseSolver {
         outlineSegment: queuedSegment.segment,
         fullOutline: queuedSegment.fullOutline,
         componentRotationDegrees: rotation,
-        packStrategy:
-          this.packPlacementStrategy === "minimum_closest_sum_squared_distance"
-            ? "minimum_closest_sum_squared_distance"
-            : "minimum_sum_squared_distance_to_network",
+        packStrategy: this.packPlacementStrategy,
         minGap: this.minGap,
         packedComponents: this.packedComponents,
         componentToPack: this.componentToPack,
