@@ -7,7 +7,11 @@ import {
   type PointWithNetworkId,
 } from "lib/solver-utils/MultiOffsetIrlsSolver"
 import { TwoPhaseIrlsSolver } from "lib/solver-utils/TwoPhaseIrlsSolver"
-import type { InputComponent, PackedComponent } from "lib/types"
+import type {
+  InputComponent,
+  PackedComponent,
+  PackPlacementStrategy,
+} from "lib/types"
 import { rotatePoint } from "lib/math/rotatePoint"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
@@ -31,10 +35,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   viableOutlineSegment: [Point, Point] | null = null
   fullOutline: [Point, Point][] // The entire outline containing the segment
   componentRotationDegrees: number
-  packStrategy:
-    | "minimum_sum_squared_distance_to_network"
-    | "minimum_sum_distance_to_network"
-    | "minimum_closest_sum_squared_distance"
+  packStrategy: PackPlacementStrategy
   minGap: number
   packedComponents: PackedComponent[]
   componentToPack: InputComponent
@@ -48,10 +49,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     outlineSegment: [Point, Point]
     fullOutline: [Point, Point][] // The entire outline containing the segment
     componentRotationDegrees: number
-    packStrategy:
-      | "minimum_sum_squared_distance_to_network"
-      | "minimum_sum_distance_to_network"
-      | "minimum_closest_sum_squared_distance"
+    packStrategy: PackPlacementStrategy
     minGap: number
     packedComponents: PackedComponent[]
     componentToPack: InputComponent
