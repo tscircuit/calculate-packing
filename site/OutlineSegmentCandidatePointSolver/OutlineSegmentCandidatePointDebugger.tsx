@@ -86,7 +86,10 @@ export function OutlineSegmentCandidatePointDebugger({
     incRunCount()
   }
 
-  const totalDistance = solver?.irlsSolver?.getTotalDistance() ?? solver?.twoPhaseIrlsSolver?.getTotalDistance() ?? 0
+  const totalDistance =
+    solver?.irlsSolver?.getTotalDistance() ??
+    solver?.twoPhaseIrlsSolver?.getTotalDistance() ??
+    0
 
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-lg p-6 shadow-lg">
