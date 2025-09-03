@@ -283,7 +283,6 @@ export class TwoPhaseIrlsSolver extends BaseSolver {
         graphics.lines!.push({
           points: [padPos, this.closestTargetPoint],
           strokeColor: "#FFA500",
-          strokeWidth: 3,
         })
       }
     }
