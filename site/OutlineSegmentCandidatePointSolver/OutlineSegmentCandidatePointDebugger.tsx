@@ -15,6 +15,7 @@ interface OutlineSegmentCandidatePointDebuggerProps {
   defaultPackStrategy?:
     | "minimum_sum_distance_to_network"
     | "minimum_sum_squared_distance_to_network"
+    | "minimum_closest_sum_squared_distance"
   showViableBounds?: boolean
   showLegend?: boolean
 }
@@ -37,6 +38,7 @@ export function OutlineSegmentCandidatePointDebugger({
   const [packStrategy, setPackStrategy] = useState<
     | "minimum_sum_distance_to_network"
     | "minimum_sum_squared_distance_to_network"
+    | "minimum_closest_sum_squared_distance"
   >(defaultPackStrategy)
   const [componentRotationDegrees, setComponentRotationDegrees] = useState<
     0 | 90 | 180 | 270
@@ -84,7 +86,7 @@ export function OutlineSegmentCandidatePointDebugger({
     incRunCount()
   }
 
-  const totalDistance = solver?.irlsSolver?.getTotalDistance() ?? 0
+  const totalDistance = solver?.irlsSolver?.getTotalDistance() ?? solver?.twoPhaseIrlsSolver?.getTotalDistance() ?? 0
 
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-lg p-6 shadow-lg">
@@ -117,6 +119,9 @@ export function OutlineSegmentCandidatePointDebugger({
             </option>
             <option value="minimum_sum_squared_distance_to_network">
               Minimum Sum Squared Distance
+            </option>
+            <option value="minimum_closest_sum_squared_distance">
+              Minimum Closest Sum Squared Distance
             </option>
           </select>
         </div>

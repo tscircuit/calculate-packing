@@ -230,7 +230,10 @@ export class SingleComponentPackSolver extends BaseSolver {
         outlineSegment: queuedSegment.segment,
         fullOutline: queuedSegment.fullOutline,
         componentRotationDegrees: rotation,
-        packStrategy: "minimum_sum_squared_distance_to_network",
+        packStrategy:
+          this.packPlacementStrategy === "minimum_closest_sum_squared_distance"
+            ? "minimum_closest_sum_squared_distance"
+            : "minimum_sum_squared_distance_to_network",
         minGap: this.minGap,
         packedComponents: this.packedComponents,
         componentToPack: this.componentToPack,
@@ -273,7 +276,9 @@ export class SingleComponentPackSolver extends BaseSolver {
 
     let totalDistance = 0
     const useSquaredDistance =
-      this.packPlacementStrategy === "minimum_sum_squared_distance_to_network"
+      this.packPlacementStrategy ===
+        "minimum_sum_squared_distance_to_network" ||
+      this.packPlacementStrategy === "minimum_closest_sum_squared_distance"
 
     // Calculate sum of distances to all pads on same networks
     for (const pad of tempComponent.pads) {

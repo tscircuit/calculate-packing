@@ -6,6 +6,7 @@ import {
   type OffsetPadPoint,
   type PointWithNetworkId,
 } from "lib/solver-utils/MultiOffsetIrlsSolver"
+import { TwoPhaseIrlsSolver } from "lib/solver-utils/TwoPhaseIrlsSolver"
 import type { InputComponent, PackedComponent } from "lib/types"
 import { rotatePoint } from "lib/math/rotatePoint"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
@@ -33,6 +34,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   packStrategy:
     | "minimum_sum_squared_distance_to_network"
     | "minimum_sum_distance_to_network"
+    | "minimum_closest_sum_squared_distance"
   minGap: number
   packedComponents: PackedComponent[]
   componentToPack: InputComponent
@@ -40,6 +42,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
 
   optimalPosition?: Point
   irlsSolver?: MultiOffsetIrlsSolver
+  twoPhaseIrlsSolver?: TwoPhaseIrlsSolver
 
   constructor(params: {
     outlineSegment: [Point, Point]
@@ -48,6 +51,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     packStrategy:
       | "minimum_sum_squared_distance_to_network"
       | "minimum_sum_distance_to_network"
+      | "minimum_closest_sum_squared_distance"
     minGap: number
     packedComponents: PackedComponent[]
     componentToPack: InputComponent
@@ -204,33 +208,45 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       y: (vp1.y + vp2.y) / 2,
     })
 
-    this.irlsSolver = new MultiOffsetIrlsSolver({
-      offsetPadPoints,
-      targetPointMap,
-      initialPosition,
-      constraintFn,
-      epsilon: 1e-6,
-      maxIterations: 50,
-      useSquaredDistance:
-        this.packStrategy === "minimum_sum_squared_distance_to_network",
-    })
+    if (this.packStrategy === "minimum_closest_sum_squared_distance") {
+      this.twoPhaseIrlsSolver = new TwoPhaseIrlsSolver({
+        offsetPadPoints,
+        targetPointMap,
+        initialPosition,
+        constraintFn,
+        epsilon: 1e-6,
+        maxIterations: 50,
+      })
+    } else {
+      this.irlsSolver = new MultiOffsetIrlsSolver({
+        offsetPadPoints,
+        targetPointMap,
+        initialPosition,
+        constraintFn,
+        epsilon: 1e-6,
+        maxIterations: 50,
+        useSquaredDistance:
+          this.packStrategy === "minimum_sum_squared_distance_to_network",
+      })
+    }
   }
 
   override _step() {
-    if (!this.irlsSolver) {
+    const activeSolver = this.irlsSolver || this.twoPhaseIrlsSolver
+    if (!activeSolver) {
       this.solved = true
       return
     }
 
-    this.irlsSolver.step()
+    activeSolver.step()
 
-    if (this.irlsSolver.solved) {
-      const rawPosition = this.irlsSolver.getBestPosition()
+    if (activeSolver.solved) {
+      const rawPosition = activeSolver.getBestPosition()
       this.optimalPosition = rawPosition
       this.solved = true
-    } else if (this.irlsSolver.failed) {
+    } else if (activeSolver.failed) {
       this.failed = true
-      this.error = this.irlsSolver.error
+      this.error = activeSolver.error
     }
   }
 
@@ -527,7 +543,8 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
 
     const pos = this.optimalPosition ??
-      this.irlsSolver?.currentPosition ?? {
+      this.irlsSolver?.currentPosition ??
+      this.twoPhaseIrlsSolver?.currentPosition ?? {
         x: 0,
         y: 0,
       }
@@ -567,17 +584,18 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       }
     }
 
-    // Include IRLS solver visualization if available
-    if (this.irlsSolver) {
+    // Include solver visualization if available
+    const activeSolver = this.irlsSolver || this.twoPhaseIrlsSolver
+    if (activeSolver) {
       // Draw current solver position
-      const currentPos = this.irlsSolver.currentPosition
+      const currentPos = activeSolver.currentPosition
       graphics.points!.push({
         ...currentPos,
         color: "#f44336",
       })
 
-      // Include MultiOffsetIrlsSolver visualization
-      const solverViz = this.irlsSolver.visualize()
+      // Include solver visualization
+      const solverViz = activeSolver.visualize()
 
       // Merge solver graphics
       if (solverViz.lines) {

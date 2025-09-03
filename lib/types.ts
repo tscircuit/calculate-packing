@@ -36,6 +36,7 @@ export type PackPlacementStrategy =
   | "shortest_connection_along_outline"
   | "minimum_sum_distance_to_network"
   | "minimum_sum_squared_distance_to_network"
+  | "minimum_closest_sum_squared_distance"
 
 export interface PackInput {
   components: InputComponent[]
