@@ -122,13 +122,19 @@ export const convertCircuitJsonToPackOutput = (
         (e) => e.type === "pcb_component",
       )
       if (!pcbComponent) continue
+
+      const sourceComponent = db.source_component.get(
+        pcbComponent.source_component_id,
+      )
+      const isPinout = sourceComponent?.ftype === "simple_pinout"
+
       packOutput.components.push(
         buildPackedComponent(
           [pcbComponent],
           pcbComponent.pcb_component_id,
           db,
           getNetworkId,
-          opts.shouldAddInnerObstacles,
+          opts.shouldAddInnerObstacles && !isPinout,
         ),
       )
     } else if (node.nodeType === "group") {
