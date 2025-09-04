@@ -4,7 +4,7 @@ import { convertCircuitJsonToPackOutput } from "../../lib/plumbing/convertCircui
 
 test("pinout components do not get inner obstacles", () => {
   const circuitJson: CircuitJson = [
-    { type: "source_project_metadata", source_project_metadata_id: "spm1" },
+    { type: "source_project_metadata", name: "proj" },
     {
       type: "source_group",
       source_group_id: "sg0",
@@ -22,6 +22,11 @@ test("pinout components do not get inner obstacles", () => {
       type: "pcb_component",
       pcb_component_id: "pc1",
       source_component_id: "sc1",
+      center: { x: 1, y: 0 },
+      layer: "top",
+      rotation: 0,
+      width: 2,
+      height: 1,
     },
     {
       type: "pcb_plated_hole",
@@ -32,6 +37,7 @@ test("pinout components do not get inner obstacles", () => {
       y: 0,
       outer_diameter: 1,
       hole_diameter: 0.5,
+      layers: ["top"],
     },
     {
       type: "pcb_plated_hole",
@@ -42,6 +48,7 @@ test("pinout components do not get inner obstacles", () => {
       y: 0,
       outer_diameter: 1,
       hole_diameter: 0.5,
+      layers: ["top"],
     },
   ]
 
@@ -50,7 +57,7 @@ test("pinout components do not get inner obstacles", () => {
   })
 
   expect(packOutput.components).toHaveLength(1)
-  const component = packOutput.components[0]
+  const component = packOutput.components[0]!
   expect(component.pads).toHaveLength(2)
   expect(component.pads.find((p) => p.padId.endsWith("-inner"))).toBeUndefined()
 })
