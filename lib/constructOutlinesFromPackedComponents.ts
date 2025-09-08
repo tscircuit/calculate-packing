@@ -9,12 +9,16 @@ import { combineBounds } from "./geometry/combineBounds"
 type Outline = Array<[Point, Point]>
 
 /**
- * Create a polygon from individual pads within a component, inflated by minGap
+ * Create polygons from pads (inflated by minGap) along with their AABB in world coords
  */
+type PadShape = {
+  poly: Flatten.Polygon
+  bbox: { minX: number; minY: number; maxX: number; maxY: number }
+}
 const createPadPolygons = (
   component: PackedComponent,
   minGap: number,
-): Flatten.Polygon[] => {
+): PadShape[] => {
   return component.pads.map((pad) => {
     const hw = pad.size.x / 2 + minGap
     const hh = pad.size.y / 2 + minGap
@@ -31,13 +35,25 @@ const createPadPolygons = (
         corner,
         (component.ccwRotationOffset * Math.PI) / 180,
       )
-      return [
-        rotated.x + component.center.x,
-        rotated.y + component.center.y,
-      ] as [number, number]
+      return {
+        x: rotated.x + component.center.x,
+        y: rotated.y + component.center.y,
+      }
     })
 
-    return new Flatten.Polygon(worldCorners)
+    const arr = worldCorners.map(({ x, y }) => [x, y] as [number, number])
+    const poly = new Flatten.Polygon(arr)
+
+    const xs = worldCorners.map((p) => p.x)
+    const ys = worldCorners.map((p) => p.y)
+    const bbox = {
+      minX: Math.min(...xs),
+      minY: Math.min(...ys),
+      maxX: Math.max(...xs),
+      maxY: Math.max(...ys),
+    }
+
+    return { poly, bbox }
   })
 }
 
@@ -62,31 +78,93 @@ export const constructOutlinesFromPackedComponents = (
     components.map((c) => getComponentBounds(c, minGap)),
   )
 
-  /* --- build polygon for every pad (inflated by minGap) --- */
-  const allPadPolys: Flatten.Polygon[] = []
+  // Build pad polygons (inflated by minGap) and pre-filter contained/degenerate ones
+  const allPadShapes: {
+    poly: Flatten.Polygon
+    bbox: { minX: number; minY: number; maxX: number; maxY: number }
+  }[] = []
   for (const component of components) {
-    const padPolys = createPadPolygons(component, minGap)
-    allPadPolys.push(...padPolys)
+    const padShapes = createPadPolygons(component, minGap)
+    allPadShapes.push(...padShapes)
   }
-  if (allPadPolys.length === 0) return []
+  if (allPadShapes.length === 0) return []
+
+  // Drop degenerate (zero-area) and fully-contained pad shapes to reduce boolean ops
+  const areaOfBox = (b: {
+    minX: number
+    minY: number
+    maxX: number
+    maxY: number
+  }) => Math.max(0, b.maxX - b.minX) * Math.max(0, b.maxY - b.minY)
+  const containsBox = (
+    outer: { minX: number; minY: number; maxX: number; maxY: number },
+    inner: { minX: number; minY: number; maxX: number; maxY: number },
+    eps = 1e-9,
+  ) =>
+    outer.minX - eps <= inner.minX &&
+    outer.minY - eps <= inner.minY &&
+    outer.maxX + eps >= inner.maxX &&
+    outer.maxY + eps >= inner.maxY
+
+  const sortedByAreaDesc = [...allPadShapes].sort(
+    (a, b) => areaOfBox(b.bbox) - areaOfBox(a.bbox),
+  )
+  const filteredPadShapes: typeof allPadShapes = []
+  for (const shape of sortedByAreaDesc) {
+    const w = shape.bbox.maxX - shape.bbox.minX
+    const h = shape.bbox.maxY - shape.bbox.minY
+    if (!(w > 1e-12 && h > 1e-12)) continue // skip degenerate
+    // Skip if fully contained within any already-kept shape
+    let contained = false
+    for (const kept of filteredPadShapes) {
+      if (containsBox(kept.bbox, shape.bbox)) {
+        contained = true
+        break
+      }
+    }
+    if (!contained) filteredPadShapes.push(shape)
+  }
+
+  const keptPadPolys: Flatten.Polygon[] = filteredPadShapes.map((s) => s.poly)
 
   let A = new Flatten.Polygon(
     new Flatten.Box(bounds.minX, bounds.minY, bounds.maxX, bounds.maxY),
   )
-  let B = A.clone()
+  const B = A.clone()
 
-  /* --- unite all pad polygons into one (or several) islands --- */
-  for (let i = 0; i < allPadPolys.length; i++) {
+  for (let i = 0; i < keptPadPolys.length; i++) {
     try {
-      A = Flatten.BooleanOperations.subtract(A, allPadPolys[i]!)
-    } catch (e) {}
+      A = Flatten.BooleanOperations.subtract(A, keptPadPolys[i]!)
+    } catch (e) {
+      // Ignore individual subtract errors; we'll still try to form outlines
+    }
   }
 
-  const union = Flatten.BooleanOperations.subtract(B, A)
+  let union: Flatten.Polygon | null = null
+  try {
+    union = Flatten.BooleanOperations.subtract(B, A)
+  } catch (e) {
+    // Fall back to a direct union of pad polygons if subtract fails
+    try {
+      if (keptPadPolys.length > 0) {
+        let U = keptPadPolys[0]!
+        for (let i = 1; i < keptPadPolys.length; i++) {
+          try {
+            U = Flatten.BooleanOperations.unify(U, keptPadPolys[i]!)
+          } catch {
+            // Skip problematic union; continue trying to merge the rest
+          }
+        }
+        union = U
+      }
+    } catch {
+      union = null
+    }
+  }
 
   /* --- extract the external outlines of every island --- */
   const outlines: Outline[] = []
-  for (const face of union!.faces as any) {
+  for (const face of (union as any).faces as any) {
     if (face.isHole) continue /* skip hole faces – we want outer bounds */
     const outline: Outline = []
     let edge = face.first
