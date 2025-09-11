@@ -16,6 +16,7 @@ import type {
   NetworkId,
   PackedComponent,
   PackInput,
+  Obstacle,
 } from "../types"
 
 type PackingPhase =
@@ -36,6 +37,7 @@ export class PhasedPackSolver extends BaseSolver {
 
   unpackedComponentQueue!: InputComponent[]
   packedComponents!: PackedComponent[]
+  obstacles: Obstacle[] = []
 
   // Phase management
   currentPhase: PackingPhase = "idle"
@@ -65,7 +67,12 @@ export class PhasedPackSolver extends BaseSolver {
   }
 
   override _setup() {
-    const { components, packOrderStrategy, packFirst = [] } = this.packInput
+    const {
+      components,
+      packOrderStrategy,
+      packFirst = [],
+      obstacles = [],
+    } = this.packInput
 
     this.unpackedComponentQueue = sortComponentQueue({
       components,
@@ -73,6 +80,7 @@ export class PhasedPackSolver extends BaseSolver {
       packFirst,
     })
     this.packedComponents = []
+    this.obstacles = obstacles
     this.currentPhase = "idle"
     this.phaseData = {}
   }
@@ -98,9 +106,11 @@ export class PhasedPackSolver extends BaseSolver {
 
         // Special case: first component
         if (this.packedComponents.length === 0) {
-          this.placeFirstComponent()
-          this.currentComponent = undefined // Clear current component
-          return
+          const placed = this.tryPlaceFirstComponent()
+          if (placed) {
+            this.currentComponent = undefined
+            return
+          }
         }
 
         this.currentPhase = "show_candidate_points"
@@ -128,8 +138,8 @@ export class PhasedPackSolver extends BaseSolver {
     }
   }
 
-  private placeFirstComponent(): void {
-    if (!this.currentComponent) return
+  private tryPlaceFirstComponent(): boolean {
+    if (!this.currentComponent) return false
 
     const newPackedComponent: PackedComponent = {
       ...this.currentComponent,
@@ -145,8 +155,19 @@ export class PhasedPackSolver extends BaseSolver {
     newPackedComponent.ccwRotationOffset =
       (((candidateAngles[0] ?? 0) % 360) + 360) % 360
     setPackedComponentPadCenters(newPackedComponent)
-    this.packedComponents.push(newPackedComponent)
-    this.currentComponent = undefined
+
+    const { hasOverlap } = checkOverlapWithPackedComponents({
+      component: newPackedComponent,
+      packedComponents: this.obstacles,
+      minGap: this.packInput.minGap ?? 0,
+    })
+
+    if (!hasOverlap) {
+      this.packedComponents.push(newPackedComponent)
+      return true
+    }
+
+    return false
   }
 
   private computeCandidatePoints(): void {
@@ -177,11 +198,12 @@ export class PhasedPackSolver extends BaseSolver {
     // overlap, but we don't know the exact pad that's going to be placed, so
     // we just use the smallest (usually the pin size) and the largest (usually
     // the body size)
+    const allPacked = [...this.obstacles, ...this.packedComponents]
     const outlines = [
-      ...constructOutlinesFromPackedComponents(this.packedComponents, {
+      ...constructOutlinesFromPackedComponents(allPacked, {
         minGap: minGap + minPadMargin,
       }),
-      ...constructOutlinesFromPackedComponents(this.packedComponents, {
+      ...constructOutlinesFromPackedComponents(allPacked, {
         minGap: minGap + maxPadMargin,
       }),
     ]
@@ -224,15 +246,16 @@ export class PhasedPackSolver extends BaseSolver {
     }
 
     // Calculate center of packed components for disconnected direction reference
+    const packedCluster = allPacked
     const packedClusterCenter =
-      this.packedComponents.length > 0
+      packedCluster.length > 0
         ? {
             x:
-              this.packedComponents.reduce((sum, c) => sum + c.center.x, 0) /
-              this.packedComponents.length,
+              packedCluster.reduce((sum, c) => sum + c.center.x, 0) /
+              packedCluster.length,
             y:
-              this.packedComponents.reduce((sum, c) => sum + c.center.y, 0) /
-              this.packedComponents.length,
+              packedCluster.reduce((sum, c) => sum + c.center.y, 0) /
+              packedCluster.length,
           }
         : { x: 0, y: 0 }
 
@@ -343,7 +366,7 @@ export class PhasedPackSolver extends BaseSolver {
               p2,
               component: newPackedComponent,
               networkId: sharedNetworkId,
-              packedComponents: this.packedComponents,
+              packedComponents: [...this.packedComponents, ...this.obstacles],
               useSquaredDistance:
                 packPlacementStrategy ===
                 "minimum_sum_squared_distance_to_network",
@@ -570,15 +593,16 @@ export class PhasedPackSolver extends BaseSolver {
     )
 
     // Calculate center of packed components for disconnected cost calculation
+    const rotationPackedCluster = [...this.obstacles, ...this.packedComponents]
     const packedClusterCenter =
-      this.packedComponents.length > 0
+      rotationPackedCluster.length > 0
         ? {
             x:
-              this.packedComponents.reduce((sum, c) => sum + c.center.x, 0) /
-              this.packedComponents.length,
+              rotationPackedCluster.reduce((sum, c) => sum + c.center.x, 0) /
+              rotationPackedCluster.length,
             y:
-              this.packedComponents.reduce((sum, c) => sum + c.center.y, 0) /
-              this.packedComponents.length,
+              rotationPackedCluster.reduce((sum, c) => sum + c.center.y, 0) /
+              rotationPackedCluster.length,
           }
         : { x: 0, y: 0 }
 
@@ -798,7 +822,7 @@ export class PhasedPackSolver extends BaseSolver {
   /** Visualize the current packing state based on the current phase */
   override visualize(): GraphicsObject {
     const graphics: GraphicsObject = getGraphicsFromPackOutput({
-      components: this.packedComponents ?? [],
+      components: [...this.obstacles, ...(this.packedComponents ?? [])],
       minGap: this.packInput.minGap,
       packOrderStrategy: this.packInput.packOrderStrategy,
       packPlacementStrategy: this.packInput.packPlacementStrategy,
@@ -821,7 +845,7 @@ export class PhasedPackSolver extends BaseSolver {
 
     // Always show outlines
     const outlines = constructOutlinesFromPackedComponents(
-      this.packedComponents ?? [],
+      [...this.obstacles, ...(this.packedComponents ?? [])],
       {
         minGap: this.packInput.minGap,
       },
@@ -1036,7 +1060,7 @@ export class PhasedPackSolver extends BaseSolver {
   ): boolean {
     return checkOverlapWithPackedComponents({
       component,
-      packedComponents: this.packedComponents,
+      packedComponents: [...this.packedComponents, ...this.obstacles],
       minGap: this.packInput.minGap ?? 0,
     }).hasOverlap
   }
