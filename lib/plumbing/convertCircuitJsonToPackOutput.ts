@@ -17,10 +17,27 @@ const buildPackedComponent = (
   db: ReturnType<typeof cju>,
   getNetworkId: (pcbPortId?: string) => string,
   shouldAddInnerObstacles?: boolean,
+  chipMarginsMap: Record<
+    string,
+    { left: number; right: number; top: number; bottom: number }
+  > = {},
 ): PackedComponent => {
-  const padInfos = pcbComponents.flatMap((pc) =>
-    extractPadInfos(pc, db, getNetworkId),
-  )
+  const padInfos = pcbComponents.flatMap((pc) => {
+    const pads = extractPadInfos(pc, db, getNetworkId)
+    const margins = chipMarginsMap[pc.pcb_component_id]
+    if (!margins) return pads
+    return pads.map((p) => ({
+      ...p,
+      size: {
+        x: p.size.x + margins.left + margins.right,
+        y: p.size.y + margins.top + margins.bottom,
+      },
+      absoluteCenter: {
+        x: p.absoluteCenter.x + (margins.right - margins.left) / 2,
+        y: p.absoluteCenter.y + (margins.top - margins.bottom) / 2,
+      },
+    }))
+  })
 
   /* ----- determine centre (bbox centre of all pads) ----- */
   let minX = Infinity
@@ -86,6 +103,10 @@ export const convertCircuitJsonToPackOutput = (
   opts: {
     source_group_id?: string
     shouldAddInnerObstacles?: boolean
+    chipMarginsMap?: Record<
+      string,
+      { left: number; right: number; top: number; bottom: number }
+    >
   } = {},
 ): PackOutput => {
   const packOutput: PackOutput = {
@@ -119,8 +140,8 @@ export const convertCircuitJsonToPackOutput = (
   for (const node of topLevelNodes) {
     if (node.nodeType === "component") {
       const pcbComponent = node.otherChildElements.find(
-        (e) => e.type === "pcb_component",
-      )
+        (e: any) => e.type === "pcb_component",
+      ) as PcbComponent | undefined
       if (!pcbComponent) continue
       packOutput.components.push(
         buildPackedComponent(
@@ -129,6 +150,7 @@ export const convertCircuitJsonToPackOutput = (
           db,
           getNetworkId,
           opts.shouldAddInnerObstacles,
+          opts.chipMarginsMap,
         ),
       )
     } else if (node.nodeType === "group") {
@@ -139,7 +161,14 @@ export const convertCircuitJsonToPackOutput = (
         node.sourceGroup?.name ??
         `group_${packOutput.components.length}`
       packOutput.components.push(
-        buildPackedComponent(pcbComps, compId, db, getNetworkId),
+        buildPackedComponent(
+          pcbComps,
+          compId,
+          db,
+          getNetworkId,
+          undefined,
+          opts.chipMarginsMap,
+        ),
       )
     }
   }
