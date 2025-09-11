@@ -13,17 +13,17 @@ test("applies chip margin to pad sizes", async () => {
     )
   `)
 
-  const pcbComponentId = circuitJson.find(
+  const pcbComponentId = (circuitJson.find(
     (e: any) => e.type === "pcb_component",
-  ).pcb_component_id
+  ) as any)!.pcb_component_id
 
   const base = convertCircuitJsonToPackOutput(circuitJson)
   const withMargin = convertCircuitJsonToPackOutput(circuitJson, {
     chipMarginsMap: { [pcbComponentId]: margin },
   })
 
-  const basePad = base.components[0].pads[0]
-  const pad = withMargin.components[0].pads[0]
+  const basePad = base.components[0]!.pads[0]!
+  const pad = withMargin.components[0]!.pads[0]!
 
   expect(pad.size.x).toBeCloseTo(basePad.size.x + margin.left + margin.right)
   expect(pad.size.y).toBeCloseTo(basePad.size.y + margin.top + margin.bottom)
