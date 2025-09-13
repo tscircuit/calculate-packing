@@ -139,6 +139,20 @@ export class PackSolver2 extends BaseSolver {
       texts: [],
     }
 
+    // Draw obstacles from PackInput (if any)
+    if (this.packInput.obstacles && this.packInput.obstacles.length > 0) {
+      for (const obstacle of this.packInput.obstacles) {
+        graphics.rects!.push({
+          center: obstacle.absoluteCenter,
+          width: obstacle.width,
+          height: obstacle.height,
+          fill: "rgba(0,0,0,0.1)",
+          stroke: "#555",
+          label: obstacle.obstacleId,
+        })
+      }
+    }
+
     if (this.packedComponents.length === 0) {
       // Show all the components in the queue at (0,0)
       for (const component of this.unpackedComponentQueue) {
