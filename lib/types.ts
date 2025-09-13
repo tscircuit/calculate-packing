@@ -32,6 +32,13 @@ export interface PackedComponent extends InputComponent {
   pads: OutputPad[]
 }
 
+export interface InputObstacle {
+  obstacleId: string
+  absoluteCenter: { x: number; y: number }
+  width: number
+  height: number
+}
+
 export type PackPlacementStrategy =
   | "shortest_connection_along_outline"
   | "minimum_sum_distance_to_network"
@@ -40,6 +47,8 @@ export type PackPlacementStrategy =
 
 export interface PackInput {
   components: InputComponent[]
+
+  obstacles?: InputObstacle[]
 
   minGap: number
 
