@@ -16,7 +16,7 @@ import type {
 import { rotatePoint } from "lib/math/rotatePoint"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
-import { pointInOutline } from "lib/geometry/pointInOutline"
+import { getOutwardNormal } from "./getOutwardNormal"
 import { LargestRectOutsideOutlineFromPointSolver } from "lib/LargestRectOutsideOutlineFromPointSolver"
 import { getInputComponentBounds } from "lib/geometry/getInputComponentBounds"
 import { expandSegment } from "lib/math/expandSegment"
@@ -122,7 +122,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       return this.adjustPositionForOutlineCollision(projectedPoint)
     }
 
-    const outwardNormal = this.getOutwardNormal()
+    const outwardNormal = getOutwardNormal(this.outlineSegment, this.fullOutline)
     const componentBounds = getInputComponentBounds(this.componentToPack, {
       rotationDegrees: this.componentRotationDegrees,
     })
@@ -389,7 +389,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     const bounds = getComponentBounds(tempComponent, 0)
 
     // Get the outward normal for the current segment to push the component out
-    const outwardNormal = this.getOutwardNormal()
+    const outwardNormal = getOutwardNormal(this.outlineSegment, this.fullOutline)
 
     // To compute push distance, we need to consider the direction of the
     // outward normal and the distance we need to push using the minX/maxX or
@@ -433,56 +433,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     throw new Error("unreachable")
   }
 
-  /**
-   * Get the outward normal for the current segment by determining which side
-   * is farther from the outline centroid
-   */
-  private getOutwardNormal(): Point {
-    const [p1, p2] = this.outlineSegment
-    const segmentX = p2.x - p1.x
-    const segmentY = p2.y - p1.y
-    const segmentLength = Math.hypot(segmentX, segmentY)
-
-    if (segmentLength === 0) {
-      return { x: 0, y: 1 } // Default normal for degenerate segment
-    }
-
-    // Normalized segment direction
-    const segmentDirX = segmentX / segmentLength
-    const segmentDirY = segmentY / segmentLength
-
-    // Two possible normals (perpendicular to segment)
-    const normal1X = -segmentDirY
-    const normal1Y = segmentDirX
-    const normal2X = segmentDirY
-    const normal2Y = -segmentDirX
-
-    // Get the midpoint of the segment
-    const segmentMidpoint = {
-      x: (p1.x + p2.x) / 2,
-      y: (p1.y + p2.y) / 2,
-    }
-
-    // Test points slightly offset from the segment midpoint in both normal directions
-    const testDistance = 0.0001
-    const testPoint1 = {
-      x: segmentMidpoint.x + normal1X * testDistance,
-      y: segmentMidpoint.y + normal1Y * testDistance,
-    }
-    const testPoint2 = {
-      x: segmentMidpoint.x + normal2X * testDistance,
-      y: segmentMidpoint.y + normal2Y * testDistance,
-    }
-
-    if (pointInOutline(testPoint1, this.fullOutline) === "outside") {
-      return { x: normal1X, y: normal1Y }
-    }
-    if (pointInOutline(testPoint2, this.fullOutline) === "outside") {
-      return { x: normal2X, y: normal2Y }
-    }
-
-    throw new Error("No outward normal found")
-  }
 
   override visualize(): GraphicsObject {
     const graphics: GraphicsObject = {
