@@ -56,6 +56,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     packedComponents: PackedComponent[]
     componentToPack: InputComponent
     obstacles?: InputObstacle[]
+    bounds?: Bounds
     globalBounds?: Bounds
   }) {
     super()
@@ -67,7 +68,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     this.packedComponents = params.packedComponents
     this.componentToPack = params.componentToPack
     this.obstacles = params.obstacles ?? []
-    this.globalBounds = params.globalBounds
+    this.globalBounds = params.globalBounds ?? params.bounds
   }
 
   override getConstructorParams(): ConstructorParameters<
@@ -83,6 +84,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       componentToPack: this.componentToPack,
       obstacles: this.obstacles,
       globalBounds: this.globalBounds,
+      bounds: this.globalBounds,
     }
   }
 
@@ -169,12 +171,22 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
         Math.sign(this.outlineSegment[1].y - this.outlineSegment[0].y),
       ),
     }
-    const viableBounds = {
+    let viableBounds = {
       minX: largestRectBounds.minX - componentBounds.minX * segmentNormAbs.x,
       minY: largestRectBounds.minY - componentBounds.minY * segmentNormAbs.y,
       maxX: largestRectBounds.maxX - componentBounds.maxX * segmentNormAbs.x,
       maxY: largestRectBounds.maxY - componentBounds.maxY * segmentNormAbs.y,
     }
+
+    if (this.globalBounds) {
+      viableBounds = {
+        minX: Math.max(viableBounds.minX, this.globalBounds.minX),
+        minY: Math.max(viableBounds.minY, this.globalBounds.minY),
+        maxX: Math.min(viableBounds.maxX, this.globalBounds.maxX),
+        maxY: Math.min(viableBounds.maxY, this.globalBounds.maxY),
+      }
+    }
+
     this.viableBounds = viableBounds
 
     const viableBoundsWidth = viableBounds.maxX - viableBounds.minX
