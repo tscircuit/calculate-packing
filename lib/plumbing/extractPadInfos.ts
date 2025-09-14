@@ -98,8 +98,11 @@ export const extractPadInfos = (
         })
         break
       }
+      default: {
+        console.warn(`Unsupported plated hole shape ${(ph as any).shape}`)
+        break
+      }
     }
-    console.warn(`Unsupported plated hole shape ${ph.shape}`)
   }
 
   for (const sp of db.pcb_smtpad.list({
