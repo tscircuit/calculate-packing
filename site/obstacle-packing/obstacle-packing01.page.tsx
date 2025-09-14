@@ -93,9 +93,9 @@ export const packInput: PackInput = {
     },
   ],
   bounds: {
-    minX: -4,
+    minX: -1.5,
     minY: -4,
-    maxX: 4,
+    maxX: 1.5,
     maxY: 4,
   },
   minGap: 0.2,

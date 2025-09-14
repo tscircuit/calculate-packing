@@ -12,7 +12,7 @@ import type {
   InputObstacle,
 } from "../types"
 import { checkOverlapWithPackedComponents } from "lib/PackSolver2/checkOverlapWithPackedComponents"
-import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
+import { computeDistanceBetweenBoxes, type Bounds } from "@tscircuit/math-utils"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 
@@ -63,6 +63,7 @@ export class SingleComponentPackSolver extends BaseSolver {
   rejectedCandidates: Array<CandidateResult & { gapDistance: number }> = []
   bestCandidate?: CandidateResult
   outputPackedComponent?: PackedComponent
+  bounds?: Bounds
 
   constructor(params: {
     componentToPack: InputComponent
@@ -70,6 +71,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     packPlacementStrategy: PackPlacementStrategy
     minGap?: number
     obstacles?: InputObstacle[]
+    bounds?: Bounds
   }) {
     super()
     this.componentToPack = params.componentToPack
@@ -77,6 +79,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     this.packPlacementStrategy = params.packPlacementStrategy
     this.minGap = params.minGap ?? 0
     this.obstacles = params.obstacles ?? []
+    this.bounds = params.bounds
   }
 
   override _setup() {
@@ -294,6 +297,7 @@ export class SingleComponentPackSolver extends BaseSolver {
         packedComponents: this.packedComponents,
         componentToPack: this.componentToPack,
         obstacles: this.obstacles,
+        globalBounds: this.bounds,
       })
 
       this.activeSubSolver.setup()
@@ -409,6 +413,20 @@ export class SingleComponentPackSolver extends BaseSolver {
           label: obstacle.obstacleId,
         } as Rect)
       }
+    }
+
+    if (this.bounds) {
+      graphics.lines!.push({
+        points: [
+          { x: this.bounds.minX, y: this.bounds.minY },
+          { x: this.bounds.minX, y: this.bounds.maxY },
+          { x: this.bounds.maxX, y: this.bounds.maxY },
+          { x: this.bounds.maxX, y: this.bounds.minY },
+          { x: this.bounds.minX, y: this.bounds.minY },
+        ],
+        strokeColor: "rgba(0,0,0,0.5)",
+        strokeDash: "2 2",
+      })
     }
 
     switch (this.currentPhase) {
@@ -543,6 +561,7 @@ export class SingleComponentPackSolver extends BaseSolver {
       packPlacementStrategy: this.packPlacementStrategy,
       minGap: this.minGap,
       obstacles: this.obstacles,
+      bounds: this.bounds,
     }
   }
 }

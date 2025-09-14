@@ -42,7 +42,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   packedComponents: PackedComponent[]
   componentToPack: InputComponent
   viableBounds?: Bounds
-
+  globalBounds?: Bounds
   optimalPosition?: Point
   irlsSolver?: MultiOffsetIrlsSolver
   twoPhaseIrlsSolver?: TwoPhaseIrlsSolver
@@ -56,6 +56,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     packedComponents: PackedComponent[]
     componentToPack: InputComponent
     obstacles?: InputObstacle[]
+    globalBounds?: Bounds
   }) {
     super()
     this.outlineSegment = params.outlineSegment
@@ -66,6 +67,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     this.packedComponents = params.packedComponents
     this.componentToPack = params.componentToPack
     this.obstacles = params.obstacles ?? []
+    this.globalBounds = params.globalBounds
   }
 
   override getConstructorParams(): ConstructorParameters<
@@ -80,6 +82,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       packedComponents: this.packedComponents,
       componentToPack: this.componentToPack,
       obstacles: this.obstacles,
+      globalBounds: this.globalBounds,
     }
   }
 
@@ -459,6 +462,20 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
           label: obstacle.obstacleId,
         })
       }
+    }
+
+    if (this.globalBounds) {
+      graphics.lines!.push({
+        points: [
+          { x: this.globalBounds.minX, y: this.globalBounds.minY },
+          { x: this.globalBounds.minX, y: this.globalBounds.maxY },
+          { x: this.globalBounds.maxX, y: this.globalBounds.maxY },
+          { x: this.globalBounds.maxX, y: this.globalBounds.minY },
+          { x: this.globalBounds.minX, y: this.globalBounds.minY },
+        ],
+        strokeColor: "rgba(255,0,255,0.5)",
+        strokeDash: "2 2",
+      })
     }
 
     if (this.viableBounds) {
