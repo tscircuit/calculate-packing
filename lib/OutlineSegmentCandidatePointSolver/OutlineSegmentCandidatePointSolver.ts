@@ -122,7 +122,10 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       return this.adjustPositionForOutlineCollision(projectedPoint)
     }
 
-    const outwardNormal = getOutwardNormal(this.outlineSegment, this.fullOutline)
+    const outwardNormal = getOutwardNormal(
+      this.outlineSegment,
+      this.fullOutline,
+    )
     const componentBounds = getInputComponentBounds(this.componentToPack, {
       rotationDegrees: this.componentRotationDegrees,
     })
@@ -389,7 +392,10 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     const bounds = getComponentBounds(tempComponent, 0)
 
     // Get the outward normal for the current segment to push the component out
-    const outwardNormal = getOutwardNormal(this.outlineSegment, this.fullOutline)
+    const outwardNormal = getOutwardNormal(
+      this.outlineSegment,
+      this.fullOutline,
+    )
 
     // To compute push distance, we need to consider the direction of the
     // outward normal and the distance we need to push using the minX/maxX or
@@ -432,7 +438,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
 
     throw new Error("unreachable")
   }
-
 
   override visualize(): GraphicsObject {
     const graphics: GraphicsObject = {
