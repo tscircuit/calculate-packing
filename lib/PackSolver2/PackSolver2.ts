@@ -87,6 +87,7 @@ export class PackSolver2 extends BaseSolver {
       packPlacementStrategy: this.packInput.packPlacementStrategy,
       minGap: this.packInput.minGap,
       obstacles: obstacles,
+      bounds: this.packInput.bounds,
     })
     fallbackSolver.solve()
     const result = fallbackSolver.getResult()
@@ -130,6 +131,7 @@ export class PackSolver2 extends BaseSolver {
         packPlacementStrategy: this.packInput.packPlacementStrategy,
         minGap: this.packInput.minGap,
         obstacles: this.packInput.obstacles ?? [],
+        bounds: this.packInput.bounds,
       })
       this.activeSubSolver.setup()
     }
@@ -193,6 +195,20 @@ export class PackSolver2 extends BaseSolver {
           label: obstacle.obstacleId,
         })
       }
+    }
+
+    if (this.packInput.bounds) {
+      graphics.lines!.push({
+        points: [
+          { x: this.packInput.bounds.minX, y: this.packInput.bounds.minY },
+          { x: this.packInput.bounds.minX, y: this.packInput.bounds.maxY },
+          { x: this.packInput.bounds.maxX, y: this.packInput.bounds.maxY },
+          { x: this.packInput.bounds.maxX, y: this.packInput.bounds.minY },
+          { x: this.packInput.bounds.minX, y: this.packInput.bounds.minY },
+        ],
+        strokeColor: "rgba(0,0,0,0.5)",
+        strokeDash: "2 2",
+      })
     }
 
     if (this.packedComponents.length === 0) {

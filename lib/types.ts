@@ -50,6 +50,8 @@ export interface PackInput {
 
   obstacles?: InputObstacle[]
 
+  bounds?: { minX: number; minY: number; maxX: number; maxY: number }
+
   minGap: number
 
   packOrderStrategy: "largest_to_smallest"
