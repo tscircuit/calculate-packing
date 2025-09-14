@@ -92,6 +92,12 @@ export const packInput: PackInput = {
       height: 0.7,
     },
   ],
+  bounds: {
+    minX: -4,
+    minY: -4,
+    maxX: 4,
+    maxY: 4,
+  },
   minGap: 0.2,
   packOrderStrategy: "largest_to_smallest",
   packPlacementStrategy: "minimum_sum_squared_distance_to_network",
