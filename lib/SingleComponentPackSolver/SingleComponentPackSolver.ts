@@ -9,6 +9,7 @@ import type {
   InputComponent,
   PackedComponent,
   PackPlacementStrategy,
+  InputObstacle,
 } from "../types"
 import { checkOverlapWithPackedComponents } from "lib/PackSolver/checkOverlapWithPackedComponents"
 
@@ -48,6 +49,7 @@ export class SingleComponentPackSolver extends BaseSolver {
   packedComponents: PackedComponent[]
   packPlacementStrategy: PackPlacementStrategy
   minGap: number
+  obstacles: InputObstacle[]
 
   // Phase management
   currentPhase: Phase = "outline"
@@ -66,12 +68,14 @@ export class SingleComponentPackSolver extends BaseSolver {
     packedComponents: PackedComponent[]
     packPlacementStrategy: PackPlacementStrategy
     minGap?: number
+    obstacles?: InputObstacle[]
   }) {
     super()
     this.componentToPack = params.componentToPack
     this.packedComponents = params.packedComponents
     this.packPlacementStrategy = params.packPlacementStrategy
     this.minGap = params.minGap ?? 0
+    this.obstacles = params.obstacles ?? []
   }
 
   override _setup() {
@@ -234,6 +238,7 @@ export class SingleComponentPackSolver extends BaseSolver {
         minGap: this.minGap,
         packedComponents: this.packedComponents,
         componentToPack: this.componentToPack,
+        obstacles: this.obstacles,
       })
 
       this.activeSubSolver.setup()
@@ -336,6 +341,20 @@ export class SingleComponentPackSolver extends BaseSolver {
     graphics.rects ??= []
     graphics.texts ??= []
     graphics.circles ??= []
+
+    // Draw obstacles from PackInput (if any)
+    if (this.obstacles && this.obstacles.length > 0) {
+      for (const obstacle of this.obstacles) {
+        graphics.rects!.push({
+          center: obstacle.absoluteCenter,
+          width: obstacle.width,
+          height: obstacle.height,
+          fill: "rgba(0,0,0,0.1)",
+          stroke: "#555",
+          label: obstacle.obstacleId,
+        } as Rect)
+      }
+    }
 
     switch (this.currentPhase) {
       case "outline":
@@ -468,6 +487,7 @@ export class SingleComponentPackSolver extends BaseSolver {
       packedComponents: this.packedComponents,
       packPlacementStrategy: this.packPlacementStrategy,
       minGap: this.minGap,
+      obstacles: this.obstacles,
     }
   }
 }

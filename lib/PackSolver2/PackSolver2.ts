@@ -88,6 +88,7 @@ export class PackSolver2 extends BaseSolver {
         componentToPack: this.componentToPack,
         packPlacementStrategy: this.packInput.packPlacementStrategy,
         minGap: this.packInput.minGap,
+        obstacles: this.packInput.obstacles ?? [],
       })
       this.activeSubSolver.setup()
     }
