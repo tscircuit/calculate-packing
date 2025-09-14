@@ -12,6 +12,7 @@ import type {
   InputObstacle,
 } from "../types"
 import { checkOverlapWithPackedComponents } from "lib/PackSolver2/checkOverlapWithPackedComponents"
+import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 
@@ -106,26 +107,46 @@ export class SingleComponentPackSolver extends BaseSolver {
   }
 
   private executeOutlinePhase() {
-    // Special case: if no packed components, just place at origin
+    // Special case: if no packed components, attempt center; if too close to obstacles, fall back to outline-based placement
     if (this.packedComponents.length === 0) {
-      const availableRotations = this.componentToPack
-        .availableRotationDegrees ?? [0, 90, 180, 270]
+      const availableRotations =
+        this.componentToPack.availableRotationDegrees ?? [0, 90, 180, 270]
       const position = { x: 0, y: 0 }
       const rotation = availableRotations[0] ?? 0
 
-      this.outputPackedComponent = this.createPackedComponent(
-        position,
-        rotation,
-      )
-      this.solved = true
-      return
+      // Build candidate at center and verify obstacle clearance
+      const candidate = this.createPackedComponent(position, rotation)
+      const tooCloseToObstacles = (this.obstacles ?? []).some((obs) => {
+        const obsBox = {
+          center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
+          width: obs.width,
+          height: obs.height,
+        }
+        return candidate.pads.some((p) => {
+          const padBox = {
+            center: { x: p.absoluteCenter.x, y: p.absoluteCenter.y },
+            width: p.size.x,
+            height: p.size.y,
+          }
+          const { distance } = computeDistanceBetweenBoxes(padBox, obsBox)
+          return distance + 1e-6 < this.minGap
+        })
+      })
+
+      if (!tooCloseToObstacles) {
+        this.outputPackedComponent = candidate
+        this.solved = true
+        return
+      }
+      // Otherwise, fall through to outline construction using obstacles
     }
 
-    // Construct outlines from packed components
+    // Construct outlines from packed components (and obstacles)
     this.outlines = constructOutlinesFromPackedComponents(
       this.packedComponents,
       {
         minGap: this.minGap,
+        obstacles: this.obstacles,
       },
     )
 

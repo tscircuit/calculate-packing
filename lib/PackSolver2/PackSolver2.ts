@@ -10,6 +10,7 @@ import type {
   PackInput,
 } from "../types"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
+import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
 
 export class PackSolver2 extends BaseSolver {
   declare activeSubSolver: SingleComponentPackSolver | null | undefined
@@ -54,7 +55,47 @@ export class PackSolver2 extends BaseSolver {
     }
 
     setPackedComponentPadCenters(newPackedComponent)
-    this.packedComponents.push(newPackedComponent)
+
+    // If there are obstacles, ensure at least minGap clearance; otherwise fall back to outline-based placement
+    const obstacles = this.packInput.obstacles ?? []
+    const tooCloseToObstacles = obstacles.some((obs) => {
+      const obsBox = {
+        center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
+        width: obs.width,
+        height: obs.height,
+      }
+      return newPackedComponent.pads.some((p) => {
+        const padBox = {
+          center: { x: p.absoluteCenter.x, y: p.absoluteCenter.y },
+          width: p.size.x,
+          height: p.size.y,
+        }
+        const { distance } = computeDistanceBetweenBoxes(padBox, obsBox)
+        return distance + 1e-6 < this.packInput.minGap
+      })
+    })
+
+    if (!tooCloseToObstacles) {
+      this.packedComponents.push(newPackedComponent)
+      return
+    }
+
+    // Attempt to place along obstacle outlines using the SingleComponentPackSolver
+    const fallbackSolver = new SingleComponentPackSolver({
+      packedComponents: [],
+      componentToPack: firstComponentToPack,
+      packPlacementStrategy: this.packInput.packPlacementStrategy,
+      minGap: this.packInput.minGap,
+      obstacles: obstacles,
+    })
+    fallbackSolver.solve()
+    const result = fallbackSolver.getResult()
+    if (result) {
+      this.packedComponents.push(result)
+    } else {
+      // Fallback: place at center even if too close (should rarely happen)
+      this.packedComponents.push(newPackedComponent)
+    }
   }
 
   override _step() {
