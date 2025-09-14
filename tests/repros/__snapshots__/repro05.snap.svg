@@ -1,0 +1,114 @@
+<svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="white" />
+  <g>
+    <polyline data-points="-0.35,-0.44999999999999984 0.44973,-1.1749999999999998" data-type="line" data-label="" points="60,144.99999999999997 219.946,290" fill="none" stroke="hsl(0, 100%, 50%)" stroke-width="1" />
+  </g>
+  <g>
+    <polyline data-points="-0.35,-0.44999999999999984 1.0499999999999998,-1.1999999999999997" data-type="line" data-label="" points="60,144.99999999999997 340,294.99999999999994" fill="none" stroke="hsl(0, 100%, 50%)" stroke-width="1" />
+  </g>
+  <g>
+    <polyline data-points="0.44973,-1.1749999999999998 1.0499999999999998,-1.1999999999999997" data-type="line" data-label="" points="219.946,290 340,294.99999999999994" fill="none" stroke="hsl(0, 100%, 50%)" stroke-width="1" />
+  </g>
+  <g>
+    <polyline data-points="1.25,-0.7499999999999999 0.45027,-2.275" data-type="line" data-label="" points="380,204.99999999999997 220.054,510" fill="none" stroke="hsl(75, 100%, 50%)" stroke-width="1" />
+  </g>
+  <g>
+    <polyline data-points="1.25,-0.7499999999999999 2.25,-1.1999999999999997" data-type="line" data-label="" points="380,204.99999999999997 580,294.99999999999994" fill="none" stroke="hsl(75, 100%, 50%)" stroke-width="1" />
+  </g>
+  <g>
+    <polyline data-points="0.45027,-2.275 2.25,-1.1999999999999997" data-type="line" data-label="" points="220.054,510 580,294.99999999999994" fill="none" stroke="hsl(75, 100%, 50%)" stroke-width="1" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="U1
+ccwRotationOffset: 0.0°" data-x="0.45000000000000007" data-y="-0.5999999999999999" x="40.000000000000014" y="114.99999999999997" width="360" height="120" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.005" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="U1.1 NET_A" data-x="-0.35" data-y="-0.44999999999999984" x="40.000000000000014" y="124.99999999999997" width="39.999999999999986" height="40" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="U1.2 NET_B" data-x="1.25" data-y="-0.7499999999999999" x="360" y="184.99999999999997" width="40" height="40" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="U1-body U1_body_disconnected" data-x="0.45000000000000007" data-y="-0.5999999999999999" x="100.00000000000001" y="114.99999999999997" width="240" height="120" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="C1
+ccwRotationOffset: 0.0°" data-x="0.45" data-y="-1.7249999999999999" x="160" y="275" width="120" height="250" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.005" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="C1.1 NET_A" data-x="0.44973" data-y="-1.1749999999999998" x="204.946" y="275" width="30.00000000000003" height="29.999999999999943" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="C1.2 NET_B" data-x="0.45027" data-y="-2.275" x="205.054" y="494.99999999999994" width="30" height="30.000000000000057" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="C1-body C1_body_disconnected" data-x="0.45" data-y="-1.7249999999999999" x="160" y="290" width="120" height="220" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="R1
+ccwRotationOffset: 180.0°" data-x="1.65" data-y="-1.1999999999999997" x="320" y="274.99999999999994" width="280" height="40" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.005" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="R1.1 NET_B" data-x="2.25" data-y="-1.1999999999999997" x="560" y="274.99999999999994" width="40" height="40" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="R1.2 NET_A" data-x="1.0499999999999998" data-y="-1.1999999999999997" x="320" y="274.99999999999994" width="40" height="40" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005" />
+  </g>
+  <g id="crosshair" style="display: none">
+    <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
+    <line id="crosshair-v" x1="0" x2="640" stroke="#666" stroke-width="0.5" /><text id="coordinates" font-family="monospace" font-size="12" fill="#666"></text>
+  </g>
+  <script>
+    <![CDATA[
+    document.currentScript.parentElement.addEventListener('mousemove', (e) => {
+      const svg = e.currentTarget;
+      const rect = svg.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const crosshair = svg.getElementById('crosshair');
+      const h = svg.getElementById('crosshair-h');
+      const v = svg.getElementById('crosshair-v');
+      const coords = svg.getElementById('coordinates');
+
+      crosshair.style.display = 'block';
+      h.setAttribute('x1', '0');
+      h.setAttribute('x2', '640');
+      h.setAttribute('y1', y);
+      h.setAttribute('y2', y);
+      v.setAttribute('x1', x);
+      v.setAttribute('x2', x);
+      v.setAttribute('y1', '0');
+      v.setAttribute('y2', '640');
+
+      // Calculate real coordinates using inverse transformation
+      const matrix = {
+        "a": 200,
+        "c": 0,
+        "e": 130,
+        "b": 0,
+        "d": -200,
+        "f": 55
+      };
+      // Manually invert and apply the affine transform
+      // Since we only use translate and scale, we can directly compute:
+      // x' = (x - tx) / sx
+      // y' = (y - ty) / sy
+      const sx = matrix.a;
+      const sy = matrix.d;
+      const tx = matrix.e;
+      const ty = matrix.f;
+      const realPoint = {
+        x: (x - tx) / sx,
+        y: (y - ty) / sy // Flip y back since we used negative scale
+      }
+
+      coords.textContent = `(${realPoint.x.toFixed(2)}, ${realPoint.y.toFixed(2)})`;
+      coords.setAttribute('x', (x + 5).toString());
+      coords.setAttribute('y', (y - 5).toString());
+    });
+    document.currentScript.parentElement.addEventListener('mouseleave', () => {
+      document.currentScript.parentElement.getElementById('crosshair').style.display = 'none';
+    });
+    ]]>
+  </script>
+</svg>
