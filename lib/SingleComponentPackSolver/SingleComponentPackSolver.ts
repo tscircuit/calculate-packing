@@ -191,10 +191,34 @@ export class SingleComponentPackSolver extends BaseSolver {
         optimalPosition = this.activeSubSolver.optimalPosition
 
         // Check if this candidate overlaps with any packed components
+        const candidateComponent = this.createPackedComponent(
+          optimalPosition,
+          rotation,
+        )
         const { hasOverlap, gapDistance } = checkOverlapWithPackedComponents({
-          component: this.createPackedComponent(optimalPosition, rotation),
+          component: candidateComponent,
           packedComponents: this.packedComponents,
           minGap: this.minGap,
+        })
+
+        // Also ensure we keep minGap from any obstacles
+        let minObstacleGapDistance = Infinity
+        const tooCloseToObstacles = (this.obstacles ?? []).some((obs) => {
+          const obsBox = {
+            center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
+            width: obs.width,
+            height: obs.height,
+          }
+          return candidateComponent.pads.some((p) => {
+            const padBox = {
+              center: { x: p.absoluteCenter.x, y: p.absoluteCenter.y },
+              width: p.size.x,
+              height: p.size.y,
+            }
+            const { distance } = computeDistanceBetweenBoxes(padBox, obsBox)
+            minObstacleGapDistance = Math.min(minObstacleGapDistance, distance)
+            return distance + 1e-6 < this.minGap
+          })
         })
 
         // Calculate distance based on pack strategy
@@ -209,6 +233,16 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: gapDistance!,
+          })
+        } else if (tooCloseToObstacles) {
+          this.rejectedCandidates.push({
+            segment: queuedSegment.segment,
+            rotation,
+            optimalPosition,
+            distance,
+            segmentIndex: queuedSegment.segmentIndex,
+            rotationIndex: this.currentRotationIndex,
+            gapDistance: minObstacleGapDistance,
           })
         } else {
           // Store candidate result
