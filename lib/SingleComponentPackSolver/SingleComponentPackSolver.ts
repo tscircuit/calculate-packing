@@ -109,8 +109,8 @@ export class SingleComponentPackSolver extends BaseSolver {
   private executeOutlinePhase() {
     // Special case: if no packed components, attempt center; if too close to obstacles, fall back to outline-based placement
     if (this.packedComponents.length === 0) {
-      const availableRotations =
-        this.componentToPack.availableRotationDegrees ?? [0, 90, 180, 270]
+      const availableRotations = this.componentToPack
+        .availableRotationDegrees ?? [0, 90, 180, 270]
       const position = { x: 0, y: 0 }
       const rotation = availableRotations[0] ?? 0
 
