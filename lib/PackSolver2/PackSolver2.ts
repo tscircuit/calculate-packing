@@ -1,6 +1,6 @@
 import type { GraphicsObject } from "graphics-debug"
-import { setPackedComponentPadCenters } from "../PackSolver/setPackedComponentPadCenters"
-import { sortComponentQueue } from "../PackSolver/sortComponentQueue"
+import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
+import { sortComponentQueue } from "./sortComponentQueue"
 import { SingleComponentPackSolver } from "../SingleComponentPackSolver/SingleComponentPackSolver"
 import { BaseSolver } from "../solver-utils/BaseSolver"
 import type {
@@ -88,6 +88,7 @@ export class PackSolver2 extends BaseSolver {
         componentToPack: this.componentToPack,
         packPlacementStrategy: this.packInput.packPlacementStrategy,
         minGap: this.packInput.minGap,
+        obstacles: this.packInput.obstacles ?? [],
       })
       this.activeSubSolver.setup()
     }
@@ -137,6 +138,20 @@ export class PackSolver2 extends BaseSolver {
       rects: [],
       circles: [],
       texts: [],
+    }
+
+    // Draw obstacles from PackInput (if any)
+    if (this.packInput.obstacles && this.packInput.obstacles.length > 0) {
+      for (const obstacle of this.packInput.obstacles) {
+        graphics.rects!.push({
+          center: obstacle.absoluteCenter,
+          width: obstacle.width,
+          height: obstacle.height,
+          fill: "rgba(0,0,0,0.1)",
+          stroke: "#555",
+          label: obstacle.obstacleId,
+        })
+      }
     }
 
     if (this.packedComponents.length === 0) {

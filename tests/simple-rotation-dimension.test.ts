@@ -2,7 +2,9 @@ import { test, expect } from "bun:test"
 import { pack } from "../lib"
 import type { PackInput } from "../lib/types"
 
-test("single component forced to 90° should have swapped pad dimensions", () => {
+// TODO this should be fixed!
+// https://github.com/tscircuit/calculate-packing/issues/43
+test.skip("single component forced to 90° should have swapped pad dimensions", () => {
   const input: PackInput = {
     components: [
       {

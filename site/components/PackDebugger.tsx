@@ -3,7 +3,6 @@ import type { PackInput, PackOutput } from "../../lib/types"
 import { getGraphicsFromPackOutput } from "../../lib/testing/getGraphicsFromPackOutput"
 import { convertPackOutputToPackInput } from "../../lib/plumbing/convertPackOutputToPackInput"
 import { useMemo, useReducer, useState, useRef, useEffect } from "react"
-import { PhasedPackSolver } from "../../lib"
 import { PackSolver2 } from "../../lib/PackSolver2/PackSolver2"
 import type { BaseSolver } from "../../lib/solver-utils/BaseSolver"
 
@@ -81,10 +80,8 @@ export const PackDebugger = ({
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   const packSolver = useMemo(() => {
-    if (selectedSolver === "PackSolver2") {
-      return new PackSolver2(packInput)
-    }
-    return new PhasedPackSolver(packInput)
+    // TODO base on selectedSolver
+    return new PackSolver2(packInput)
   }, [selectedSolver, packInput])
 
   const solverBreadcrumb = buildSolverBreadcrumb(packSolver)

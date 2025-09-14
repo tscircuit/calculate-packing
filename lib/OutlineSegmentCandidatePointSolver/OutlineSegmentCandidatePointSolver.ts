@@ -11,6 +11,7 @@ import type {
   InputComponent,
   PackedComponent,
   PackPlacementStrategy,
+  InputObstacle,
 } from "lib/types"
 import { rotatePoint } from "lib/math/rotatePoint"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
@@ -37,6 +38,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   componentRotationDegrees: number
   packStrategy: PackPlacementStrategy
   minGap: number
+  obstacles: InputObstacle[]
   packedComponents: PackedComponent[]
   componentToPack: InputComponent
   viableBounds?: Bounds
@@ -53,6 +55,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     minGap: number
     packedComponents: PackedComponent[]
     componentToPack: InputComponent
+    obstacles?: InputObstacle[]
   }) {
     super()
     this.outlineSegment = params.outlineSegment
@@ -62,6 +65,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     this.minGap = params.minGap
     this.packedComponents = params.packedComponents
     this.componentToPack = params.componentToPack
+    this.obstacles = params.obstacles ?? []
   }
 
   override getConstructorParams(): ConstructorParameters<
@@ -75,6 +79,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       minGap: this.minGap,
       packedComponents: this.packedComponents,
       componentToPack: this.componentToPack,
+      obstacles: this.obstacles,
     }
   }
 
@@ -485,6 +490,20 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       points: [],
       rects: [],
       circles: [],
+    }
+
+    // Draw obstacles
+    if (this.obstacles && this.obstacles.length > 0) {
+      for (const obstacle of this.obstacles) {
+        graphics.rects!.push({
+          center: obstacle.absoluteCenter,
+          width: obstacle.width,
+          height: obstacle.height,
+          fill: "rgba(0,0,0,0.1)",
+          stroke: "#555",
+          label: obstacle.obstacleId,
+        })
+      }
     }
 
     if (this.viableBounds) {
