@@ -16,6 +16,20 @@ export const getGraphicsFromPackOutput = (
   )
   const colorMap = createColorMapFromStrings(allNetworkIds)
 
+  // Draw obstacles if present
+  if (packOutput.obstacles && packOutput.obstacles.length > 0) {
+    for (const obstacle of packOutput.obstacles) {
+      rects.push({
+        center: { x: obstacle.absoluteCenter.x, y: obstacle.absoluteCenter.y },
+        width: obstacle.width,
+        height: obstacle.height,
+        fill: "rgba(0,0,0,0.1)",
+        stroke: "#555",
+        label: obstacle.obstacleId,
+      })
+    }
+  }
+
   for (const component of packOutput.components) {
     const bounds = getComponentBounds(component)
     const width = bounds.maxX - bounds.minX
