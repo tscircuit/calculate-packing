@@ -1,7 +1,7 @@
 import type { PackInput } from "../../lib/types"
 import { PackDebugger } from "../components/PackDebugger"
 
-const packInput: PackInput = {
+export const packInput: PackInput = {
   components: [
     {
       componentId: "U1",

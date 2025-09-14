@@ -1,4 +1,4 @@
-import type { PackedComponent } from "./types"
+import type { PackedComponent, InputObstacle } from "./types"
 import type { Point } from "@tscircuit/math-utils"
 import Flatten from "@flatten-js/core"
 import { rotatePoint } from "./math/rotatePoint"
@@ -57,6 +57,39 @@ const createPadPolygons = (
   })
 }
 
+const createObstaclePolygons = (
+  obstacles: InputObstacle[],
+  minGap: number,
+): PadShape[] => {
+  return obstacles.map((obs) => {
+    const hw = obs.width / 2 + minGap
+    const hh = obs.height / 2 + minGap
+    const cx = obs.absoluteCenter.x
+    const cy = obs.absoluteCenter.y
+
+    const worldCorners = [
+      { x: cx - hw, y: cy - hh },
+      { x: cx + hw, y: cy - hh },
+      { x: cx + hw, y: cy + hh },
+      { x: cx - hw, y: cy + hh },
+    ]
+
+    const arr = worldCorners.map(({ x, y }) => [x, y] as [number, number])
+    const poly = new Flatten.Polygon(arr)
+
+    const xs = worldCorners.map((p) => p.x)
+    const ys = worldCorners.map((p) => p.y)
+    const bbox = {
+      minX: Math.min(...xs),
+      minY: Math.min(...ys),
+      maxX: Math.max(...xs),
+      maxY: Math.max(...ys),
+    }
+
+    return { poly, bbox }
+  })
+}
+
 /**
  * Construct a set of outlines from a list of packed components.
  *
@@ -70,15 +103,21 @@ export const constructOutlinesFromPackedComponents = (
   components: PackedComponent[],
   opts: {
     minGap?: number
+    obstacles?: InputObstacle[]
   } = {},
 ): Outline[] => {
-  const { minGap = 0 } = opts
-  if (components.length === 0) return []
-  const bounds = combineBounds(
-    components.map((c) => getComponentBounds(c, minGap)),
-  )
+  const { minGap = 0, obstacles = [] } = opts
+  if (components.length === 0 && obstacles.length === 0) return []
+  const componentBounds = components.map((c) => getComponentBounds(c, minGap))
+  const obstacleBounds = obstacles.map((o) => ({
+    minX: o.absoluteCenter.x - o.width / 2 - minGap,
+    minY: o.absoluteCenter.y - o.height / 2 - minGap,
+    maxX: o.absoluteCenter.x + o.width / 2 + minGap,
+    maxY: o.absoluteCenter.y + o.height / 2 + minGap,
+  }))
+  const bounds = combineBounds([...componentBounds, ...obstacleBounds])
 
-  // Build pad polygons (inflated by minGap) and pre-filter contained/degenerate ones
+  // Build pad polygons (inflated by minGap) and obstacle polygons; pre-filter contained/degenerate ones
   const allPadShapes: {
     poly: Flatten.Polygon
     bbox: { minX: number; minY: number; maxX: number; maxY: number }
@@ -87,6 +126,8 @@ export const constructOutlinesFromPackedComponents = (
     const padShapes = createPadPolygons(component, minGap)
     allPadShapes.push(...padShapes)
   }
+  const obstacleShapes = createObstaclePolygons(obstacles, minGap)
+  allPadShapes.push(...obstacleShapes)
   if (allPadShapes.length === 0) return []
 
   // Drop degenerate (zero-area) and fully-contained pad shapes to reduce boolean ops

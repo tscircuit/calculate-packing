@@ -7,6 +7,7 @@ import type {
   PackedComponent,
   PackInput,
   PackOutput,
+  InputObstacle,
 } from "../types"
 import { extractPadInfos } from "./extractPadInfos"
 
@@ -107,6 +108,7 @@ export const convertCircuitJsonToPackOutput = (
       string,
       { left: number; right: number; top: number; bottom: number }
     >
+    obstacles?: InputObstacle[]
   } = {},
 ): PackOutput => {
   const packOutput: PackOutput = {
@@ -114,6 +116,7 @@ export const convertCircuitJsonToPackOutput = (
     minGap: 0,
     packOrderStrategy: "largest_to_smallest",
     packPlacementStrategy: "shortest_connection_along_outline",
+    obstacles: opts.obstacles,
   }
 
   const tree = getCircuitJsonTree(circuitJson, {
