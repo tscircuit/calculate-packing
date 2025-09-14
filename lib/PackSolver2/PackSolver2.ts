@@ -1,6 +1,6 @@
 import type { GraphicsObject } from "graphics-debug"
-import { setPackedComponentPadCenters } from "../PackSolver/setPackedComponentPadCenters"
-import { sortComponentQueue } from "../PackSolver/sortComponentQueue"
+import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
+import { sortComponentQueue } from "./sortComponentQueue"
 import { SingleComponentPackSolver } from "../SingleComponentPackSolver/SingleComponentPackSolver"
 import { BaseSolver } from "../solver-utils/BaseSolver"
 import type {

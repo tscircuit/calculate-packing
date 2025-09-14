@@ -1,7 +1,7 @@
 import type { GraphicsObject, Line, Point, Rect } from "graphics-debug"
 import { constructOutlinesFromPackedComponents } from "../constructOutlinesFromPackedComponents"
 import { OutlineSegmentCandidatePointSolver } from "../OutlineSegmentCandidatePointSolver/OutlineSegmentCandidatePointSolver"
-import { setPackedComponentPadCenters } from "../PackSolver/setPackedComponentPadCenters"
+import { setPackedComponentPadCenters } from "../PackSolver2/setPackedComponentPadCenters"
 import { BaseSolver } from "../solver-utils/BaseSolver"
 import { getGraphicsFromPackOutput } from "../testing/getGraphicsFromPackOutput"
 import type { Segment } from "../geometry/types"
@@ -11,7 +11,7 @@ import type {
   PackPlacementStrategy,
   InputObstacle,
 } from "../types"
-import { checkOverlapWithPackedComponents } from "lib/PackSolver/checkOverlapWithPackedComponents"
+import { checkOverlapWithPackedComponents } from "lib/PackSolver2/checkOverlapWithPackedComponents"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 

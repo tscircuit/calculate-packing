@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useReducer } from "react"
 import { InteractiveGraphics } from "graphics-debug/react"
 import type { PackInput } from "../../lib/types"
-import { PhasedPackSolver } from "../../lib"
+import { PackSolver2 } from "lib/index"
 
 const defaultPackInput: PackInput = {
   components: [
@@ -69,7 +69,7 @@ export default () => {
         parsedPackInput.disconnectedPackDirection || "right",
     }
     console.log("Creating PhasedPackSolver with input:", packInputWithDefaults)
-    return new PhasedPackSolver(packInputWithDefaults)
+    return new PackSolver2(packInputWithDefaults)
   }, [parsedPackInput])
 
   const handleJsonChange = (value: string) => {

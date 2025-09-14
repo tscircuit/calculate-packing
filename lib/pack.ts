@@ -1,4 +1,4 @@
-import { PhasedPackSolver } from "./PackSolver/PhasedPackSolver"
+import { PackSolver2 } from "./PackSolver2/PackSolver2"
 import type { PackInput, PackOutput } from "./types"
 
 const DEFAULT_PACK_DIRECTION_FALLBACK = "right"
@@ -19,10 +19,10 @@ const DEFAULT_PACK_DIRECTION_FALLBACK = "right"
  * 8. Go to step 2 until all components are packed
  */
 export const pack = (input: PackInput): PackOutput => {
-  const solver = new PhasedPackSolver(input)
+  const solver = new PackSolver2(input)
   solver.solve()
   return {
     ...input,
-    components: solver.getResult(),
+    components: solver.packedComponents,
   }
 }
