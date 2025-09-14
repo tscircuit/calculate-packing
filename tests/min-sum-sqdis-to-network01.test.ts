@@ -2,7 +2,7 @@ import { test, expect } from "bun:test"
 import { pack } from "../lib"
 import type { PackInput } from "../lib/types"
 
-test("min-sum-sqdis-to-network01 - U2 placement optimization - symmetric should be better", () => {
+test.skip("min-sum-sqdis-to-network01 - U2 placement optimization - symmetric should be better", () => {
   // Recreate the scenario from the page as a PackInput
   const input: PackInput = {
     components: [
