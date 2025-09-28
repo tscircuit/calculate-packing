@@ -2,35 +2,35 @@
   <rect width="100%" height="100%" fill="white" />
   <g>
     <rect data-type="rect" data-label="source_group_1
-ccwRotationOffset: 0.0" data-x="0" data-y="0" x="58.666666666666686" y="226.66666666666669" width="522.6666666666665" height="186.66666666666663" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.005357142857142857" />
+ccwRotationOffset: 0.0°" data-x="0" data-y="-1.4000000000000001" x="40.000000000000014" y="220.64516129032256" width="252.90322580645164" height="307.0967741935484" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.01107142857142857" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_0 unnamed0" data-x="-0.5" data-y="0" x="170.66666666666666" y="264" width="112.00000000000003" height="112" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005357142857142857" />
+    <rect data-type="rect" data-label="pcb_smtpad_0 unnamed0" data-x="-0.5" data-y="0" x="94.19354838709678" y="220.64516129032256" width="54.19354838709678" height="54.19354838709677" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.01107142857142857" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_1 unnamed1" data-x="0.5" data-y="0" x="357.3333333333333" y="264" width="112.00000000000006" height="112" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005357142857142857" />
+    <rect data-type="rect" data-label="pcb_smtpad_1 unnamed1" data-x="0.5" data-y="0" x="184.51612903225808" y="220.64516129032256" width="54.1935483870968" height="54.19354838709677" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.01107142857142857" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_2 unnamed2" data-x="-0.5" data-y="0" x="170.66666666666666" y="264" width="112.00000000000003" height="112" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005357142857142857" />
+    <rect data-type="rect" data-label="pcb_smtpad_2 unnamed2" data-x="-0.5" data-y="-1.6" x="94.19354838709678" y="365.1612903225806" width="54.19354838709678" height="54.193548387096826" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.01107142857142857" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_3 unnamed3" data-x="0.5" data-y="0" x="357.3333333333333" y="264" width="112.00000000000006" height="112" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005357142857142857" />
+    <rect data-type="rect" data-label="pcb_smtpad_3 unnamed3" data-x="0.5" data-y="-1.6" x="184.51612903225808" y="365.1612903225806" width="54.1935483870968" height="54.193548387096826" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.01107142857142857" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_4 unnamed4" data-x="-0.85" data-y="0" x="58.666666666666686" y="226.66666666666669" width="205.33333333333331" height="186.66666666666663" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005357142857142857" />
+    <rect data-type="rect" data-label="pcb_smtpad_4 unnamed4" data-x="-0.85" data-y="-2.6" x="40.000000000000014" y="437.41935483870964" width="99.35483870967742" height="90.32258064516134" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.01107142857142857" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_5 unnamed5" data-x="0.85" data-y="0" x="376" y="226.66666666666669" width="205.33333333333326" height="186.66666666666663" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005357142857142857" />
+    <rect data-type="rect" data-label="pcb_smtpad_5 unnamed5" data-x="0.85" data-y="-2.6" x="193.5483870967742" y="437.41935483870964" width="99.35483870967744" height="90.32258064516134" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.01107142857142857" />
   </g>
   <g>
     <rect data-type="rect" data-label="pcb_component_3
-ccwRotationOffset: 0.0" data-x="0" data-y="0" x="40" y="208" width="560" height="224" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.005357142857142857" />
+ccwRotationOffset: 0.0°" data-x="3.3" data-y="0.9" x="329.0322580645161" y="112.258064516129" width="270.9677419354839" height="108.38709677419357" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.01107142857142857" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_6 unnamed6" data-x="-1.075" data-y="0" x="40" y="208" width="158.66666666666669" height="224" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005357142857142857" />
+    <rect data-type="rect" data-label="pcb_smtpad_6 unnamed6" data-x="2.2249999999999996" data-y="0.9" x="329.0322580645161" y="112.258064516129" width="76.77419354838707" height="108.38709677419357" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.01107142857142857" />
   </g>
   <g>
-    <rect data-type="rect" data-label="pcb_smtpad_7 unnamed7" data-x="1.075" data-y="0" x="441.3333333333333" y="208" width="158.66666666666669" height="224" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.005357142857142857" />
+    <rect data-type="rect" data-label="pcb_smtpad_7 unnamed7" data-x="4.375" data-y="0.9" x="523.2258064516129" y="112.258064516129" width="76.77419354838707" height="108.38709677419357" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.01107142857142857" />
   </g>
   <g id="crosshair" style="display: none">
     <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
@@ -60,12 +60,12 @@ ccwRotationOffset: 0.0" data-x="0" data-y="0" x="40" y="208" width="560" height=
 
       // Calculate real coordinates using inverse transformation
       const matrix = {
-        "a": 186.66666666666666,
+        "a": 90.3225806451613,
         "c": 0,
-        "e": 320,
+        "e": 166.45161290322582,
         "b": 0,
-        "d": -186.66666666666666,
-        "f": 320
+        "d": -90.3225806451613,
+        "f": 247.74193548387095
       };
       // Manually invert and apply the affine transform
       // Since we only use translate and scale, we can directly compute:
