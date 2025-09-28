@@ -146,13 +146,19 @@ export const convertCircuitJsonToPackOutput = (
         (e: any) => e.type === "pcb_component",
       ) as PcbComponent | undefined
       if (!pcbComponent) continue
+
+      let shouldAddInnerObstaclesForComp = opts.shouldAddInnerObstacles
+      if (pcbComponent.obstructs_within_bounds === false) {
+        shouldAddInnerObstaclesForComp = false
+      }
+
       packOutput.components.push(
         buildPackedComponent(
           [pcbComponent],
           pcbComponent.pcb_component_id,
           db,
           getNetworkId,
-          opts.shouldAddInnerObstacles,
+          shouldAddInnerObstaclesForComp,
           opts.chipMarginsMap,
         ),
       )

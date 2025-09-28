@@ -17,7 +17,9 @@ test("applies chip margin to pad sizes", async () => {
     (e: any) => e.type === "pcb_component",
   ) as any)!.pcb_component_id
 
+  // @ts-expect-error remove after tscircuit is updated
   const base = convertCircuitJsonToPackOutput(circuitJson)
+  // @ts-expect-error remove after tscircuit is updated
   const withMargin = convertCircuitJsonToPackOutput(circuitJson, {
     chipMarginsMap: { [pcbComponentId]: margin },
   })
