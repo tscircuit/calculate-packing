@@ -20,6 +20,7 @@ test("circuit-json-pack-conversion02", async () => {
       )
   `)
 
+  // @ts-expect-error remove after tscircuit is updated
   const packOutput = convertCircuitJsonToPackOutput(circuitJson)
 
   const graphics = getGraphicsFromPackOutput(packOutput)

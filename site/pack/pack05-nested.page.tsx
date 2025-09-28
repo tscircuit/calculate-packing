@@ -30,6 +30,7 @@ export default () => {
       )
       `)
 
+      // @ts-expect-error remove after tscircuit is updated
       const packOutput = convertCircuitJsonToPackOutput(circuitJson, {
         source_group_id: (
           circuitJson.find(
