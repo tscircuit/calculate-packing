@@ -2,7 +2,7 @@
   "name": "calculate-packing",
   "main": "dist/index.js",
   "type": "module",
-  "version": "0.0.40",
+  "version": "0.0.41",
   "description": "Calculate a packing layout with support for different strategy configurations",
   "scripts": {
     "start": "cosmos",
