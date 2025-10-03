@@ -1,0 +1,553 @@
+{
+  "components": [
+    {
+      "componentId": "source_group_0",
+      "pads": [
+        {
+          "padId": "pcb_smtpad_0",
+          "networkId": "unnamed0",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -1.9650000000000003,
+            "y": 7.5874999999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_1",
+          "networkId": "unnamed1",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -1.9650000000000003,
+            "y": 6.3374999999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_2",
+          "networkId": "unnamed2",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -1.9650000000000003,
+            "y": 5.0874999999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_3",
+          "networkId": "unnamed3",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -1.9650000000000003,
+            "y": 3.8374999999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_4",
+          "networkId": "unnamed4",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -1.9650000000000003,
+            "y": 2.5874999999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_5",
+          "networkId": "unnamed5",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -1.9650000000000003,
+            "y": 1.3374999999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_6",
+          "networkId": "unnamed6",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -1.9650000000000003,
+            "y": 0.08749999999999947
+          }
+        },
+        {
+          "padId": "pcb_smtpad_7",
+          "networkId": "unnamed7",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -1.9650000000000003,
+            "y": -1.1625000000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_8",
+          "networkId": "unnamedsubcircuit325_connectivity_net2",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -1.9650000000000003,
+            "y": -2.4125000000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_9",
+          "networkId": "unnamedsubcircuit325_connectivity_net4",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -1.9650000000000003,
+            "y": -3.6625000000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_10",
+          "networkId": "unnamed8",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": 6.035,
+            "y": -3.6625000000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_11",
+          "networkId": "unnamed9",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": 6.035,
+            "y": -2.4125000000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_12",
+          "networkId": "unnamed10",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": 6.035,
+            "y": -1.1625000000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_13",
+          "networkId": "unnamed11",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": 6.035,
+            "y": 0.08749999999999947
+          }
+        },
+        {
+          "padId": "pcb_smtpad_14",
+          "networkId": "unnamed12",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": 6.035,
+            "y": 1.3374999999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_15",
+          "networkId": "unnamed13",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": 6.035,
+            "y": 2.5874999999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_16",
+          "networkId": "unnamed14",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": 6.035,
+            "y": 3.8374999999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_17",
+          "networkId": "unnamed15",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": 6.035,
+            "y": 5.0874999999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_18",
+          "networkId": "unnamedsubcircuit325_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": 6.035,
+            "y": 6.3374999999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_19",
+          "networkId": "unnamedsubcircuit325_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 3.9,
+            "y": 0.6
+          },
+          "offset": {
+            "x": 6.035,
+            "y": 7.5874999999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_20",
+          "networkId": "unnamedsubcircuit325_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": 4.9951562633787105,
+            "y": 9.362499999999999
+          }
+        },
+        {
+          "padId": "pcb_smtpad_21",
+          "networkId": "unnamedsubcircuit325_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": 6.645156263378711,
+            "y": 9.362499999999999
+          }
+        },
+        {
+          "padId": "pcb_smtpad_22",
+          "networkId": "unnamedsubcircuit325_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": 5.024334072453852,
+            "y": 11.3125
+          }
+        },
+        {
+          "padId": "pcb_smtpad_23",
+          "networkId": "unnamedsubcircuit325_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": 6.674334072453853,
+            "y": 11.3125
+          }
+        },
+        {
+          "padId": "pcb_smtpad_24",
+          "networkId": "unnamedsubcircuit325_connectivity_net2",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": -0.5349999999999997,
+            "y": -8.317499999999999
+          }
+        },
+        {
+          "padId": "pcb_smtpad_25",
+          "networkId": "unnamedsubcircuit325_connectivity_net3",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": 1.1150000000000004,
+            "y": -8.317499999999999
+          }
+        },
+        {
+          "padId": "pcb_smtpad_26",
+          "networkId": "unnamedsubcircuit325_connectivity_net4",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": 2.915,
+            "y": -5.7025
+          }
+        },
+        {
+          "padId": "pcb_smtpad_27",
+          "networkId": "unnamedsubcircuit325_connectivity_net5",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": 4.5649999999999995,
+            "y": -5.7025
+          }
+        },
+        {
+          "padId": "pcb_smtpad_28",
+          "networkId": "unnamedsubcircuit325_connectivity_net6",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": 2.4400000000000004,
+            "y": -11.3125
+          }
+        },
+        {
+          "padId": "pcb_smtpad_29",
+          "networkId": "unnamedsubcircuit325_connectivity_net7",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": 4.09,
+            "y": -11.3125
+          }
+        },
+        {
+          "padId": "pcb_smtpad_30",
+          "networkId": "unnamedsubcircuit325_connectivity_net6",
+          "type": "rect",
+          "size": {
+            "x": 0.95,
+            "y": 0.8
+          },
+          "offset": {
+            "x": 6.4399999999999995,
+            "y": -7.087500000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_31",
+          "networkId": "unnamedsubcircuit325_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.95,
+            "y": 0.8
+          },
+          "offset": {
+            "x": 6.4399999999999995,
+            "y": -5.437500000000002
+          }
+        },
+        {
+          "padId": "pcb_smtpad_32",
+          "networkId": "unnamedsubcircuit325_connectivity_net5",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 0.66
+          },
+          "offset": {
+            "x": 3.265,
+            "y": -7.507499999999999
+          }
+        },
+        {
+          "padId": "pcb_smtpad_33",
+          "networkId": "unnamed16",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 0.66
+          },
+          "offset": {
+            "x": 3.265,
+            "y": -8.5075
+          }
+        },
+        {
+          "padId": "pcb_smtpad_34",
+          "networkId": "unnamedsubcircuit325_connectivity_net3",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 0.66
+          },
+          "offset": {
+            "x": 3.2649999999999997,
+            "y": -9.5075
+          }
+        },
+        {
+          "padId": "pcb_smtpad_35",
+          "networkId": "unnamedsubcircuit325_connectivity_net7",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 0.66
+          },
+          "offset": {
+            "x": 6.24,
+            "y": -9.892500000000002
+          }
+        },
+        {
+          "padId": "pcb_smtpad_36",
+          "networkId": "unnamedsubcircuit325_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 0.66
+          },
+          "offset": {
+            "x": 6.24,
+            "y": -8.892500000000002
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_0",
+          "networkId": "unnamed17",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -7.045,
+            "y": -5.902500000000001
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_1",
+          "networkId": "unnamed18",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -4.504999999999999,
+            "y": -5.902500000000001
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_2",
+          "networkId": "unnamedsubcircuit325_connectivity_net4",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -1.9649999999999999,
+            "y": -5.902500000000001
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_3",
+          "networkId": "unnamed19",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 0.5750000000000002,
+            "y": -5.902500000000001
+          }
+        }
+      ]
+    }
+  ],
+  "minGap": 1,
+  "packOrderStrategy": "largest_to_smallest",
+  "packPlacementStrategy": "shortest_connection_along_outline",
+  "orderStrategy": "largest_to_smallest",
+  "placementStrategy": "minimum_sum_squared_distance_to_network",
+  "bounds": {
+    "minX": -8.89,
+    "maxX": 8.89,
+    "minY": -8.89,
+    "maxY": 8.89
+  }
+}
