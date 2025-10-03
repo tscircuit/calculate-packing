@@ -13,6 +13,7 @@ import type {
 } from "../types"
 import { checkOverlapWithPackedComponents } from "lib/PackSolver2/checkOverlapWithPackedComponents"
 import { computeDistanceBetweenBoxes, type Bounds } from "@tscircuit/math-utils"
+import { doesComponentViolateBoundsOutline } from "../geometry/doesComponentViolateBoundsOutline"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 
@@ -51,6 +52,7 @@ export class SingleComponentPackSolver extends BaseSolver {
   packPlacementStrategy: PackPlacementStrategy
   minGap: number
   obstacles: InputObstacle[]
+  boundsOutline?: Array<{ x: number; y: number }>
 
   // Phase management
   currentPhase: Phase = "outline"
@@ -72,6 +74,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     minGap?: number
     obstacles?: InputObstacle[]
     bounds?: Bounds
+    boundsOutline?: Array<{ x: number; y: number }>
   }) {
     super()
     this.componentToPack = params.componentToPack
@@ -80,6 +83,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     this.minGap = params.minGap ?? 0
     this.obstacles = params.obstacles ?? []
     this.bounds = params.bounds
+    this.boundsOutline = params.boundsOutline
   }
 
   override _setup() {
@@ -136,7 +140,13 @@ export class SingleComponentPackSolver extends BaseSolver {
         })
       })
 
-      if (!tooCloseToObstacles) {
+      const violatesBoundsOutline = doesComponentViolateBoundsOutline(
+        candidate,
+        this.boundsOutline,
+        this.minGap,
+      )
+
+      if (!tooCloseToObstacles && !violatesBoundsOutline) {
         this.outputPackedComponent = candidate
         this.solved = true
         return
@@ -150,6 +160,7 @@ export class SingleComponentPackSolver extends BaseSolver {
       {
         minGap: this.minGap,
         obstacles: this.obstacles,
+        boundsOutline: this.boundsOutline,
       },
     )
 
@@ -227,6 +238,12 @@ export class SingleComponentPackSolver extends BaseSolver {
         // Calculate distance based on pack strategy
         distance = this.calculateDistance(optimalPosition, rotation)
 
+        const violatesBoundsOutline = doesComponentViolateBoundsOutline(
+          candidateComponent,
+          this.boundsOutline,
+          this.minGap,
+        )
+
         if (hasOverlap) {
           this.rejectedCandidates.push({
             segment: queuedSegment.segment,
@@ -246,6 +263,16 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: minObstacleGapDistance,
+          })
+        } else if (violatesBoundsOutline) {
+          this.rejectedCandidates.push({
+            segment: queuedSegment.segment,
+            rotation,
+            optimalPosition,
+            distance,
+            segmentIndex: queuedSegment.segmentIndex,
+            rotationIndex: this.currentRotationIndex,
+            gapDistance: 0,
           })
         } else {
           // Store candidate result
@@ -429,6 +456,22 @@ export class SingleComponentPackSolver extends BaseSolver {
       })
     }
 
+    if (this.boundsOutline && this.boundsOutline.length >= 2) {
+      const points = [...this.boundsOutline]
+      if (
+        this.boundsOutline.length >= 3 &&
+        (points[0]!.x !== points[points.length - 1]!.x ||
+          points[0]!.y !== points[points.length - 1]!.y)
+      ) {
+        points.push(points[0]!)
+      }
+      graphics.lines!.push({
+        points,
+        strokeColor: "rgba(0,0,255,0.5)",
+        strokeDash: "4 2",
+      })
+    }
+
     switch (this.currentPhase) {
       case "outline":
         this.visualizeOutlinePhase(graphics)
@@ -562,6 +605,7 @@ export class SingleComponentPackSolver extends BaseSolver {
       minGap: this.minGap,
       obstacles: this.obstacles,
       bounds: this.bounds,
+      boundsOutline: this.boundsOutline,
     }
   }
 }
