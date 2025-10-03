@@ -1,0 +1,80 @@
+{
+  "componentToPack": {
+    "componentId": "U_candidate",
+    "availableRotationDegrees": [0, 90, 180, 270],
+    "pads": [
+      {
+        "padId": "U_candidate_P1",
+        "networkId": "SIG_A",
+        "type": "rect",
+        "offset": { "x": -1.2, "y": 0 },
+        "size": { "x": 1, "y": 1 }
+      },
+      {
+        "padId": "U_candidate_P2",
+        "networkId": "SIG_B",
+        "type": "rect",
+        "offset": { "x": 1.2, "y": 0 },
+        "size": { "x": 1, "y": 1 }
+      }
+    ]
+  },
+  "packedComponents": [
+    {
+      "componentId": "U_existing_left",
+      "center": { "x": -14, "y": 0 },
+      "ccwRotationOffset": 0,
+      "pads": [
+        {
+          "padId": "U_existing_left_P1",
+          "networkId": "SIG_A",
+          "type": "rect",
+          "offset": { "x": -1.5, "y": 0.8 },
+          "size": { "x": 1, "y": 1 },
+          "absoluteCenter": { "x": -15.5, "y": 0.8 }
+        },
+        {
+          "padId": "U_existing_left_P2",
+          "networkId": "SIG_C",
+          "type": "rect",
+          "offset": { "x": 1.5, "y": -0.8 },
+          "size": { "x": 1, "y": 1 },
+          "absoluteCenter": { "x": -12.5, "y": -0.8 }
+        }
+      ]
+    },
+    {
+      "componentId": "U_existing_bottom",
+      "center": { "x": 2, "y": -12 },
+      "ccwRotationOffset": 0,
+      "pads": [
+        {
+          "padId": "U_existing_bottom_P1",
+          "networkId": "SIG_B",
+          "type": "rect",
+          "offset": { "x": -1, "y": 0 },
+          "size": { "x": 1, "y": 1 },
+          "absoluteCenter": { "x": 1, "y": -12 }
+        },
+        {
+          "padId": "U_existing_bottom_P2",
+          "networkId": "SIG_G",
+          "type": "rect",
+          "offset": { "x": 1.4, "y": 0 },
+          "size": { "x": 1, "y": 1 },
+          "absoluteCenter": { "x": 3.4, "y": -12 }
+        }
+      ]
+    }
+  ],
+  "packPlacementStrategy": "shortest_connection_along_outline",
+  "minGap": 1.5,
+  "boundsOutline": [
+    { "x": -6, "y": -6 },
+    { "x": 6, "y": -6 },
+    { "x": 8, "y": 0 },
+    { "x": 6, "y": 6 },
+    { "x": -6, "y": 6 },
+    { "x": -8, "y": 0 }
+  ]
+}
