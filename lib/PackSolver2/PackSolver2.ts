@@ -11,6 +11,7 @@ import type {
 } from "../types"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
 import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
+import { doesComponentViolateBoundsOutline } from "../geometry/doesComponentViolateBoundsOutline"
 
 export class PackSolver2 extends BaseSolver {
   declare activeSubSolver: SingleComponentPackSolver | null | undefined
@@ -75,7 +76,13 @@ export class PackSolver2 extends BaseSolver {
       })
     })
 
-    if (!tooCloseToObstacles) {
+    const violatesBoundsOutline = doesComponentViolateBoundsOutline(
+      newPackedComponent,
+      this.packInput.boundsOutline,
+      this.packInput.minGap,
+    )
+
+    if (!tooCloseToObstacles && !violatesBoundsOutline) {
       this.packedComponents.push(newPackedComponent)
       return
     }
@@ -88,6 +95,7 @@ export class PackSolver2 extends BaseSolver {
       minGap: this.packInput.minGap,
       obstacles: obstacles,
       bounds: this.packInput.bounds,
+      boundsOutline: this.packInput.boundsOutline,
     })
     fallbackSolver.solve()
     const result = fallbackSolver.getResult()
@@ -132,6 +140,7 @@ export class PackSolver2 extends BaseSolver {
         minGap: this.packInput.minGap,
         obstacles: this.packInput.obstacles ?? [],
         bounds: this.packInput.bounds,
+        boundsOutline: this.packInput.boundsOutline,
       })
       this.activeSubSolver.setup()
     }
@@ -208,6 +217,25 @@ export class PackSolver2 extends BaseSolver {
         ],
         strokeColor: "rgba(0,0,0,0.5)",
         strokeDash: "2 2",
+      })
+    }
+
+    if (
+      this.packInput.boundsOutline &&
+      this.packInput.boundsOutline.length >= 2
+    ) {
+      const outlinePoints = [...this.packInput.boundsOutline]
+      if (
+        this.packInput.boundsOutline.length >= 3 &&
+        (outlinePoints[0]!.x !== outlinePoints[outlinePoints.length - 1]!.x ||
+          outlinePoints[0]!.y !== outlinePoints[outlinePoints.length - 1]!.y)
+      ) {
+        outlinePoints.push(outlinePoints[0]!)
+      }
+      graphics.lines!.push({
+        points: outlinePoints,
+        strokeColor: "rgba(0,0,255,0.5)",
+        strokeDash: "4 2",
       })
     }
 

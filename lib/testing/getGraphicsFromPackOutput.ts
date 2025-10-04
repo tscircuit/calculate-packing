@@ -30,6 +30,23 @@ export const getGraphicsFromPackOutput = (
     }
   }
 
+  if (packOutput.boundsOutline && packOutput.boundsOutline.length >= 2) {
+    const outlinePoints = [...packOutput.boundsOutline]
+    if (
+      packOutput.boundsOutline.length >= 3 &&
+      (outlinePoints[0]!.x !== outlinePoints[outlinePoints.length - 1]!.x ||
+        outlinePoints[0]!.y !== outlinePoints[outlinePoints.length - 1]!.y)
+    ) {
+      outlinePoints.push(outlinePoints[0]!)
+    }
+
+    lines.push({
+      points: outlinePoints,
+      strokeColor: "rgba(0,0,255,0.5)",
+      strokeDash: "4 2",
+    } as Line)
+  }
+
   for (const component of packOutput.components) {
     const bounds = getComponentBounds(component)
     const width = bounds.maxX - bounds.minX

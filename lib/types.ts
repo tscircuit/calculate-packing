@@ -52,6 +52,8 @@ export interface PackInput {
 
   bounds?: { minX: number; minY: number; maxX: number; maxY: number }
 
+  boundsOutline?: Array<{ x: number; y: number }>
+
   minGap: number
 
   packOrderStrategy: "largest_to_smallest"
