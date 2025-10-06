@@ -9,6 +9,23 @@ export const getGraphicsFromPackOutput = (
   const rects: Rect[] = []
   const lines: Line[] = []
 
+  if (packOutput.boundaryOutline && packOutput.boundaryOutline.length) {
+    const outlinePoints = [...packOutput.boundaryOutline]
+    if (
+      outlinePoints.length > 0 &&
+      (outlinePoints[0]!.x !== outlinePoints[outlinePoints.length - 1]!.x ||
+        outlinePoints[0]!.y !== outlinePoints[outlinePoints.length - 1]!.y)
+    ) {
+      outlinePoints.push({ ...outlinePoints[0]! })
+    }
+
+    lines.push({
+      points: outlinePoints,
+      strokeColor: "rgba(0, 0, 255, 0.5)",
+      strokeDash: "4 2",
+    } as Line)
+  }
+
   const allNetworkIds = Array.from(
     new Set(
       packOutput.components.flatMap((c) => c.pads.map((p) => p.networkId)),

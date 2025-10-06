@@ -43,6 +43,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   componentToPack: InputComponent
   viableBounds?: Bounds
   globalBounds?: Bounds
+  boundaryOutline?: Array<{ x: number; y: number }>
   optimalPosition?: Point
   irlsSolver?: MultiOffsetIrlsSolver
   twoPhaseIrlsSolver?: TwoPhaseIrlsSolver
@@ -57,6 +58,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     componentToPack: InputComponent
     obstacles?: InputObstacle[]
     globalBounds?: Bounds
+    boundaryOutline?: Array<{ x: number; y: number }>
   }) {
     super()
     this.outlineSegment = params.outlineSegment
@@ -68,6 +70,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     this.componentToPack = params.componentToPack
     this.obstacles = params.obstacles ?? []
     this.globalBounds = params.globalBounds
+    this.boundaryOutline = params.boundaryOutline
   }
 
   override getConstructorParams(): ConstructorParameters<
@@ -83,6 +86,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       componentToPack: this.componentToPack,
       obstacles: this.obstacles,
       globalBounds: this.globalBounds,
+      boundaryOutline: this.boundaryOutline,
     }
   }
 
@@ -475,6 +479,23 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
         ],
         strokeColor: "rgba(255,0,255,0.5)",
         strokeDash: "2 2",
+      })
+    }
+
+    if (this.boundaryOutline && this.boundaryOutline.length) {
+      const outlinePoints = [...this.boundaryOutline]
+      if (
+        outlinePoints.length > 0 &&
+        (outlinePoints[0]!.x !== outlinePoints[outlinePoints.length - 1]!.x ||
+          outlinePoints[0]!.y !== outlinePoints[outlinePoints.length - 1]!.y)
+      ) {
+        outlinePoints.push({ ...outlinePoints[0]! })
+      }
+
+      graphics.lines!.push({
+        points: outlinePoints,
+        strokeColor: "rgba(0, 0, 255, 0.5)",
+        strokeDash: "4 2",
       })
     }
 
