@@ -51,6 +51,7 @@ export class SingleComponentPackSolver extends BaseSolver {
   packPlacementStrategy: PackPlacementStrategy
   minGap: number
   obstacles: InputObstacle[]
+  boundaryOutline?: Array<{ x: number; y: number }>
 
   // Phase management
   currentPhase: Phase = "outline"
@@ -72,6 +73,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     minGap?: number
     obstacles?: InputObstacle[]
     bounds?: Bounds
+    boundaryOutline?: Array<{ x: number; y: number }>
   }) {
     super()
     this.componentToPack = params.componentToPack
@@ -80,6 +82,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     this.minGap = params.minGap ?? 0
     this.obstacles = params.obstacles ?? []
     this.bounds = params.bounds
+    this.boundaryOutline = params.boundaryOutline
   }
 
   override _setup() {
@@ -298,6 +301,7 @@ export class SingleComponentPackSolver extends BaseSolver {
         componentToPack: this.componentToPack,
         obstacles: this.obstacles,
         globalBounds: this.bounds,
+        boundaryOutline: this.boundaryOutline,
       })
 
       this.activeSubSolver.setup()
@@ -426,6 +430,23 @@ export class SingleComponentPackSolver extends BaseSolver {
         ],
         strokeColor: "rgba(0,0,0,0.5)",
         strokeDash: "2 2",
+      })
+    }
+
+    if (this.boundaryOutline && this.boundaryOutline.length) {
+      const outlinePoints = [...this.boundaryOutline]
+      if (
+        outlinePoints.length > 0 &&
+        (outlinePoints[0]!.x !== outlinePoints[outlinePoints.length - 1]!.x ||
+          outlinePoints[0]!.y !== outlinePoints[outlinePoints.length - 1]!.y)
+      ) {
+        outlinePoints.push({ ...outlinePoints[0]! })
+      }
+
+      graphics.lines!.push({
+        points: outlinePoints,
+        strokeColor: "rgba(0, 0, 255, 0.5)",
+        strokeDash: "4 2",
       })
     }
 
@@ -562,6 +583,7 @@ export class SingleComponentPackSolver extends BaseSolver {
       minGap: this.minGap,
       obstacles: this.obstacles,
       bounds: this.bounds,
+      boundaryOutline: this.boundaryOutline,
     }
   }
 }

@@ -88,6 +88,7 @@ export class PackSolver2 extends BaseSolver {
       minGap: this.packInput.minGap,
       obstacles: obstacles,
       bounds: this.packInput.bounds,
+      boundaryOutline: this.packInput.boundaryOutline,
     })
     fallbackSolver.solve()
     const result = fallbackSolver.getResult()
@@ -132,6 +133,7 @@ export class PackSolver2 extends BaseSolver {
         minGap: this.packInput.minGap,
         obstacles: this.packInput.obstacles ?? [],
         bounds: this.packInput.bounds,
+        boundaryOutline: this.packInput.boundaryOutline,
       })
       this.activeSubSolver.setup()
     }
@@ -208,6 +210,26 @@ export class PackSolver2 extends BaseSolver {
         ],
         strokeColor: "rgba(0,0,0,0.5)",
         strokeDash: "2 2",
+      })
+    }
+
+    if (
+      this.packInput.boundaryOutline &&
+      this.packInput.boundaryOutline.length
+    ) {
+      const points = [...this.packInput.boundaryOutline]
+      if (
+        points.length > 0 &&
+        (points[0]!.x !== points[points.length - 1]!.x ||
+          points[0]!.y !== points[points.length - 1]!.y)
+      ) {
+        points.push({ ...points[0]! })
+      }
+
+      graphics.lines!.push({
+        points,
+        strokeColor: "rgba(0, 0, 255, 0.5)",
+        strokeDash: "4 2",
       })
     }
 
