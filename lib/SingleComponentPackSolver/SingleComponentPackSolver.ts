@@ -13,6 +13,8 @@ import type {
 } from "../types"
 import { checkOverlapWithPackedComponents } from "lib/PackSolver2/checkOverlapWithPackedComponents"
 import { computeDistanceBetweenBoxes, type Bounds } from "@tscircuit/math-utils"
+import { isPointInPolygon } from "lib/math/isPointInPolygon"
+import { getComponentBounds } from "lib/geometry/getComponentBounds"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 
@@ -227,6 +229,27 @@ export class SingleComponentPackSolver extends BaseSolver {
           })
         })
 
+        // Check if component is outside boundary outline
+        let outsideBoundaryOutline = false
+        if (this.boundaryOutline && this.boundaryOutline.length >= 3) {
+          const componentBounds = getComponentBounds(candidateComponent, 0)
+
+          // Check if all pads are within the boundary outline
+          const allPadsInside = candidateComponent.pads.every((pad) =>
+            isPointInPolygon(pad.absoluteCenter, this.boundaryOutline!),
+          )
+
+          // Also check corners of component bounds
+          const cornersInside = [
+            { x: componentBounds.minX, y: componentBounds.minY },
+            { x: componentBounds.minX, y: componentBounds.maxY },
+            { x: componentBounds.maxX, y: componentBounds.minY },
+            { x: componentBounds.maxX, y: componentBounds.maxY },
+          ].every((corner) => isPointInPolygon(corner, this.boundaryOutline!))
+
+          outsideBoundaryOutline = !allPadsInside || !cornersInside
+        }
+
         // Calculate distance based on pack strategy
         distance = this.calculateDistance(optimalPosition, rotation)
 
@@ -249,6 +272,16 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: minObstacleGapDistance,
+          })
+        } else if (outsideBoundaryOutline) {
+          this.rejectedCandidates.push({
+            segment: queuedSegment.segment,
+            rotation,
+            optimalPosition,
+            distance,
+            segmentIndex: queuedSegment.segmentIndex,
+            rotationIndex: this.currentRotationIndex,
+            gapDistance: -1, // Special marker for boundary violation
           })
         } else {
           // Store candidate result

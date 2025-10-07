@@ -20,6 +20,7 @@ import { getOutwardNormal } from "./getOutwardNormal"
 import { LargestRectOutsideOutlineFromPointSolver } from "lib/LargestRectOutsideOutlineFromPointSolver"
 import { getInputComponentBounds } from "lib/geometry/getInputComponentBounds"
 import { expandSegment } from "lib/math/expandSegment"
+import { isPointInPolygon } from "lib/math/isPointInPolygon"
 
 /**
  * Given a single segment on the outline, the component's rotation, compute the
@@ -173,12 +174,37 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
         Math.sign(this.outlineSegment[1].y - this.outlineSegment[0].y),
       ),
     }
-    const viableBounds = {
+    let viableBounds = {
       minX: largestRectBounds.minX - componentBounds.minX * segmentNormAbs.x,
       minY: largestRectBounds.minY - componentBounds.minY * segmentNormAbs.y,
       maxX: largestRectBounds.maxX - componentBounds.maxX * segmentNormAbs.x,
       maxY: largestRectBounds.maxY - componentBounds.maxY * segmentNormAbs.y,
     }
+
+    // Further constrain viable bounds by boundary outline if present
+    if (this.boundaryOutline && this.boundaryOutline.length >= 3) {
+      let boundaryMinX = Infinity
+      let boundaryMinY = Infinity
+      let boundaryMaxX = -Infinity
+      let boundaryMaxY = -Infinity
+
+      for (const point of this.boundaryOutline) {
+        boundaryMinX = Math.min(boundaryMinX, point.x)
+        boundaryMinY = Math.min(boundaryMinY, point.y)
+        boundaryMaxX = Math.max(boundaryMaxX, point.x)
+        boundaryMaxY = Math.max(boundaryMaxY, point.y)
+      }
+
+      // Constrain viable bounds to fit within the boundary outline bounds,
+      // accounting for component size
+      viableBounds = {
+        minX: Math.max(viableBounds.minX, boundaryMinX - componentBounds.minX),
+        minY: Math.max(viableBounds.minY, boundaryMinY - componentBounds.minY),
+        maxX: Math.min(viableBounds.maxX, boundaryMaxX - componentBounds.maxX),
+        maxY: Math.min(viableBounds.maxY, boundaryMaxY - componentBounds.maxY),
+      }
+    }
+
     this.viableBounds = viableBounds
 
     const viableBoundsWidth = viableBounds.maxX - viableBounds.minX
@@ -390,6 +416,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
 
   /**
    * Adjust position to avoid component bounds crossing to the inside of the outline
+   * and ensure the component stays within the boundary outline
    */
   private adjustPositionForOutlineCollision(center: Point): Point {
     // Create temporary component at this position
@@ -411,39 +438,77 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       Math.abs(outwardNormal.x) > Math.abs(outwardNormal.y)
     const isVerticalNormal = !isHorizontalNormal
 
+    let adjustedCenter = center
+
     if (isHorizontalNormal) {
       const isXPlusFacing = outwardNormal.x > 0
       const isXMinusFacing = !isXPlusFacing
       if (isXPlusFacing) {
-        return {
+        adjustedCenter = {
           x: bounds.maxX,
           y: center.y,
         }
       } else if (isXMinusFacing) {
-        return {
+        adjustedCenter = {
           x: bounds.minX,
           y: center.y,
         }
       }
-    }
-
-    if (isVerticalNormal) {
+    } else if (isVerticalNormal) {
       const isYPlusFacing = outwardNormal.y > 0
       const isYMinusFacing = !isYPlusFacing
       if (isYPlusFacing) {
-        return {
+        adjustedCenter = {
           x: center.x,
           y: bounds.maxY,
         }
       } else if (isYMinusFacing) {
-        return {
+        adjustedCenter = {
           x: center.x,
           y: bounds.minY,
         }
       }
     }
 
-    throw new Error("unreachable")
+    // If boundary outline is specified, ensure all component corners are within it
+    if (this.boundaryOutline && this.boundaryOutline.length >= 3) {
+      const adjustedComponent =
+        this.createTemporaryPackedComponent(adjustedCenter)
+      const adjustedBounds = getComponentBounds(adjustedComponent, 0)
+
+      // Check if all pads are within the boundary outline
+      const allPadsInside = adjustedComponent.pads.every((pad) =>
+        isPointInPolygon(pad.absoluteCenter, this.boundaryOutline!),
+      )
+
+      // Also check corners of component bounds
+      const cornersInside = [
+        { x: adjustedBounds.minX, y: adjustedBounds.minY },
+        { x: adjustedBounds.minX, y: adjustedBounds.maxY },
+        { x: adjustedBounds.maxX, y: adjustedBounds.minY },
+        { x: adjustedBounds.maxX, y: adjustedBounds.maxY },
+      ].every((corner) => isPointInPolygon(corner, this.boundaryOutline!))
+
+      if (!allPadsInside || !cornersInside) {
+        // Clamp center to viable bounds
+        if (this.viableBounds) {
+          adjustedCenter = {
+            x: clamp(
+              adjustedCenter.x,
+              this.viableBounds.minX,
+              this.viableBounds.maxX,
+            ),
+            y: clamp(
+              adjustedCenter.y,
+              this.viableBounds.minY,
+              this.viableBounds.maxY,
+            ),
+          }
+        }
+      }
+    }
+
+    return adjustedCenter
   }
 
   override visualize(): GraphicsObject {
