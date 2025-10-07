@@ -18,6 +18,4 @@ const packInput: PackInput = {
   minGap: 1,
 }
 
-console.log(packInput)
-
 export default () => <PackDebugger initialPackInput={packInput} />
