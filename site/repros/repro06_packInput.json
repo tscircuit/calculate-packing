@@ -1,0 +1,518 @@
+{
+  "components": [
+    {
+      "componentId": "pcb_component_0",
+      "pads": [
+        {
+          "padId": "pcb_plated_hole_0",
+          "networkId": "unnamed0",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 22.325000000000003,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_1",
+          "networkId": "unnamed1",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 19.765,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_2",
+          "networkId": "unnamed2",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 17.205,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_3",
+          "networkId": "unnamed3",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 14.645000000000001,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_4",
+          "networkId": "unnamed4",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 12.085000000000003,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_5",
+          "networkId": "unnamed5",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 9.525,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_6",
+          "networkId": "unnamed6",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 4.485000000000001,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_7",
+          "networkId": "unnamed7",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 1.9250000000000007,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_8",
+          "networkId": "unnamed8",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -0.6349999999999998,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_9",
+          "networkId": "unnamed9",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -3.1949999999999985,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_10",
+          "networkId": "unnamed10",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -5.754999999999999,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_11",
+          "networkId": "unnamed11",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -8.315,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_12",
+          "networkId": "unnamed12",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -10.534999999999998,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_13",
+          "networkId": "unnamed13",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -13.094999999999999,
+            "y": -23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_14",
+          "networkId": "unnamed14",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 22.325000000000003,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_15",
+          "networkId": "unnamed15",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 19.765,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_16",
+          "networkId": "unnamed16",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 17.205,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_17",
+          "networkId": "unnamed17",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 14.645000000000001,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_18",
+          "networkId": "unnamed18",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 12.085000000000003,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_19",
+          "networkId": "unnamed19",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 9.525,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_20",
+          "networkId": "unnamed20",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 6.965000000000002,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_21",
+          "networkId": "unnamed21",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 4.405000000000001,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_22",
+          "networkId": "unnamed22",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": 0.5350000000000019,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_23",
+          "networkId": "unnamed23",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -2.0249999999999986,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_24",
+          "networkId": "unnamed24",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -4.584999999999999,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_25",
+          "networkId": "unnamed25",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -7.145,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_26",
+          "networkId": "unnamed26",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -9.704999999999998,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_27",
+          "networkId": "unnamed27",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -12.245,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_28",
+          "networkId": "unnamed28",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -14.785,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_29",
+          "networkId": "unnamed29",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -17.325,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_30",
+          "networkId": "unnamed30",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -19.884999999999998,
+            "y": 23.99
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_31",
+          "networkId": "unnamed31",
+          "type": "rect",
+          "size": {
+            "x": 1.88,
+            "y": 1.88
+          },
+          "offset": {
+            "x": -22.325,
+            "y": 23.99
+          }
+        }
+      ]
+    },
+    {
+      "componentId": "pcb_component_1",
+      "pads": [
+        {
+          "padId": "pcb_smtpad_0",
+          "networkId": "unnamedsubcircuit58_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": -0.9125,
+            "y": 0
+          }
+        },
+        {
+          "padId": "pcb_smtpad_1",
+          "networkId": "unnamedsubcircuit58_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": 0.9125,
+            "y": 0
+          }
+        },
+        {
+          "padId": "pcb_component_1-inner",
+          "networkId": "pcb_component_1-inner",
+          "type": "rect",
+          "size": {
+            "x": 2.8499999999999996,
+            "y": 1.4
+          },
+          "offset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ]
+    },
+    {
+      "componentId": "pcb_component_2",
+      "pads": [
+        {
+          "padId": "pcb_smtpad_2",
+          "networkId": "unnamedsubcircuit58_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": -0.825,
+            "y": 0
+          }
+        },
+        {
+          "padId": "pcb_smtpad_3",
+          "networkId": "unnamedsubcircuit58_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": 0.825,
+            "y": 0
+          }
+        },
+        {
+          "padId": "pcb_component_2-inner",
+          "networkId": "pcb_component_2-inner",
+          "type": "rect",
+          "size": {
+            "x": 2.45,
+            "y": 0.95
+          },
+          "offset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ]
+    }
+  ],
+  "minGap": 1,
+  "packOrderStrategy": "largest_to_smallest",
+  "packPlacementStrategy": "shortest_connection_along_outline",
+  "orderStrategy": "largest_to_smallest",
+  "placementStrategy": "minimum_sum_squared_distance_to_network"
+}
