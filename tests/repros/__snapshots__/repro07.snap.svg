@@ -1,0 +1,181 @@
+<svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="white" />
+  <g>
+    <polyline data-points="-34.29,26.67 32.29,26.67 34.29,24.67 34.29,13.89 36.83,11.35 36.83,-21.35 34.29,-23.89 34.29,-26.67 -34.29,-26.67 -34.29,26.67" data-type="line" data-label="" points="40.00000000000006,110 564.251968503937,110 580,125.74803149606299 580,210.62992125984252 600,230.62992125984255 600,488.1102362204724 580,508.1102362204724 580,530 40.00000000000006,530 40.00000000000006,110" fill="none" stroke="rgba(0, 0, 255, 0.5)" stroke-width="1" stroke-dasharray="4 2" />
+  </g>
+  <g>
+    <polyline data-points="-0.9125,0 -0.825,0" data-type="line" data-label="" points="302.81496062992125,320 303.503937007874,320" fill="none" stroke="hsl(282.3529411764706, 100%, 50%)" stroke-width="1" />
+  </g>
+  <g>
+    <polyline data-points="0.9125,0 0.825,0" data-type="line" data-label="" points="317.18503937007875,320 316.496062992126,320" fill="none" stroke="hsl(291.1764705882353, 100%, 50%)" stroke-width="1" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="source_group_0
+ccwRotationOffset: 0.0°" data-x="9.424999999999999" data-y="0" x="201.02362204724406" y="123.70078740157481" width="366.37795275590554" height="392.5984251968503" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_0 unnamed0" data-x="31.75" data-y="-23.99" x="552.5984251968504" y="501.496062992126" width="14.803149606299144" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_1 unnamed1" data-x="29.19" data-y="-23.99" x="532.4409448818898" y="501.496062992126" width="14.803149606299144" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_2 unnamed2" data-x="26.63" data-y="-23.99" x="512.2834645669291" y="501.496062992126" width="14.803149606299257" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_3 unnamed3" data-x="24.07" data-y="-23.99" x="492.1259842519685" y="501.496062992126" width="14.803149606299257" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_4 unnamed4" data-x="21.51" data-y="-23.99" x="471.9685039370079" y="501.496062992126" width="14.8031496062992" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_5 unnamed5" data-x="18.95" data-y="-23.99" x="451.81102362204723" y="501.496062992126" width="14.8031496062992" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_6 unnamed6" data-x="13.91" data-y="-23.99" x="412.1259842519685" y="501.496062992126" width="14.803149606299257" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_7 unnamed7" data-x="11.35" data-y="-23.99" x="391.9685039370079" y="501.496062992126" width="14.8031496062992" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_8 unnamed8" data-x="8.79" data-y="-23.99" x="371.81102362204723" y="501.496062992126" width="14.8031496062992" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_9 unnamed9" data-x="6.23" data-y="-23.99" x="351.65354330708664" y="501.496062992126" width="14.8031496062992" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_10 unnamed10" data-x="3.67" data-y="-23.99" x="331.496062992126" y="501.496062992126" width="14.8031496062992" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_11 unnamed11" data-x="1.11" data-y="-23.99" x="311.33858267716533" y="501.496062992126" width="14.8031496062992" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_12 unnamed12" data-x="-1.11" data-y="-23.99" x="293.85826771653547" y="501.496062992126" width="14.8031496062992" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_13 unnamed13" data-x="-3.67" data-y="-23.99" x="273.7007874015748" y="501.496062992126" width="14.8031496062992" height="14.803149606299144" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_14 unnamed14" data-x="31.75" data-y="23.99" x="552.5984251968504" y="123.70078740157481" width="14.803149606299144" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_15 unnamed15" data-x="29.19" data-y="23.99" x="532.4409448818898" y="123.70078740157481" width="14.803149606299144" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_16 unnamed16" data-x="26.63" data-y="23.99" x="512.2834645669291" y="123.70078740157481" width="14.803149606299257" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_17 unnamed17" data-x="24.07" data-y="23.99" x="492.1259842519685" y="123.70078740157481" width="14.803149606299257" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_18 unnamed18" data-x="21.51" data-y="23.99" x="471.9685039370079" y="123.70078740157481" width="14.8031496062992" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_19 unnamed19" data-x="18.95" data-y="23.99" x="451.81102362204723" y="123.70078740157481" width="14.8031496062992" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_20 unnamed20" data-x="16.39" data-y="23.99" x="431.6535433070866" y="123.70078740157481" width="14.803149606299257" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_21 unnamed21" data-x="13.83" data-y="23.99" x="411.496062992126" y="123.70078740157481" width="14.8031496062992" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_22 unnamed22" data-x="9.96" data-y="23.99" x="381.0236220472441" y="123.70078740157481" width="14.8031496062992" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_23 unnamed23" data-x="7.4" data-y="23.99" x="360.8661417322835" y="123.70078740157481" width="14.803149606299144" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_24 unnamed24" data-x="4.84" data-y="23.99" x="340.70866141732284" y="123.70078740157481" width="14.8031496062992" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_25 unnamed25" data-x="2.28" data-y="23.99" x="320.5511811023622" y="123.70078740157481" width="14.8031496062992" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_26 unnamed26" data-x="-0.28" data-y="23.99" x="300.3937007874016" y="123.70078740157481" width="14.8031496062992" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_27 unnamed27" data-x="-2.82" data-y="23.99" x="280.3937007874016" y="123.70078740157481" width="14.8031496062992" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_28 unnamed28" data-x="-5.36" data-y="23.99" x="260.3937007874016" y="123.70078740157481" width="14.8031496062992" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_29 unnamed29" data-x="-7.9" data-y="23.99" x="240.3937007874016" y="123.70078740157481" width="14.8031496062992" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_30 unnamed30" data-x="-10.46" data-y="23.99" x="220.23622047244095" y="123.70078740157481" width="14.8031496062992" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_31 unnamed31" data-x="-12.9" data-y="23.99" x="201.0236220472441" y="123.70078740157481" width="14.8031496062992" height="14.803149606299229" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_smtpad_0 unnamedsubcircuit58_connectivity_net0" data-x="-0.9125" data-y="0" x="298.7795275590551" y="314.48818897637796" width="8.070866141732267" height="11.02362204724409" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_smtpad_1 unnamedsubcircuit58_connectivity_net1" data-x="0.9125" data-y="0" x="313.1496062992126" y="314.48818897637796" width="8.070866141732267" height="11.02362204724409" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_smtpad_2 unnamedsubcircuit58_connectivity_net0" data-x="-0.825" data-y="0" x="300.3543307086614" y="316.25984251968504" width="6.2992125984252425" height="7.480314960629926" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_smtpad_3 unnamedsubcircuit58_connectivity_net1" data-x="0.825" data-y="0" x="313.34645669291336" y="316.25984251968504" width="6.2992125984252425" height="7.480314960629926" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.127" />
+  </g>
+  <g id="crosshair" style="display: none">
+    <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
+    <line id="crosshair-v" x1="0" x2="640" stroke="#666" stroke-width="0.5" /><text id="coordinates" font-family="monospace" font-size="12" fill="#666"></text>
+  </g>
+  <script>
+    <![CDATA[
+    document.currentScript.parentElement.addEventListener('mousemove', (e) => {
+      const svg = e.currentTarget;
+      const rect = svg.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const crosshair = svg.getElementById('crosshair');
+      const h = svg.getElementById('crosshair-h');
+      const v = svg.getElementById('crosshair-v');
+      const coords = svg.getElementById('coordinates');
+
+      crosshair.style.display = 'block';
+      h.setAttribute('x1', '0');
+      h.setAttribute('x2', '640');
+      h.setAttribute('y1', y);
+      h.setAttribute('y2', y);
+      v.setAttribute('x1', x);
+      v.setAttribute('x2', x);
+      v.setAttribute('y1', '0');
+      v.setAttribute('y2', '640');
+
+      // Calculate real coordinates using inverse transformation
+      const matrix = {
+        "a": 7.874015748031495,
+        "c": 0,
+        "e": 310,
+        "b": 0,
+        "d": -7.874015748031495,
+        "f": 320
+      };
+      // Manually invert and apply the affine transform
+      // Since we only use translate and scale, we can directly compute:
+      // x' = (x - tx) / sx
+      // y' = (y - ty) / sy
+      const sx = matrix.a;
+      const sy = matrix.d;
+      const tx = matrix.e;
+      const ty = matrix.f;
+      const realPoint = {
+        x: (x - tx) / sx,
+        y: (y - ty) / sy // Flip y back since we used negative scale
+      }
+
+      coords.textContent = `(${realPoint.x.toFixed(2)}, ${realPoint.y.toFixed(2)})`;
+      coords.setAttribute('x', (x + 5).toString());
+      coords.setAttribute('y', (y - 5).toString());
+    });
+    document.currentScript.parentElement.addEventListener('mouseleave', () => {
+      document.currentScript.parentElement.getElementById('crosshair').style.display = 'none';
+    });
+    ]]>
+  </script>
+</svg>
