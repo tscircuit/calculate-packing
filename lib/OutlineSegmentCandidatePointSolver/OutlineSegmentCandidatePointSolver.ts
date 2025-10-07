@@ -472,7 +472,8 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
 
     // If boundary outline is specified, ensure all component corners are within it
     if (this.boundaryOutline && this.boundaryOutline.length >= 3) {
-      const adjustedComponent = this.createTemporaryPackedComponent(adjustedCenter)
+      const adjustedComponent =
+        this.createTemporaryPackedComponent(adjustedCenter)
       const adjustedBounds = getComponentBounds(adjustedComponent, 0)
 
       // Check if all pads are within the boundary outline
@@ -486,16 +487,22 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
         { x: adjustedBounds.minX, y: adjustedBounds.maxY },
         { x: adjustedBounds.maxX, y: adjustedBounds.minY },
         { x: adjustedBounds.maxX, y: adjustedBounds.maxY },
-      ].every((corner) =>
-        isPointInPolygon(corner, this.boundaryOutline!),
-      )
+      ].every((corner) => isPointInPolygon(corner, this.boundaryOutline!))
 
       if (!allPadsInside || !cornersInside) {
         // Clamp center to viable bounds
         if (this.viableBounds) {
           adjustedCenter = {
-            x: clamp(adjustedCenter.x, this.viableBounds.minX, this.viableBounds.maxX),
-            y: clamp(adjustedCenter.y, this.viableBounds.minY, this.viableBounds.maxY),
+            x: clamp(
+              adjustedCenter.x,
+              this.viableBounds.minX,
+              this.viableBounds.maxX,
+            ),
+            y: clamp(
+              adjustedCenter.y,
+              this.viableBounds.minY,
+              this.viableBounds.maxY,
+            ),
           }
         }
       }

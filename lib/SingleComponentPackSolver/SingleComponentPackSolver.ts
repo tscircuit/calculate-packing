@@ -245,9 +245,7 @@ export class SingleComponentPackSolver extends BaseSolver {
             { x: componentBounds.minX, y: componentBounds.maxY },
             { x: componentBounds.maxX, y: componentBounds.minY },
             { x: componentBounds.maxX, y: componentBounds.maxY },
-          ].every((corner) =>
-            isPointInPolygon(corner, this.boundaryOutline!),
-          )
+          ].every((corner) => isPointInPolygon(corner, this.boundaryOutline!))
 
           outsideBoundaryOutline = !allPadsInside || !cornersInside
         }

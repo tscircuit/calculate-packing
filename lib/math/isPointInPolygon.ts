@@ -17,10 +17,7 @@ export function isPointInPolygon(
 
   // Ensure polygon is closed for the algorithm
   const poly = [...polygon]
-  if (
-    poly[0]!.x !== poly[n - 1]!.x ||
-    poly[0]!.y !== poly[n - 1]!.y
-  ) {
+  if (poly[0]!.x !== poly[n - 1]!.x || poly[0]!.y !== poly[n - 1]!.y) {
     poly.push({ ...poly[0]! })
   }
 
