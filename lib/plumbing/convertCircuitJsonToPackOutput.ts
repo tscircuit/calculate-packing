@@ -126,7 +126,9 @@ export const convertCircuitJsonToPackOutput = (
   let unnamedCounter = 0
 
   // Extract boundary outline from pcb_board if it exists
-  const pcbBoard = (circuitJson as any[]).find((item: any) => item.type === "pcb_board")
+  const pcbBoard = (circuitJson as any[]).find(
+    (item: any) => item.type === "pcb_board",
+  )
   if (pcbBoard && pcbBoard.outline) {
     packOutput.boundaryOutline = pcbBoard.outline
   }
