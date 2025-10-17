@@ -229,6 +229,18 @@ export class SingleComponentPackSolver extends BaseSolver {
           })
         })
 
+        // Check if component is outside bounds
+        let outsideBounds = false
+        if (this.bounds) {
+          const componentBounds = getComponentBounds(candidateComponent, 0)
+
+          outsideBounds =
+            componentBounds.minX < this.bounds.minX ||
+            componentBounds.maxX > this.bounds.maxX ||
+            componentBounds.minY < this.bounds.minY ||
+            componentBounds.maxY > this.bounds.maxY
+        }
+
         // Check if component is outside boundary outline
         let outsideBoundaryOutline = false
         if (this.boundaryOutline && this.boundaryOutline.length >= 3) {
@@ -272,6 +284,16 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: minObstacleGapDistance,
+          })
+        } else if (outsideBounds) {
+          this.rejectedCandidates.push({
+            segment: queuedSegment.segment,
+            rotation,
+            optimalPosition,
+            distance,
+            segmentIndex: queuedSegment.segmentIndex,
+            rotationIndex: this.currentRotationIndex,
+            gapDistance: -1, // Special marker for bounds violation
           })
         } else if (outsideBoundaryOutline) {
           this.rejectedCandidates.push({
