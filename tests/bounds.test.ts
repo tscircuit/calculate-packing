@@ -100,8 +100,6 @@ test("bounds should be respected", () => {
     packOrderStrategy: "largest_to_smallest",
     packPlacementStrategy: "shortest_connection_along_outline",
     obstacles: [],
-    orderStrategy: "largest_to_smallest",
-    placementStrategy: "minimum_sum_squared_distance_to_network",
     bounds: {
       minX: -2.5,
       maxX: 2.5,
