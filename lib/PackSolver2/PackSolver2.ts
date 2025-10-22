@@ -11,6 +11,9 @@ import type {
 } from "../types"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
 import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
+import { getComponentBounds } from "../geometry/getComponentBounds"
+import { isPointInPolygon } from "../math/isPointInPolygon"
+import { getPolygonCentroid } from "../math/getPolygonCentroid"
 
 export class PackSolver2 extends BaseSolver {
   declare activeSubSolver: SingleComponentPackSolver | null | undefined
@@ -44,9 +47,18 @@ export class PackSolver2 extends BaseSolver {
   private packFirstComponent(): void {
     const firstComponentToPack = this.unpackedComponentQueue.shift()!
 
+    // If boundary outline exists, use its geometric centroid as the starting position
+    let initialPosition = { x: 0, y: 0 }
+    if (
+      this.packInput.boundaryOutline &&
+      this.packInput.boundaryOutline.length >= 3
+    ) {
+      initialPosition = getPolygonCentroid(this.packInput.boundaryOutline)
+    }
+
     const newPackedComponent: PackedComponent = {
       ...firstComponentToPack,
-      center: { x: 0, y: 0 },
+      center: initialPosition,
       ccwRotationOffset: 0,
       pads: firstComponentToPack.pads.map((p) => ({
         ...p,
@@ -75,7 +87,33 @@ export class PackSolver2 extends BaseSolver {
       })
     })
 
-    if (!tooCloseToObstacles) {
+    // Check if component is outside boundary outline
+    let outsideBoundaryOutline = false
+    if (
+      this.packInput.boundaryOutline &&
+      this.packInput.boundaryOutline.length >= 3
+    ) {
+      const componentBounds = getComponentBounds(newPackedComponent, 0)
+
+      // Check if all pads are within the boundary outline
+      const allPadsInside = newPackedComponent.pads.every((pad) =>
+        isPointInPolygon(pad.absoluteCenter, this.packInput.boundaryOutline!),
+      )
+
+      // Also check corners of component bounds
+      const cornersInside = [
+        { x: componentBounds.minX, y: componentBounds.minY },
+        { x: componentBounds.minX, y: componentBounds.maxY },
+        { x: componentBounds.maxX, y: componentBounds.minY },
+        { x: componentBounds.maxX, y: componentBounds.maxY },
+      ].every((corner) =>
+        isPointInPolygon(corner, this.packInput.boundaryOutline!),
+      )
+
+      outsideBoundaryOutline = !allPadsInside || !cornersInside
+    }
+
+    if (!tooCloseToObstacles && !outsideBoundaryOutline) {
       this.packedComponents.push(newPackedComponent)
       return
     }
@@ -95,7 +133,8 @@ export class PackSolver2 extends BaseSolver {
     if (result) {
       this.packedComponents.push(result)
     } else {
-      // Fallback: place at center even if too close (should rarely happen)
+      // Fallback: place at center even if it violates constraints (should rarely happen)
+      // This typically indicates impossible constraints (e.g., component too large for boundary)
       this.packedComponents.push(newPackedComponent)
     }
   }
