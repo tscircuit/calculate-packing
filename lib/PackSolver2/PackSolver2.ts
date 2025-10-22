@@ -13,6 +13,7 @@ import { getColorForString } from "lib/testing/createColorMapFromStrings"
 import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
 import { getComponentBounds } from "../geometry/getComponentBounds"
 import { isPointInPolygon } from "../math/isPointInPolygon"
+import { getPolygonCentroid } from "../math/getPolygonCentroid"
 
 export class PackSolver2 extends BaseSolver {
   declare activeSubSolver: SingleComponentPackSolver | null | undefined
@@ -46,24 +47,13 @@ export class PackSolver2 extends BaseSolver {
   private packFirstComponent(): void {
     const firstComponentToPack = this.unpackedComponentQueue.shift()!
 
-    // If boundary outline exists, use its centroid as the starting position
+    // If boundary outline exists, use its geometric centroid as the starting position
     let initialPosition = { x: 0, y: 0 }
     if (
       this.packInput.boundaryOutline &&
       this.packInput.boundaryOutline.length >= 3
     ) {
-      const sumX = this.packInput.boundaryOutline.reduce(
-        (sum, p) => sum + p.x,
-        0,
-      )
-      const sumY = this.packInput.boundaryOutline.reduce(
-        (sum, p) => sum + p.y,
-        0,
-      )
-      initialPosition = {
-        x: sumX / this.packInput.boundaryOutline.length,
-        y: sumY / this.packInput.boundaryOutline.length,
-      }
+      initialPosition = getPolygonCentroid(this.packInput.boundaryOutline)
     }
 
     const newPackedComponent: PackedComponent = {
