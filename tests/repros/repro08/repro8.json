@@ -1,0 +1,112 @@
+{
+  "components": [
+    {
+      "componentId": "pcb_component_0",
+      "pads": [
+        {
+          "padId": "pcb_smtpad_0",
+          "networkId": "unnamed0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -0.51,
+            "y": 0
+          }
+        },
+        {
+          "padId": "pcb_smtpad_1",
+          "networkId": "unnamed1",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 0.51,
+            "y": 0
+          }
+        },
+        {
+          "padId": "pcb_component_0-inner",
+          "networkId": "pcb_component_0-inner",
+          "type": "rect",
+          "size": {
+            "x": 1.56,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ]
+    },
+    {
+      "componentId": "pcb_component_1",
+      "pads": [
+        {
+          "padId": "pcb_smtpad_2",
+          "networkId": "unnamed2",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -0.51,
+            "y": 0
+          }
+        },
+        {
+          "padId": "pcb_smtpad_3",
+          "networkId": "unnamed3",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 0.51,
+            "y": 0
+          }
+        },
+        {
+          "padId": "pcb_component_1-inner",
+          "networkId": "pcb_component_1-inner",
+          "type": "rect",
+          "size": {
+            "x": 1.56,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ]
+    }
+  ],
+  "minGap": 1,
+  "packOrderStrategy": "largest_to_smallest",
+  "packPlacementStrategy": "shortest_connection_along_outline",
+  "obstacles": [],
+  "boundaryOutline": [
+    {
+      "x": -4,
+      "y": 4
+    },
+    {
+      "x": 4,
+      "y": -4
+    },
+    {
+      "x": 4,
+      "y": 4
+    }
+  ],
+  "orderStrategy": "largest_to_smallest",
+  "placementStrategy": "minimum_sum_squared_distance_to_network"
+}
