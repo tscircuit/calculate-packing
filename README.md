@@ -3,6 +3,8 @@
 **calculate-packing** is a small TypeScript library that ships the placement /
 packing algorithm used by the [tscircuit tool-chain](https://github.com/tscircuit/tscircuit) for automatically laying out PCB components.
 
+[Paste PackInput and Debug Online](https://calculate-packing.tscircuit.com/?fixture=%7B%22path%22%3A%22site%2Fpack%2Fpack-debugger-from-input.page.tsx%22%7D)
+
 The solver turns a user-supplied `PackInput` (components, pads & strategy
 settings) into a collision-free `PackOutput` while
 
