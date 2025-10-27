@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { LargestRectOutsideOutlineFromPointSolver } from "../../lib/LargestRectOutsideOutlineFromPointSolver"
 import type { Point } from "../../lib/geometry/types"
 import type { Bounds } from "@tscircuit/math-utils"
@@ -43,12 +43,26 @@ export default function LargestRectOutsideOutlineSolver01Page() {
   solver.solve()
   const result = solver.getLargestRect()
 
-  return (
-    <div style={{ padding: "20px" }}>
-      <h2>LargestRectOutsideOutlineSolver Test 01</h2>
+  useEffect(() => {
+    if (typeof document === "undefined") return
+    if (
+      !document.querySelector(
+        'script[src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"]',
+      )
+    ) {
+      const script = document.createElement("script")
+      script.src = "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"
+      document.head.appendChild(script)
+    }
+  }, [])
 
-      <div style={{ marginBottom: "20px" }}>
-        <h3>Input Data:</h3>
+  return (
+    <div className="p-5">
+      <h2 className="text-2xl font-bold mt-5 mb-5">
+        LargestRectOutsideOutlineSolver Test 01
+      </h2>
+      <div className="mb-5">
+        <h3 className="text-lg font-bold mt-4 mb-4">Input Data:</h3>
         <div>
           Origin: ({origin.x.toFixed(3)}, {origin.y.toFixed(3)})
         </div>
@@ -59,9 +73,8 @@ export default function LargestRectOutsideOutlineSolver01Page() {
           {globalBounds.maxY.toFixed(3)}]
         </div>
       </div>
-
-      <div style={{ marginBottom: "20px" }}>
-        <h3>Result:</h3>
+      <div className="mb-5">
+        <h3 className="text-lg font-bold mt-4 mb-4">Result:</h3>
         {result ? (
           <div>
             <div>
@@ -74,11 +87,7 @@ export default function LargestRectOutsideOutlineSolver01Page() {
           <div>No rectangle found</div>
         )}
       </div>
-
-      <div
-        className="border-2 border-gray-800 mx-auto"
-        style={{ maxWidth: "600px" }}
-      >
+      <div className="border-2 border-gray-800 mx-auto max-w-xl">
         {solver && <InteractiveGraphics graphics={solver.visualize()} />}
       </div>
     </div>
