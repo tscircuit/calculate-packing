@@ -1,5 +1,5 @@
 import { InteractiveGraphics } from "graphics-debug/react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { constructOutlinesFromPackedComponents } from "../../lib/constructOutlinesFromPackedComponents"
 import { getComponentBounds } from "../../lib/geometry/getComponentBounds"
 import type { PackedComponent } from "../../lib/types"
@@ -93,17 +93,31 @@ export const ConstructOutlineDebugger = ({
 }: ConstructOutlineDebuggerProps) => {
   const [minGap, setMinGap] = useState(initialMinGap)
 
+  // Load Tailwind CSS dynamically
+  useEffect(() => {
+    if (typeof document === "undefined") return
+    if (
+      !document.querySelector(
+        'script[src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"]',
+      )
+    ) {
+      const script = document.createElement("script")
+      script.src = "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"
+      document.head.appendChild(script)
+    }
+  }, [])
+
   const graphics = getGraphicsFromConstructOutlineData(components, minGap)
 
   return (
-    <div>
-      <h2 className="text-xl font-bold mb-2">{title}</h2>
+    <div className="m-2">
+      <h2 className="text-xl font-bold mt-5 mb-5">{title}</h2>
 
       {stepNumber !== undefined && (
-        <p className="text-gray-600 mb-2">Step: {stepNumber}</p>
+        <p className="text-gray-600  mt-4 mb-4">Step: {stepNumber}</p>
       )}
 
-      <p className="text-gray-600 mb-4">
+      <p className="text-gray-600 mt-4 mb-4">
         Components: {components.length}, Min Gap: {minGap}
       </p>
 
