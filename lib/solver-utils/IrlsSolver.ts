@@ -205,4 +205,8 @@ export class IrlsSolver extends BaseSolver {
 
     return graphics
   }
+
+  override getOutput() {
+    return this.optimalPosition ?? this.currentPosition
+  }
 }

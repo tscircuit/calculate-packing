@@ -2,9 +2,9 @@ import { InteractiveGraphics } from "graphics-debug/react"
 import type { PackInput, PackOutput } from "../../lib/types"
 import { getGraphicsFromPackOutput } from "../../lib/testing/getGraphicsFromPackOutput"
 import { convertPackOutputToPackInput } from "../../lib/plumbing/convertPackOutputToPackInput"
-import { useMemo, useReducer, useState, useRef, useEffect } from "react"
+import { useMemo, useReducer, useState, useRef, useEffect, use } from "react"
 import { PackSolver2 } from "../../lib/PackSolver2/PackSolver2"
-import type { BaseSolver } from "../../lib/solver-utils/BaseSolver"
+import type { BaseSolver } from "@tscircuit/solver-utils"
 
 type SolverType = "PhasedPackSolver" | "PackSolver2"
 
@@ -96,6 +96,19 @@ export const PackDebugger = ({
     }
   }, [])
 
+  useEffect(() => {
+    if (typeof document === "undefined") return
+    if (
+      !document.querySelector(
+        'script[src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"]',
+      )
+    ) {
+      const script = document.createElement("script")
+      script.src = "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"
+      document.head.appendChild(script)
+    }
+  }, [])
+
   const handleAnimateToggle = () => {
     if (isAnimating) {
       // Stop animation
@@ -115,50 +128,30 @@ export const PackDebugger = ({
   }
 
   return (
-    <div>
-      <h2>{title}</h2>
+    <div className="m-2">
+      <h2 className="text-2xl font-bold mt-5 mb-5">{title}</h2>
 
       {/* Control Panel */}
-      <div
-        style={{
-          marginBottom: "20px",
-          padding: "10px",
-          border: "1px solid #ccc",
-          borderRadius: "5px",
-        }}
-      >
-        <div style={{ marginBottom: "10px" }}>
-          <label style={{ marginRight: "10px" }}>
+      <div className="mb-5 p-2.5 border border-gray-300 rounded">
+        <div className="mb-2.5">
+          <label className="mr-2.5">
             <strong>Solver:</strong>
           </label>
           <select
             value={selectedSolver}
             onChange={(e) => setSelectedSolver(e.target.value as SolverType)}
-            style={{
-              padding: "4px 8px",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-              marginRight: "20px",
-            }}
+            className="py-1 px-2 rounded border border-gray-300 mr-5"
           >
             <option value="PhasedPackSolver">PhasedPackSolver</option>
             <option value="PackSolver2">PackSolver2</option>
           </select>
         </div>
-        <div style={{ marginBottom: "10px" }}>
+        <div className="mb-2.5">
           <strong>Iterations:</strong> {packSolver.iterations}
         </div>
-        <div style={{ marginBottom: "10px" }}>
+        <div className="mb-2.5">
           <strong>Active Solvers:</strong>{" "}
-          <span
-            style={{
-              fontFamily: "monospace",
-              backgroundColor: "#f5f5f5",
-              padding: "2px 6px",
-              borderRadius: "3px",
-              fontSize: "0.9em",
-            }}
-          >
+          <span className="font-mono bg-gray-100 py-0.5 px-1.5 rounded text-sm">
             {solverBreadcrumb.join(" → ")}
           </span>
         </div>
@@ -167,42 +160,23 @@ export const PackDebugger = ({
             packSolver.step()
             incRunCount()
           }}
-          style={{
-            padding: "8px 16px",
-            backgroundColor: "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            marginRight: "10px",
-          }}
+          className="py-2 px-4 bg-blue-600 text-white border-0 rounded cursor-pointer mr-2.5 hover:bg-blue-700"
         >
           Step
         </button>
         <button
           onClick={handleAnimateToggle}
-          style={{
-            padding: "8px 16px",
-            backgroundColor: isAnimating ? "#dc3545" : "#17a2b8",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-            marginRight: "10px",
-          }}
+          className={`py-2 px-4 text-white border-0 rounded cursor-pointer mr-2.5 ${
+            isAnimating
+              ? "bg-red-600 hover:bg-red-700"
+              : "bg-cyan-600 hover:bg-cyan-700"
+          }`}
         >
           {isAnimating ? "Stop" : "Animate"}
         </button>
         <button
           onClick={() => downloadConstructorParams(deepestSolver)}
-          style={{
-            padding: "8px 16px",
-            backgroundColor: "#28a745",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
+          className="py-2 px-4 bg-green-600 text-white border-0 rounded cursor-pointer hover:bg-green-700"
           title={`Download constructor parameters for ${deepestSolver.constructor.name}`}
         >
           Download {deepestSolver.constructor.name} Parameters
@@ -210,7 +184,9 @@ export const PackDebugger = ({
       </div>
 
       {/* Automatic Pack Visualization */}
-      <h3>Automatic Pack Visualization</h3>
+      <h3 className="text-lg font-bold mt-5 mb-5">
+        Automatic Pack Visualization
+      </h3>
       <InteractiveGraphics
         key={`iter${packSolver.iterations >= 2}`}
         graphics={packSolver.visualize()}
@@ -218,7 +194,7 @@ export const PackDebugger = ({
 
       {/* Manual Pack Output (collapsible) */}
       {initialPackOutput && (
-        <details style={{ marginTop: "20px" }}>
+        <details className="mt-5">
           <summary>Manual Pack Output</summary>
           <InteractiveGraphics
             graphics={getGraphicsFromPackOutput(initialPackOutput)}

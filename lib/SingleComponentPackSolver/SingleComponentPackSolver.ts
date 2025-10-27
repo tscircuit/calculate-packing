@@ -2,7 +2,7 @@ import type { GraphicsObject, Line, Point, Rect } from "graphics-debug"
 import { constructOutlinesFromPackedComponents } from "../constructOutlinesFromPackedComponents"
 import { OutlineSegmentCandidatePointSolver } from "../OutlineSegmentCandidatePointSolver/OutlineSegmentCandidatePointSolver"
 import { setPackedComponentPadCenters } from "../PackSolver2/setPackedComponentPadCenters"
-import { BaseSolver } from "../solver-utils/BaseSolver"
+import { BaseSolver } from "@tscircuit/solver-utils"
 import { getGraphicsFromPackOutput } from "../testing/getGraphicsFromPackOutput"
 import type { Segment } from "../geometry/types"
 import type {
@@ -628,6 +628,10 @@ export class SingleComponentPackSolver extends BaseSolver {
 
   getResult(): PackedComponent | undefined {
     return this.outputPackedComponent
+  }
+
+  override getOutput() {
+    return this.getResult()
   }
 
   override getConstructorParams() {

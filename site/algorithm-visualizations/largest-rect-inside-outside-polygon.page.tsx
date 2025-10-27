@@ -353,10 +353,10 @@ export default function LargestRectDemo() {
 
   return (
     <div className="w-full h-full p-4">
-      <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-4">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-4">
         <div className="lg:col-span-3">
           <div className="p-3 bg-white rounded-2xl shadow border">
-            <div className="flex items-center justify-between mb-2">
+            <div className="grid flex items-center justify-between mb-2">
               <h2 className="text-xl font-semibold">
                 Largest Rectangle vs Orthogonal Polygon
               </h2>

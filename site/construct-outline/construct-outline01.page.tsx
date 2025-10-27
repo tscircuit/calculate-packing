@@ -73,6 +73,19 @@ const OutlineVisualization: React.FC = () => {
     )
   }, [])
 
+  useEffect(() => {
+    if (typeof document === "undefined") return
+    if (
+      !document.querySelector(
+        'script[src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"]',
+      )
+    ) {
+      const script = document.createElement("script")
+      script.src = "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"
+      document.head.appendChild(script)
+    }
+  }, [])
+
   const outlines = constructOutlinesFromPackedComponents(components, { minGap })
 
   const handleMouseDown = (e: React.MouseEvent, componentId: string) => {
@@ -233,12 +246,12 @@ const OutlineVisualization: React.FC = () => {
   }
 
   return (
-    <div className="w-full h-screen bg-gray-100 p-4">
+    <div className="w-full h-screen m-2">
       <div className="mb-4">
-        <h2 className="text-xl font-bold mb-2">
+        <h2 className="text-2xl font-bold mt-5 mb-5">
           Draggable Components Outline Visualization
         </h2>
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-600 mt-4 mb-4">
           Drag the components around to see how the outline adapts. The red
           dashed line shows the computed outline.
         </p>

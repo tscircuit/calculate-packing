@@ -2,7 +2,7 @@ import type { GraphicsObject } from "graphics-debug"
 import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
 import { sortComponentQueue } from "./sortComponentQueue"
 import { SingleComponentPackSolver } from "../SingleComponentPackSolver/SingleComponentPackSolver"
-import { BaseSolver } from "../solver-utils/BaseSolver"
+import { BaseSolver } from "@tscircuit/solver-utils"
 import type {
   InputComponent,
   OutputPad,
@@ -320,5 +320,12 @@ export class PackSolver2 extends BaseSolver {
     }
 
     return graphics
+  }
+
+  override getOutput() {
+    return {
+      packedComponents: this.packedComponents,
+      unpackedComponents: this.unpackedComponentQueue,
+    }
   }
 }

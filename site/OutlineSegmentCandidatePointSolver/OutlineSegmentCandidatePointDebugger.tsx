@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react"
+import { useState, useReducer, useEffect } from "react"
 import type { Point } from "@tscircuit/math-utils"
 import { InteractiveGraphics } from "graphics-debug/react"
 import { OutlineSegmentCandidatePointSolver } from "../../lib/OutlineSegmentCandidatePointSolver/OutlineSegmentCandidatePointSolver"
@@ -44,6 +44,20 @@ export function OutlineSegmentCandidatePointDebugger({
     0 | 90 | 180 | 270
   >(0)
   const [, incRunCount] = useReducer((c) => c + 1, 0)
+
+  // Load Tailwind CSS dynamically
+  useEffect(() => {
+    if (typeof document === "undefined") return
+    if (
+      !document.querySelector(
+        'script[src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"]',
+      )
+    ) {
+      const script = document.createElement("script")
+      script.src = "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"
+      document.head.appendChild(script)
+    }
+  }, [])
 
   const runSolver = () => {
     setIsRunning(true)

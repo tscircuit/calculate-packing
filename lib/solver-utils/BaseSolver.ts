@@ -83,6 +83,15 @@ export class BaseSolver {
   tryFinalAcceptance() {}
 
   /**
+   * Override this method to return the standardized output of the solver.
+   * This method should only be called after the solver has completed successfully.
+   * Returns null by default - solvers with outputs should override this method.
+   */
+  getOutput(): any {
+    return null
+  }
+
+  /**
    * A lightweight version of the visualize method that can be used to stream
    * progress
    */

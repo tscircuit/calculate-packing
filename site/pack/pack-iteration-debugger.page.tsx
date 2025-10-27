@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useReducer } from "react"
+import React, { useState, useMemo, useReducer, useEffect } from "react"
 import { InteractiveGraphics } from "graphics-debug/react"
 import type { PackInput } from "../../lib/types"
 import { PackSolver2 } from "lib/index"
@@ -102,29 +102,36 @@ export default () => {
     incForceUpdate()
   }
 
+  useEffect(() => {
+    if (typeof document === "undefined") return
+    if (
+      !document.querySelector(
+        'script[src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"]',
+      )
+    ) {
+      const script = document.createElement("script")
+      script.src = "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"
+      document.head.appendChild(script)
+    }
+  }, [])
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Pack Iteration Debugger</h2>
+    <div className="p-5">
+      <h2 className="text-2xl font-bold mt-5 mb-5">Pack Iteration Debugger</h2>
 
       {/* JSON Input Section */}
-      <div style={{ marginBottom: "20px" }}>
-        <h3>PackInput JSON</h3>
+      <div className="mb-5">
+        <h3 className="text-lg font-bold mt-4 mb-4">PackInput JSON</h3>
         <textarea
           value={jsonInput}
           onChange={(e) => handleJsonChange(e.target.value)}
-          style={{
-            width: "100%",
-            height: "300px",
-            fontFamily: "monospace",
-            fontSize: "12px",
-            border: parseError ? "2px solid red" : "1px solid #ccc",
-            borderRadius: "4px",
-            padding: "10px",
-          }}
+          className={`w-full h-72 font-mono text-xs p-2.5 rounded ${
+            parseError ? "border-2 border-red-600" : "border border-gray-300"
+          }`}
           placeholder="Paste your PackInput JSON here..."
         />
         {parseError && (
-          <div style={{ color: "red", marginTop: "5px", fontSize: "14px" }}>
+          <div className="text-red-600 mt-1.5 text-sm">
             JSON Parse Error: {parseError}
           </div>
         )}
@@ -132,42 +139,23 @@ export default () => {
 
       {/* Control Panel */}
       {packSolver && (
-        <div
-          style={{
-            marginBottom: "20px",
-            padding: "15px",
-            border: "1px solid #ccc",
-            borderRadius: "5px",
-            backgroundColor: "#f9f9f9",
-          }}
-        >
-          <div style={{ marginBottom: "15px" }}>
+        <div className="mb-5 p-4 border border-gray-300 rounded bg-gray-50">
+          <div className="mb-4">
             <strong>Iterations: {packSolver.iterations}</strong>
             {packSolver.solved && (
-              <span
-                style={{
-                  marginLeft: "10px",
-                  color: "green",
-                  fontWeight: "bold",
-                }}
-              >
-                ✓ Solved
-              </span>
+              <span className="ml-2.5 text-green-600 font-bold">✓ Solved</span>
             )}
           </div>
 
-          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+          <div className="flex gap-2.5 flex-wrap">
             <button
               onClick={handleStep}
               disabled={packSolver.solved}
-              style={{
-                padding: "8px 16px",
-                backgroundColor: packSolver.solved ? "#ccc" : "#007bff",
-                color: "white",
-                border: "none",
-                borderRadius: "4px",
-                cursor: packSolver.solved ? "not-allowed" : "pointer",
-              }}
+              className={`py-2 px-4 text-white border-0 rounded ${
+                packSolver.solved
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-blue-600 cursor-pointer hover:bg-blue-700"
+              }`}
             >
               Step
             </button>
@@ -175,28 +163,18 @@ export default () => {
             <button
               onClick={handleSolve}
               disabled={packSolver.solved}
-              style={{
-                padding: "8px 16px",
-                backgroundColor: packSolver.solved ? "#ccc" : "#28a745",
-                color: "white",
-                border: "none",
-                borderRadius: "4px",
-                cursor: packSolver.solved ? "not-allowed" : "pointer",
-              }}
+              className={`py-2 px-4 text-white border-0 rounded ${
+                packSolver.solved
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-green-600 cursor-pointer hover:bg-green-700"
+              }`}
             >
               Solve
             </button>
 
             <button
               onClick={handleReset}
-              style={{
-                padding: "8px 16px",
-                backgroundColor: "#6c757d",
-                color: "white",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
-              }}
+              className="py-2 px-4 bg-gray-600 text-white border-0 rounded cursor-pointer hover:bg-gray-700"
             >
               Reset
             </button>
@@ -207,13 +185,13 @@ export default () => {
       {/* Visualization */}
       {packSolver && (
         <div>
-          <h3>Current Packing State</h3>
+          <h3 className="text-lg font-bold mt-4 mb-4">Current Packing State</h3>
           <InteractiveGraphics graphics={packSolver.visualize()} />
         </div>
       )}
 
       {!parsedPackInput && (
-        <div style={{ color: "#666", fontStyle: "italic", marginTop: "20px" }}>
+        <div className="text-gray-500 italic mt-5">
           Please provide valid PackInput JSON to begin debugging.
         </div>
       )}

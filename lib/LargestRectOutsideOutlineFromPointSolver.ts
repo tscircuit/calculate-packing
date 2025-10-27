@@ -1,4 +1,4 @@
-import { BaseSolver } from "./solver-utils/BaseSolver"
+import { BaseSolver } from "@tscircuit/solver-utils"
 import type { Point, Segment } from "./geometry/types"
 import type { Bounds } from "@tscircuit/math-utils"
 import type { GraphicsObject } from "graphics-debug"
@@ -349,5 +349,9 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
     }
 
     return graphics
+  }
+
+  override getOutput() {
+    return this.largestRect ?? null
   }
 }
