@@ -1,6 +1,6 @@
 import { clamp, type Bounds, type Point } from "@tscircuit/math-utils"
 import type { GraphicsObject } from "graphics-debug"
-import { BaseSolver } from "lib/solver-utils/BaseSolver"
+import { BaseSolver } from "@tscircuit/solver-utils"
 import {
   MultiOffsetIrlsSolver,
   type OffsetPadPoint,
@@ -696,5 +696,9 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
 
     return graphics
+  }
+
+  override getOutput() {
+    return this.optimalPosition ?? null
   }
 }

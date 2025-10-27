@@ -335,4 +335,8 @@ export class MultiOffsetIrlsSolver extends BaseSolver {
 
     return graphics
   }
+
+  override getOutput() {
+    return this.optimalPosition ?? this.currentPosition
+  }
 }

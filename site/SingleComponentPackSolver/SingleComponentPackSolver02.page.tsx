@@ -1,4 +1,4 @@
-import { GenericSolverDebugger } from "../components/GenericSolverDebugger"
+import { GenericSolverDebugger } from "@tscircuit/solver-utils/react"
 import { SingleComponentPackSolver } from "../../lib/SingleComponentPackSolver/SingleComponentPackSolver"
 import params from "./SingleComponentPackSolver02_input.json"
 
@@ -10,10 +10,5 @@ export default () => {
     minGap: params.minGap,
   })
 
-  return (
-    <GenericSolverDebugger
-      solver={solver}
-      title="SingleComponentPackSolver02"
-    />
-  )
+  return <GenericSolverDebugger solver={solver} />
 }

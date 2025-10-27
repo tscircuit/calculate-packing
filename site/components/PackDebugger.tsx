@@ -4,7 +4,7 @@ import { getGraphicsFromPackOutput } from "../../lib/testing/getGraphicsFromPack
 import { convertPackOutputToPackInput } from "../../lib/plumbing/convertPackOutputToPackInput"
 import { useMemo, useReducer, useState, useRef, useEffect } from "react"
 import { PackSolver2 } from "../../lib/PackSolver2/PackSolver2"
-import type { BaseSolver } from "../../lib/solver-utils/BaseSolver"
+import type { BaseSolver } from "@tscircuit/solver-utils"
 
 type SolverType = "PhasedPackSolver" | "PackSolver2"
 
