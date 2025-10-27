@@ -71,10 +71,8 @@ export const PackDebugger = ({
 
   return (
     <div>
-      <h2 className="text-2xl font-bold m-4">{title}</h2>
-
       {/* Solver Selection */}
-      <div className="mb-4 p-2 border-b">
+      <div className="px-2 py-1">
         <div className="flex gap-2 items-center">
           <label className="text-sm font-medium">Solver:</label>
           <select
