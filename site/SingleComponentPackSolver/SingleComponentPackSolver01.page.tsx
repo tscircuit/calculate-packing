@@ -10,5 +10,9 @@ export default () => {
     minGap: params.minGap,
   })
 
-  return <GenericSolverDebugger solver={solver} />
+  return (
+    <div className="pb-48">
+      <GenericSolverDebugger solver={solver} />
+    </div>
+  )
 }

@@ -166,7 +166,9 @@ export const ConstructOutlineDebugger = ({
         </button>
       </div>
 
-      <InteractiveGraphics graphics={graphics} />
+      <div className="pb-48">
+        <InteractiveGraphics graphics={graphics} />
+      </div>
     </div>
   )
 }

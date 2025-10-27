@@ -103,7 +103,9 @@ export const PackDebugger = ({
       {graphicsAreEmpty ? (
         <div className="p-4 text-gray-500">No Graphics Yet</div>
       ) : (
-        <InteractiveGraphics graphics={visualization} />
+        <div className="pb-48">
+          <InteractiveGraphics graphics={visualization} />
+        </div>
       )}
 
       {/* Manual Pack Output (collapsible) */}
