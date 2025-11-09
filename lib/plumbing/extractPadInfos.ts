@@ -1,6 +1,25 @@
 import type { cju } from "@tscircuit/circuit-json-util"
 import type { PcbComponent } from "circuit-json"
 
+const getPolygonBoundingBox = (points: Array<{ x: number; y: number }>) => {
+  if (!points || points.length === 0)
+    return { minX: 0, maxX: 0, minY: 0, maxY: 0 }
+
+  let minX = Infinity,
+    minY = Infinity,
+    maxX = -Infinity,
+    maxY = -Infinity
+
+  for (const point of points) {
+    minX = Math.min(minX, point.x)
+    maxX = Math.max(maxX, point.x)
+    minY = Math.min(minY, point.y)
+    maxY = Math.max(maxY, point.y)
+  }
+
+  return { minX, maxX, minY, maxY }
+}
+
 /* ---------- Flattened type helpers and pad extraction ---------- */
 type PadInfo = {
   padId: string
@@ -124,28 +143,32 @@ export const extractPadInfos = (
         pushPad({
           padId: sp.pcb_smtpad_id,
           pcbPortId: sp.pcb_port_id,
-          sx: sp.radius ?? 0,
-          sy: sp.radius ?? 0,
+          sx: sp.radius * 2, // Convert radius to diameter for width/height
+          sy: sp.radius * 2,
           x: sp.x,
           y: sp.y,
         })
         break
       }
-      case "pill": {
-        pushPad({
-          padId: sp.pcb_smtpad_id,
-          pcbPortId: sp.pcb_port_id,
-          sx: sp.width ?? 0,
-          sy: sp.height ?? 0,
-          x: sp.x,
-          y: sp.y,
-        })
-        break
-      }
-      default: {
-        console.warn(
-          `smtpad shape ${sp.shape} pads are not supported in pack layout yet`,
-        )
+      case "polygon": {
+        if (sp.points && sp.points.length > 0) {
+          const { minX, maxX, minY, maxY } = getPolygonBoundingBox(sp.points)
+          const width = maxX - minX
+          const height = maxY - minY
+          const centerX = (minX + maxX) / 2
+          const centerY = (minY + maxY) / 2
+
+          pushPad({
+            padId: sp.pcb_smtpad_id,
+            pcbPortId: sp.pcb_port_id,
+            sx: width,
+            sy: height,
+            x: centerX,
+            y: centerY,
+          })
+        } else {
+          console.warn(`Polygon pad ${sp.pcb_smtpad_id} has no points`)
+        }
         break
       }
     }

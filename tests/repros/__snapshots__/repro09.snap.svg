@@ -1,0 +1,87 @@
+<svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="white" />
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.40596820000007483" data-y="-0.3244849999999815" x="180.42971614378516" y="194.82533796417877" width="85.74653256868575" height="71.46250213092597" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.004198352857142993" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.40591740000007803" data-y="0.3255264000000011" x="180.44181612717267" y="40" width="85.74653256876695" height="71.46250213095303" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.004198352857142993" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.405968200000018" data-y="0.32453579999992144" x="373.82375128750203" y="40.23594967689557" width="85.74653256871278" height="71.46250213092594" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.004198352857142993" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.405968200000018" data-y="-0.3255264000000011" x="373.82375128750203" y="195.07338762446184" width="85.74653256871278" height="71.46250213095303" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.004198352857142993" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.0020701000000826753" data-y="0.0005587999998510895" x="263.32670261502665" y="95.9684733503056" width="114.3327434194394" height="114.33274341943937" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.004198352857142993" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0" data-y="0" x="180.42971614378516" y="40" width="279.14056771242963" height="226.53588975541487" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.004198352857142993" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.33" data-y="-1.675538800000038" x="186.61435590216593" y="504.72453993011857" width="109.56677908036369" height="95.27546006988143" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.004198352857142993" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.33" data-y="-1.675538800000038" x="343.8188650174704" y="504.72453993011857" width="109.56677908036369" height="95.27546006988143" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.004198352857142993" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0" data-y="-1.675538800000038" x="186.61435590216593" y="504.72453993011857" width="266.77128819566815" height="95.27546006988143" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.004198352857142993" />
+  </g>
+  <g id="crosshair" style="display: none">
+    <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
+    <line id="crosshair-v" x1="0" x2="640" stroke="#666" stroke-width="0.5" /><text id="coordinates" font-family="monospace" font-size="12" fill="#666"></text>
+  </g>
+  <script>
+    <![CDATA[
+    document.currentScript.parentElement.addEventListener('mousemove', (e) => {
+      const svg = e.currentTarget;
+      const rect = svg.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const crosshair = svg.getElementById('crosshair');
+      const h = svg.getElementById('crosshair-h');
+      const v = svg.getElementById('crosshair-v');
+      const coords = svg.getElementById('coordinates');
+
+      crosshair.style.display = 'block';
+      h.setAttribute('x1', '0');
+      h.setAttribute('x2', '640');
+      h.setAttribute('y1', y);
+      h.setAttribute('y2', y);
+      v.setAttribute('x1', x);
+      v.setAttribute('x2', x);
+      v.setAttribute('y1', '0');
+      v.setAttribute('y2', '640');
+
+      // Calculate real coordinates using inverse transformation
+      const matrix = {
+        "a": 238.1886501747037,
+        "c": 0,
+        "e": 320,
+        "b": 0,
+        "d": -238.1886501747037,
+        "f": 153.26794487770744
+      };
+      // Manually invert and apply the affine transform
+      // Since we only use translate and scale, we can directly compute:
+      // x' = (x - tx) / sx
+      // y' = (y - ty) / sy
+      const sx = matrix.a;
+      const sy = matrix.d;
+      const tx = matrix.e;
+      const ty = matrix.f;
+      const realPoint = {
+        x: (x - tx) / sx,
+        y: (y - ty) / sy // Flip y back since we used negative scale
+      }
+
+      coords.textContent = `(${realPoint.x.toFixed(2)}, ${realPoint.y.toFixed(2)})`;
+      coords.setAttribute('x', (x + 5).toString());
+      coords.setAttribute('y', (y - 5).toString());
+    });
+    document.currentScript.parentElement.addEventListener('mouseleave', () => {
+      document.currentScript.parentElement.getElementById('crosshair').style.display = 'none';
+    });
+    ]]>
+  </script>
+</svg>
