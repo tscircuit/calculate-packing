@@ -1,5 +1,5 @@
 import { test, expect } from "bun:test"
-import circuitJson from "./repro09/PolygonPads.circuit.circuit.json"
+import circuitJson from "./repro10/XiaoRP2040Board.circuit.circuit.json"
 import { convertCircuitJsonToPackOutput } from "../../lib/plumbing/convertCircuitJsonToPackOutput"
 import { convertPackOutputToPackInput } from "../../lib/plumbing/convertPackOutputToPackInput"
 import { PackSolver2 } from "../../lib/PackSolver2/PackSolver2"
@@ -7,7 +7,7 @@ import { getSvgFromGraphicsObject } from "graphics-debug"
 import { getGraphicsFromPackOutput } from "../../lib/testing/getGraphicsFromPackOutput"
 import type { CircuitJson } from "circuit-json"
 
-test("repro09 - final output after running PackSolver2 to completion", async () => {
+test("repro10 - final output after running PackSolver2 to completion", async () => {
   // Convert circuitJson to packOutput, then to packInput
   const packOutput = convertCircuitJsonToPackOutput(
     circuitJson as CircuitJson,
@@ -26,7 +26,6 @@ test("repro09 - final output after running PackSolver2 to completion", async () 
     minGap: 1,
   })
   solver.solve()
-  console.log(JSON.stringify(solver.getOutput(), null, 2))
 
   expect(
     getSvgFromGraphicsObject(solver.visualize(), {

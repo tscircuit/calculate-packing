@@ -1,0 +1,390 @@
+<svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="white" />
+  <g>
+    <polyline data-points="0,10.55 7.090000000000001,10.55 7.441162579629032,10.515413504725815 7.778830178257163,10.412983158520316 8.090026419435285,10.246645302144582 8.362792206135786,10.022792206135785 8.586645302144582,9.750026419435283 8.752983158520317,9.438830178257161 8.855413504725815,9.101162579629031 8.89,8.75 8.89,-8.75 8.855413504725815,-9.101162579629031 8.752983158520317,-9.438830178257161 8.586645302144582,-9.750026419435283 8.362792206135786,-10.022792206135785 8.090026419435285,-10.246645302144582 7.778830178257163,-10.412983158520316 7.441162579629032,-10.515413504725815 7.090000000000001,-10.55 -7.090000000000001,-10.55 -7.441162579629031,-10.515413504725815 -7.778830178257162,-10.412983158520316 -8.090026419435285,-10.246645302144582 -8.362792206135786,-10.022792206135787 -8.586645302144582,-9.750026419435283 -8.752983158520317,-9.438830178257161 -8.855413504725815,-9.101162579629031 -8.89,-8.75 -8.89,8.75 -8.855413504725815,9.101162579629031 -8.752983158520317,9.438830178257161 -8.586645302144582,9.750026419435283 -8.362792206135786,10.022792206135787 -8.090026419435285,10.246645302144582 -7.778830178257162,10.412983158520316 -7.441162579629031,10.515413504725815 -7.090000000000001,10.55 0,10.55" data-type="line" data-label="" points="320,40 508.1706161137441,40 517.4905708337562,40.917935419599246 526.4523649205693,43.636465935005845 534.7116016532588,48.0511199430822 541.9508831960209,53.992244766064516 547.8920080190031,61.23152630882663 552.3066620270795,69.49076304151612 555.025192542486,78.45255712832906 555.9431279620853,87.77251184834125 555.9431279620853,552.2274881516587 555.025192542486,561.5474428716709 552.3066620270795,570.5092369584838 547.8920080190031,578.7684736911733 541.9508831960209,586.0077552339355 534.7116016532588,591.9488800569178 526.4523649205693,596.3635340649942 517.4905708337562,599.0820645804008 508.1706161137441,600 131.82938388625593,600 122.50942916624373,599.0820645804008 113.54763507943079,596.3635340649942 105.28839834674127,591.9488800569178 98.04911680397916,586.0077552339355 92.1079919809969,578.7684736911733 87.69333797292052,570.5092369584838 84.97480745751395,561.5474428716709 84.0568720379147,552.2274881516587 84.0568720379147,87.77251184834125 84.97480745751395,78.45255712832906 87.69333797292052,69.49076304151612 92.1079919809969,61.23152630882663 98.04911680397916,53.99224476606446 105.28839834674127,48.0511199430822 113.54763507943079,43.636465935005845 122.50942916624373,40.917935419599246 131.82938388625593,40 320,40" fill="none" stroke="rgba(0, 0, 255, 0.5)" stroke-width="1" stroke-dasharray="4 2" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_0" data-x="-8.25" data-y="7.62" x="61.23222748815169" y="91.22274881516589" width="79.62085308056871" height="53.08056872037915" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_1" data-x="-8.25" data-y="5.08" x="61.23222748815169" y="158.6350710900474" width="79.62085308056871" height="53.08056872037915" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_2" data-x="-8.25" data-y="2.54" x="61.23222748815169" y="226.04739336492892" width="79.62085308056871" height="53.08056872037915" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_3" data-x="-8.25" data-y="0" x="61.23222748815169" y="293.45971563981044" width="79.62085308056871" height="53.08056872037912" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_4" data-x="-8.25" data-y="-2.54" x="61.23222748815169" y="360.87203791469193" width="79.62085308056871" height="53.080568720379176" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_5" data-x="-8.25" data-y="-5.079999999999999" x="61.23222748815169" y="428.2843601895734" width="79.62085308056871" height="53.080568720379176" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_6" data-x="-8.25" data-y="-7.62" x="61.23222748815169" y="495.69668246445497" width="79.62085308056871" height="53.08056872037912" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_7" data-x="8.25" data-y="7.62" x="499.14691943127957" y="91.22274881516589" width="79.62085308056874" height="53.08056872037915" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_8" data-x="8.25" data-y="5.08" x="499.14691943127957" y="158.6350710900474" width="79.62085308056874" height="53.08056872037915" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_9" data-x="8.25" data-y="2.54" x="499.14691943127957" y="226.04739336492892" width="79.62085308056874" height="53.08056872037915" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_10" data-x="8.25" data-y="0" x="499.14691943127957" y="293.45971563981044" width="79.62085308056874" height="53.08056872037912" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_11" data-x="8.25" data-y="-2.54" x="499.14691943127957" y="360.87203791469193" width="79.62085308056874" height="53.080568720379176" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_12" data-x="8.25" data-y="-5.079999999999999" x="499.14691943127957" y="428.2843601895734" width="79.62085308056874" height="53.080568720379176" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="pcb_plated_hole_13" data-x="8.25" data-y="-7.62" x="499.14691943127957" y="495.69668246445497" width="79.62085308056874" height="53.08056872037912" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="2.6000710000001277" x="211.18066995260637" y="248.33935317535207" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="2.2000210000000493" x="211.18066995260637" y="258.956793933648" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="1.7999710000000848" x="211.18066995260637" y="269.5742346919409" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="1.3999210000000064" x="211.18066995260637" y="280.1916754502368" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="1.0001250000000825" x="211.18066995260637" y="290.8023749763011" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="0.6000750000000041" x="211.18066995260637" y="301.419815734597" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="0.2000250000000394" x="211.18066995260637" y="312.0372564928899" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="-0.200025000000039" x="211.18066995260637" y="322.6546972511859" width="29.194254407582946" height="5.3080462559241255" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="-0.6000750000000037" x="211.18066995260637" y="333.2721380094788" width="29.194254407582946" height="5.3080462559241255" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="-0.9998710000000413" x="211.18066995260637" y="343.8828375355461" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="-1.399921000000006" x="211.18066995260637" y="354.500278293839" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="-1.7999709999999707" x="211.18066995260637" y="365.1177190521319" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="-2.2000209999999356" x="211.18066995260637" y="375.7351598104248" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.5501580000000104" data-y="-2.6000709999999003" x="211.18066995260637" y="386.3526005687177" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-2.5999439999999368" data-y="-3.550031000000047" x="248.3427237914709" y="399.6217050236979" width="5.308046255924154" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-2.200148000000013" data-y="-3.550031000000047" x="258.9534233175352" y="399.6217050236979" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-1.8000979999999345" data-y="-3.550031000000047" x="269.57086407583114" y="399.6217050236979" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-1.4000480000001971" data-y="-3.550031000000047" x="280.188304834118" y="399.6217050236979" width="5.3080462559241255" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.999998000000005" data-y="-3.550031000000047" x="290.80574559241694" y="399.6217050236979" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.5999480000000403" data-y="-3.550031000000047" x="301.42318635070984" y="399.6217050236979" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.20015200000000272" data-y="-3.550031000000047" x="312.03388587677716" y="399.6217050236979" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.199897999999962" data-y="-3.550031000000047" x="322.65132663507006" y="399.6217050236979" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.5999479999999267" data-y="-3.550031000000047" x="333.26876739336296" y="399.6217050236979" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.999998000000005" data-y="-3.550031000000047" x="343.8862081516589" y="399.6217050236979" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="1.4000479999999698" data-y="-3.550031000000047" x="354.5036489099518" y="399.6217050236979" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="1.799844000000121" data-y="-3.550031000000047" x="365.11434843602217" y="399.6217050236979" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="2.1998939999998584" data-y="-3.550031000000047" x="375.73178919430904" y="399.6217050236979" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="2.5999439999999368" data-y="-3.550031000000047" x="386.34922995260496" y="399.6217050236979" width="5.3080462559241255" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="-2.6000709999999003" x="399.6250756398107" y="386.3526005687177" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="-2.2000209999999356" x="399.6250756398107" y="375.7351598104248" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="-1.7999709999999707" x="399.6250756398107" y="365.1177190521319" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="-1.399921000000006" x="399.6250756398107" y="354.500278293839" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="-0.9998710000000413" x="399.6250756398107" y="343.8828375355461" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="-0.6000750000000037" x="399.6250756398107" y="333.2721380094788" width="29.194254407582946" height="5.3080462559241255" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="-0.200025000000039" x="399.6250756398107" y="322.6546972511859" width="29.194254407582946" height="5.3080462559241255" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="0.2000250000000394" x="399.6250756398107" y="312.0372564928899" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="0.6000750000000041" x="399.6250756398107" y="301.419815734597" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="1.0001250000000825" x="399.6250756398107" y="290.8023749763011" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="1.3999210000000064" x="399.6250756398107" y="280.1916754502368" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="1.7999710000000848" x="399.6250756398107" y="269.5742346919409" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="2.2000210000000493" x="399.6250756398107" y="258.956793933648" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.5501580000000104" data-y="2.6000710000001277" x="399.6250756398107" y="248.33935317535207" width="29.194254407582946" height="5.308046255924182" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="2.5999439999999368" data-y="3.550031000000047" x="386.34922995260496" y="211.18404056871913" width="5.3080462559241255" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="2.1998939999998584" data-y="3.550031000000047" x="375.73178919430904" y="211.18404056871913" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="1.799844000000121" data-y="3.550031000000047" x="365.11434843602217" y="211.18404056871913" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="1.4000479999999698" data-y="3.550031000000047" x="354.5036489099518" y="211.18404056871913" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.999998000000005" data-y="3.550031000000047" x="343.8862081516589" y="211.18404056871913" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.5999479999999267" data-y="3.550031000000047" x="333.26876739336296" y="211.18404056871913" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.199897999999962" data-y="3.550031000000047" x="322.65132663507006" y="211.18404056871913" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.20015200000000272" data-y="3.550031000000047" x="312.03388587677716" y="211.18404056871913" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.5999480000000403" data-y="3.550031000000047" x="301.42318635070984" y="211.18404056871913" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.999998000000005" data-y="3.550031000000047" x="290.80574559241694" y="211.18404056871913" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-1.4000480000001971" data-y="3.550031000000047" x="280.188304834118" y="211.18404056871913" width="5.3080462559241255" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-1.8000979999999345" data-y="3.550031000000047" x="269.57086407583114" y="211.18404056871913" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-2.200148000000013" data-y="3.550031000000047" x="258.9534233175352" y="211.18404056871913" width="5.308046255924182" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-2.5999439999999368" data-y="3.550031000000047" x="248.3427237914709" y="211.18404056871913" width="5.308046255924154" height="29.194254407582946" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-1.1363594537155951e-13" data-y="0.00012699999996377648" x="278.8626415165847" y="278.8592709004749" width="82.2747169668246" height="82.27471696682466" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="5.0892350056527297e-17" data-y="2.0356940022610919e-16" x="211.18066995260637" y="211.18404056871913" width="217.63866009478727" height="217.63191886256175" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.40596820000007483" data-y="-5.900053700000067" x="304.44831431279624" y="472.60773118483644" width="9.554348436014891" height="7.962743507107916" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.40591740000007803" data-y="-5.250042300000084" x="304.44966255923714" y="455.35624379147043" width="9.554348436023929" height="7.962743507110986" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.405968200000018" data-y="-5.251032900000164" x="325.99733725118585" y="455.3825345971612" width="9.554348436017904" height="7.962743507107973" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.405968200000018" data-y="-5.901095100000086" x="325.99733725118585" y="472.63537023696813" width="9.554348436017904" height="7.962743507110986" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.0020701000000826753" data-y="-5.575009900000234" x="313.6851507109027" y="461.5925577251247" width="12.73958066350707" height="12.73958066350707" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0" data-y="-5.575568700000085" x="304.44831431279624" y="455.35624379147043" width="31.103371374407516" height="25.24186995260868" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-2.085964299999998" data-y="-8.176086200000228" x="251.36779867298586" y="529.0335833175416" width="26.540231279620826" height="15.924138767772547" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-2.085964299999998" data-y="-6.876114200000089" x="251.36779867298586" y="494.5319567772535" width="26.540231279620826" height="15.92413876777249" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-4.186036299999839" data-y="-6.876114200000089" x="195.63129061611804" y="494.5319567772535" width="26.540231279620826" height="15.92413876777249" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-4.186036299999839" data-y="-8.176086200000228" x="195.63129061611804" y="529.0335833175416" width="26.540231279620826" height="15.924138767772547" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-3.1360002999999184" data-y="-7.526100200000158" x="195.63129061611804" y="494.5319567772535" width="82.27673933648865" height="50.42576530806059" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.24602440000001458" data-y="-8.282139750000056" x="321.6991275829388" y="530.6938386729872" width="9.660859905213272" height="18.233010805687172" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.40396159999999803" data-y="-8.282139750000056" x="304.44831431279624" y="530.6938386729872" width="9.660859905213272" height="18.233010805687172" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.40396159999999803" data-y="-9.31896775000007" x="304.44831431279624" y="558.2115486255942" width="9.660859905213272" height="18.233010805687286" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="0.24602440000001458" data-y="-9.31896775000007" x="321.6991275829388" y="558.2115486255942" width="9.660859905213272" height="18.233010805687286" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="-0.07896859999999173" data-y="-8.800553750000063" x="304.44831431279624" y="530.6938386729872" width="26.911673175355816" height="45.75072075829428" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="1.6580281000000148" data-y="-8.800553750000063" x="357.9002718483416" y="548.2611421800964" width="12.20853080568719" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="2.318028100000015" data-y="-8.800553750000063" x="375.41685952606673" y="548.2611421800964" width="12.20853080568719" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="1.9880281000000148" data-y="-8.800553750000063" x="357.9002718483416" y="548.2611421800964" width="29.725118483412302" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.7780281000000144" data-y="-7.825014950000025" x="414.1656746919435" y="522.3700650236973" width="12.208530805687246" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="4.438028100000015" data-y="-7.825014950000025" x="431.6822623696686" y="522.3700650236973" width="12.208530805687246" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="4.1080281000000145" data-y="-7.825014950000025" x="414.1656746919435" y="522.3700650236973" width="29.72511848341236" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="3.7780281000000144" data-y="-9.787507475000012" x="414.1656746919435" y="574.4551746919435" width="12.208530805687246" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="4.438028100000015" data-y="-9.787507475000012" x="431.6822623696686" y="574.4551746919435" width="12.208530805687246" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="4.1080281000000145" data-y="-9.787507475000012" x="414.1656746919435" y="574.4551746919435" width="29.72511848341236" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="5.237982649999999" data-y="-6.425014950000024" x="453.70949213270137" y="484.4174583886262" width="10.616113744075847" height="12.208530805687246" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="5.237982649999999" data-y="-5.765014950000024" x="453.70949213270137" y="466.90087071090113" width="10.616113744075847" height="12.20853080568719" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="5.237982649999999" data-y="-6.095014950000024" x="453.70949213270137" y="466.90087071090113" width="10.616113744075847" height="29.725118483412302" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="6.949014050000008" data-y="-9.82" x="498.3245435071092" y="575.3175355450237" width="12.208530805687246" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="7.609014050000008" data-y="-9.82" x="515.8411311848342" y="575.3175355450237" width="12.208530805687246" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="7.279014050000008" data-y="-9.82" x="498.3245435071092" y="575.3175355450237" width="29.725118483412302" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="4.21" data-y="9.82" x="425.6303317535545" y="54.06635071090051" width="12.20853080568719" height="10.61611374407579" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="4.87" data-y="9.82" x="443.14691943127957" y="54.06635071090051" width="12.208530805687246" height="10.61611374407579" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="4.54" data-y="9.82" x="425.6303317535545" y="54.06635071090051" width="29.725118483412302" height="10.61611374407579" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="7.165" data-y="9.82" x="504.0568720379147" y="54.06635071090051" width="12.208530805687246" height="10.61611374407579" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="7.825" data-y="9.82" x="521.5734597156397" y="54.06635071090051" width="12.208530805687246" height="10.61611374407579" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="" data-x="7.495" data-y="9.82" x="504.0568720379147" y="54.06635071090051" width="29.725118483412302" height="10.61611374407579" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
+  </g>
+  <g id="crosshair" style="display: none">
+    <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
+    <line id="crosshair-v" x1="0" x2="640" stroke="#666" stroke-width="0.5" /><text id="coordinates" font-family="monospace" font-size="12" fill="#666"></text>
+  </g>
+  <script>
+    <![CDATA[
+    document.currentScript.parentElement.addEventListener('mousemove', (e) => {
+      const svg = e.currentTarget;
+      const rect = svg.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const crosshair = svg.getElementById('crosshair');
+      const h = svg.getElementById('crosshair-h');
+      const v = svg.getElementById('crosshair-v');
+      const coords = svg.getElementById('coordinates');
+
+      crosshair.style.display = 'block';
+      h.setAttribute('x1', '0');
+      h.setAttribute('x2', '640');
+      h.setAttribute('y1', y);
+      h.setAttribute('y2', y);
+      v.setAttribute('x1', x);
+      v.setAttribute('x2', x);
+      v.setAttribute('y1', '0');
+      v.setAttribute('y2', '640');
+
+      // Calculate real coordinates using inverse transformation
+      const matrix = {
+        "a": 26.54028436018957,
+        "c": 0,
+        "e": 320,
+        "b": 0,
+        "d": -26.54028436018957,
+        "f": 320
+      };
+      // Manually invert and apply the affine transform
+      // Since we only use translate and scale, we can directly compute:
+      // x' = (x - tx) / sx
+      // y' = (y - ty) / sy
+      const sx = matrix.a;
+      const sy = matrix.d;
+      const tx = matrix.e;
+      const ty = matrix.f;
+      const realPoint = {
+        x: (x - tx) / sx,
+        y: (y - ty) / sy // Flip y back since we used negative scale
+      }
+
+      coords.textContent = `(${realPoint.x.toFixed(2)}, ${realPoint.y.toFixed(2)})`;
+      coords.setAttribute('x', (x + 5).toString());
+      coords.setAttribute('y', (y - 5).toString());
+    });
+    document.currentScript.parentElement.addEventListener('mouseleave', () => {
+      document.currentScript.parentElement.getElementById('crosshair').style.display = 'none';
+    });
+    ]]>
+  </script>
+</svg>

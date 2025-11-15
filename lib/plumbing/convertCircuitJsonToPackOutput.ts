@@ -10,6 +10,7 @@ import type {
   InputObstacle,
 } from "../types"
 import { extractPadInfos } from "./extractPadInfos"
+import { getElementOutsideTree } from "./getElementsOutsideTree"
 
 /* build a single PackedComponent from one or more pcb_components */
 const buildPackedComponent = (
@@ -116,7 +117,7 @@ export const convertCircuitJsonToPackOutput = (
     minGap: 0,
     packOrderStrategy: "largest_to_smallest",
     packPlacementStrategy: "shortest_connection_along_outline",
-    obstacles: opts.obstacles,
+    obstacles: opts.obstacles ?? [],
   }
 
   const tree = getCircuitJsonTree(circuitJson, {
@@ -124,6 +125,8 @@ export const convertCircuitJsonToPackOutput = (
   })
   const db = cju(circuitJson)
   let unnamedCounter = 0
+
+  const elementsOutsideTree = getElementOutsideTree(db, tree)
 
   // Extract boundary outline from pcb_board if it exists
   const pcbBoard = (circuitJson as any[]).find(
@@ -187,6 +190,24 @@ export const convertCircuitJsonToPackOutput = (
           opts.chipMarginsMap,
         ),
       )
+    }
+  }
+
+  //lets add all elements outside the tree as obstecls
+
+  for (const element of elementsOutsideTree) {
+    //move logic to getObstacleFromElement
+    if (
+      element.type === "pcb_plated_hole" &&
+      element.shape === "circular_hole_with_rect_pad"
+    ) {
+      const { rect_pad_height, rect_pad_width, x, y } = element
+      packOutput.obstacles!.push({
+        obstacleId: element.pcb_plated_hole_id,
+        absoluteCenter: { x, y },
+        width: rect_pad_width,
+        height: rect_pad_height,
+      })
     }
   }
 
