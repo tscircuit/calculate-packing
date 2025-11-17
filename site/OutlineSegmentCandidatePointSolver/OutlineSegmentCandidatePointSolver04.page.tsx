@@ -9,7 +9,7 @@ export default function OutlineSegmentCandidatePointSolver04Example() {
     inputData.outlineSegment[1] as Point,
   ]
 
-  const fullOutline: [Point, Point][] = inputData.fullOutline.map(
+  const ccwFullOutline: [Point, Point][] = inputData.ccwFullOutline.map(
     (segment) => [segment[0] as Point, segment[1] as Point] as [Point, Point],
   )
 
@@ -22,7 +22,7 @@ export default function OutlineSegmentCandidatePointSolver04Example() {
   return (
     <OutlineSegmentCandidatePointDebugger
       outlineSegment={outlineSegment}
-      fullOutline={fullOutline}
+      ccwFullOutline={ccwFullOutline}
       componentToPack={componentToPack}
       packedComponents={packedComponents}
       minGap={inputData.minGap}

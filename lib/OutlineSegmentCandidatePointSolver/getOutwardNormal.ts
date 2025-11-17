@@ -1,10 +1,13 @@
 import type { Bounds, Point } from "@tscircuit/math-utils"
 import { pointInOutline } from "../geometry/pointInOutline"
 
+import { ensureCcwOutlineSegments, getOutlineSignedArea } from "./ccwOutline"
+
 export function getOutwardNormal(
   outlineSegment: [Point, Point],
-  fullOutline: [Point, Point][],
+  ccwFullOutline: [Point, Point][],
 ): Point {
+  const normalizedOutline = ensureCcwOutlineSegments(ccwFullOutline)
   const [p1, p2] = outlineSegment
   const dx = p2.x - p1.x
   const dy = p2.y - p1.y
@@ -29,7 +32,7 @@ export function getOutwardNormal(
   }
 
   // Use a scale-aware test distance to reduce numeric issues
-  const bbox = getOutlineBoundsWithMargin(fullOutline)
+  const bbox = getOutlineBoundsWithMargin(normalizedOutline)
   const scale = Math.max(bbox.maxX - bbox.minX, bbox.maxY - bbox.minY) || 1
   const testDistance = Math.max(1e-4, 1e-3 * scale)
 
@@ -43,32 +46,17 @@ export function getOutwardNormal(
     y: mid.y + right.y * testDistance,
   }
 
-  const locLeft = pointInOutline(testLeft, fullOutline)
+  const locLeft = pointInOutline(testLeft, normalizedOutline)
   if (locLeft === "outside") {
     return left
   }
-  const locRight = pointInOutline(testRight, fullOutline)
+  const locRight = pointInOutline(testRight, normalizedOutline)
   if (locRight === "outside") {
     return right
   }
 
-  // Fallback 1: infer from polygon orientation (CCW => inside on left => outward is right)
-  const verts: Point[] = []
-  if (fullOutline.length > 0) {
-    verts.push(fullOutline[0]![0])
-    for (const seg of fullOutline) {
-      verts.push(seg[1]!)
-    }
-  }
-  const signedArea = (() => {
-    let a = 0
-    for (let i = 0; i < verts.length; i++) {
-      const v1 = verts[i]!
-      const v2 = verts[(i + 1) % verts.length]!
-      a += v1.x * v2.y - v2.x * v1.y
-    }
-    return a / 2
-  })()
+  // Fallback 1: rely on orientation (CCW => inside on left => outward is right)
+  const signedArea = getOutlineSignedArea(normalizedOutline)
   if (Math.abs(signedArea) > 1e-12) {
     return signedArea > 0 ? right : left
   }
@@ -85,7 +73,7 @@ export function getOutwardNormal(
 }
 
 function getOutlineBoundsWithMargin(
-  fullOutline: [Point, Point][],
+  ccwOutline: [Point, Point][],
   margin = 0,
 ): Bounds {
   let minX = Infinity
@@ -93,7 +81,7 @@ function getOutlineBoundsWithMargin(
   let maxX = -Infinity
   let maxY = -Infinity
 
-  for (const [p1, p2] of fullOutline) {
+  for (const [p1, p2] of ccwOutline) {
     minX = Math.min(minX, p1.x, p2.x)
     minY = Math.min(minY, p1.y, p2.y)
     maxX = Math.max(maxX, p1.x, p2.x)

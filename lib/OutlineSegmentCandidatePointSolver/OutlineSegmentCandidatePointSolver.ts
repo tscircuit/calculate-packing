@@ -21,6 +21,10 @@ import { LargestRectOutsideOutlineFromPointSolver } from "lib/LargestRectOutside
 import { getInputComponentBounds } from "lib/geometry/getInputComponentBounds"
 import { expandSegment } from "lib/math/expandSegment"
 import { isPointInPolygon } from "lib/math/isPointInPolygon"
+import {
+  ensureCcwOutlineSegments,
+  outlineSegmentsToVertices,
+} from "./ccwOutline"
 
 /**
  * Given a single segment on the outline, the component's rotation, compute the
@@ -35,7 +39,7 @@ import { isPointInPolygon } from "lib/math/isPointInPolygon"
 export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   outlineSegment: [Point, Point]
   viableOutlineSegment: [Point, Point] | null = null
-  fullOutline: [Point, Point][] // The entire outline containing the segment
+  ccwFullOutline: [Point, Point][] // The entire outline containing the segment
   componentRotationDegrees: number
   packStrategy: PackPlacementStrategy
   minGap: number
@@ -51,7 +55,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
 
   constructor(params: {
     outlineSegment: [Point, Point]
-    fullOutline: [Point, Point][] // The entire outline containing the segment
+    ccwFullOutline: [Point, Point][] // The entire outline containing the segment
     componentRotationDegrees: number
     packStrategy: PackPlacementStrategy
     minGap: number
@@ -63,7 +67,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   }) {
     super()
     this.outlineSegment = params.outlineSegment
-    this.fullOutline = params.fullOutline
+    this.ccwFullOutline = ensureCcwOutlineSegments(params.ccwFullOutline)
     this.componentRotationDegrees = params.componentRotationDegrees
     this.packStrategy = params.packStrategy
     this.minGap = params.minGap
@@ -79,7 +83,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   >[0] {
     return {
       outlineSegment: this.outlineSegment,
-      fullOutline: this.fullOutline,
+      ccwFullOutline: this.ccwFullOutline,
       componentRotationDegrees: this.componentRotationDegrees,
       packStrategy: this.packStrategy,
       minGap: this.minGap,
@@ -97,7 +101,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     let maxX = -Infinity
     let maxY = -Infinity
 
-    for (const [p1, p2] of this.fullOutline) {
+    for (const [p1, p2] of this.ccwFullOutline) {
       minX = Math.min(minX, p1.x, p2.x)
       minY = Math.min(minY, p1.y, p2.y)
       maxX = Math.max(maxX, p1.x, p2.x)
@@ -132,7 +136,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
 
     const outwardNormal = getOutwardNormal(
       this.outlineSegment,
-      this.fullOutline,
+      this.ccwFullOutline,
     )
     const componentBounds = getInputComponentBounds(this.componentToPack, {
       rotationDegrees: this.componentRotationDegrees,
@@ -150,7 +154,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     const largestRectSolverParams: ConstructorParameters<
       typeof LargestRectOutsideOutlineFromPointSolver
     >[0] = {
-      fullOutline: this.fullOutline.flatMap(([p]) => p),
+      fullOutline: outlineSegmentsToVertices(this.ccwFullOutline),
       globalBounds: packedComponentBoundsWithMargin,
       origin: {
         x: (p1.x + p2.x) / 2 + outwardNormal.x * 0.0001,
@@ -428,7 +432,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     // Get the outward normal for the current segment to push the component out
     const outwardNormal = getOutwardNormal(
       this.outlineSegment,
-      this.fullOutline,
+      this.ccwFullOutline,
     )
 
     // To compute push distance, we need to consider the direction of the
@@ -594,7 +598,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     })
 
     // Draw full outline
-    for (const [p1, p2] of this.fullOutline) {
+    for (const [p1, p2] of this.ccwFullOutline) {
       graphics.lines!.push({
         points: [p1, p2],
         strokeColor: "rgba(0,0,0,0.5)",
