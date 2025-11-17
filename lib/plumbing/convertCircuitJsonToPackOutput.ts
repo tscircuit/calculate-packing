@@ -151,12 +151,43 @@ export const convertCircuitJsonToPackOutput = (
 
   const topLevelNodes = tree.childNodes ?? []
 
+  // Helper function to recursively collect components with relative_to_group_anchor position mode
+  const collectRelativeToGroupAnchorComponents = (
+    node: any,
+  ): PcbComponent[] => {
+    const relativeComponents: PcbComponent[] = []
+
+    if (node.nodeType === "component") {
+      const pcbComponent = node.otherChildElements.find(
+        (e: any) => e.type === "pcb_component",
+      ) as PcbComponent | undefined
+      if (
+        pcbComponent &&
+        (pcbComponent as any).position_mode === "relative_to_group_anchor"
+      ) {
+        relativeComponents.push(pcbComponent)
+      }
+    }
+
+    // Recursively check child nodes
+    for (const child of node.childNodes ?? []) {
+      relativeComponents.push(...collectRelativeToGroupAnchorComponents(child))
+    }
+
+    return relativeComponents
+  }
+
   for (const node of topLevelNodes) {
     if (node.nodeType === "component") {
       const pcbComponent = node.otherChildElements.find(
         (e: any) => e.type === "pcb_component",
       ) as PcbComponent | undefined
       if (!pcbComponent) continue
+
+      // Skip components with relative_to_group_anchor position mode - they'll be added as obstacles
+      if ((pcbComponent as any).position_mode === "relative_to_group_anchor") {
+        continue
+      }
 
       let shouldAddInnerObstaclesForComp = opts.shouldAddInnerObstacles
       if (pcbComponent.obstructs_within_bounds === false) {
@@ -191,6 +222,42 @@ export const convertCircuitJsonToPackOutput = (
         ),
       )
     }
+  }
+
+  // Add components with "relative_to_group_anchor" position mode as obstacles
+  const relativeComponents = topLevelNodes.flatMap((node) =>
+    collectRelativeToGroupAnchorComponents(node),
+  )
+
+  for (const pcbComponent of relativeComponents) {
+    // Get all pads for this component to determine its bounds
+    const padInfos = extractPadInfos(pcbComponent, db, getNetworkId)
+
+    if (padInfos.length === 0) continue
+
+    // Calculate component bounds from pads
+    let minX = Infinity
+    let minY = Infinity
+    let maxX = -Infinity
+    let maxY = -Infinity
+
+    for (const pad of padInfos) {
+      minX = Math.min(minX, pad.absoluteCenter.x - pad.size.x / 2)
+      maxX = Math.max(maxX, pad.absoluteCenter.x + pad.size.x / 2)
+      minY = Math.min(minY, pad.absoluteCenter.y - pad.size.y / 2)
+      maxY = Math.max(maxY, pad.absoluteCenter.y + pad.size.y / 2)
+    }
+
+    const center = { x: (minX + maxX) / 2, y: (minY + maxY) / 2 }
+    const width = maxX - minX
+    const height = maxY - minY
+
+    packOutput.obstacles!.push({
+      obstacleId: pcbComponent.pcb_component_id,
+      absoluteCenter: center,
+      width: width,
+      height: height,
+    })
   }
 
   //lets add all elements outside the tree as obstecls
