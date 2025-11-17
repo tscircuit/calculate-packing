@@ -15,6 +15,7 @@ import { checkOverlapWithPackedComponents } from "lib/PackSolver2/checkOverlapWi
 import { computeDistanceBetweenBoxes, type Bounds } from "@tscircuit/math-utils"
 import { isPointInPolygon } from "lib/math/isPointInPolygon"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
+import { ensureCcwOutlineSegments } from "../OutlineSegmentCandidatePointSolver/ccwOutline"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 
@@ -22,7 +23,7 @@ interface QueuedOutlineSegment {
   segment: Segment
   availableRotations: number[]
   segmentIndex: number
-  fullOutline: Segment[] // The entire outline containing this segment
+  ccwFullOutline: Segment[] // The entire outline containing this segment
 }
 
 interface CandidateResult {
@@ -156,7 +157,7 @@ export class SingleComponentPackSolver extends BaseSolver {
         minGap: this.minGap,
         obstacles: this.obstacles,
       },
-    )
+    ).map((outline) => ensureCcwOutlineSegments(outline))
 
     // Queue all segment-rotation pairs
     const availableRotations = this.componentToPack
@@ -174,7 +175,7 @@ export class SingleComponentPackSolver extends BaseSolver {
           segment,
           availableRotations: [...availableRotations],
           segmentIndex: segmentIndex * 1000 + i, // Unique index across all outlines
-          fullOutline: outline, // Pass the entire outline containing this segment
+          ccwFullOutline: outline, // Pass the entire outline containing this segment
         })
       }
     }
@@ -348,7 +349,7 @@ export class SingleComponentPackSolver extends BaseSolver {
       // Create new OutlineSegmentCandidatePointSolver
       this.activeSubSolver = new OutlineSegmentCandidatePointSolver({
         outlineSegment: queuedSegment.segment,
-        fullOutline: queuedSegment.fullOutline,
+        ccwFullOutline: queuedSegment.ccwFullOutline,
         componentRotationDegrees: rotation,
         packStrategy: this.packPlacementStrategy,
         minGap: this.minGap,
