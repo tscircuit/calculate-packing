@@ -15,7 +15,7 @@ const packInput: PackInput = {
   ),
   packOrderStrategy: "largest_to_smallest",
   packPlacementStrategy: "minimum_sum_squared_distance_to_network",
-  minGap: 1,
+  minGap: 0.4,
 }
 
 console.log(packInput.obstacles)

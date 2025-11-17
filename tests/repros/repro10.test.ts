@@ -21,9 +21,9 @@ test("repro10 - final output after running PackSolver2 to completion", async () 
   // Run PackSolver2 to completion
   const solver = new PackSolver2({
     ...packInput,
-    packPlacementStrategy: "minimum_sum_squared_distance_to_network",
     packOrderStrategy: "largest_to_smallest",
-    minGap: 1,
+    packPlacementStrategy: "minimum_sum_squared_distance_to_network",
+    minGap: 0.4,
   })
   solver.solve()
 
