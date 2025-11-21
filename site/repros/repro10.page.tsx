@@ -18,6 +18,4 @@ const packInput: PackInput = {
   minGap: 0.4,
 }
 
-console.log(packInput.obstacles)
-
 export default () => <PackDebugger initialPackInput={packInput} />

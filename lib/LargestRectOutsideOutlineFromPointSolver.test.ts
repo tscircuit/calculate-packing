@@ -19,7 +19,7 @@ test("LargestRectOutsideOutlineFromPointSolver - basic rectangle outside outline
   const globalBounds: GlobalBounds = { minX: 0, maxX: 300, minY: 0, maxY: 300 }
 
   const solver = new LargestRectOutsideOutlineFromPointSolver({
-    fullOutline: outline,
+    ccwFullOutline: outline,
     origin,
     globalBounds,
   })
@@ -45,7 +45,7 @@ test("LargestRectOutsideOutlineFromPointSolver - point inside outline returns nu
   const globalBounds: GlobalBounds = { minX: 0, maxX: 300, minY: 0, maxY: 300 }
 
   const solver = new LargestRectOutsideOutlineFromPointSolver({
-    fullOutline: outline,
+    ccwFullOutline: outline,
     origin,
     globalBounds,
   })
@@ -80,7 +80,7 @@ test("LargestRectOutsideOutlineFromPointSolver - complex outline with notches", 
   const globalBounds: GlobalBounds = { minX: 0, maxX: 600, minY: 0, maxY: 400 }
 
   const solver = new LargestRectOutsideOutlineFromPointSolver({
-    fullOutline: outline,
+    ccwFullOutline: outline,
     origin,
     globalBounds,
   })
@@ -109,7 +109,7 @@ test("LargestRectOutsideOutlineFromPointSolver - point at global bounds edge", (
   const globalBounds: GlobalBounds = { minX: 0, maxX: 300, minY: 0, maxY: 300 }
 
   const solver = new LargestRectOutsideOutlineFromPointSolver({
-    fullOutline: outline,
+    ccwFullOutline: outline,
     origin,
     globalBounds,
   })
@@ -139,7 +139,7 @@ test.skip("LargestRectOutsideOutlineFromPointSolver - staircase pattern", () => 
   const globalBounds: GlobalBounds = { minX: 0, maxX: 600, minY: 0, maxY: 400 }
 
   const solver = new LargestRectOutsideOutlineFromPointSolver({
-    fullOutline: outline,
+    ccwFullOutline: outline,
     origin,
     globalBounds,
   })

@@ -22,7 +22,7 @@ interface QueuedOutlineSegment {
   segment: Segment
   availableRotations: number[]
   segmentIndex: number
-  fullOutline: Segment[] // The entire outline containing this segment
+  ccwFullOutline: Segment[] // The entire outline containing this segment
 }
 
 interface CandidateResult {
@@ -174,7 +174,7 @@ export class SingleComponentPackSolver extends BaseSolver {
           segment,
           availableRotations: [...availableRotations],
           segmentIndex: segmentIndex * 1000 + i, // Unique index across all outlines
-          fullOutline: outline, // Pass the entire outline containing this segment
+          ccwFullOutline: outline, // Pass the entire outline containing this segment
         })
       }
     }
@@ -348,7 +348,7 @@ export class SingleComponentPackSolver extends BaseSolver {
       // Create new OutlineSegmentCandidatePointSolver
       this.activeSubSolver = new OutlineSegmentCandidatePointSolver({
         outlineSegment: queuedSegment.segment,
-        fullOutline: queuedSegment.fullOutline,
+        ccwFullOutline: queuedSegment.ccwFullOutline,
         componentRotationDegrees: rotation,
         packStrategy: this.packPlacementStrategy,
         minGap: this.minGap,

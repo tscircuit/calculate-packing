@@ -35,7 +35,7 @@ export default function LargestRectOutsideOutlineSolver01Page() {
   }
 
   const solver = new LargestRectOutsideOutlineFromPointSolver({
-    fullOutline,
+    ccwFullOutline: fullOutline,
     origin,
     globalBounds,
   })
