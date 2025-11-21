@@ -8,7 +8,7 @@ interface OutlineSegmentCandidatePointDebuggerProps {
   title?: string
   description?: string
   outlineSegment: [Point, Point]
-  fullOutline: [Point, Point][]
+  ccwFullOutline: [Point, Point][]
   componentToPack: InputComponent
   packedComponents: PackedComponent[]
   minGap: number
@@ -24,7 +24,7 @@ export function OutlineSegmentCandidatePointDebugger({
   title = "OutlineSegmentCandidatePointSolver",
   description,
   outlineSegment,
-  fullOutline,
+  ccwFullOutline,
   componentToPack,
   packedComponents,
   minGap,
@@ -64,7 +64,7 @@ export function OutlineSegmentCandidatePointDebugger({
 
     const newSolver = new OutlineSegmentCandidatePointSolver({
       outlineSegment,
-      fullOutline,
+      ccwFullOutline,
       componentRotationDegrees,
       packStrategy,
       minGap,
@@ -178,7 +178,7 @@ export function OutlineSegmentCandidatePointDebugger({
             if (!solver) {
               const newSolver = new OutlineSegmentCandidatePointSolver({
                 outlineSegment,
-                fullOutline,
+                ccwFullOutline,
                 componentRotationDegrees,
                 packStrategy,
                 minGap,

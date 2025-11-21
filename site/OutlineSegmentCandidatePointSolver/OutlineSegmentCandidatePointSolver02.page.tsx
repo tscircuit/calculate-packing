@@ -118,7 +118,7 @@ export default function OutlineSegmentCandidatePointSolverExample() {
       title="OutlineSegmentCandidatePointSolver Example"
       description="This example shows how the OutlineSegmentCandidatePointSolver finds the optimal position for a component on an outline segment. The solver uses the IRLS/Weiszfeld algorithm to minimize connection distances to existing components with shared networks."
       outlineSegment={outlineSegment}
-      fullOutline={fullOutline}
+      ccwFullOutline={fullOutline}
       componentToPack={componentToPack}
       packedComponents={packedComponents}
       minGap={1}

@@ -22,7 +22,7 @@ export default function OutlineSegmentCandidatePointSolver03Example() {
   return (
     <OutlineSegmentCandidatePointDebugger
       outlineSegment={outlineSegment}
-      fullOutline={fullOutline}
+      ccwFullOutline={fullOutline}
       componentToPack={componentToPack}
       packedComponents={packedComponents}
       minGap={inputData.minGap}

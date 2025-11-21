@@ -11,7 +11,7 @@ test.skip("OutlineSegmentCandidatePointSolver - should not place component at (0
   ]
 
   // Define the full outline containing the segment
-  const fullOutline: [Point, Point][] = [
+  const ccwFullOutline: [Point, Point][] = [
     [
       { x: 100, y: 200 },
       { x: 500, y: 200 },
@@ -108,7 +108,7 @@ test.skip("OutlineSegmentCandidatePointSolver - should not place component at (0
 
   const solver = new OutlineSegmentCandidatePointSolver({
     outlineSegment,
-    fullOutline,
+    ccwFullOutline,
     componentRotationDegrees: 0,
     packStrategy: "minimum_sum_distance_to_network",
     minGap: 1,
@@ -158,7 +158,7 @@ test.skip("OutlineSegmentCandidatePointSolver - should compute viable segment co
     { x: 200, y: 100 },
   ]
 
-  const fullOutline: [Point, Point][] = [
+  const ccwFullOutline: [Point, Point][] = [
     [
       { x: 0, y: 100 },
       { x: 200, y: 100 },
@@ -192,7 +192,7 @@ test.skip("OutlineSegmentCandidatePointSolver - should compute viable segment co
 
   const solver = new OutlineSegmentCandidatePointSolver({
     outlineSegment,
-    fullOutline,
+    ccwFullOutline,
     componentRotationDegrees: 0,
     packStrategy: "minimum_sum_distance_to_network",
     minGap: 2,

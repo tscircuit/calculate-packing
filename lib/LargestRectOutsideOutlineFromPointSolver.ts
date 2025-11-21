@@ -9,25 +9,25 @@ export type { Point } from "./geometry/types"
 export type GlobalBounds = Bounds
 
 export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
-  fullOutline: Point[]
+  ccwFullOutline: Point[]
   origin: Point
   globalBounds: Bounds
   largestRect: Rect | null = null
 
   constructor(params: {
-    fullOutline: Point[]
+    ccwFullOutline: Point[]
     origin: Point
     globalBounds: Bounds
   }) {
     super()
-    this.fullOutline = params.fullOutline
+    this.ccwFullOutline = params.ccwFullOutline
     this.origin = params.origin
     this.globalBounds = params.globalBounds
   }
 
   override getConstructorParams() {
     return {
-      fullOutline: this.fullOutline,
+      ccwFullOutline: this.ccwFullOutline,
       origin: this.origin,
       globalBounds: this.globalBounds,
     }
@@ -43,7 +43,7 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
   }
 
   private computeLargestRectOutside(): Rect | null {
-    const edges = this.makeEdges(this.fullOutline)
+    const edges = this.makeEdges(this.ccwFullOutline)
     const bounds = {
       x: this.globalBounds.minX,
       y: this.globalBounds.minY,
@@ -307,9 +307,9 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
     // })
 
     // Draw outline as lines
-    for (let i = 0; i < this.fullOutline.length; i++) {
-      const p1 = this.fullOutline[i]
-      const p2 = this.fullOutline[(i + 1) % this.fullOutline.length]
+    for (let i = 0; i < this.ccwFullOutline.length; i++) {
+      const p1 = this.ccwFullOutline[i]
+      const p2 = this.ccwFullOutline[(i + 1) % this.ccwFullOutline.length]
       if (p1 && p2) {
         graphics.lines!.push({
           points: [p1, p2],
@@ -320,7 +320,7 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
 
     // Fill the outline polygon
     graphics.lines!.push({
-      points: [...this.fullOutline, this.fullOutline[0]!],
+      points: [...this.ccwFullOutline, this.ccwFullOutline[0]!],
       strokeColor: "rgba(200, 200, 200, 0.5)",
       strokeDash: [10, 5],
     })

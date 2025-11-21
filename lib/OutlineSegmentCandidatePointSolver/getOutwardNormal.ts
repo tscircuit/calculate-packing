@@ -3,7 +3,7 @@ import { pointInOutline } from "../geometry/pointInOutline"
 
 export function getOutwardNormal(
   outlineSegment: [Point, Point],
-  fullOutline: [Point, Point][],
+  ccwFullOutline: [Point, Point][],
 ): Point {
   const [p1, p2] = outlineSegment
   const dx = p2.x - p1.x
@@ -29,7 +29,7 @@ export function getOutwardNormal(
   }
 
   // Use a scale-aware test distance to reduce numeric issues
-  const bbox = getOutlineBoundsWithMargin(fullOutline)
+  const bbox = getOutlineBoundsWithMargin(ccwFullOutline)
   const scale = Math.max(bbox.maxX - bbox.minX, bbox.maxY - bbox.minY) || 1
   const testDistance = Math.max(1e-4, 1e-3 * scale)
 
@@ -43,20 +43,20 @@ export function getOutwardNormal(
     y: mid.y + right.y * testDistance,
   }
 
-  const locLeft = pointInOutline(testLeft, fullOutline)
+  const locLeft = pointInOutline(testLeft, ccwFullOutline)
   if (locLeft === "outside") {
     return left
   }
-  const locRight = pointInOutline(testRight, fullOutline)
+  const locRight = pointInOutline(testRight, ccwFullOutline)
   if (locRight === "outside") {
     return right
   }
 
   // Fallback 1: infer from polygon orientation (CCW => inside on left => outward is right)
   const verts: Point[] = []
-  if (fullOutline.length > 0) {
-    verts.push(fullOutline[0]![0])
-    for (const seg of fullOutline) {
+  if (ccwFullOutline.length > 0) {
+    verts.push(ccwFullOutline[0]![0])
+    for (const seg of ccwFullOutline) {
       verts.push(seg[1]!)
     }
   }
@@ -85,7 +85,7 @@ export function getOutwardNormal(
 }
 
 function getOutlineBoundsWithMargin(
-  fullOutline: [Point, Point][],
+  ccwFullOutline: [Point, Point][],
   margin = 0,
 ): Bounds {
   let minX = Infinity
@@ -93,7 +93,7 @@ function getOutlineBoundsWithMargin(
   let maxX = -Infinity
   let maxY = -Infinity
 
-  for (const [p1, p2] of fullOutline) {
+  for (const [p1, p2] of ccwFullOutline) {
     minX = Math.min(minX, p1.x, p2.x)
     minY = Math.min(minY, p1.y, p2.y)
     maxX = Math.max(maxX, p1.x, p2.x)
