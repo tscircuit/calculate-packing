@@ -531,6 +531,18 @@ export class SingleComponentPackSolver extends BaseSolver {
         } as Line)
       }
     }
+    for (let i = 0; i < this.outlines.length; i++) {
+      const outline = this.outlines[i]!
+      for (let u = 0; u < outline.length; u++) {
+        const [p1, p2] = outline[u]!
+        graphics.points!.push({
+          x: p1.x,
+          y: p1.y,
+          label: `outlines [${i}] [${u}]`,
+          color: "#ff4444",
+        } as Point)
+      }
+    }
   }
 
   private visualizeSegmentCandidatePhase(graphics: GraphicsObject) {
