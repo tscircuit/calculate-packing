@@ -222,6 +222,7 @@ export class PackSolver2 extends BaseSolver {
       rects: [],
       circles: [],
       texts: [],
+      arrows: [],
     }
 
     // Draw obstacles from PackInput (if any)
