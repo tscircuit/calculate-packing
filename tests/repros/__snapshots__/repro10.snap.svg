@@ -1,1186 +1,198 @@
-<svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100%" height="100%" fill="white" />
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3724850500000043" data-x="4.6209796499999225" data-y="-7.172514949999995" cx="441.5365064505089" cy="508.0854884243694" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.36021643004380327" data-x="4.6209796499999225" data-y="-7.172514949999995" cx="441.5365064505089" cy="508.0854884243694" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.6209796499999225" data-y="-7.172514949999995" cx="441.5365064505089" cy="508.0854884243694" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.30805843601498717" data-x="4.6209796499999225" data-y="-7.172514949999995" cx="441.5365064505089" cy="508.0854884243694" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.38000000000000034" data-x="4.340979649999923" data-y="-7.544999999999999" cx="434.1722191383709" cy="517.8822274517842" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.13659320522672605" data-x="4.160979649999923" data-y="-7.874999999999999" cx="429.4380344377107" cy="526.5615660696611" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3799999999999999" data-x="4.340979649999923" data-y="-7.544999999999999" cx="434.1722191383709" cy="517.8822274517842" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.160979649999923" data-y="-7.874999999999999" cx="429.4380344377107" cy="526.5615660696611" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="3.100979649999923" data-y="-7.945" cx="401.5589467560453" cy="528.4026378976957" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="3.100979649999923" data-y="-7.945" cx="401.5589467560453" cy="528.4026378976957" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.22000000000000064" data-x="3.851959299999847" data-y="-8.345" cx="421.3104821423607" cy="538.9230483436072" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.10440306508910592" data-x="3.6719592999998474" data-y="-8.015" cx="416.5762974417005" cy="530.2437097257302" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="3.851959299999847" data-y="-8.345" cx="421.3104821423607" cy="538.9230483436072" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.18422299181728743" data-x="3.6719592999998474" data-y="-8.015" cx="416.5762974417005" cy="530.2437097257302" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.131959299999847" data-y="-8.865" cx="428.6747694544987" cy="552.5995819232921" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.17888543819998334" data-x="4.131959299999847" data-y="-8.865" cx="428.6747694544987" cy="552.5995819232921" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.131959299999847" data-y="-8.865" cx="428.6747694544987" cy="552.5995819232921" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.131959299999847" data-y="-8.865" cx="428.6747694544987" cy="552.5995819232921" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.08000000000000007" data-x="2.471959299999847" data-y="-9.385" cx="385.0150661039661" cy="566.2761155029771" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.08000000000000007" data-x="2.471959299999847" data-y="-9.385" cx="385.0150661039661" cy="566.2761155029771" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.125286516527134" data-x="0.8119592999998471" data-y="-9.285" cx="341.35536275343344" cy="563.6460128914991" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3399999999999992" data-x="0.8119592999998471" data-y="-9.362507474999997" cx="341.35536275343344" cy="565.6845390155646" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.12528651652713393" data-x="0.8119592999998471" data-y="-9.285" cx="341.35536275343344" cy="563.6460128914991" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.34606188598410387" data-x="0.8119592999998471" data-y="-9.362507474999997" cx="341.35536275343344" cy="565.6845390155646" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-0.4280407000001527" data-y="-8.375014949999995" cx="308.74209037110785" cy="539.7124723273907" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.22801538955169826" data-x="-0.24804070000015266" data-y="-8.705014949999995" cx="313.476275071768" cy="548.3918109452678" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.24984370193383235" data-x="-0.4280407000001527" data-y="-8.375014949999995" cx="308.74209037110785" cy="539.7124723273907" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.15498992030452052" data-x="-0.24804070000015277" data-y="-8.705014949999995" cx="313.476275071768" cy="548.3918109452678" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-0.708040700000153" data-y="-8.275014949999996" cx="301.3778030589698" cy="537.0823697159129" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-0.708040700000153" data-y="-8.455014949999995" cx="301.3778030589698" cy="541.8165544165731" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-0.708040700000153" data-y="-8.275014949999996" cx="301.3778030589698" cy="537.0823697159129" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-0.708040700000153" data-y="-8.455014949999995" cx="301.3778030589698" cy="541.8165544165731" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.8420341000001657" data-y="-7.7131040499999886" cx="271.5526130315828" cy="522.3035364608339" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.10172405485479913" data-x="-1.6620341000001657" data-y="-8.043104049999988" cx="276.2867977322429" cy="530.9828750787109" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2548401521040907" data-x="-1.8420341000001657" data-y="-7.7131040499999886" cx="271.5526130315828" cy="522.3035364608339" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.16292176995244023" data-x="-1.6620341000001657" data-y="-8.043104049999988" cx="276.2867977322429" cy="530.9828750787109" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.1220341000001657" data-y="-7.2565669749999895" cx="264.1883257194447" cy="510.29614292889426" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.1220341000001657" data-y="-7.2565669749999895" cx="264.1883257194447" cy="510.29614292889426" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.1220341000001657" data-y="-7.2565669749999895" cx="264.1883257194447" cy="510.29614292889426" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2374079506566323" data-x="-2.1220341000001657" data-y="-7.2565669749999895" cx="264.1883257194447" cy="510.29614292889426" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="1.2494727749998784" data-y="-6.80002989999999" cx="352.8624160849768" cy="498.28874939695464" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="1.2494727749998784" data-y="-6.47002989999999" cx="352.8624160849768" cy="489.6094107790776" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="1.2494727749998784" data-y="-6.80002989999999" cx="352.8624160849768" cy="498.28874939695464" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="1.2494727749998784" data-y="-6.47002989999999" cx="352.8624160849768" cy="489.6094107790776" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.535110799999991" data-y="2.058871975000137" cx="174.4209063010066" cy="265.29053983431425" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.14764823060233326" data-x="-5.355110799999991" data-y="2.3888719750001366" cx="179.15509100166676" cy="256.6112012164373" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2596150997149425" data-x="-5.535110799999991" data-y="2.058871975000137" cx="174.4209063010066" cy="265.29053983431425" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.18384776310850157" data-x="-5.355110799999991" data-y="2.3888719750001366" cx="179.15509100166676" cy="256.6112012164373" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.08165508488253197" data-x="-5.48511079999999" data-y="2.6009142500001112" cx="175.73595760674553" cy="251.03427180422588" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.48511079999999" data-y="2.7809142500001114" cx="175.73595760674553" cy="246.30008710356572" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.302931597703464" data-x="-5.48511079999999" data-y="2.6009142500001112" cx="175.73595760674553" cy="251.03427180422588" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.48511079999999" data-y="2.7809142500001114" cx="175.73595760674553" cy="246.30008710356572" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.7824446000000052" data-y="2.7009142500001113" cx="273.1198780272536" cy="248.404169192748" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.7824446000000056" data-y="3.0309142500001114" cx="273.11987802725355" cy="239.72483057487102" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.7824446000000052" data-y="2.7009142500001113" cx="273.1198780272536" cy="248.404169192748" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.7824446000000056" data-y="3.0309142500001114" cx="273.11987802725355" cy="239.72483057487102" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2745132805744794" data-x="4.76511079999999" data-y="5.4429646000000815" cx="445.3273035906138" cy="176.2854313293607" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.76511079999999" data-y="5.4429646000000815" cx="445.3273035906138" cy="176.2854313293607" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2745132805744794" data-x="4.76511079999999" data-y="5.4429646000000815" cx="445.3273035906138" cy="176.2854313293607" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.76511079999999" data-y="5.4429646000000815" cx="445.3273035906138" cy="176.2854313293607" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="5.837555399999995" data-y="5.545014950000053" cx="473.5336970218673" cy="173.60140240898914" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="5.837555399999995" data-y="5.875014950000053" cx="473.5336970218673" cy="164.92206379111218" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="5.837555399999995" data-y="5.545014950000053" cx="473.5336970218673" cy="173.60140240898914" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="5.837555399999995" data-y="5.875014950000053" cx="473.5336970218673" cy="164.92206379111218" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="6.91" data-y="3.420029900000104" cx="501.74009045312084" cy="229.49068970255212" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3440686804897419" data-x="6.91" data-y="3.2400299000001036" cx="501.74009045312084" cy="234.2248744032123" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="6.91" data-y="3.420029900000104" cx="501.74009045312084" cy="229.49068970255212" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3440686804897419" data-x="6.91" data-y="3.2400299000001036" cx="501.74009045312084" cy="234.2248744032123" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.22999999999999998" data-x="3.194921549999995" data-y="1.8000299000001043" cx="404.0297151212191" cy="272.09835200849363" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="3.1949215499999952" data-y="1.4700299000001043" cx="404.0297151212191" cy="280.7776906263706" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.22999999999999998" data-x="3.194921549999995" data-y="1.800029900000104" cx="404.0297151212191" cy="272.09835200849363" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="3.1949215499999952" data-y="1.4700299000001043" cx="404.0297151212191" cy="280.7776906263706" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.940156900000011" data-y="-4.274985049999948" cx="268.9718827063316" cy="431.87747885611606" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.940156900000011" data-y="-4.274985049999948" cx="268.9718827063316" cy="431.87747885611606" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.940156900000011" data-y="-4.274985049999948" cx="268.9718827063316" cy="431.87747885611606" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.940156900000011" data-y="-4.274985049999948" cx="268.9718827063316" cy="431.87747885611606" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.2201569000000108" data-y="-7.084483099999859" cx="261.6075953941936" cy="505.7701604385835" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.400156900000011" data-y="-7.414483099999859" cx="256.8734106935334" cy="514.4494990564606" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.2201569000000108" data-y="-7.084483099999859" cx="261.6075953941936" cy="505.7701604385835" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.400156900000011" data-y="-7.414483099999859" cx="256.8734106935334" cy="514.4494990564606" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.10374905000020718" data-x="-4.902104100000006" data-y="-8.71724154999993" cx="191.06963204853608" cy="548.713383071161" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3806795194204029" data-x="-4.902104100000006" data-y="-8.71724154999993" cx="191.06963204853608" cy="548.713383071161" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.902104100000006" data-y="-8.71724154999993" cx="191.06963204853608" cy="548.713383071161" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3382274776953544" data-x="-4.902104100000006" data-y="-8.71724154999993" cx="191.06963204853608" cy="548.713383071161" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.17999710000009372" data-x="-5.906052050000003" data-y="-8.819999999999999" cx="164.6647707977076" cy="551.416035748127" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.17268238897875687" data-x="-5.906052050000003" data-y="-9.149999999999999" cx="164.6647707977076" cy="560.095374366004" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.0660565780530645" data-x="-5.906052050000003" data-y="-8.819999999999999" cx="164.6647707977076" cy="551.416035748127" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.17059617313268674" data-x="-5.906052050000003" data-y="-9.149999999999999" cx="164.6647707977076" cy="560.095374366004" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="-1.0824925249999744" cx="138.25990954687916" cy="347.9116495848559" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2707462311480372" data-x="-6.91" data-y="-1.0824925249999744" cx="138.25990954687916" cy="347.9116495848559" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="-1.0824925249999744" cx="138.25990954687916" cy="347.9116495848559" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="-1.0824925249999744" cx="138.25990954687916" cy="347.9116495848559" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.629999999999999" data-y="1.7288719750001367" cx="145.62419685901722" cy="273.9698784521912" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.1754663736350719" data-x="-6.449999999999999" data-y="2.0588719750001365" cx="150.35838155967738" cy="265.29053983431425" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.629999999999999" data-y="1.728871975000137" cx="145.62419685901722" cy="273.9698784521912" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2592073461085599" data-x="-6.449999999999999" data-y="2.0588719750001365" cx="150.35838155967738" cy="265.29053983431425" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.8151107999999905" data-y="1.9588719750001369" cx="167.05661898886856" cy="267.9206424457921" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.8151107999999905" data-y="2.1388719750001366" cx="167.05661898886856" cy="263.186457745132" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.8151107999999905" data-y="1.9588719750001369" cx="167.05661898886856" cy="267.9206424457921" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.8151107999999905" data-y="2.1388719750001366" cx="167.05661898886856" cy="263.186457745132" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.76511079999999" data-y="4.714153981250103" cx="194.67269640938622" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.76511079999999" data-y="4.714153981250103" cx="194.67269640938622" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.76511079999999" data-y="4.714153981250103" cx="194.67269640938622" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.76511079999999" data-y="4.714153981250103" cx="194.67269640938622" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="3.188871975000137" cx="166.4663029781327" cy="235.57038032461432" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="2.8588719750001372" cx="166.4663029781327" cy="244.24971894249128" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="3.188871975000137" cx="166.4663029781327" cy="235.57038032461432" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="2.8588719750001372" cx="166.4663029781327" cy="244.24971894249128" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="4.714153981250103" cx="138.25990954687916" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="4.714153981250103" cx="138.25990954687916" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="4.714153981250103" cx="138.25990954687916" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="4.714153981250103" cx="138.25990954687916" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="6.239435987500069" cx="166.4663029781327" cy="155.3374165670495" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="6.569435987500069" cx="166.4663029781327" cy="146.65807794917254" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="6.239435987500069" cx="166.4663029781327" cy="155.3374165670495" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="6.569435987500069" cx="166.4663029781327" cy="146.65807794917254" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.76511079999999" data-y="8.097076990625052" cx="194.67269640938622" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.76511079999999" data-y="8.097076990625052" cx="194.67269640938622" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.76511079999999" data-y="8.097076990625052" cx="194.67269640938622" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.76511079999999" data-y="8.097076990625052" cx="194.67269640938622" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="7.699435987500068" cx="166.4663029781327" cy="116.93791843947264" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="7.369435987500068" cx="166.4663029781327" cy="125.6172570573496" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="7.699435987500068" cx="166.4663029781327" cy="116.93791843947264" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="7.369435987500068" cx="166.4663029781327" cy="125.6172570573496" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="8.097076990625052" cx="138.25990954687916" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="8.097076990625052" cx="138.25990954687916" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="8.097076990625052" cx="138.25990954687916" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="8.097076990625052" cx="138.25990954687916" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="8.494717993750033" cx="166.4663029781327" cy="96.02118562447868" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="8.824717993750033" cx="166.4663029781327" cy="87.34184700660171" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="8.494717993750033" cx="166.4663029781327" cy="96.02118562447868" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="8.824717993750033" cx="166.4663029781327" cy="87.34184700660171" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <polyline data-points="0,10.55 7.090000000000001,10.55 7.441162579629032,10.515413504725815 7.778830178257163,10.412983158520316 8.090026419435285,10.246645302144582 8.362792206135786,10.022792206135785 8.586645302144582,9.750026419435283 8.752983158520317,9.438830178257161 8.855413504725815,9.101162579629031 8.89,8.75 8.89,-8.75 8.855413504725815,-9.101162579629031 8.752983158520317,-9.438830178257161 8.586645302144582,-9.750026419435283 8.362792206135786,-10.022792206135785 8.090026419435285,-10.246645302144582 7.778830178257163,-10.412983158520316 7.441162579629032,-10.515413504725815 7.090000000000001,-10.55 -7.090000000000001,-10.55 -7.441162579629031,-10.515413504725815 -7.778830178257162,-10.412983158520316 -8.090026419435285,-10.246645302144582 -8.362792206135786,-10.022792206135787 -8.586645302144582,-9.750026419435283 -8.752983158520317,-9.438830178257161 -8.855413504725815,-9.101162579629031 -8.89,-8.75 -8.89,8.75 -8.855413504725815,9.101162579629031 -8.752983158520317,9.438830178257161 -8.586645302144582,9.750026419435283 -8.362792206135786,10.022792206135787 -8.090026419435285,10.246645302144582 -7.778830178257162,10.412983158520316 -7.441162579629031,10.515413504725815 -7.090000000000001,10.55 0,10.55" data-type="line" data-label="" points="320,41.965159904863526 506.47427515378104,41.965159904863526 515.7102113311372,42.87482022028854 524.5912156607703,45.56884343078519 532.7759961268171,49.94369973519969 539.9500162060451,55.83126585920115 545.8375823300465,63.00528593842921 550.212438634461,71.19006640447594 552.9064618449577,80.07107073410899 553.8161221603827,89.30700691146521 553.8161221603827,549.5749639200925 552.9064618449577,558.8109000974488 550.212438634461,567.6919044270818 545.8375823300465,575.8766848931285 539.9500162060451,583.0507049723566 532.7759961268171,588.938271096358 524.5912156607703,593.3131274007726 515.7102113311372,596.0071506112693 506.47427515378104,596.9168109266942 133.52572484621896,596.9168109266942 124.28978866886277,596.0071506112693 115.4087843392297,593.3131274007726 107.22400387318294,588.938271096358 100.04998379395488,583.0507049723567 94.16241766995347,575.8766848931285 89.78756136553895,567.6919044270818 87.09353815504232,558.8109000974488 86.18387783961731,549.5749639200925 86.18387783961731,89.30700691146521 87.09353815504232,80.07107073410899 89.78756136553895,71.19006640447594 94.16241766995347,63.00528593842921 100.04998379395488,55.831265859201096 107.22400387318294,49.94369973519969 115.4087843392297,45.56884343078519 124.28978866886277,42.87482022028854 133.52572484621896,41.965159904863526 320,41.965159904863526" fill="none" stroke="rgba(0, 0, 255, 0.5)" stroke-width="1" stroke-dasharray="4 2" />
-  </g>
-  <g>
-    <polyline data-points="4.060979649999923,-7.000029899999991 4.060979649999923,-7.344999999999999" data-type="line" data-label="" points="426.80793182623285,503.5489546199104 426.80793182623285,512.6220222288284" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="4.060979649999923,-7.344999999999999 2.540979649999923,-7.344999999999999" data-type="line" data-label="" points="426.80793182623285,512.6220222288284 386.8303721317692,512.6220222288284" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="2.540979649999923,-7.344999999999999 2.540979649999923,-8.545" data-type="line" data-label="" points="386.8303721317692,512.6220222288284 386.8303721317692,544.1832535665628" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="2.540979649999923,-8.545 3.5719592999998473,-8.545" data-type="line" data-label="" points="386.8303721317692,544.1832535665628 413.9461948302226,544.1832535665628" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="3.5719592999998473,-8.545 3.5719592999998473,-9.185" data-type="line" data-label="" points="413.9461948302226,544.1832535665628 413.9461948302226,561.0159102800212" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="3.5719592999998473,-9.185 1.3719592999998471,-9.185" data-type="line" data-label="" points="413.9461948302226,561.0159102800212 356.0839373777095,561.0159102800212" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="1.3719592999998471,-9.185 1.3719592999998471,-8.175014949999996" data-type="line" data-label="" points="356.0839373777095,561.0159102800212 356.0839373777095,534.4522671044351" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="1.3719592999998471,-8.175014949999996 -0.1480407000001529,-8.175014949999996" data-type="line" data-label="" points="356.0839373777095,534.4522671044351 316.10637768324585,534.4522671044351" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-0.1480407000001529,-8.175014949999996 -0.1480407000001529,-7.513104049999988" data-type="line" data-label="" points="316.10637768324585,534.4522671044351 316.10637768324585,517.0433312378782" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-0.1480407000001529,-7.513104049999988 -1.5620341000001656,-7.513104049999988" data-type="line" data-label="" points="316.10637768324585,517.0433312378782 278.9169003437208,517.0433312378782" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-1.5620341000001656,-7.513104049999988 -1.5620341000001656,-7.000029899999991" data-type="line" data-label="" points="278.9169003437208,517.0433312378782 278.9169003437208,503.5489546199104" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-1.5620341000001656,-7.000029899999991 4.060979649999923,-7.000029899999991" data-type="line" data-label="" points="278.9169003437208,503.5489546199104 426.80793182623285,503.5489546199104" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.255110799999991,1.8588719750001368 -4.925110799999991,1.8588719750001368" data-type="line" data-label="" points="181.78519361314463,270.55074505727 190.4645322310216,270.55074505727" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-4.925110799999991,1.8588719750001368 -4.925110799999991,2.500914250000111" data-type="line" data-label="" points="190.4645322310216,270.55074505727 190.4645322310216,253.66437441570375" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-4.925110799999991,2.500914250000111 5.32511079999999,2.500914250000111" data-type="line" data-label="" points="190.4645322310216,253.66437441570375 460.05587821488984,253.66437441570375" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.32511079999999,2.500914250000111 5.32511079999999,5.345014950000053" data-type="line" data-label="" points="460.05587821488984,253.66437441570375 460.05587821488984,178.86160763194488" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.32511079999999,5.345014950000053 6.35,5.345014950000053" data-type="line" data-label="" points="460.05587821488984,178.86160763194488 487.0115158288447,178.86160763194488" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="6.35,5.345014950000053 6.35,2.0000299000001043" data-type="line" data-label="" points="487.0115158288447,178.86160763194488 487.0115158288447,266.8381467855379" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="6.35,2.0000299000001043 -2.500156900000011,2.0000299000001043" data-type="line" data-label="" points="487.0115158288447,266.8381467855379 254.24330808205553,266.8381467855379" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-2.500156900000011,2.0000299000001043 -2.500156900000011,-6.8844830999998585" data-type="line" data-label="" points="254.24330808205553,266.8381467855379 254.24330808205553,500.50995521562777" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-2.500156900000011,-6.8844830999998585 -5.462104100000007,-6.8844830999998585" data-type="line" data-label="" points="254.24330808205553,500.50995521562777 176.34105742426,500.50995521562777" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.462104100000007,-6.8844830999998585 -5.462104100000007,-8.62" data-type="line" data-label="" points="176.34105742426,500.50995521562777 176.34105742426,546.1558305251713" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.462104100000007,-8.62 -6.35,-8.62" data-type="line" data-label="" points="176.34105742426,546.1558305251713 152.98848417115525,546.1558305251713" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.35,-8.62 -6.35,1.5288719750001367" data-type="line" data-label="" points="152.98848417115525,546.1558305251713 152.98848417115525,279.230083675147" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.35,1.5288719750001367 -5.255110799999991,1.5288719750001367" data-type="line" data-label="" points="152.98848417115525,279.230083675147 181.78519361314463,279.230083675147" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.255110799999991,1.5288719750001367 -5.255110799999991,1.8588719750001368" data-type="line" data-label="" points="181.78519361314463,279.230083675147 181.78519361314463,270.55074505727" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.32511079999999,6.0394359875000685 -5.32511079999999,3.388871975000137" data-type="line" data-label="" points="179.94412178511013,160.59762179000526 179.94412178511013,230.3101751016586" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.32511079999999,3.388871975000137 -6.35,3.388871975000137" data-type="line" data-label="" points="179.94412178511013,230.3101751016586 152.98848417115525,230.3101751016586" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.35,3.388871975000137 -6.35,6.0394359875000685" data-type="line" data-label="" points="152.98848417115525,230.3101751016586 152.98848417115525,160.59762179000526" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.35,6.0394359875000685 -5.32511079999999,6.0394359875000685" data-type="line" data-label="" points="152.98848417115525,160.59762179000526 179.94412178511013,160.59762179000526" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.32511079999999,8.294717993750034 -5.32511079999999,7.899435987500068" data-type="line" data-label="" points="179.94412178511013,101.28139084743441 179.94412178511013,111.67771321651688" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.32511079999999,7.899435987500068 -6.35,7.899435987500068" data-type="line" data-label="" points="179.94412178511013,111.67771321651688 152.98848417115525,111.67771321651688" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.35,7.899435987500068 -6.35,8.294717993750034" data-type="line" data-label="" points="152.98848417115525,111.67771321651688 152.98848417115525,101.28139084743441" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.35,8.294717993750034 -5.32511079999999,8.294717993750034" data-type="line" data-label="" points="152.98848417115525,101.28139084743441 179.94412178511013,101.28139084743441" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.462104100000006,-10.667226949999998 -3.5421041000000058,-10.667226949999998" data-type="line" data-label="" points="176.34105742426001,600 226.83902756463513,600" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-3.5421041000000058,-10.667226949999998 -3.5421041000000058,-9.584453899999996" data-type="line" data-label="" points="226.83902756463513,600 226.83902756463513,571.5219577355714" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-3.5421041000000058,-9.584453899999996 -3.4820341000001656,-9.584453899999996" data-type="line" data-label="" points="226.83902756463513,571.5219577355714 228.41893020334567,571.5219577355714" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-3.4820341000001656,-9.584453899999996 -3.4820341000001656,-10.667226949999998" data-type="line" data-label="" points="228.41893020334567,571.5219577355714 228.41893020334567,600" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-3.4820341000001656,-10.667226949999998 -1.5620341000001656,-10.667226949999998" data-type="line" data-label="" points="228.41893020334567,600 278.9169003437208,600" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-1.5620341000001656,-10.667226949999998 -1.5620341000001656,-10.036925850000003" data-type="line" data-label="" points="278.9169003437208,600 278.9169003437208,583.4224343087265" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-1.5620341000001656,-10.036925850000003 -0.5480407000001529,-10.036925850000003" data-type="line" data-label="" points="278.9169003437208,583.4224343087265 305.5859672373344,583.4224343087265" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-0.5480407000001529,-10.036925850000003 -0.5480407000001529,-10.562507474999999" data-type="line" data-label="" points="305.5859672373344,583.4224343087265 305.5859672373344,597.2457703532991" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-0.5480407000001529,-10.562507474999999 1.3719592999998471,-10.562507474999999" data-type="line" data-label="" points="305.5859672373344,597.2457703532991 356.0839373777095,597.2457703532991" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="1.3719592999998471,-10.562507474999999 1.3719592999998471,-10.385" data-type="line" data-label="" points="356.0839373777095,597.2457703532991 356.0839373777095,592.5771416177557" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="1.3719592999998471,-10.385 5.531959299999848,-10.385" data-type="line" data-label="" points="356.0839373777095,592.5771416177557 465.49620601518893,592.5771416177557" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.531959299999848,-10.385 5.531959299999848,-10.505" data-type="line" data-label="" points="465.49620601518893,592.5771416177557 465.49620601518893,595.7332647515292" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.531959299999848,-10.505 7.891959299999847,-10.505" data-type="line" data-label="" points="465.49620601518893,595.7332647515292 527.5666276460666,595.7332647515292" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="7.891959299999847,-10.505 7.891959299999847,-9.065" data-type="line" data-label="" points="527.5666276460666,595.7332647515292 527.5666276460666,557.8597871462478" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="7.891959299999847,-9.065 5.931959299999848,-9.065" data-type="line" data-label="" points="527.5666276460666,557.8597871462478 476.0166164611004,557.8597871462478" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.931959299999848,-9.065 5.931959299999848,-8.172514949999995" data-type="line" data-label="" points="476.0166164611004,557.8597871462478 476.0166164611004,534.386514539148" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.931959299999848,-8.172514949999995 5.980979649999923,-8.172514949999995" data-type="line" data-label="" points="476.0166164611004,534.386514539148 477.30590196660796,534.386514539148" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.980979649999923,-8.172514949999995 5.980979649999923,-7.000029899999991" data-type="line" data-label="" points="477.30590196660796,534.386514539148 477.30590196660796,503.5489546199104" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.980979649999923,-7.000029899999991 6.35,-7.000029899999991" data-type="line" data-label="" points="477.30590196660796,503.5489546199104 487.0115158288447,503.5489546199104" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="6.35,-7.000029899999991 6.35,-9.02" data-type="line" data-label="" points="487.0115158288447,503.5489546199104 487.0115158288447,556.6762409710827" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="6.35,-9.02 10.15,-9.02" data-type="line" data-label="" points="487.0115158288447,556.6762409710827 586.9554150650039,556.6762409710827" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="10.15,-9.02 10.15,9.02" data-type="line" data-label="" points="586.9554150650039,556.6762409710827 586.9554150650039,82.20572986047497" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="10.15,9.02 8.287555399999995,9.02" data-type="line" data-label="" points="586.9554150650039,82.20572986047497 537.9712110030752,82.20572986047497" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="8.287555399999995,9.02 8.287555399999995,10.06" data-type="line" data-label="" points="537.9712110030752,82.20572986047497 537.9712110030752,54.85266270110509" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="8.287555399999995,10.06 5.927555399999996,10.06" data-type="line" data-label="" points="537.9712110030752,54.85266270110509 475.90078937219744,54.85266270110509" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.927555399999996,10.06 5.927555399999996,9.02" data-type="line" data-label="" points="475.90078937219744,54.85266270110509 475.90078937219744,82.20572986047497" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.927555399999996,9.02 5.32511079999999,9.02" data-type="line" data-label="" points="475.90078937219744,82.20572986047497 460.05587821488984,82.20572986047497" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.32511079999999,9.02 5.32511079999999,10.074084549999949" data-type="line" data-label="" points="460.05587821488984,82.20572986047497 460.05587821488984,54.48222458374153" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.32511079999999,10.074084549999949 -5.255110799999991,10.074084549999949" data-type="line" data-label="" points="460.05587821488984,54.48222458374153 181.78519361314463,54.48222458374153" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.255110799999991,10.074084549999949 -5.255110799999991,10.154717993750033" data-type="line" data-label="" points="181.78519361314463,54.48222458374153 181.78519361314463,52.361482273946024" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.255110799999991,10.154717993750033 -6.165110799999991,10.154717993750033" data-type="line" data-label="" points="181.78519361314463,52.361482273946024 157.851259848696,52.361482273946024" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.165110799999991,10.154717993750033 -6.165110799999991,10.624717993750032" data-type="line" data-label="" points="157.851259848696,52.361482273946024 157.851259848696,40.00000000000006" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.165110799999991,10.624717993750032 -8.085110799999992,10.624717993750032" data-type="line" data-label="" points="157.851259848696,40.00000000000006 107.35328970832089,40.00000000000006" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-8.085110799999992,10.624717993750032 -8.085110799999992,9.424717993750033" data-type="line" data-label="" points="107.35328970832089,40.00000000000006 107.35328970832089,71.56123133773451" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-8.085110799999992,9.424717993750033 -6.845110799999991,9.424717993750033" data-type="line" data-label="" points="107.35328970832089,71.56123133773451 139.9665620906465,71.56123133773451" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.845110799999991,9.424717993750033 -6.845110799999991,9.02" data-type="line" data-label="" points="139.9665620906465,71.56123133773451 139.9665620906465,82.20572986047497" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.845110799999991,9.02 -10.15,9.02" data-type="line" data-label="" points="139.9665620906465,82.20572986047497 53.044584934996124,82.20572986047497" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-10.15,9.02 -10.15,-9.02" data-type="line" data-label="" points="53.044584934996124,82.20572986047497 53.044584934996124,556.6762409710827" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-10.15,-9.02 -7.034034700000003,-9.02" data-type="line" data-label="" points="53.044584934996124,556.6762409710827 134.99766966304034,556.6762409710827" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-7.034034700000003,-9.02 -7.034034700000003,-9.185" data-type="line" data-label="" points="134.99766966304034,556.6762409710827 134.99766966304034,561.0159102800212" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-7.034034700000003,-9.185 -8.554034700000004,-9.185" data-type="line" data-label="" points="134.99766966304034,561.0159102800212 95.02010996857666,561.0159102800212" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-8.554034700000004,-9.185 -8.554034700000004,-10.385" data-type="line" data-label="" points="95.02010996857666,561.0159102800212 95.02010996857666,592.5771416177557" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-8.554034700000004,-10.385 -6.6340347000000035,-10.385" data-type="line" data-label="" points="95.02010996857666,592.5771416177557 145.5180801089518,592.5771416177557" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.6340347000000035,-10.385 -6.6340347000000035,-10.371077600000076" data-type="line" data-label="" points="145.5180801089518,592.5771416177557 145.5180801089518,592.2109682117773" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.6340347000000035,-10.371077600000076 -5.462104100000006,-10.371077600000076" data-type="line" data-label="" points="145.5180801089518,592.2109682117773 176.34105742426001,592.2109682117773" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.462104100000006,-10.371077600000076 -5.462104100000006,-10.667226949999998" data-type="line" data-label="" points="176.34105742426001,592.2109682117773 176.34105742426001,600" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_32
-ccwRotationOffset: 0.0°" data-x="-6.048069400000005" data-y="-9.495538800000038" x="145.51808010895184" y="556.6762409710827" width="30.82297731530815" height="25.0143167947831" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_56 unnamed56" data-x="-6.454037600000079" data-y="-9.820023800000019" x="145.51808010895184" y="573.7722077773876" width="9.46821685536483" height="7.890960099880203" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_57 unnamed57" data-x="-6.453986800000083" data-y="-9.170012400000036" x="145.51941620107388" y="556.6762409710827" width="9.46821685537381" height="7.890960099883273" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_58 unnamed58" data-x="-5.642101199999987" data-y="-9.171003000000116" x="166.87284056889217" y="556.7022947675557" width="9.468216855367814" height="7.890960099880203" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_59 unnamed59" data-x="-5.642101199999987" data-y="-9.821065200000039" x="166.87284056889217" y="573.7995976659827" width="9.468216855367814" height="7.890960099883159" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_60 unnamed60" data-x="-6.045999299999922" data-y="-9.494980000000186" x="154.6716472685013" y="562.8563351028182" width="12.624734504534018" height="12.624734504534104" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_32-inner pcb_component_32-inner" data-x="-6.048069400000005" data-y="-9.495538800000038" x="145.51808010895184" y="556.6762409710827" width="30.82297731530815" height="25.0143167947831" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_28
-ccwRotationOffset: 0.0°" data-x="-3.512069100000086" data-y="-8.234468499999927" x="186.86146787017148" y="511.03036566153924" width="81.53502202763784" height="49.97118162812069" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_46 unnamed46" data-x="-2.4620331000001654" data-y="-8.884454499999997" x="242.09551638508285" y="545.220963182024" width="26.300973512726472" height="15.780584107635946" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_47 unnamed47" data-x="-2.4620331000001654" data-y="-7.584482499999858" x="242.09551638508285" y="511.03036566153924" width="26.300973512726472" height="15.780584107635946" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_48 unnamed48" data-x="-4.562105100000006" data-y="-7.584482499999858" x="186.86146787017148" y="511.03036566153924" width="26.300973512726472" height="15.780584107635946" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_49 unnamed49" data-x="-4.562105100000006" data-y="-8.884454499999997" x="186.86146787017148" y="545.220963182024" width="26.300973512726472" height="15.780584107635946" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_28-inner pcb_component_28-inner" data-x="-3.512069100000086" data-y="-8.234468499999927" x="186.86146787017148" y="511.03036566153924" width="81.53502202763784" height="49.97118162812069" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_29
-ccwRotationOffset: 0.0°" data-x="-1.0550374000001592" data-y="-8.775014949999996" x="278.9169003437208" y="527.5637416837897" width="26.669066893613603" height="45.338282179025214" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_50 unnamed50" data-x="-0.7300444000001529" data-y="-8.256600949999989" x="296.0121991039617" y="527.5637416837897" width="9.57376813337271" height="18.06864187449105" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_51 unnamed51" data-x="-1.3800304000001655" data-y="-8.256600949999989" x="278.9169003437208" y="527.5637416837897" width="9.57376813337271" height="18.06864187449105" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_52 unnamed52" data-x="-1.3800304000001655" data-y="-9.293428950000003" x="278.9169003437208" y="554.8333819883238" width="9.57376813337271" height="18.06864187449105" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_53 unnamed53" data-x="-0.7300444000001529" data-y="-9.293428950000003" x="296.0121991039617" y="554.8333819883238" width="9.57376813337271" height="18.06864187449105" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_29-inner pcb_component_29-inner" data-x="-1.0550374000001592" data-y="-8.775014949999996" x="278.9169003437208" y="527.5637416837897" width="26.669066893613603" height="45.338282179025214" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_1
-ccwRotationOffset: 0.0°" data-x="-4.502104100000006" data-y="-10.067226949999998" x="186.86146787017148" y="578.9591791081771" width="29.457149248552184" height="10.520410445911466" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_0 unnamed0" data-x="-4.832104100000006" data-y="-10.067226949999998" x="186.86146787017148" y="578.9591791081771" width="12.098472012798226" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_1 unnamed1" data-x="-4.172104100000006" data-y="-10.067226949999998" x="204.22014510592544" y="578.9591791081771" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_1-inner pcb_component_1-inner" data-x="-4.502104100000006" data-y="-10.067226949999998" x="186.86146787017148" y="578.9591791081771" width="29.457149248552156" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_2
-ccwRotationOffset: 0.0°" data-x="-2.5220341000001656" data-y="-10.067226949999998" x="238.93934064925716" y="578.9591791081771" width="29.457149248552156" height="10.520410445911466" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_2 unnamed2" data-x="-2.8520341000001657" data-y="-10.067226949999998" x="238.93934064925716" y="578.9591791081771" width="12.098472012798226" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_3 unnamed3" data-x="-2.1920341000001655" data-y="-10.067226949999998" x="256.2980178850111" y="578.9591791081771" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_2-inner pcb_component_2-inner" data-x="-2.5220341000001656" data-y="-10.067226949999998" x="238.93934064925716" y="578.9591791081771" width="29.457149248552156" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_3
-ccwRotationOffset: 0.0°" data-x="0.41195929999984715" data-y="-8.775014949999996" x="316.10637768324585" y="544.9726775503466" width="29.457149248552184" height="10.520410445911466" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_4 unnamed4" data-x="0.08195929999984713" data-y="-8.775014949999996" x="316.10637768324585" y="544.9726775503466" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_5 unnamed5" data-x="0.7419592999998472" data-y="-8.775014949999996" x="333.4650549189998" y="544.9726775503466" width="12.098472012798254" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_3-inner pcb_component_3-inner" data-x="0.41195929999984715" data-y="-8.775014949999996" x="316.10637768324585" y="544.9726775503466" width="29.457149248552184" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_4
-ccwRotationOffset: 0.0°" data-x="0.41195929999984715" data-y="-9.962507474999999" x="316.10637768324585" y="576.2049494614762" width="29.457149248552184" height="10.520410445911466" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_6 unnamed6" data-x="0.08195929999984713" data-y="-9.962507474999999" x="316.10637768324585" y="576.2049494614762" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_7 unnamed7" data-x="0.7419592999998472" data-y="-9.962507474999999" x="333.4650549189998" y="576.2049494614762" width="12.098472012798254" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_4-inner pcb_component_4-inner" data-x="0.41195929999984715" data-y="-9.962507474999999" x="316.10637768324585" y="576.2049494614762" width="29.457149248552184" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_5
-ccwRotationOffset: 0.0°" data-x="1.9319592999998472" data-y="-9.785" x="356.0839373777095" y="571.5363207259328" width="29.457149248552128" height="10.520410445911352" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_8 unnamed8" data-x="1.601959299999847" data-y="-9.785" x="356.0839373777095" y="571.5363207259328" width="12.098472012798197" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_9 unnamed9" data-x="2.2619592999998472" data-y="-9.785" x="373.44261461346343" y="571.5363207259328" width="12.098472012798197" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_5-inner pcb_component_5-inner" data-x="1.9319592999998472" data-y="-9.785" x="356.0839373777095" y="571.5363207259328" width="29.457149248552128" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_6
-ccwRotationOffset: 0.0°" data-x="3.451959299999847" data-y="-9.785" x="396.0614970721731" y="571.5363207259328" width="29.457149248552184" height="10.520410445911352" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_10 unnamed10" data-x="3.121959299999847" data-y="-9.785" x="396.0614970721731" y="571.5363207259328" width="12.098472012798197" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_11 unnamed11" data-x="3.7819592999998473" data-y="-9.785" x="413.4201743079271" y="571.5363207259328" width="12.098472012798197" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_6-inner pcb_component_6-inner" data-x="3.451959299999847" data-y="-9.785" x="396.0614970721731" y="571.5363207259328" width="29.457149248552184" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_7
-ccwRotationOffset: 0.0°" data-x="4.971959299999847" data-y="-9.785" x="436.03905676663675" y="571.5363207259328" width="29.457149248552184" height="10.520410445911352" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_12 unnamed12" data-x="4.641959299999847" data-y="-9.785" x="436.03905676663675" y="571.5363207259328" width="12.098472012798254" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_13 unnamed13" data-x="5.301959299999847" data-y="-9.785" x="453.3977340023907" y="571.5363207259328" width="12.098472012798254" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_7-inner pcb_component_7-inner" data-x="4.971959299999847" data-y="-9.785" x="436.03905676663675" y="571.5363207259328" width="29.457149248552184" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_8
-ccwRotationOffset: 0.0°" data-x="6.711959299999847" data-y="-9.785" x="476.0166164611004" y="568.3801975921593" width="41.029600739054786" height="16.832656713458277" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_14 unnamed14" data-x="6.201959299999848" data-y="-9.785" x="476.0166164611004" y="568.3801975921593" width="14.202554101980468" height="16.832656713458277" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_15 unnamed15" data-x="7.221959299999847" data-y="-9.785" x="502.84366309817466" y="568.3801975921593" width="14.202554101980525" height="16.832656713458277" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_8-inner pcb_component_8-inner" data-x="6.711959299999847" data-y="-9.785" x="476.0166164611004" y="568.3801975921593" width="41.029600739054786" height="16.832656713458277" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_9
-ccwRotationOffset: 0.0°" data-x="4.7519592999998475" data-y="-8.865" x="424.46660527613415" y="544.1832535665628" width="41.029600739054786" height="16.83265671345839" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_16 unnamed16" data-x="4.241959299999848" data-y="-8.865" x="424.46660527613415" y="544.1832535665628" width="14.202554101980468" height="16.83265671345839" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_17 unnamed17" data-x="5.261959299999847" data-y="-8.865" x="451.29365191320835" y="544.1832535665628" width="14.202554101980581" height="16.83265671345839" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_9-inner pcb_component_9-inner" data-x="4.7519592999998475" data-y="-8.865" x="424.46660527613415" y="544.1832535665628" width="41.029600739054786" height="16.83265671345839" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_10
-ccwRotationOffset: 0.0°" data-x="3.500979649999923" data-y="-7.944999999999999" x="397.3507825776807" y="523.1424326747399" width="29.457149248552128" height="10.520410445911466" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_18 unnamed18" data-x="3.1709796499999228" data-y="-7.944999999999999" x="397.3507825776807" y="523.1424326747399" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_19 unnamed19" data-x="3.830979649999923" data-y="-7.944999999999999" x="414.70945981343465" y="523.1424326747399" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_10-inner pcb_component_10-inner" data-x="3.500979649999923" data-y="-7.944999999999999" x="397.3507825776807" y="523.1424326747399" width="29.457149248552128" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_11
-ccwRotationOffset: 0.0°" data-x="5.020979649999923" data-y="-7.572514949999995" x="437.3283422721443" y="513.3456936473251" width="29.457149248552184" height="10.520410445911466" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_20 unnamed20" data-x="4.690979649999923" data-y="-7.572514949999995" x="437.3283422721443" y="513.3456936473251" width="12.098472012798254" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_21 unnamed21" data-x="5.350979649999923" data-y="-7.572514949999995" x="454.6870195078983" y="513.3456936473251" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_11-inner pcb_component_11-inner" data-x="5.020979649999923" data-y="-7.572514949999995" x="437.3283422721443" y="513.3456936473251" width="29.457149248552184" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_12
-ccwRotationOffset: 90.0°" data-x="5.789999999999999" data-y="6.2750149500000525" x="457.5543665802926" y="140.462109504368" width="29.457149248552128" height="27.879087681665425" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_22 unnamed22" data-x="5.789999999999999" data-y="5.945014950000052" x="467.0227359816129" y="157.03175595667855" width="10.520410445911523" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_23 unnamed23" data-x="5.789999999999999" data-y="6.605014950000053" x="467.0227359816129" y="139.67307872092462" width="10.520410445911523" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_12-inner pcb_component_12-inner" data-x="5.789999999999999" data-y="6.2750149500000525" x="467.0227359816129" y="139.67307872092462" width="10.520410445911523" height="29.457149248552156" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_17
-ccwRotationOffset: 0.0°" data-x="7.107555399999995" data-y="9.34" x="486.4211998181089" y="65.37307314701658" width="41.029600739054786" height="16.83265671345839" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_24 unnamed24" data-x="6.597555399999996" data-y="9.34" x="486.4211998181089" y="65.37307314701658" width="14.202554101980468" height="16.83265671345839" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_25 unnamed25" data-x="7.617555399999995" data-y="9.34" x="513.2482464551831" y="65.37307314701658" width="14.202554101980581" height="16.83265671345839" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_17-inner pcb_component_17-inner" data-x="7.107555399999995" data-y="9.34" x="486.4211998181089" y="65.37307314701658" width="41.029600739054786" height="16.83265671345839" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_18
-ccwRotationOffset: 90.0°" data-x="5.837555399999995" data-y="8.09" x="458.8051223975913" y="92.72614030638647" width="29.457149248552128" height="27.879087681665396" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_26 unnamed26" data-x="5.837555399999995" data-y="7.76" x="468.27349179891155" y="109.295786758697" width="10.520410445911466" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_27 unnamed27" data-x="5.837555399999995" data-y="8.42" x="468.27349179891155" y="91.93710952294308" width="10.520410445911466" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_18-inner pcb_component_18-inner" data-x="5.837555399999995" data-y="8.09" x="468.27349179891155" y="91.93710952294308" width="10.520410445911466" height="29.457149248552156" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_19
-ccwRotationOffset: 90.0°" data-x="-5.885110799999991" data-y="2.458871975000137" x="150.48697253655797" y="240.83058554757008" width="29.457149248552156" height="27.879087681665396" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_28 unnamed28" data-x="-5.885110799999991" data-y="2.128871975000137" x="159.9553419378783" y="257.40023199988065" width="10.520410445911494" height="12.098472012798197" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_29 unnamed29" data-x="-5.885110799999991" data-y="2.788871975000137" x="159.9553419378783" y="240.04155476412672" width="10.520410445911494" height="12.098472012798197" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_19-inner pcb_component_19-inner" data-x="-5.885110799999991" data-y="2.458871975000137" x="159.9553419378783" y="240.04155476412672" width="10.520410445911494" height="29.457149248552128" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_20
-ccwRotationOffset: 90.0°" data-x="-5.885110799999991" data-y="6.969435987500068" x="150.48697253655797" y="122.19812366242834" width="29.457149248552156" height="27.879087681665453" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_30 unnamed30" data-x="-5.885110799999991" data-y="6.639435987500068" x="159.9553419378783" y="138.76777011473894" width="10.520410445911494" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_31 unnamed31" data-x="-5.885110799999991" data-y="7.299435987500068" x="159.9553419378783" y="121.40909287898498" width="10.520410445911494" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_20-inner pcb_component_20-inner" data-x="-5.885110799999991" data-y="6.969435987500068" x="159.9553419378783" y="121.40909287898498" width="10.520410445911494" height="29.457149248552184" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_21
-ccwRotationOffset: 90.0°" data-x="-5.885110799999991" data-y="9.224717993750033" x="150.48697253655797" y="62.88189271985755" width="29.457149248552156" height="27.879087681665368" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_32 unnamed32" data-x="-5.885110799999991" data-y="8.894717993750033" x="159.9553419378783" y="79.45153917216808" width="10.520410445911494" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_33 unnamed33" data-x="-5.885110799999991" data-y="9.554717993750034" x="159.9553419378783" y="62.092861936414124" width="10.520410445911494" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_21-inner pcb_component_21-inner" data-x="-5.885110799999991" data-y="9.224717993750033" x="159.9553419378783" y="62.092861936414124" width="10.520410445911494" height="29.457149248552184" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_22
-ccwRotationOffset: 0.0°" data-x="-7.125110799999991" data-y="10.024717993750032" x="117.87370015423235" y="50.52041044591158" width="29.457149248552184" height="10.52041044591141" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_34 unnamed34" data-x="-7.455110799999991" data-y="10.024717993750032" x="117.87370015423235" y="50.52041044591158" width="12.098472012798226" height="10.52041044591141" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_35 unnamed35" data-x="-6.795110799999991" data-y="10.024717993750032" x="135.2323773899863" y="50.52041044591158" width="12.098472012798226" height="10.52041044591141" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_22-inner pcb_component_22-inner" data-x="-7.125110799999991" data-y="10.024717993750032" x="117.87370015423235" y="50.52041044591158" width="29.457149248552184" height="10.52041044591141" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_23
-ccwRotationOffset: 0.0°" data-x="-7.5940347000000035" data-y="-9.785" x="105.54052041448816" y="571.5363207259328" width="29.457149248552184" height="10.520410445911352" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_36 unnamed36" data-x="-7.9240347000000035" data-y="-9.785" x="105.54052041448816" y="571.5363207259328" width="12.098472012798226" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_37 unnamed37" data-x="-7.264034700000003" data-y="-9.785" x="122.89919765024212" y="571.5363207259328" width="12.098472012798226" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_23-inner pcb_component_23-inner" data-x="-7.5940347000000035" data-y="-9.785" x="105.54052041448816" y="571.5363207259328" width="29.457149248552184" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_33" data-x="2" data-y="-2.499999999999943" x="264.76371852796706" y="277.35855723144937" width="215.67666740318072" height="215.66998694254949" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_34" data-x="0" data-y="6.28749940000003" x="190.46453223102162" y="65.00263502965305" width="259.07093553795676" height="178.1413289401392" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_0" data-x="-8.25" data-y="7.62" x="63.56499538090765" y="92.72614030638641" width="78.90307834433611" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_1" data-x="-8.25" data-y="5.08" x="63.56499538090765" y="159.53074663792435" width="78.90307834433611" height="52.602052229557415" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_2" data-x="-8.25" data-y="2.54" x="63.56499538090765" y="226.33535296946224" width="78.90307834433611" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_3" data-x="-8.25" data-y="0" x="63.56499538090765" y="293.13995930100015" width="78.90307834433611" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_4" data-x="-8.25" data-y="-2.54" x="63.56499538090765" y="359.94456563253806" width="78.90307834433611" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_5" data-x="-8.25" data-y="-5.079999999999999" x="63.56499538090765" y="426.74917196407597" width="78.90307834433611" height="52.60205222955739" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_6" data-x="-8.25" data-y="-7.62" x="63.56499538090765" y="493.5537782956139" width="78.90307834433611" height="52.60205222955739" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_7" data-x="8.25" data-y="7.62" x="497.53192627475624" y="92.72614030638641" width="78.90307834433605" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_8" data-x="8.25" data-y="5.08" x="497.53192627475624" y="159.53074663792435" width="78.90307834433605" height="52.602052229557415" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_9" data-x="8.25" data-y="2.54" x="497.53192627475624" y="226.33535296946224" width="78.90307834433605" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_10" data-x="8.25" data-y="0" x="497.53192627475624" y="293.13995930100015" width="78.90307834433605" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_11" data-x="8.25" data-y="-2.54" x="497.53192627475624" y="359.94456563253806" width="78.90307834433605" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_12" data-x="8.25" data-y="-5.079999999999999" x="497.53192627475624" y="426.74917196407597" width="78.90307834433605" height="52.60205222955739" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_13" data-x="8.25" data-y="-7.62" x="497.53192627475624" y="493.5537782956139" width="78.90307834433605" height="52.60205222955739" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649" />
-  </g>
-  <g id="crosshair" style="display: none">
-    <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
-    <line id="crosshair-v" x1="0" x2="640" stroke="#666" stroke-width="0.5" /><text id="coordinates" font-family="monospace" font-size="12" fill="#666"></text>
-  </g>
-  <script>
-    <![CDATA[
-    document.currentScript.parentElement.addEventListener('mousemove', (e) => {
-      const svg = e.currentTarget;
-      const rect = svg.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const crosshair = svg.getElementById('crosshair');
-      const h = svg.getElementById('crosshair-h');
-      const v = svg.getElementById('crosshair-v');
-      const coords = svg.getElementById('coordinates');
+<svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="white"/><g><circle data-type="point" data-label="outlines [0] [0]" data-x="4.060979649999923" data-y="-7.000029899999991" cx="426.80793182623285" cy="503.5489546199104" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [0] [1]" data-x="4.060979649999923" data-y="-7.344999999999999" cx="426.80793182623285" cy="512.6220222288284" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [0] [2]" data-x="2.540979649999923" data-y="-7.344999999999999" cx="386.8303721317692" cy="512.6220222288284" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [0] [3]" data-x="2.540979649999923" data-y="-8.545" cx="386.8303721317692" cy="544.1832535665628" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [0] [4]" data-x="3.5719592999998473" data-y="-8.545" cx="413.9461948302226" cy="544.1832535665628" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [0] [5]" data-x="3.5719592999998473" data-y="-9.185" cx="413.9461948302226" cy="561.0159102800212" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [0] [6]" data-x="1.3719592999998471" data-y="-9.185" cx="356.0839373777095" cy="561.0159102800212" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [0] [7]" data-x="1.3719592999998471" data-y="-8.175014949999996" cx="356.0839373777095" cy="534.4522671044351" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [0] [8]" data-x="-0.1480407000001529" data-y="-8.175014949999996" cx="316.10637768324585" cy="534.4522671044351" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [0] [9]" data-x="-0.1480407000001529" data-y="-7.513104049999988" cx="316.10637768324585" cy="517.0433312378782" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [0] [10]" data-x="-1.5620341000001656" data-y="-7.513104049999988" cx="278.9169003437208" cy="517.0433312378782" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [0] [11]" data-x="-1.5620341000001656" data-y="-7.000029899999991" cx="278.9169003437208" cy="503.5489546199104" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [0]" data-x="-5.255110799999991" data-y="1.8588719750001368" cx="181.78519361314463" cy="270.55074505727" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [1]" data-x="-4.925110799999991" data-y="1.8588719750001368" cx="190.4645322310216" cy="270.55074505727" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [2]" data-x="-4.925110799999991" data-y="2.500914250000111" cx="190.4645322310216" cy="253.66437441570375" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [3]" data-x="5.32511079999999" data-y="2.500914250000111" cx="460.05587821488984" cy="253.66437441570375" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [4]" data-x="5.32511079999999" data-y="5.345014950000053" cx="460.05587821488984" cy="178.86160763194488" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [5]" data-x="6.35" data-y="5.345014950000053" cx="487.0115158288447" cy="178.86160763194488" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [6]" data-x="6.35" data-y="2.0000299000001043" cx="487.0115158288447" cy="266.8381467855379" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [7]" data-x="-2.500156900000011" data-y="2.0000299000001043" cx="254.24330808205553" cy="266.8381467855379" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [8]" data-x="-2.500156900000011" data-y="-6.8844830999998585" cx="254.24330808205553" cy="500.50995521562777" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [9]" data-x="-5.462104100000007" data-y="-6.8844830999998585" cx="176.34105742426" cy="500.50995521562777" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [10]" data-x="-5.462104100000007" data-y="-8.62" cx="176.34105742426" cy="546.1558305251713" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [11]" data-x="-6.35" data-y="-8.62" cx="152.98848417115525" cy="546.1558305251713" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [12]" data-x="-6.35" data-y="1.5288719750001367" cx="152.98848417115525" cy="279.230083675147" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [1] [13]" data-x="-5.255110799999991" data-y="1.5288719750001367" cx="181.78519361314463" cy="279.230083675147" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [2] [0]" data-x="-5.32511079999999" data-y="6.0394359875000685" cx="179.94412178511013" cy="160.59762179000526" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [2] [1]" data-x="-5.32511079999999" data-y="3.388871975000137" cx="179.94412178511013" cy="230.3101751016586" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [2] [2]" data-x="-6.35" data-y="3.388871975000137" cx="152.98848417115525" cy="230.3101751016586" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [2] [3]" data-x="-6.35" data-y="6.0394359875000685" cx="152.98848417115525" cy="160.59762179000526" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [3] [0]" data-x="-5.32511079999999" data-y="8.294717993750034" cx="179.94412178511013" cy="101.28139084743441" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [3] [1]" data-x="-5.32511079999999" data-y="7.899435987500068" cx="179.94412178511013" cy="111.67771321651688" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [3] [2]" data-x="-6.35" data-y="7.899435987500068" cx="152.98848417115525" cy="111.67771321651688" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [3] [3]" data-x="-6.35" data-y="8.294717993750034" cx="152.98848417115525" cy="101.28139084743441" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [0]" data-x="-5.462104100000006" data-y="-10.667226949999998" cx="176.34105742426001" cy="600" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [1]" data-x="-3.5421041000000058" data-y="-10.667226949999998" cx="226.83902756463513" cy="600" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [2]" data-x="-3.5421041000000058" data-y="-9.584453899999996" cx="226.83902756463513" cy="571.5219577355714" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [3]" data-x="-3.4820341000001656" data-y="-9.584453899999996" cx="228.41893020334567" cy="571.5219577355714" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [4]" data-x="-3.4820341000001656" data-y="-10.667226949999998" cx="228.41893020334567" cy="600" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [5]" data-x="-1.5620341000001656" data-y="-10.667226949999998" cx="278.9169003437208" cy="600" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [6]" data-x="-1.5620341000001656" data-y="-10.036925850000003" cx="278.9169003437208" cy="583.4224343087265" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [7]" data-x="-0.5480407000001529" data-y="-10.036925850000003" cx="305.5859672373344" cy="583.4224343087265" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [8]" data-x="-0.5480407000001529" data-y="-10.562507474999999" cx="305.5859672373344" cy="597.2457703532991" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [9]" data-x="1.3719592999998471" data-y="-10.562507474999999" cx="356.0839373777095" cy="597.2457703532991" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [10]" data-x="1.3719592999998471" data-y="-10.385" cx="356.0839373777095" cy="592.5771416177557" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [11]" data-x="5.531959299999848" data-y="-10.385" cx="465.49620601518893" cy="592.5771416177557" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [12]" data-x="5.531959299999848" data-y="-10.505" cx="465.49620601518893" cy="595.7332647515292" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [13]" data-x="7.891959299999847" data-y="-10.505" cx="527.5666276460666" cy="595.7332647515292" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [14]" data-x="7.891959299999847" data-y="-9.065" cx="527.5666276460666" cy="557.8597871462478" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [15]" data-x="5.931959299999848" data-y="-9.065" cx="476.0166164611004" cy="557.8597871462478" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [16]" data-x="5.931959299999848" data-y="-8.172514949999995" cx="476.0166164611004" cy="534.386514539148" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [17]" data-x="5.980979649999923" data-y="-8.172514949999995" cx="477.30590196660796" cy="534.386514539148" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [18]" data-x="5.980979649999923" data-y="-7.000029899999991" cx="477.30590196660796" cy="503.5489546199104" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [19]" data-x="6.35" data-y="-7.000029899999991" cx="487.0115158288447" cy="503.5489546199104" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [20]" data-x="6.35" data-y="-9.02" cx="487.0115158288447" cy="556.6762409710827" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [21]" data-x="10.15" data-y="-9.02" cx="586.9554150650039" cy="556.6762409710827" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [22]" data-x="10.15" data-y="9.02" cx="586.9554150650039" cy="82.20572986047497" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [23]" data-x="8.287555399999995" data-y="9.02" cx="537.9712110030752" cy="82.20572986047497" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [24]" data-x="8.287555399999995" data-y="10.06" cx="537.9712110030752" cy="54.85266270110509" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [25]" data-x="5.927555399999996" data-y="10.06" cx="475.90078937219744" cy="54.85266270110509" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [26]" data-x="5.927555399999996" data-y="9.02" cx="475.90078937219744" cy="82.20572986047497" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [27]" data-x="5.32511079999999" data-y="9.02" cx="460.05587821488984" cy="82.20572986047497" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [28]" data-x="5.32511079999999" data-y="10.074084549999949" cx="460.05587821488984" cy="54.48222458374153" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [29]" data-x="-5.255110799999991" data-y="10.074084549999949" cx="181.78519361314463" cy="54.48222458374153" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [30]" data-x="-5.255110799999991" data-y="10.154717993750033" cx="181.78519361314463" cy="52.361482273946024" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [31]" data-x="-6.165110799999991" data-y="10.154717993750033" cx="157.851259848696" cy="52.361482273946024" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [32]" data-x="-6.165110799999991" data-y="10.624717993750032" cx="157.851259848696" cy="40.00000000000006" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [33]" data-x="-8.085110799999992" data-y="10.624717993750032" cx="107.35328970832089" cy="40.00000000000006" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [34]" data-x="-8.085110799999992" data-y="9.424717993750033" cx="107.35328970832089" cy="71.56123133773451" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [35]" data-x="-6.845110799999991" data-y="9.424717993750033" cx="139.9665620906465" cy="71.56123133773451" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [36]" data-x="-6.845110799999991" data-y="9.02" cx="139.9665620906465" cy="82.20572986047497" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [37]" data-x="-10.15" data-y="9.02" cx="53.044584934996124" cy="82.20572986047497" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [38]" data-x="-10.15" data-y="-9.02" cx="53.044584934996124" cy="556.6762409710827" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [39]" data-x="-7.034034700000003" data-y="-9.02" cx="134.99766966304034" cy="556.6762409710827" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [40]" data-x="-7.034034700000003" data-y="-9.185" cx="134.99766966304034" cy="561.0159102800212" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [41]" data-x="-8.554034700000004" data-y="-9.185" cx="95.02010996857666" cy="561.0159102800212" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [42]" data-x="-8.554034700000004" data-y="-10.385" cx="95.02010996857666" cy="592.5771416177557" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [43]" data-x="-6.6340347000000035" data-y="-10.385" cx="145.5180801089518" cy="592.5771416177557" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [44]" data-x="-6.6340347000000035" data-y="-10.371077600000076" cx="145.5180801089518" cy="592.2109682117773" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="outlines [4] [45]" data-x="-5.462104100000006" data-y="-10.371077600000076" cx="176.34105742426001" cy="592.2109682117773" r="3" fill="#ff4444"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.3724850500000043" data-x="4.6209796499999225" data-y="-7.172514949999995" cx="441.5365064505089" cy="508.0854884243694" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.3602164300438032" data-x="4.6209796499999225" data-y="-7.172514949999995" cx="441.5365064505089" cy="508.0854884243694" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="4.6209796499999225" data-y="-7.172514949999995" cx="441.5365064505089" cy="508.0854884243694" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.30805843601498717" data-x="4.6209796499999225" data-y="-7.172514949999995" cx="441.5365064505089" cy="508.0854884243694" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.38000000000000034" data-x="4.340979649999923" data-y="-7.544999999999999" cx="434.1722191383709" cy="517.8822274517842" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.13659320522672602" data-x="4.160979649999923" data-y="-7.874999999999999" cx="429.4380344377107" cy="526.5615660696611" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.3799999999999999" data-x="4.340979649999923" data-y="-7.544999999999999" cx="434.1722191383709" cy="517.8822274517842" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="4.160979649999923" data-y="-7.874999999999999" cx="429.4380344377107" cy="526.5615660696611" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="3.100979649999923" data-y="-7.945" cx="401.5589467560453" cy="528.4026378976957" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="3.100979649999923" data-y="-7.945" cx="401.5589467560453" cy="528.4026378976957" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.22000000000000064" data-x="3.851959299999847" data-y="-8.345" cx="421.3104821423607" cy="538.9230483436072" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.10440306508910592" data-x="3.6719592999998474" data-y="-8.015" cx="416.5762974417005" cy="530.2437097257302" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="3.851959299999847" data-y="-8.345" cx="421.3104821423607" cy="538.9230483436072" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.18422299181728743" data-x="3.6719592999998474" data-y="-8.015" cx="416.5762974417005" cy="530.2437097257302" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="4.131959299999847" data-y="-8.865" cx="428.6747694544987" cy="552.5995819232921" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.17888543819998334" data-x="4.131959299999847" data-y="-8.865" cx="428.6747694544987" cy="552.5995819232921" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="4.131959299999847" data-y="-8.865" cx="428.6747694544987" cy="552.5995819232921" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="4.131959299999847" data-y="-8.865" cx="428.6747694544987" cy="552.5995819232921" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.08000000000000007" data-x="2.471959299999847" data-y="-9.385" cx="385.0150661039661" cy="566.2761155029771" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.08000000000000007" data-x="2.471959299999847" data-y="-9.385" cx="385.0150661039661" cy="566.2761155029771" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.125286516527134" data-x="0.8119592999998471" data-y="-9.285" cx="341.35536275343344" cy="563.6460128914991" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.3399999999999992" data-x="0.8119592999998471" data-y="-9.362507474999997" cx="341.35536275343344" cy="565.6845390155646" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.12528651652713393" data-x="0.8119592999998471" data-y="-9.285" cx="341.35536275343344" cy="563.6460128914991" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.3460618859841038" data-x="0.8119592999998471" data-y="-9.362507474999997" cx="341.35536275343344" cy="565.6845390155646" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-0.4280407000001527" data-y="-8.375014949999995" cx="308.74209037110785" cy="539.7124723273907" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.22801538955169826" data-x="-0.24804070000015266" data-y="-8.705014949999995" cx="313.476275071768" cy="548.3918109452678" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.24984370193383237" data-x="-0.4280407000001527" data-y="-8.375014949999995" cx="308.74209037110785" cy="539.7124723273907" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.15498992030452052" data-x="-0.24804070000015277" data-y="-8.705014949999995" cx="313.476275071768" cy="548.3918109452678" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-0.708040700000153" data-y="-8.275014949999996" cx="301.3778030589698" cy="537.0823697159129" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-0.708040700000153" data-y="-8.455014949999995" cx="301.3778030589698" cy="541.8165544165731" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-0.708040700000153" data-y="-8.275014949999996" cx="301.3778030589698" cy="537.0823697159129" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-0.708040700000153" data-y="-8.455014949999995" cx="301.3778030589698" cy="541.8165544165731" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-1.8420341000001657" data-y="-7.7131040499999886" cx="271.5526130315828" cy="522.3035364608339" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.10172405485479913" data-x="-1.6620341000001657" data-y="-8.043104049999988" cx="276.2867977322429" cy="530.9828750787109" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.2548401521040907" data-x="-1.8420341000001657" data-y="-7.7131040499999886" cx="271.5526130315828" cy="522.3035364608339" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.16292176995244023" data-x="-1.6620341000001657" data-y="-8.043104049999988" cx="276.2867977322429" cy="530.9828750787109" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-2.1220341000001657" data-y="-7.2565669749999895" cx="264.1883257194447" cy="510.29614292889426" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-2.1220341000001657" data-y="-7.2565669749999895" cx="264.1883257194447" cy="510.29614292889426" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-2.1220341000001657" data-y="-7.2565669749999895" cx="264.1883257194447" cy="510.29614292889426" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.2374079506566323" data-x="-2.1220341000001657" data-y="-7.2565669749999895" cx="264.1883257194447" cy="510.29614292889426" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="1.2494727749998784" data-y="-6.80002989999999" cx="352.8624160849768" cy="498.28874939695464" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="1.2494727749998784" data-y="-6.47002989999999" cx="352.8624160849768" cy="489.6094107790776" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="1.2494727749998784" data-y="-6.80002989999999" cx="352.8624160849768" cy="498.28874939695464" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="1.2494727749998784" data-y="-6.47002989999999" cx="352.8624160849768" cy="489.6094107790776" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.535110799999991" data-y="2.058871975000137" cx="174.4209063010066" cy="265.29053983431425" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.14764823060233326" data-x="-5.355110799999991" data-y="2.3888719750001366" cx="179.15509100166676" cy="256.6112012164373" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.2596150997149425" data-x="-5.535110799999991" data-y="2.058871975000137" cx="174.4209063010066" cy="265.29053983431425" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.18384776310850157" data-x="-5.355110799999991" data-y="2.3888719750001366" cx="179.15509100166676" cy="256.6112012164373" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.08165508488253197" data-x="-5.48511079999999" data-y="2.6009142500001112" cx="175.73595760674553" cy="251.03427180422588" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.48511079999999" data-y="2.7809142500001114" cx="175.73595760674553" cy="246.30008710356572" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.302931597703464" data-x="-5.48511079999999" data-y="2.6009142500001112" cx="175.73595760674553" cy="251.03427180422588" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.48511079999999" data-y="2.7809142500001114" cx="175.73595760674553" cy="246.30008710356572" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-1.7824446000000052" data-y="2.7009142500001113" cx="273.1198780272536" cy="248.404169192748" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-1.7824446000000056" data-y="3.0309142500001114" cx="273.11987802725355" cy="239.72483057487102" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-1.7824446000000052" data-y="2.7009142500001113" cx="273.1198780272536" cy="248.404169192748" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-1.7824446000000056" data-y="3.0309142500001114" cx="273.11987802725355" cy="239.72483057487102" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.2745132805744794" data-x="4.76511079999999" data-y="5.4429646000000815" cx="445.3273035906138" cy="176.2854313293607" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="4.76511079999999" data-y="5.4429646000000815" cx="445.3273035906138" cy="176.2854313293607" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.2745132805744794" data-x="4.76511079999999" data-y="5.4429646000000815" cx="445.3273035906138" cy="176.2854313293607" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="4.76511079999999" data-y="5.4429646000000815" cx="445.3273035906138" cy="176.2854313293607" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="5.837555399999995" data-y="5.545014950000053" cx="473.5336970218673" cy="173.60140240898914" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="5.837555399999995" data-y="5.875014950000053" cx="473.5336970218673" cy="164.92206379111218" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="5.837555399999995" data-y="5.545014950000053" cx="473.5336970218673" cy="173.60140240898914" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="5.837555399999995" data-y="5.875014950000053" cx="473.5336970218673" cy="164.92206379111218" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="6.91" data-y="3.420029900000104" cx="501.74009045312084" cy="229.49068970255212" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.3440686804897419" data-x="6.91" data-y="3.2400299000001036" cx="501.74009045312084" cy="234.2248744032123" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="6.91" data-y="3.420029900000104" cx="501.74009045312084" cy="229.49068970255212" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.3440686804897419" data-x="6.91" data-y="3.2400299000001036" cx="501.74009045312084" cy="234.2248744032123" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.22999999999999998" data-x="3.194921549999995" data-y="1.8000299000001043" cx="404.0297151212191" cy="272.09835200849363" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="3.1949215499999952" data-y="1.4700299000001043" cx="404.0297151212191" cy="280.7776906263706" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.22999999999999998" data-x="3.194921549999995" data-y="1.800029900000104" cx="404.0297151212191" cy="272.09835200849363" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="3.1949215499999952" data-y="1.4700299000001043" cx="404.0297151212191" cy="280.7776906263706" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-1.940156900000011" data-y="-4.274985049999948" cx="268.9718827063316" cy="431.87747885611606" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-1.940156900000011" data-y="-4.274985049999948" cx="268.9718827063316" cy="431.87747885611606" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-1.940156900000011" data-y="-4.274985049999948" cx="268.9718827063316" cy="431.87747885611606" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-1.940156900000011" data-y="-4.274985049999948" cx="268.9718827063316" cy="431.87747885611606" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-2.2201569000000108" data-y="-7.084483099999859" cx="261.6075953941936" cy="505.7701604385835" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-2.400156900000011" data-y="-7.414483099999859" cx="256.8734106935334" cy="514.4494990564606" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-2.2201569000000108" data-y="-7.084483099999859" cx="261.6075953941936" cy="505.7701604385835" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-2.400156900000011" data-y="-7.414483099999859" cx="256.8734106935334" cy="514.4494990564606" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.10374905000020718" data-x="-4.902104100000006" data-y="-8.71724154999993" cx="191.06963204853608" cy="548.713383071161" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.38067951942040285" data-x="-4.902104100000006" data-y="-8.71724154999993" cx="191.06963204853608" cy="548.713383071161" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-4.902104100000006" data-y="-8.71724154999993" cx="191.06963204853608" cy="548.713383071161" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.3382274776953544" data-x="-4.902104100000006" data-y="-8.71724154999993" cx="191.06963204853608" cy="548.713383071161" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.17999710000009372" data-x="-5.906052050000003" data-y="-8.819999999999999" cx="164.6647707977076" cy="551.416035748127" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.17268238897875687" data-x="-5.906052050000003" data-y="-9.149999999999999" cx="164.6647707977076" cy="560.095374366004" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.0660565780530645" data-x="-5.906052050000003" data-y="-8.819999999999999" cx="164.6647707977076" cy="551.416035748127" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.17059617313268674" data-x="-5.906052050000003" data-y="-9.149999999999999" cx="164.6647707977076" cy="560.095374366004" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-6.91" data-y="-1.0824925249999744" cx="138.25990954687916" cy="347.9116495848559" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.2707462311480372" data-x="-6.91" data-y="-1.0824925249999744" cx="138.25990954687916" cy="347.9116495848559" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-6.91" data-y="-1.0824925249999744" cx="138.25990954687916" cy="347.9116495848559" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-6.91" data-y="-1.0824925249999744" cx="138.25990954687916" cy="347.9116495848559" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-6.629999999999999" data-y="1.7288719750001367" cx="145.62419685901722" cy="273.9698784521912" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.1754663736350719" data-x="-6.449999999999999" data-y="2.0588719750001365" cx="150.35838155967738" cy="265.29053983431425" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-6.629999999999999" data-y="1.728871975000137" cx="145.62419685901722" cy="273.9698784521912" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0.2592073461085599" data-x="-6.449999999999999" data-y="2.0588719750001365" cx="150.35838155967738" cy="265.29053983431425" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.8151107999999905" data-y="1.9588719750001369" cx="167.05661898886856" cy="267.9206424457921" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.8151107999999905" data-y="2.1388719750001366" cx="167.05661898886856" cy="263.186457745132" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.8151107999999905" data-y="1.9588719750001369" cx="167.05661898886856" cy="267.9206424457921" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.8151107999999905" data-y="2.1388719750001366" cx="167.05661898886856" cy="263.186457745132" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-4.76511079999999" data-y="4.714153981250103" cx="194.67269640938622" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-4.76511079999999" data-y="4.714153981250103" cx="194.67269640938622" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-4.76511079999999" data-y="4.714153981250103" cx="194.67269640938622" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-4.76511079999999" data-y="4.714153981250103" cx="194.67269640938622" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="3.188871975000137" cx="166.4663029781327" cy="235.57038032461432" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="2.8588719750001372" cx="166.4663029781327" cy="244.24971894249128" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="3.188871975000137" cx="166.4663029781327" cy="235.57038032461432" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="2.8588719750001372" cx="166.4663029781327" cy="244.24971894249128" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-6.91" data-y="4.714153981250103" cx="138.25990954687916" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-6.91" data-y="4.714153981250103" cx="138.25990954687916" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-6.91" data-y="4.714153981250103" cx="138.25990954687916" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-6.91" data-y="4.714153981250103" cx="138.25990954687916" cy="195.4538984458319" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="6.239435987500069" cx="166.4663029781327" cy="155.3374165670495" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="6.569435987500069" cx="166.4663029781327" cy="146.65807794917254" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="6.239435987500069" cx="166.4663029781327" cy="155.3374165670495" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="6.569435987500069" cx="166.4663029781327" cy="146.65807794917254" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-4.76511079999999" data-y="8.097076990625052" cx="194.67269640938622" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-4.76511079999999" data-y="8.097076990625052" cx="194.67269640938622" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-4.76511079999999" data-y="8.097076990625052" cx="194.67269640938622" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-4.76511079999999" data-y="8.097076990625052" cx="194.67269640938622" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="7.699435987500068" cx="166.4663029781327" cy="116.93791843947264" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="7.369435987500068" cx="166.4663029781327" cy="125.6172570573496" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="7.699435987500068" cx="166.4663029781327" cy="116.93791843947264" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="7.369435987500068" cx="166.4663029781327" cy="125.6172570573496" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-6.91" data-y="8.097076990625052" cx="138.25990954687916" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-6.91" data-y="8.097076990625052" cx="138.25990954687916" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-6.91" data-y="8.097076990625052" cx="138.25990954687916" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-6.91" data-y="8.097076990625052" cx="138.25990954687916" cy="106.47955203197563" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="8.494717993750033" cx="166.4663029781327" cy="96.02118562447868" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="8.824717993750033" cx="166.4663029781327" cy="87.34184700660171" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="8.494717993750033" cx="166.4663029781327" cy="96.02118562447868" r="3" fill="rgba(255,0,0,0.8)"/></g><g><circle data-type="point" data-label="rejected, d=0.000
+gap_distance=0" data-x="-5.837555399999995" data-y="8.824717993750033" cx="166.4663029781327" cy="87.34184700660171" r="3" fill="rgba(255,0,0,0.8)"/></g><g><polyline data-points="0,10.55 7.090000000000001,10.55 7.441162579629032,10.515413504725815 7.778830178257163,10.412983158520316 8.090026419435285,10.246645302144582 8.362792206135786,10.022792206135785 8.586645302144582,9.750026419435283 8.752983158520317,9.438830178257161 8.855413504725815,9.101162579629031 8.89,8.75 8.89,-8.75 8.855413504725815,-9.101162579629031 8.752983158520317,-9.438830178257161 8.586645302144582,-9.750026419435283 8.362792206135786,-10.022792206135785 8.090026419435285,-10.246645302144582 7.778830178257163,-10.412983158520316 7.441162579629032,-10.515413504725815 7.090000000000001,-10.55 -7.090000000000001,-10.55 -7.441162579629031,-10.515413504725815 -7.778830178257162,-10.412983158520316 -8.090026419435285,-10.246645302144582 -8.362792206135786,-10.022792206135787 -8.586645302144582,-9.750026419435283 -8.752983158520317,-9.438830178257161 -8.855413504725815,-9.101162579629031 -8.89,-8.75 -8.89,8.75 -8.855413504725815,9.101162579629031 -8.752983158520317,9.438830178257161 -8.586645302144582,9.750026419435283 -8.362792206135786,10.022792206135787 -8.090026419435285,10.246645302144582 -7.778830178257162,10.412983158520316 -7.441162579629031,10.515413504725815 -7.090000000000001,10.55 0,10.55" data-type="line" data-label="" points="320,41.965159904863526 506.47427515378104,41.965159904863526 515.7102113311372,42.87482022028854 524.5912156607703,45.56884343078519 532.7759961268171,49.94369973519969 539.9500162060451,55.83126585920115 545.8375823300465,63.00528593842921 550.212438634461,71.19006640447594 552.9064618449577,80.07107073410899 553.8161221603827,89.30700691146521 553.8161221603827,549.5749639200925 552.9064618449577,558.8109000974488 550.212438634461,567.6919044270818 545.8375823300465,575.8766848931285 539.9500162060451,583.0507049723566 532.7759961268171,588.938271096358 524.5912156607703,593.3131274007726 515.7102113311372,596.0071506112693 506.47427515378104,596.9168109266942 133.52572484621896,596.9168109266942 124.28978866886277,596.0071506112693 115.4087843392297,593.3131274007726 107.22400387318294,588.938271096358 100.04998379395488,583.0507049723567 94.16241766995347,575.8766848931285 89.78756136553895,567.6919044270818 87.09353815504232,558.8109000974488 86.18387783961731,549.5749639200925 86.18387783961731,89.30700691146521 87.09353815504232,80.07107073410899 89.78756136553895,71.19006640447594 94.16241766995347,63.00528593842921 100.04998379395488,55.831265859201096 107.22400387318294,49.94369973519969 115.4087843392297,45.56884343078519 124.28978866886277,42.87482022028854 133.52572484621896,41.965159904863526 320,41.965159904863526" fill="none" stroke="rgba(0, 0, 255, 0.5)" stroke-width="1px" stroke-dasharray="4 2"/></g><g><polyline data-points="4.060979649999923,-7.000029899999991 4.060979649999923,-7.344999999999999" data-type="line" data-label="" points="426.80793182623285,503.5489546199104 426.80793182623285,512.6220222288284" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="4.060979649999923,-7.344999999999999 2.540979649999923,-7.344999999999999" data-type="line" data-label="" points="426.80793182623285,512.6220222288284 386.8303721317692,512.6220222288284" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="2.540979649999923,-7.344999999999999 2.540979649999923,-8.545" data-type="line" data-label="" points="386.8303721317692,512.6220222288284 386.8303721317692,544.1832535665628" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="2.540979649999923,-8.545 3.5719592999998473,-8.545" data-type="line" data-label="" points="386.8303721317692,544.1832535665628 413.9461948302226,544.1832535665628" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="3.5719592999998473,-8.545 3.5719592999998473,-9.185" data-type="line" data-label="" points="413.9461948302226,544.1832535665628 413.9461948302226,561.0159102800212" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="3.5719592999998473,-9.185 1.3719592999998471,-9.185" data-type="line" data-label="" points="413.9461948302226,561.0159102800212 356.0839373777095,561.0159102800212" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="1.3719592999998471,-9.185 1.3719592999998471,-8.175014949999996" data-type="line" data-label="" points="356.0839373777095,561.0159102800212 356.0839373777095,534.4522671044351" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="1.3719592999998471,-8.175014949999996 -0.1480407000001529,-8.175014949999996" data-type="line" data-label="" points="356.0839373777095,534.4522671044351 316.10637768324585,534.4522671044351" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-0.1480407000001529,-8.175014949999996 -0.1480407000001529,-7.513104049999988" data-type="line" data-label="" points="316.10637768324585,534.4522671044351 316.10637768324585,517.0433312378782" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-0.1480407000001529,-7.513104049999988 -1.5620341000001656,-7.513104049999988" data-type="line" data-label="" points="316.10637768324585,517.0433312378782 278.9169003437208,517.0433312378782" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-1.5620341000001656,-7.513104049999988 -1.5620341000001656,-7.000029899999991" data-type="line" data-label="" points="278.9169003437208,517.0433312378782 278.9169003437208,503.5489546199104" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-1.5620341000001656,-7.000029899999991 4.060979649999923,-7.000029899999991" data-type="line" data-label="" points="278.9169003437208,503.5489546199104 426.80793182623285,503.5489546199104" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-5.255110799999991,1.8588719750001368 -4.925110799999991,1.8588719750001368" data-type="line" data-label="" points="181.78519361314463,270.55074505727 190.4645322310216,270.55074505727" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-4.925110799999991,1.8588719750001368 -4.925110799999991,2.500914250000111" data-type="line" data-label="" points="190.4645322310216,270.55074505727 190.4645322310216,253.66437441570375" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-4.925110799999991,2.500914250000111 5.32511079999999,2.500914250000111" data-type="line" data-label="" points="190.4645322310216,253.66437441570375 460.05587821488984,253.66437441570375" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="5.32511079999999,2.500914250000111 5.32511079999999,5.345014950000053" data-type="line" data-label="" points="460.05587821488984,253.66437441570375 460.05587821488984,178.86160763194488" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="5.32511079999999,5.345014950000053 6.35,5.345014950000053" data-type="line" data-label="" points="460.05587821488984,178.86160763194488 487.0115158288447,178.86160763194488" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="6.35,5.345014950000053 6.35,2.0000299000001043" data-type="line" data-label="" points="487.0115158288447,178.86160763194488 487.0115158288447,266.8381467855379" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="6.35,2.0000299000001043 -2.500156900000011,2.0000299000001043" data-type="line" data-label="" points="487.0115158288447,266.8381467855379 254.24330808205553,266.8381467855379" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-2.500156900000011,2.0000299000001043 -2.500156900000011,-6.8844830999998585" data-type="line" data-label="" points="254.24330808205553,266.8381467855379 254.24330808205553,500.50995521562777" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-2.500156900000011,-6.8844830999998585 -5.462104100000007,-6.8844830999998585" data-type="line" data-label="" points="254.24330808205553,500.50995521562777 176.34105742426,500.50995521562777" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-5.462104100000007,-6.8844830999998585 -5.462104100000007,-8.62" data-type="line" data-label="" points="176.34105742426,500.50995521562777 176.34105742426,546.1558305251713" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-5.462104100000007,-8.62 -6.35,-8.62" data-type="line" data-label="" points="176.34105742426,546.1558305251713 152.98848417115525,546.1558305251713" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-6.35,-8.62 -6.35,1.5288719750001367" data-type="line" data-label="" points="152.98848417115525,546.1558305251713 152.98848417115525,279.230083675147" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-6.35,1.5288719750001367 -5.255110799999991,1.5288719750001367" data-type="line" data-label="" points="152.98848417115525,279.230083675147 181.78519361314463,279.230083675147" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-5.255110799999991,1.5288719750001367 -5.255110799999991,1.8588719750001368" data-type="line" data-label="" points="181.78519361314463,279.230083675147 181.78519361314463,270.55074505727" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-5.32511079999999,6.0394359875000685 -5.32511079999999,3.388871975000137" data-type="line" data-label="" points="179.94412178511013,160.59762179000526 179.94412178511013,230.3101751016586" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-5.32511079999999,3.388871975000137 -6.35,3.388871975000137" data-type="line" data-label="" points="179.94412178511013,230.3101751016586 152.98848417115525,230.3101751016586" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-6.35,3.388871975000137 -6.35,6.0394359875000685" data-type="line" data-label="" points="152.98848417115525,230.3101751016586 152.98848417115525,160.59762179000526" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-6.35,6.0394359875000685 -5.32511079999999,6.0394359875000685" data-type="line" data-label="" points="152.98848417115525,160.59762179000526 179.94412178511013,160.59762179000526" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-5.32511079999999,8.294717993750034 -5.32511079999999,7.899435987500068" data-type="line" data-label="" points="179.94412178511013,101.28139084743441 179.94412178511013,111.67771321651688" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-5.32511079999999,7.899435987500068 -6.35,7.899435987500068" data-type="line" data-label="" points="179.94412178511013,111.67771321651688 152.98848417115525,111.67771321651688" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-6.35,7.899435987500068 -6.35,8.294717993750034" data-type="line" data-label="" points="152.98848417115525,111.67771321651688 152.98848417115525,101.28139084743441" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-6.35,8.294717993750034 -5.32511079999999,8.294717993750034" data-type="line" data-label="" points="152.98848417115525,101.28139084743441 179.94412178511013,101.28139084743441" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-5.462104100000006,-10.667226949999998 -3.5421041000000058,-10.667226949999998" data-type="line" data-label="" points="176.34105742426001,600 226.83902756463513,600" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-3.5421041000000058,-10.667226949999998 -3.5421041000000058,-9.584453899999996" data-type="line" data-label="" points="226.83902756463513,600 226.83902756463513,571.5219577355714" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-3.5421041000000058,-9.584453899999996 -3.4820341000001656,-9.584453899999996" data-type="line" data-label="" points="226.83902756463513,571.5219577355714 228.41893020334567,571.5219577355714" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-3.4820341000001656,-9.584453899999996 -3.4820341000001656,-10.667226949999998" data-type="line" data-label="" points="228.41893020334567,571.5219577355714 228.41893020334567,600" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-3.4820341000001656,-10.667226949999998 -1.5620341000001656,-10.667226949999998" data-type="line" data-label="" points="228.41893020334567,600 278.9169003437208,600" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-1.5620341000001656,-10.667226949999998 -1.5620341000001656,-10.036925850000003" data-type="line" data-label="" points="278.9169003437208,600 278.9169003437208,583.4224343087265" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-1.5620341000001656,-10.036925850000003 -0.5480407000001529,-10.036925850000003" data-type="line" data-label="" points="278.9169003437208,583.4224343087265 305.5859672373344,583.4224343087265" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-0.5480407000001529,-10.036925850000003 -0.5480407000001529,-10.562507474999999" data-type="line" data-label="" points="305.5859672373344,583.4224343087265 305.5859672373344,597.2457703532991" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-0.5480407000001529,-10.562507474999999 1.3719592999998471,-10.562507474999999" data-type="line" data-label="" points="305.5859672373344,597.2457703532991 356.0839373777095,597.2457703532991" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="1.3719592999998471,-10.562507474999999 1.3719592999998471,-10.385" data-type="line" data-label="" points="356.0839373777095,597.2457703532991 356.0839373777095,592.5771416177557" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="1.3719592999998471,-10.385 5.531959299999848,-10.385" data-type="line" data-label="" points="356.0839373777095,592.5771416177557 465.49620601518893,592.5771416177557" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="5.531959299999848,-10.385 5.531959299999848,-10.505" data-type="line" data-label="" points="465.49620601518893,592.5771416177557 465.49620601518893,595.7332647515292" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="5.531959299999848,-10.505 7.891959299999847,-10.505" data-type="line" data-label="" points="465.49620601518893,595.7332647515292 527.5666276460666,595.7332647515292" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="7.891959299999847,-10.505 7.891959299999847,-9.065" data-type="line" data-label="" points="527.5666276460666,595.7332647515292 527.5666276460666,557.8597871462478" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="7.891959299999847,-9.065 5.931959299999848,-9.065" data-type="line" data-label="" points="527.5666276460666,557.8597871462478 476.0166164611004,557.8597871462478" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="5.931959299999848,-9.065 5.931959299999848,-8.172514949999995" data-type="line" data-label="" points="476.0166164611004,557.8597871462478 476.0166164611004,534.386514539148" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="5.931959299999848,-8.172514949999995 5.980979649999923,-8.172514949999995" data-type="line" data-label="" points="476.0166164611004,534.386514539148 477.30590196660796,534.386514539148" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="5.980979649999923,-8.172514949999995 5.980979649999923,-7.000029899999991" data-type="line" data-label="" points="477.30590196660796,534.386514539148 477.30590196660796,503.5489546199104" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="5.980979649999923,-7.000029899999991 6.35,-7.000029899999991" data-type="line" data-label="" points="477.30590196660796,503.5489546199104 487.0115158288447,503.5489546199104" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="6.35,-7.000029899999991 6.35,-9.02" data-type="line" data-label="" points="487.0115158288447,503.5489546199104 487.0115158288447,556.6762409710827" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="6.35,-9.02 10.15,-9.02" data-type="line" data-label="" points="487.0115158288447,556.6762409710827 586.9554150650039,556.6762409710827" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="10.15,-9.02 10.15,9.02" data-type="line" data-label="" points="586.9554150650039,556.6762409710827 586.9554150650039,82.20572986047497" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="10.15,9.02 8.287555399999995,9.02" data-type="line" data-label="" points="586.9554150650039,82.20572986047497 537.9712110030752,82.20572986047497" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="8.287555399999995,9.02 8.287555399999995,10.06" data-type="line" data-label="" points="537.9712110030752,82.20572986047497 537.9712110030752,54.85266270110509" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="8.287555399999995,10.06 5.927555399999996,10.06" data-type="line" data-label="" points="537.9712110030752,54.85266270110509 475.90078937219744,54.85266270110509" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="5.927555399999996,10.06 5.927555399999996,9.02" data-type="line" data-label="" points="475.90078937219744,54.85266270110509 475.90078937219744,82.20572986047497" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="5.927555399999996,9.02 5.32511079999999,9.02" data-type="line" data-label="" points="475.90078937219744,82.20572986047497 460.05587821488984,82.20572986047497" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="5.32511079999999,9.02 5.32511079999999,10.074084549999949" data-type="line" data-label="" points="460.05587821488984,82.20572986047497 460.05587821488984,54.48222458374153" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="5.32511079999999,10.074084549999949 -5.255110799999991,10.074084549999949" data-type="line" data-label="" points="460.05587821488984,54.48222458374153 181.78519361314463,54.48222458374153" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-5.255110799999991,10.074084549999949 -5.255110799999991,10.154717993750033" data-type="line" data-label="" points="181.78519361314463,54.48222458374153 181.78519361314463,52.361482273946024" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-5.255110799999991,10.154717993750033 -6.165110799999991,10.154717993750033" data-type="line" data-label="" points="181.78519361314463,52.361482273946024 157.851259848696,52.361482273946024" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-6.165110799999991,10.154717993750033 -6.165110799999991,10.624717993750032" data-type="line" data-label="" points="157.851259848696,52.361482273946024 157.851259848696,40.00000000000006" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-6.165110799999991,10.624717993750032 -8.085110799999992,10.624717993750032" data-type="line" data-label="" points="157.851259848696,40.00000000000006 107.35328970832089,40.00000000000006" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-8.085110799999992,10.624717993750032 -8.085110799999992,9.424717993750033" data-type="line" data-label="" points="107.35328970832089,40.00000000000006 107.35328970832089,71.56123133773451" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-8.085110799999992,9.424717993750033 -6.845110799999991,9.424717993750033" data-type="line" data-label="" points="107.35328970832089,71.56123133773451 139.9665620906465,71.56123133773451" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-6.845110799999991,9.424717993750033 -6.845110799999991,9.02" data-type="line" data-label="" points="139.9665620906465,71.56123133773451 139.9665620906465,82.20572986047497" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-6.845110799999991,9.02 -10.15,9.02" data-type="line" data-label="" points="139.9665620906465,82.20572986047497 53.044584934996124,82.20572986047497" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-10.15,9.02 -10.15,-9.02" data-type="line" data-label="" points="53.044584934996124,82.20572986047497 53.044584934996124,556.6762409710827" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-10.15,-9.02 -7.034034700000003,-9.02" data-type="line" data-label="" points="53.044584934996124,556.6762409710827 134.99766966304034,556.6762409710827" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-7.034034700000003,-9.02 -7.034034700000003,-9.185" data-type="line" data-label="" points="134.99766966304034,556.6762409710827 134.99766966304034,561.0159102800212" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-7.034034700000003,-9.185 -8.554034700000004,-9.185" data-type="line" data-label="" points="134.99766966304034,561.0159102800212 95.02010996857666,561.0159102800212" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-8.554034700000004,-9.185 -8.554034700000004,-10.385" data-type="line" data-label="" points="95.02010996857666,561.0159102800212 95.02010996857666,592.5771416177557" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-8.554034700000004,-10.385 -6.6340347000000035,-10.385" data-type="line" data-label="" points="95.02010996857666,592.5771416177557 145.5180801089518,592.5771416177557" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-6.6340347000000035,-10.385 -6.6340347000000035,-10.371077600000076" data-type="line" data-label="" points="145.5180801089518,592.5771416177557 145.5180801089518,592.2109682117773" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-6.6340347000000035,-10.371077600000076 -5.462104100000006,-10.371077600000076" data-type="line" data-label="" points="145.5180801089518,592.2109682117773 176.34105742426001,592.2109682117773" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><polyline data-points="-5.462104100000006,-10.371077600000076 -5.462104100000006,-10.667226949999998" data-type="line" data-label="" points="176.34105742426001,592.2109682117773 176.34105742426001,600" fill="none" stroke="#ff4444" stroke-width="1px"/></g><g><rect data-type="rect" data-label="pcb_component_32
+ccwRotationOffset: 0.0°" data-x="-6.048069400000005" data-y="-9.495538800000038" x="145.51808010895184" y="556.6762409710827" width="30.82297731530815" height="25.0143167947831" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_56 unnamed56" data-x="-6.454037600000079" data-y="-9.820023800000019" x="145.51808010895184" y="573.7722077773876" width="9.46821685536483" height="7.890960099880203" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_57 unnamed57" data-x="-6.453986800000083" data-y="-9.170012400000036" x="145.51941620107388" y="556.6762409710827" width="9.46821685537381" height="7.890960099883273" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_58 unnamed58" data-x="-5.642101199999987" data-y="-9.171003000000116" x="166.87284056889217" y="556.7022947675557" width="9.468216855367814" height="7.890960099880203" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_59 unnamed59" data-x="-5.642101199999987" data-y="-9.821065200000039" x="166.87284056889217" y="573.7995976659827" width="9.468216855367814" height="7.890960099883159" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_60 unnamed60" data-x="-6.045999299999922" data-y="-9.494980000000186" x="154.6716472685013" y="562.8563351028182" width="12.624734504534018" height="12.624734504534104" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_32-inner pcb_component_32-inner" data-x="-6.048069400000005" data-y="-9.495538800000038" x="145.51808010895184" y="556.6762409710827" width="30.82297731530815" height="25.0143167947831" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_28
+ccwRotationOffset: 0.0°" data-x="-3.512069100000086" data-y="-8.234468499999927" x="186.86146787017148" y="511.03036566153924" width="81.53502202763784" height="49.97118162812069" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_46 unnamed46" data-x="-2.4620331000001654" data-y="-8.884454499999997" x="242.09551638508285" y="545.220963182024" width="26.300973512726472" height="15.780584107635946" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_47 unnamed47" data-x="-2.4620331000001654" data-y="-7.584482499999858" x="242.09551638508285" y="511.03036566153924" width="26.300973512726472" height="15.780584107635946" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_48 unnamed48" data-x="-4.562105100000006" data-y="-7.584482499999858" x="186.86146787017148" y="511.03036566153924" width="26.300973512726472" height="15.780584107635946" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_49 unnamed49" data-x="-4.562105100000006" data-y="-8.884454499999997" x="186.86146787017148" y="545.220963182024" width="26.300973512726472" height="15.780584107635946" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_28-inner pcb_component_28-inner" data-x="-3.512069100000086" data-y="-8.234468499999927" x="186.86146787017148" y="511.03036566153924" width="81.53502202763784" height="49.97118162812069" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_29
+ccwRotationOffset: 0.0°" data-x="-1.0550374000001592" data-y="-8.775014949999996" x="278.9169003437208" y="527.5637416837897" width="26.669066893613603" height="45.338282179025214" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_50 unnamed50" data-x="-0.7300444000001529" data-y="-8.256600949999989" x="296.0121991039617" y="527.5637416837897" width="9.57376813337271" height="18.06864187449105" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_51 unnamed51" data-x="-1.3800304000001655" data-y="-8.256600949999989" x="278.9169003437208" y="527.5637416837897" width="9.57376813337271" height="18.06864187449105" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_52 unnamed52" data-x="-1.3800304000001655" data-y="-9.293428950000003" x="278.9169003437208" y="554.8333819883238" width="9.57376813337271" height="18.06864187449105" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_53 unnamed53" data-x="-0.7300444000001529" data-y="-9.293428950000003" x="296.0121991039617" y="554.8333819883238" width="9.57376813337271" height="18.06864187449105" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_29-inner pcb_component_29-inner" data-x="-1.0550374000001592" data-y="-8.775014949999996" x="278.9169003437208" y="527.5637416837897" width="26.669066893613603" height="45.338282179025214" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_1
+ccwRotationOffset: 0.0°" data-x="-4.502104100000006" data-y="-10.067226949999998" x="186.86146787017148" y="578.9591791081771" width="29.457149248552184" height="10.520410445911466" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_0 unnamed0" data-x="-4.832104100000006" data-y="-10.067226949999998" x="186.86146787017148" y="578.9591791081771" width="12.098472012798226" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_1 unnamed1" data-x="-4.172104100000006" data-y="-10.067226949999998" x="204.22014510592544" y="578.9591791081771" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_1-inner pcb_component_1-inner" data-x="-4.502104100000006" data-y="-10.067226949999998" x="186.86146787017148" y="578.9591791081771" width="29.457149248552156" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_2
+ccwRotationOffset: 0.0°" data-x="-2.5220341000001656" data-y="-10.067226949999998" x="238.93934064925716" y="578.9591791081771" width="29.457149248552156" height="10.520410445911466" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_2 unnamed2" data-x="-2.8520341000001657" data-y="-10.067226949999998" x="238.93934064925716" y="578.9591791081771" width="12.098472012798226" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_3 unnamed3" data-x="-2.1920341000001655" data-y="-10.067226949999998" x="256.2980178850111" y="578.9591791081771" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_2-inner pcb_component_2-inner" data-x="-2.5220341000001656" data-y="-10.067226949999998" x="238.93934064925716" y="578.9591791081771" width="29.457149248552156" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_3
+ccwRotationOffset: 0.0°" data-x="0.41195929999984715" data-y="-8.775014949999996" x="316.10637768324585" y="544.9726775503466" width="29.457149248552184" height="10.520410445911466" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_4 unnamed4" data-x="0.08195929999984713" data-y="-8.775014949999996" x="316.10637768324585" y="544.9726775503466" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_5 unnamed5" data-x="0.7419592999998472" data-y="-8.775014949999996" x="333.4650549189998" y="544.9726775503466" width="12.098472012798254" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_3-inner pcb_component_3-inner" data-x="0.41195929999984715" data-y="-8.775014949999996" x="316.10637768324585" y="544.9726775503466" width="29.457149248552184" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_4
+ccwRotationOffset: 0.0°" data-x="0.41195929999984715" data-y="-9.962507474999999" x="316.10637768324585" y="576.2049494614762" width="29.457149248552184" height="10.520410445911466" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_6 unnamed6" data-x="0.08195929999984713" data-y="-9.962507474999999" x="316.10637768324585" y="576.2049494614762" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_7 unnamed7" data-x="0.7419592999998472" data-y="-9.962507474999999" x="333.4650549189998" y="576.2049494614762" width="12.098472012798254" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_4-inner pcb_component_4-inner" data-x="0.41195929999984715" data-y="-9.962507474999999" x="316.10637768324585" y="576.2049494614762" width="29.457149248552184" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_5
+ccwRotationOffset: 0.0°" data-x="1.9319592999998472" data-y="-9.785" x="356.0839373777095" y="571.5363207259328" width="29.457149248552128" height="10.520410445911352" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_8 unnamed8" data-x="1.601959299999847" data-y="-9.785" x="356.0839373777095" y="571.5363207259328" width="12.098472012798197" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_9 unnamed9" data-x="2.2619592999998472" data-y="-9.785" x="373.44261461346343" y="571.5363207259328" width="12.098472012798197" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_5-inner pcb_component_5-inner" data-x="1.9319592999998472" data-y="-9.785" x="356.0839373777095" y="571.5363207259328" width="29.457149248552128" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_6
+ccwRotationOffset: 0.0°" data-x="3.451959299999847" data-y="-9.785" x="396.0614970721731" y="571.5363207259328" width="29.457149248552184" height="10.520410445911352" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_10 unnamed10" data-x="3.121959299999847" data-y="-9.785" x="396.0614970721731" y="571.5363207259328" width="12.098472012798197" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_11 unnamed11" data-x="3.7819592999998473" data-y="-9.785" x="413.4201743079271" y="571.5363207259328" width="12.098472012798197" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_6-inner pcb_component_6-inner" data-x="3.451959299999847" data-y="-9.785" x="396.0614970721731" y="571.5363207259328" width="29.457149248552184" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_7
+ccwRotationOffset: 0.0°" data-x="4.971959299999847" data-y="-9.785" x="436.03905676663675" y="571.5363207259328" width="29.457149248552184" height="10.520410445911352" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_12 unnamed12" data-x="4.641959299999847" data-y="-9.785" x="436.03905676663675" y="571.5363207259328" width="12.098472012798254" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_13 unnamed13" data-x="5.301959299999847" data-y="-9.785" x="453.3977340023907" y="571.5363207259328" width="12.098472012798254" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_7-inner pcb_component_7-inner" data-x="4.971959299999847" data-y="-9.785" x="436.03905676663675" y="571.5363207259328" width="29.457149248552184" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_8
+ccwRotationOffset: 0.0°" data-x="6.711959299999847" data-y="-9.785" x="476.0166164611004" y="568.3801975921593" width="41.029600739054786" height="16.832656713458277" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_14 unnamed14" data-x="6.201959299999848" data-y="-9.785" x="476.0166164611004" y="568.3801975921593" width="14.202554101980468" height="16.832656713458277" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_15 unnamed15" data-x="7.221959299999847" data-y="-9.785" x="502.84366309817466" y="568.3801975921593" width="14.202554101980525" height="16.832656713458277" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_8-inner pcb_component_8-inner" data-x="6.711959299999847" data-y="-9.785" x="476.0166164611004" y="568.3801975921593" width="41.029600739054786" height="16.832656713458277" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_9
+ccwRotationOffset: 0.0°" data-x="4.7519592999998475" data-y="-8.865" x="424.46660527613415" y="544.1832535665628" width="41.029600739054786" height="16.83265671345839" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_16 unnamed16" data-x="4.241959299999848" data-y="-8.865" x="424.46660527613415" y="544.1832535665628" width="14.202554101980468" height="16.83265671345839" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_17 unnamed17" data-x="5.261959299999847" data-y="-8.865" x="451.29365191320835" y="544.1832535665628" width="14.202554101980581" height="16.83265671345839" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_9-inner pcb_component_9-inner" data-x="4.7519592999998475" data-y="-8.865" x="424.46660527613415" y="544.1832535665628" width="41.029600739054786" height="16.83265671345839" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_10
+ccwRotationOffset: 0.0°" data-x="3.500979649999923" data-y="-7.944999999999999" x="397.3507825776807" y="523.1424326747399" width="29.457149248552128" height="10.520410445911466" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_18 unnamed18" data-x="3.1709796499999228" data-y="-7.944999999999999" x="397.3507825776807" y="523.1424326747399" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_19 unnamed19" data-x="3.830979649999923" data-y="-7.944999999999999" x="414.70945981343465" y="523.1424326747399" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_10-inner pcb_component_10-inner" data-x="3.500979649999923" data-y="-7.944999999999999" x="397.3507825776807" y="523.1424326747399" width="29.457149248552128" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_11
+ccwRotationOffset: 0.0°" data-x="5.020979649999923" data-y="-7.572514949999995" x="437.3283422721443" y="513.3456936473251" width="29.457149248552184" height="10.520410445911466" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_20 unnamed20" data-x="4.690979649999923" data-y="-7.572514949999995" x="437.3283422721443" y="513.3456936473251" width="12.098472012798254" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_21 unnamed21" data-x="5.350979649999923" data-y="-7.572514949999995" x="454.6870195078983" y="513.3456936473251" width="12.098472012798197" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_11-inner pcb_component_11-inner" data-x="5.020979649999923" data-y="-7.572514949999995" x="437.3283422721443" y="513.3456936473251" width="29.457149248552184" height="10.520410445911466" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_12
+ccwRotationOffset: 90.0°" data-x="5.789999999999999" data-y="6.2750149500000525" x="457.5543665802926" y="140.462109504368" width="29.457149248552128" height="27.879087681665425" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_22 unnamed22" data-x="5.789999999999999" data-y="5.945014950000052" x="467.0227359816129" y="157.03175595667855" width="10.520410445911523" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_23 unnamed23" data-x="5.789999999999999" data-y="6.605014950000053" x="467.0227359816129" y="139.67307872092462" width="10.520410445911523" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_12-inner pcb_component_12-inner" data-x="5.789999999999999" data-y="6.2750149500000525" x="467.0227359816129" y="139.67307872092462" width="10.520410445911523" height="29.457149248552156" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_17
+ccwRotationOffset: 0.0°" data-x="7.107555399999995" data-y="9.34" x="486.4211998181089" y="65.37307314701658" width="41.029600739054786" height="16.83265671345839" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_24 unnamed24" data-x="6.597555399999996" data-y="9.34" x="486.4211998181089" y="65.37307314701658" width="14.202554101980468" height="16.83265671345839" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_25 unnamed25" data-x="7.617555399999995" data-y="9.34" x="513.2482464551831" y="65.37307314701658" width="14.202554101980581" height="16.83265671345839" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_17-inner pcb_component_17-inner" data-x="7.107555399999995" data-y="9.34" x="486.4211998181089" y="65.37307314701658" width="41.029600739054786" height="16.83265671345839" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_18
+ccwRotationOffset: 90.0°" data-x="5.837555399999995" data-y="8.09" x="458.8051223975913" y="92.72614030638647" width="29.457149248552128" height="27.879087681665396" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_26 unnamed26" data-x="5.837555399999995" data-y="7.76" x="468.27349179891155" y="109.295786758697" width="10.520410445911466" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_27 unnamed27" data-x="5.837555399999995" data-y="8.42" x="468.27349179891155" y="91.93710952294308" width="10.520410445911466" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_18-inner pcb_component_18-inner" data-x="5.837555399999995" data-y="8.09" x="468.27349179891155" y="91.93710952294308" width="10.520410445911466" height="29.457149248552156" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_19
+ccwRotationOffset: 90.0°" data-x="-5.885110799999991" data-y="2.458871975000137" x="150.48697253655797" y="240.83058554757008" width="29.457149248552156" height="27.879087681665396" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_28 unnamed28" data-x="-5.885110799999991" data-y="2.128871975000137" x="159.9553419378783" y="257.40023199988065" width="10.520410445911494" height="12.098472012798197" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_29 unnamed29" data-x="-5.885110799999991" data-y="2.788871975000137" x="159.9553419378783" y="240.04155476412672" width="10.520410445911494" height="12.098472012798197" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_19-inner pcb_component_19-inner" data-x="-5.885110799999991" data-y="2.458871975000137" x="159.9553419378783" y="240.04155476412672" width="10.520410445911494" height="29.457149248552128" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_20
+ccwRotationOffset: 90.0°" data-x="-5.885110799999991" data-y="6.969435987500068" x="150.48697253655797" y="122.19812366242834" width="29.457149248552156" height="27.879087681665453" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_30 unnamed30" data-x="-5.885110799999991" data-y="6.639435987500068" x="159.9553419378783" y="138.76777011473894" width="10.520410445911494" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_31 unnamed31" data-x="-5.885110799999991" data-y="7.299435987500068" x="159.9553419378783" y="121.40909287898498" width="10.520410445911494" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_20-inner pcb_component_20-inner" data-x="-5.885110799999991" data-y="6.969435987500068" x="159.9553419378783" y="121.40909287898498" width="10.520410445911494" height="29.457149248552184" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_21
+ccwRotationOffset: 90.0°" data-x="-5.885110799999991" data-y="9.224717993750033" x="150.48697253655797" y="62.88189271985755" width="29.457149248552156" height="27.879087681665368" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_32 unnamed32" data-x="-5.885110799999991" data-y="8.894717993750033" x="159.9553419378783" y="79.45153917216808" width="10.520410445911494" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_33 unnamed33" data-x="-5.885110799999991" data-y="9.554717993750034" x="159.9553419378783" y="62.092861936414124" width="10.520410445911494" height="12.098472012798226" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_21-inner pcb_component_21-inner" data-x="-5.885110799999991" data-y="9.224717993750033" x="159.9553419378783" y="62.092861936414124" width="10.520410445911494" height="29.457149248552184" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_22
+ccwRotationOffset: 0.0°" data-x="-7.125110799999991" data-y="10.024717993750032" x="117.87370015423235" y="50.52041044591158" width="29.457149248552184" height="10.52041044591141" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_34 unnamed34" data-x="-7.455110799999991" data-y="10.024717993750032" x="117.87370015423235" y="50.52041044591158" width="12.098472012798226" height="10.52041044591141" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_35 unnamed35" data-x="-6.795110799999991" data-y="10.024717993750032" x="135.2323773899863" y="50.52041044591158" width="12.098472012798226" height="10.52041044591141" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_22-inner pcb_component_22-inner" data-x="-7.125110799999991" data-y="10.024717993750032" x="117.87370015423235" y="50.52041044591158" width="29.457149248552184" height="10.52041044591141" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_23
+ccwRotationOffset: 0.0°" data-x="-7.5940347000000035" data-y="-9.785" x="105.54052041448816" y="571.5363207259328" width="29.457149248552184" height="10.520410445911352" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_36 unnamed36" data-x="-7.9240347000000035" data-y="-9.785" x="105.54052041448816" y="571.5363207259328" width="12.098472012798226" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_smtpad_37 unnamed37" data-x="-7.264034700000003" data-y="-9.785" x="122.89919765024212" y="571.5363207259328" width="12.098472012798226" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_23-inner pcb_component_23-inner" data-x="-7.5940347000000035" data-y="-9.785" x="105.54052041448816" y="571.5363207259328" width="29.457149248552184" height="10.520410445911352" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_33" data-x="2" data-y="-2.499999999999943" x="264.76371852796706" y="277.35855723144937" width="215.67666740318072" height="215.66998694254949" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_component_34" data-x="0" data-y="6.28749940000003" x="190.46453223102162" y="65.00263502965305" width="259.07093553795676" height="178.1413289401392" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_0" data-x="-8.25" data-y="7.62" x="63.56499538090765" y="92.72614030638641" width="78.90307834433611" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_1" data-x="-8.25" data-y="5.08" x="63.56499538090765" y="159.53074663792435" width="78.90307834433611" height="52.602052229557415" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_2" data-x="-8.25" data-y="2.54" x="63.56499538090765" y="226.33535296946224" width="78.90307834433611" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_3" data-x="-8.25" data-y="0" x="63.56499538090765" y="293.13995930100015" width="78.90307834433611" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_4" data-x="-8.25" data-y="-2.54" x="63.56499538090765" y="359.94456563253806" width="78.90307834433611" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_5" data-x="-8.25" data-y="-5.079999999999999" x="63.56499538090765" y="426.74917196407597" width="78.90307834433611" height="52.60205222955739" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_6" data-x="-8.25" data-y="-7.62" x="63.56499538090765" y="493.5537782956139" width="78.90307834433611" height="52.60205222955739" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_7" data-x="8.25" data-y="7.62" x="497.53192627475624" y="92.72614030638641" width="78.90307834433605" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_8" data-x="8.25" data-y="5.08" x="497.53192627475624" y="159.53074663792435" width="78.90307834433605" height="52.602052229557415" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_9" data-x="8.25" data-y="2.54" x="497.53192627475624" y="226.33535296946224" width="78.90307834433605" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_10" data-x="8.25" data-y="0" x="497.53192627475624" y="293.13995930100015" width="78.90307834433605" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_11" data-x="8.25" data-y="-2.54" x="497.53192627475624" y="359.94456563253806" width="78.90307834433605" height="52.602052229557444" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_12" data-x="8.25" data-y="-5.079999999999999" x="497.53192627475624" y="426.74917196407597" width="78.90307834433605" height="52.60205222955739" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g><rect data-type="rect" data-label="pcb_plated_hole_13" data-x="8.25" data-y="-7.62" x="497.53192627475624" y="493.5537782956139" width="78.90307834433605" height="52.60205222955739" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.03802133025669649"/></g><g id="crosshair" style="display: none"><line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5"/><line id="crosshair-v" x1="0" x2="640" stroke="#666" stroke-width="0.5"/><text id="coordinates" font-family="monospace" font-size="12" fill="#666"></text></g><script><![CDATA[
+              document.currentScript.parentElement.addEventListener('mousemove', (e) => {
+                const svg = e.currentTarget;
+                const rect = svg.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const crosshair = svg.getElementById('crosshair');
+                const h = svg.getElementById('crosshair-h');
+                const v = svg.getElementById('crosshair-v');
+                const coords = svg.getElementById('coordinates');
+                
+                crosshair.style.display = 'block';
+                h.setAttribute('x1', '0');
+                h.setAttribute('x2', '640');
+                h.setAttribute('y1', y);
+                h.setAttribute('y2', y);
+                v.setAttribute('x1', x);
+                v.setAttribute('x2', x);
+                v.setAttribute('y1', '0');
+                v.setAttribute('y2', '640');
 
-      crosshair.style.display = 'block';
-      h.setAttribute('x1', '0');
-      h.setAttribute('x2', '640');
-      h.setAttribute('y1', y);
-      h.setAttribute('y2', y);
-      v.setAttribute('x1', x);
-      v.setAttribute('x2', x);
-      v.setAttribute('y1', '0');
-      v.setAttribute('y2', '640');
-
-      // Calculate real coordinates using inverse transformation
-      const matrix = {
-        "a": 26.301026114778704,
-        "c": 0,
-        "e": 320,
-        "b": 0,
-        "d": -26.301026114778704,
-        "f": 319.44098541577887
-      };
-      // Manually invert and apply the affine transform
-      // Since we only use translate and scale, we can directly compute:
-      // x' = (x - tx) / sx
-      // y' = (y - ty) / sy
-      const sx = matrix.a;
-      const sy = matrix.d;
-      const tx = matrix.e;
-      const ty = matrix.f;
-      const realPoint = {
-        x: (x - tx) / sx,
-        y: (y - ty) / sy // Flip y back since we used negative scale
-      }
-
-      coords.textContent = `(${realPoint.x.toFixed(2)}, ${realPoint.y.toFixed(2)})`;
-      coords.setAttribute('x', (x + 5).toString());
-      coords.setAttribute('y', (y - 5).toString());
-    });
-    document.currentScript.parentElement.addEventListener('mouseleave', () => {
-      document.currentScript.parentElement.getElementById('crosshair').style.display = 'none';
-    });
-    ]]>
-  </script>
-</svg>
+                // Calculate real coordinates using inverse transformation
+                const matrix = {"a":26.301026114778704,"c":0,"e":320,"b":0,"d":-26.301026114778704,"f":319.44098541577887};
+                // Manually invert and apply the affine transform
+                // Since we only use translate and scale, we can directly compute:
+                // x' = (x - tx) / sx
+                // y' = (y - ty) / sy
+                const sx = matrix.a;
+                const sy = matrix.d;
+                const tx = matrix.e; 
+                const ty = matrix.f;
+                const realPoint = {
+                  x: (x - tx) / sx,
+                  y: (y - ty) / sy // Flip y back since we used negative scale
+                }
+                
+                coords.textContent = `(${realPoint.x.toFixed(2)}, ${realPoint.y.toFixed(2)})`;
+                coords.setAttribute('x', (x + 5).toString());
+                coords.setAttribute('y', (y - 5).toString());
+              });
+              document.currentScript.parentElement.addEventListener('mouseleave', () => {
+                document.currentScript.parentElement.getElementById('crosshair').style.display = 'none';
+              });
+            ]]></script></svg>

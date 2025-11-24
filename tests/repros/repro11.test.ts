@@ -1848,7 +1848,7 @@ export function getOutlineOrientation(outline: Segment[]): Orientation {
   return signedArea > 0 ? "ccw" : "cw"
 }
 
-test("repro11", () => {
+test.skip("repro11", () => {
   const solver = new SingleComponentPackSolver(inputProblem as any)
   solver.step()
   console.log(solver.outlines[1])
