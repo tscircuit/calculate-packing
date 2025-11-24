@@ -1,7 +1,27 @@
 import type { Bounds, Point } from "@tscircuit/math-utils"
 import { pointInOutline } from "../geometry/pointInOutline"
 
+export function getInwardNormal(ccwOutlineSegment: [Point, Point]): Point {
+  const [p1, p2] = ccwOutlineSegment
+  return {
+    x: Math.sign(-(p2.y - p1.y)),
+    y: Math.sign(p2.x - p1.x),
+  }
+}
+
 export function getOutwardNormal(
+  outlineSegment: [Point, Point],
+  ccwFullOutline: [Point, Point][],
+): Point {
+  const og = getOutwardNormalOg(outlineSegment, ccwFullOutline)
+  return og
+  // return {
+  //   x: og.x * -1,
+  //   y: og.y * -1,
+  // }
+}
+
+export function getOutwardNormalOg(
   outlineSegment: [Point, Point],
   ccwFullOutline: [Point, Point][],
 ): Point {
