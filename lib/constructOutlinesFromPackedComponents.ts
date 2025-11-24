@@ -90,6 +90,26 @@ const createObstaclePolygons = (
   })
 }
 
+const orientOutlineCounterClockwise = (outline: Outline): Outline => {
+  if (outline.length < 3) return outline
+
+  let signedArea = 0
+  for (let i = 0; i < outline.length; i++) {
+    const { x: x1, y: y1 } = outline[i]![0]
+    const { x: x2, y: y2 } = outline[(i + 1) % outline.length]![0]
+    signedArea += x1 * y2 - x2 * y1
+  }
+
+  // Positive signed area indicates CCW orientation
+  if (signedArea >= 0) return outline
+
+  // Reverse the outline order and segment directions to make it CCW
+  return outline
+    .slice()
+    .reverse()
+    .map(([start, end]) => [{ ...end }, { ...start }])
+}
+
 /**
  * Construct a set of outlines from a list of packed components.
  *
@@ -223,7 +243,8 @@ export const constructOutlinesFromPackedComponents = (
 
     // Simplify collinear segments in the outline
     const simplifiedOutline = simplifyCollinearSegments(outline)
-    outlines.push(simplifiedOutline)
+    const ccwOutline = orientOutlineCounterClockwise(simplifiedOutline)
+    outlines.push(ccwOutline)
   }
 
   return outlines
