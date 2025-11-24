@@ -16,7 +16,7 @@ import type {
 import { rotatePoint } from "lib/math/rotatePoint"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
-import { getOutwardNormal } from "./getOutwardNormal"
+import { getInwardNormal, getOutwardNormal } from "./getOutwardNormal"
 import { LargestRectOutsideOutlineFromPointSolver } from "lib/LargestRectOutsideOutlineFromPointSolver"
 import { getInputComponentBounds } from "lib/geometry/getInputComponentBounds"
 import { expandSegment } from "lib/math/expandSegment"
@@ -48,6 +48,10 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   optimalPosition?: Point
   irlsSolver?: MultiOffsetIrlsSolver
   twoPhaseIrlsSolver?: TwoPhaseIrlsSolver
+
+  largestRectBounds?: Bounds
+  largestRectMidPoint?: Point
+  largestRectOrigin?: Point
 
   constructor(params: {
     outlineSegment: [Point, Point]
@@ -147,33 +151,43 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
           2 +
         this.minGap * 2,
     })
+    const inwardNormal = getInwardNormal(this.outlineSegment)
+    console.log("inwardNormal", inwardNormal)
     const largestRectSolverParams: ConstructorParameters<
       typeof LargestRectOutsideOutlineFromPointSolver
     >[0] = {
       ccwFullOutline: this.ccwFullOutline.flatMap(([p]) => p),
       globalBounds: packedComponentBoundsWithMargin,
       origin: {
-        x: (p1.x + p2.x) / 2 + outwardNormal.x * 0.0001,
-        y: (p1.y + p2.y) / 2 + outwardNormal.y * 0.0001,
+        x: (p1.x + p2.x) / 2 + inwardNormal.x * 0.0001,
+        y: (p1.y + p2.y) / 2 + inwardNormal.y * 0.0001,
       },
     }
+    this.largestRectMidPoint = {
+      x: (p1.x + p2.x) / 2,
+      y: (p1.y + p2.y) / 2,
+    }
+    this.largestRectOrigin = largestRectSolverParams.origin
+    console.log(largestRectSolverParams)
     const largestRectSolver = new LargestRectOutsideOutlineFromPointSolver(
       largestRectSolverParams,
     )
     largestRectSolver.solve()
 
     const largestRectBounds = largestRectSolver.getLargestRectBounds()
+    console.log("largestRectBounds", largestRectBounds)
+    this.largestRectBounds = largestRectBounds
 
     // The viable bounds is the largest rect bounds minus padding for the
     // component
+    const A = this.outlineSegment[0]!
+    const B = this.outlineSegment[1]!
+
     const segmentNormAbs = {
-      x: Math.abs(
-        Math.sign(this.outlineSegment[1].x - this.outlineSegment[0].x),
-      ),
-      y: Math.abs(
-        Math.sign(this.outlineSegment[1].y - this.outlineSegment[0].y),
-      ),
+      x: Math.abs(Math.sign(B.x - A.x)),
+      y: Math.abs(Math.sign(B.y - A.y)),
     }
+
     let viableBounds = {
       minX: largestRectBounds.minX - componentBounds.minX * segmentNormAbs.x,
       minY: largestRectBounds.minY - componentBounds.minY * segmentNormAbs.y,
@@ -574,6 +588,34 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
         height: this.viableBounds.maxY - this.viableBounds.minY,
         fill: "rgba(0,255,0,0.1)",
         label: "Viable Bounds",
+      })
+    }
+
+    if (this.largestRectBounds) {
+      graphics.rects!.push({
+        center: {
+          x: (this.largestRectBounds.minX + this.largestRectBounds.maxX) / 2,
+          y: (this.largestRectBounds.minY + this.largestRectBounds.maxY) / 2,
+        },
+        width: this.largestRectBounds.maxX - this.largestRectBounds.minX,
+        height: this.largestRectBounds.maxY - this.largestRectBounds.minY,
+        fill: "rgba(255,0,255,0.4)",
+      })
+    }
+
+    if (this.largestRectMidPoint) {
+      graphics.points!.push({
+        ...this.largestRectMidPoint,
+        label: "Largest Rect Mid Point",
+        color: "rgba(128,0,255,1)",
+      })
+    }
+
+    if (this.largestRectOrigin) {
+      graphics.points!.push({
+        ...this.largestRectOrigin,
+        label: "Largest Rect Origin",
+        color: "rgba(255,0,128,1)",
       })
     }
 
