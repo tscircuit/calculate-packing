@@ -106,7 +106,9 @@ test("flatten-js: rectangle with subtracted inner - outer is CCW, inner boundary
   for (let i = 0; i < faces.length; i++) {
     const points = extractFacePoints(faces[i])
     const area = signedArea(points)
-    console.log(`  Face ${i}: area=${area}, orientation=${area < 0 ? "CW" : "CCW"}`)
+    console.log(
+      `  Face ${i}: area=${area}, orientation=${area < 0 ? "CW" : "CCW"}`,
+    )
   }
 
   // We expect 2 faces
@@ -153,7 +155,9 @@ test("flatten-js: union of two rectangles has single CCW face", () => {
   for (let i = 0; i < faces.length; i++) {
     const points = extractFacePoints(faces[i])
     const area = signedArea(points)
-    console.log(`  Face ${i}: area=${area}, orientation=${area < 0 ? "CW" : "CCW"}`)
+    console.log(
+      `  Face ${i}: area=${area}, orientation=${area < 0 ? "CW" : "CCW"}`,
+    )
   }
 
   // Union should produce a single outer face (CCW)
@@ -206,7 +210,9 @@ test("flatten-js: rectangle with two subtracted areas - 1 CCW outer, 2 CW inners
   for (const face of faces) {
     const points = extractFacePoints(face)
     const area = signedArea(points)
-    console.log(`  Face: area=${area.toFixed(2)}, orientation=${area < 0 ? "CW" : "CCW"}`)
+    console.log(
+      `  Face: area=${area.toFixed(2)}, orientation=${area < 0 ? "CW" : "CCW"}`,
+    )
   }
 
   // Should have 1 CCW (outer boundary) and 2 CW (inner obstacle boundaries)
@@ -237,7 +243,10 @@ test("parseFlattenPolygonLoops: simple rectangle returns one obstacleFreeLoop", 
 
   console.log("\nparseFlattenPolygonLoops - simple rectangle:")
   console.log("  obstacleFreeLoops:", result.obstacleFreeLoops.length)
-  console.log("  obstacleContainingLoops:", result.obstacleContainingLoops.length)
+  console.log(
+    "  obstacleContainingLoops:",
+    result.obstacleContainingLoops.length,
+  )
 
   expect(result.obstacleFreeLoops.length).toBe(1)
   expect(result.obstacleContainingLoops.length).toBe(0)
@@ -267,7 +276,10 @@ test("parseFlattenPolygonLoops: rectangle with hole returns both loop types", ()
 
   console.log("\nparseFlattenPolygonLoops - rectangle with hole:")
   console.log("  obstacleFreeLoops:", result.obstacleFreeLoops.length)
-  console.log("  obstacleContainingLoops:", result.obstacleContainingLoops.length)
+  console.log(
+    "  obstacleContainingLoops:",
+    result.obstacleContainingLoops.length,
+  )
 
   // 1 outer boundary (CCW) = obstacleFreeLoop
   // 1 inner boundary around hole (CW) = obstacleContainingLoop
@@ -309,7 +321,10 @@ test("parseFlattenPolygonLoops: rectangle with two holes", () => {
 
   console.log("\nparseFlattenPolygonLoops - rectangle with two holes:")
   console.log("  obstacleFreeLoops:", result.obstacleFreeLoops.length)
-  console.log("  obstacleContainingLoops:", result.obstacleContainingLoops.length)
+  console.log(
+    "  obstacleContainingLoops:",
+    result.obstacleContainingLoops.length,
+  )
 
   expect(result.obstacleFreeLoops.length).toBe(1)
   expect(result.obstacleContainingLoops.length).toBe(2)
@@ -395,7 +410,10 @@ test("constructOutlinesFromPackedComponents approach: B - A gives obstacleContai
 
   console.log("\nconstructOutlinesFromPackedComponents approach (B - A):")
   console.log("  obstacleFreeLoops:", result.obstacleFreeLoops.length)
-  console.log("  obstacleContainingLoops:", result.obstacleContainingLoops.length)
+  console.log(
+    "  obstacleContainingLoops:",
+    result.obstacleContainingLoops.length,
+  )
 
   // The current approach returns:
   // - CCW faces (obstacleFreeLoops): These are the outer boundaries OF the obstacles
@@ -403,10 +421,20 @@ test("constructOutlinesFromPackedComponents approach: B - A gives obstacleContai
 
   // Actually, let me check what we get...
   for (const loop of result.obstacleFreeLoops) {
-    console.log("  obstacleFreeLoop points:", loop.length, "area:", signedArea(loop))
+    console.log(
+      "  obstacleFreeLoop points:",
+      loop.length,
+      "area:",
+      signedArea(loop),
+    )
   }
   for (const loop of result.obstacleContainingLoops) {
-    console.log("  obstacleContainingLoop points:", loop.length, "area:", signedArea(loop))
+    console.log(
+      "  obstacleContainingLoop points:",
+      loop.length,
+      "area:",
+      signedArea(loop),
+    )
   }
 
   // The union of obstacles should produce CCW outer boundaries for each obstacle
@@ -450,13 +478,26 @@ test("correct approach: A = B - obstacles gives proper semantic loops", () => {
 
   console.log("\nCorrect approach (free space = B - obstacles):")
   console.log("  obstacleFreeLoops:", result.obstacleFreeLoops.length)
-  console.log("  obstacleContainingLoops:", result.obstacleContainingLoops.length)
+  console.log(
+    "  obstacleContainingLoops:",
+    result.obstacleContainingLoops.length,
+  )
 
   for (const loop of result.obstacleFreeLoops) {
-    console.log("  obstacleFreeLoop points:", loop.length, "area:", signedArea(loop).toFixed(2))
+    console.log(
+      "  obstacleFreeLoop points:",
+      loop.length,
+      "area:",
+      signedArea(loop).toFixed(2),
+    )
   }
   for (const loop of result.obstacleContainingLoops) {
-    console.log("  obstacleContainingLoop points:", loop.length, "area:", signedArea(loop).toFixed(2))
+    console.log(
+      "  obstacleContainingLoop points:",
+      loop.length,
+      "area:",
+      signedArea(loop).toFixed(2),
+    )
   }
 
   // This should give us:
@@ -496,7 +537,10 @@ test("parseFlattenPolygonSegments: returns segments format compatible with exist
 
   console.log("\nparseFlattenPolygonSegments test:")
   console.log("  obstacleFreeLoops:", result.obstacleFreeLoops.length)
-  console.log("  obstacleContainingLoops:", result.obstacleContainingLoops.length)
+  console.log(
+    "  obstacleContainingLoops:",
+    result.obstacleContainingLoops.length,
+  )
 
   expect(result.obstacleFreeLoops.length).toBe(1)
   expect(result.obstacleContainingLoops.length).toBe(1)

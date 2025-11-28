@@ -6,7 +6,9 @@ import {
 import type { PackedComponent } from "./types"
 
 // Helper to calculate signed area
-function signedArea(outline: Array<[{ x: number; y: number }, { x: number; y: number }]>): number {
+function signedArea(
+  outline: Array<[{ x: number; y: number }, { x: number; y: number }]>,
+): number {
   // Extract points from segments
   const points = outline.map(([p1]) => p1)
   let area = 0
@@ -41,14 +43,18 @@ test("constructOutlinesFromPackedComponents returns CCW outline for single obsta
   }
 
   // Use minGap=1 to inflate the bounding box and create free space
-  const outlines = constructOutlinesFromPackedComponents([component], { minGap: 1 })
+  const outlines = constructOutlinesFromPackedComponents([component], {
+    minGap: 1,
+  })
 
   console.log("\nconstructOutlinesFromPackedComponents result:")
   console.log("  Number of outlines:", outlines.length)
 
   for (const outline of outlines) {
     const area = signedArea(outline)
-    console.log(`  Outline: ${outline.length} segments, area=${area.toFixed(2)}, winding=${area > 0 ? "CCW" : "CW"}`)
+    console.log(
+      `  Outline: ${outline.length} segments, area=${area.toFixed(2)}, winding=${area > 0 ? "CCW" : "CW"}`,
+    )
   }
 
   // Should return 1 CCW outline (positive signed area) - the outer boundary of the obstacle island
@@ -93,19 +99,30 @@ test("constructSemanticOutlinesFromPackedComponents returns obstacleContainingLo
     ],
   }
 
-  const result = constructSemanticOutlinesFromPackedComponents([component], { minGap: 1 })
+  const result = constructSemanticOutlinesFromPackedComponents([component], {
+    minGap: 1,
+  })
 
-  console.log("\nconstructSemanticOutlinesFromPackedComponents with interior pad:")
+  console.log(
+    "\nconstructSemanticOutlinesFromPackedComponents with interior pad:",
+  )
   console.log("  obstacleFreeLoops:", result.obstacleFreeLoops.length)
-  console.log("  obstacleContainingLoops:", result.obstacleContainingLoops.length)
+  console.log(
+    "  obstacleContainingLoops:",
+    result.obstacleContainingLoops.length,
+  )
 
   for (const outline of result.obstacleFreeLoops) {
     const area = signedArea(outline)
-    console.log(`  obstacleFreeLoop: ${outline.length} segments, area=${area.toFixed(2)}`)
+    console.log(
+      `  obstacleFreeLoop: ${outline.length} segments, area=${area.toFixed(2)}`,
+    )
   }
   for (const outline of result.obstacleContainingLoops) {
     const area = signedArea(outline)
-    console.log(`  obstacleContainingLoop: ${outline.length} segments, area=${area.toFixed(2)}`)
+    console.log(
+      `  obstacleContainingLoop: ${outline.length} segments, area=${area.toFixed(2)}`,
+    )
   }
 
   // Should have 1 obstacleFreeLoop (outer boundary with corner notches, CCW)
@@ -157,14 +174,18 @@ test("constructOutlinesFromPackedComponents preserves winding directions", () =>
     ],
   }
 
-  const outlines = constructOutlinesFromPackedComponents([component], { minGap: 1 })
+  const outlines = constructOutlinesFromPackedComponents([component], {
+    minGap: 1,
+  })
 
   console.log("\nconstructOutlinesFromPackedComponents with interior pad:")
   console.log("  Number of outlines:", outlines.length)
 
   for (const outline of outlines) {
     const area = signedArea(outline)
-    console.log(`  Outline: ${outline.length} segments, area=${area.toFixed(2)}, winding=${area > 0 ? "CCW" : "CW"}`)
+    console.log(
+      `  Outline: ${outline.length} segments, area=${area.toFixed(2)}, winding=${area > 0 ? "CCW" : "CW"}`,
+    )
   }
 
   // Should return multiple outlines (corner pads create 2 outer boundaries, interior creates 1 inner)

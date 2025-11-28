@@ -104,7 +104,10 @@ export function simplifyCollinearSegments(
           firstSegment[1].x - currentSegmentEnd.x,
           firstSegment[1].y - currentSegmentEnd.y,
         )
-        const scaledTolerance = Math.max(tolerance, tolerance * segLen1 * segLen2)
+        const scaledTolerance = Math.max(
+          tolerance,
+          tolerance * segLen1 * segLen2,
+        )
 
         if (Math.abs(crossProduct) < scaledTolerance) {
           // Merge last segment with first segment

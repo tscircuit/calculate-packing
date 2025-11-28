@@ -150,6 +150,7 @@ export function parseFlattenPolygonSegments(
 
   return {
     obstacleFreeLoops: loops.obstacleFreeLoops.map(pointsToSegments),
-    obstacleContainingLoops: loops.obstacleContainingLoops.map(pointsToSegments),
+    obstacleContainingLoops:
+      loops.obstacleContainingLoops.map(pointsToSegments),
   }
 }
