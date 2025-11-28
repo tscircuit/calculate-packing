@@ -4,10 +4,10 @@
     <polyline data-points="-34.29,26.67 32.29,26.67 34.29,24.67 34.29,13.89 36.83,11.35 36.83,-21.35 34.29,-23.89 34.29,-26.67 -34.29,-26.67 -34.29,26.67" data-type="line" data-label="" points="40.00000000000006,110 564.251968503937,110 580,125.74803149606299 580,210.62992125984252 600,230.62992125984255 600,488.1102362204724 580,508.1102362204724 580,530 40.00000000000006,530 40.00000000000006,110" fill="none" stroke="rgba(0, 0, 255, 0.5)" stroke-width="1" stroke-dasharray="4 2" />
   </g>
   <g>
-    <polyline data-points="5.06361147076592,-21.48337224867186 5.15111147076592,-19.30837224867186" data-type="line" data-label="" points="349.87095646272377,489.160411406865 350.55993284067654,472.03442715489655" fill="none" stroke="hsl(0, 100%, 50%, 0.5)" stroke-width="1" />
+    <polyline data-points="-4.386388529234077,-21.48337224867186 -4.298888529234077,-19.30837224867186" data-type="line" data-label="" points="275.46150764382617,489.160411406865 276.15048402177894,472.03442715489655" fill="none" stroke="hsl(0, 100%, 50%, 0.5)" stroke-width="1" />
   </g>
   <g>
-    <polyline data-points="6.88861147076592,-21.48337224867186 6.80111147076592,-19.30837224867186" data-type="line" data-label="" points="364.2410352028812,489.160411406865 363.5520588249285,472.03442715489655" fill="none" stroke="hsl(0, 100%, 50%, 0.5)" stroke-width="1" />
+    <polyline data-points="-2.5613885292340774,-21.48337224867186 -2.6488885292340765,-19.30837224867186" data-type="line" data-label="" points="289.8315863839836,489.160411406865 289.1426100060309,472.03442715489655" fill="none" stroke="hsl(0, 100%, 50%, 0.5)" stroke-width="1" />
   </g>
   <g>
     <rect data-type="rect" data-label="" data-x="23.15611147076592" data-y="-24.12337224867186" x="484.930011580834" y="502.5462381785186" width="14.8031496062992" height="14.803149606299144" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
@@ -106,22 +106,22 @@
     <rect data-type="rect" data-label="" data-x="-21.49388852923408" data-y="23.856627751328137" x="133.3552084312277" y="124.75096258796742" width="14.803149606299229" height="14.803149606299229" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
   </g>
   <g>
-    <rect data-type="rect" data-label="" data-x="5.06361147076592" data-y="-21.48337224867186" x="345.83552339185763" y="483.648600383243" width="8.070866141732267" height="11.02362204724409" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
+    <rect data-type="rect" data-label="" data-x="-4.386388529234077" data-y="-21.48337224867186" x="271.42607457296003" y="483.648600383243" width="8.070866141732267" height="11.02362204724409" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
   </g>
   <g>
-    <rect data-type="rect" data-label="" data-x="6.88861147076592" data-y="-21.48337224867186" x="360.2056021320151" y="483.648600383243" width="8.070866141732324" height="11.02362204724409" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
+    <rect data-type="rect" data-label="" data-x="-2.5613885292340774" data-y="-21.48337224867186" x="285.7961533131175" y="483.648600383243" width="8.070866141732324" height="11.02362204724409" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
   </g>
   <g>
-    <rect data-type="rect" data-label="" data-x="5.97611147076592" data-y="-21.48337224867186" x="345.83552339185763" y="483.648600383243" width="22.440944881889777" height="11.02362204724409" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
+    <rect data-type="rect" data-label="" data-x="-3.4738885292340775" data-y="-21.48337224867186" x="271.42607457296003" y="483.648600383243" width="22.440944881889777" height="11.02362204724409" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
   </g>
   <g>
-    <rect data-type="rect" data-label="" data-x="5.15111147076592" data-y="-19.30837224867186" x="347.4103265414639" y="468.2942696745815" width="6.299212598425186" height="7.480314960629926" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
+    <rect data-type="rect" data-label="" data-x="-4.298888529234077" data-y="-19.30837224867186" x="273.0008777225663" y="468.2942696745815" width="6.299212598425186" height="7.480314960629926" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
   </g>
   <g>
-    <rect data-type="rect" data-label="" data-x="6.80111147076592" data-y="-19.30837224867186" x="360.4024525257159" y="468.2942696745815" width="6.299212598425186" height="7.480314960629926" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
+    <rect data-type="rect" data-label="" data-x="-2.6488885292340765" data-y="-19.30837224867186" x="285.9930037068183" y="468.2942696745815" width="6.299212598425186" height="7.480314960629926" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
   </g>
   <g>
-    <rect data-type="rect" data-label="" data-x="5.97611147076592" data-y="-19.30837224867186" x="347.4103265414639" y="468.2942696745815" width="19.291338582677156" height="7.480314960629926" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
+    <rect data-type="rect" data-label="" data-x="-3.4738885292340766" data-y="-19.30837224867186" x="273.0008777225663" y="468.2942696745815" width="19.291338582677156" height="7.480314960629926" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.127" />
   </g>
   <g id="crosshair" style="display: none">
     <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
