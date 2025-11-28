@@ -10,7 +10,7 @@ test("repro12 - PackSolver2 handles provided two-component input", () => {
 
   solver.solve()
 
-  expect(solver.failed).toBe(true)
+  expect(solver.failed).toBe(false)
 
   expect(
     getSvgFromGraphicsObject(solver.visualize(), {

@@ -213,8 +213,8 @@ export const constructOutlinesFromPackedComponents = (
   // The LargestRectOutsideOutlineFromPointSolver and other consumers need to understand
   // both winding directions to correctly place components.
   const allOutlines: Outline[] = [
-    ...parsed.obstacleFreeLoops.map(simplifyCollinearSegments),
-    ...parsed.obstacleContainingLoops.map(simplifyCollinearSegments),
+    ...parsed.obstacleFreeLoops.map((outline) => simplifyCollinearSegments(outline)),
+    ...parsed.obstacleContainingLoops.map((outline) => simplifyCollinearSegments(outline)),
   ]
 
   // Filter out degenerate outlines (less than 3 segments can't form a closed polygon)
@@ -289,10 +289,10 @@ export const constructSemanticOutlinesFromPackedComponents = (
 
   return {
     obstacleFreeLoops: parsed.obstacleFreeLoops
-      .map(simplifyCollinearSegments)
+      .map((outline) => simplifyCollinearSegments(outline))
       .filter(filterDegenerate),
     obstacleContainingLoops: parsed.obstacleContainingLoops
-      .map(simplifyCollinearSegments)
+      .map((outline) => simplifyCollinearSegments(outline))
       .filter(filterDegenerate),
   }
 }
