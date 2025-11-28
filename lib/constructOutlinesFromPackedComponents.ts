@@ -213,8 +213,12 @@ export const constructOutlinesFromPackedComponents = (
   // The LargestRectOutsideOutlineFromPointSolver and other consumers need to understand
   // both winding directions to correctly place components.
   const allOutlines: Outline[] = [
-    ...parsed.obstacleFreeLoops.map((outline) => simplifyCollinearSegments(outline)),
-    ...parsed.obstacleContainingLoops.map((outline) => simplifyCollinearSegments(outline)),
+    ...parsed.obstacleFreeLoops.map((outline) =>
+      simplifyCollinearSegments(outline),
+    ),
+    ...parsed.obstacleContainingLoops.map((outline) =>
+      simplifyCollinearSegments(outline),
+    ),
   ]
 
   // Filter out degenerate outlines (less than 3 segments can't form a closed polygon)
