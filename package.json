@@ -35,6 +35,7 @@
     "react-cosmos": "^7.0.0",
     "react-cosmos-plugin-vite": "^7.0.0",
     "react-dom": "^19.1.0",
+    "stack-svgs": "^0.0.1",
     "tscircuit": "^0.0.693",
     "tsup": "^8.5.0",
     "vite": "^7.1.2"
