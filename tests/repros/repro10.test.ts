@@ -6,6 +6,94 @@ import { convertCircuitJsonToPackOutput } from "../../lib/plumbing/convertCircui
 import { convertPackOutputToPackInput } from "../../lib/plumbing/convertPackOutputToPackInput"
 import circuitJson from "./repro10/XiaoRP2040Board.circuit.circuit.json"
 
+test.only("repro10 - check for non-orthogonal segments", async () => {
+  // Test constructOutlinesFromPackedComponents directly with a simple case
+  const { constructOutlinesFromPackedComponents } = await import("../../lib/constructOutlinesFromPackedComponents")
+  const { parseFlattenPolygonSegments } = await import("../../lib/parseFlattenPolygonLoops")
+  const Flatten = (await import("@flatten-js/core")).default
+
+  // Create a simple test polygon (a rectangle)
+  const box = new Flatten.Box(0, 0, 10, 10)
+  const boxPoly = new Flatten.Polygon(box)
+
+  // Subtract a small rectangle from the center
+  const hole = new Flatten.Box(3, 3, 7, 7)
+  const holePoly = new Flatten.Polygon(hole)
+
+  const result = Flatten.BooleanOperations.subtract(boxPoly, holePoly)
+
+  console.log("\nParsing simple polygon with hole:")
+  const parsed = parseFlattenPolygonSegments(result)
+
+  console.log("obstacleFreeLoops:", parsed.obstacleFreeLoops.length)
+  console.log("obstacleContainingLoops:", parsed.obstacleContainingLoops.length)
+
+  // Check for non-orthogonal segments in raw parsed output (before simplification)
+  for (const loops of [parsed.obstacleFreeLoops, parsed.obstacleContainingLoops]) {
+    for (const loop of loops) {
+      for (let i = 0; i < loop.length; i++) {
+        const [p1, p2] = loop[i]
+        const dx = Math.abs(p2.x - p1.x)
+        const dy = Math.abs(p2.y - p1.y)
+        const isHorizontal = dy < 1e-6
+        const isVertical = dx < 1e-6
+        if (!isHorizontal && !isVertical) {
+          console.log(`  Non-orthogonal in parsed: (${p1.x}, ${p1.y}) -> (${p2.x}, ${p2.y})`)
+        }
+      }
+    }
+  }
+
+  // Now run the full test
+  const packOutput = convertCircuitJsonToPackOutput(circuitJson as CircuitJson, {
+    shouldAddInnerObstacles: true,
+    source_group_id: "source_group_0",
+  })
+  const packInput = convertPackOutputToPackInput(packOutput)
+
+  const solver = new PackSolver2({
+    ...packInput,
+    packOrderStrategy: "largest_to_smallest",
+    packPlacementStrategy: "minimum_sum_squared_distance_to_network",
+    minGap: 0.4,
+  })
+
+  // Run solver to completion
+  solver.solve()
+
+  // Get the final outlines
+  const singleSolver = (solver as any).activeSubSolver
+  if (singleSolver?.outlines) {
+    console.log("\nChecking for non-orthogonal segments:")
+    let nonOrthogonalCount = 0
+    for (let outlineIdx = 0; outlineIdx < singleSolver.outlines.length; outlineIdx++) {
+      const outline = singleSolver.outlines[outlineIdx]
+      for (let segIdx = 0; segIdx < outline.length; segIdx++) {
+        const [p1, p2] = outline[segIdx]
+        const dx = Math.abs(p2.x - p1.x)
+        const dy = Math.abs(p2.y - p1.y)
+        const isHorizontal = dy < 1e-6
+        const isVertical = dx < 1e-6
+        if (!isHorizontal && !isVertical) {
+          console.log(`\n  Non-orthogonal segment in outline ${outlineIdx}, segment ${segIdx}:`)
+          console.log(`    (${p1.x.toFixed(4)}, ${p1.y.toFixed(4)}) -> (${p2.x.toFixed(4)}, ${p2.y.toFixed(4)})`)
+          console.log(`    dx=${dx.toFixed(6)}, dy=${dy.toFixed(6)}`)
+          // Print surrounding segments for context
+          console.log(`    Context:`)
+          for (let k = Math.max(0, segIdx - 2); k <= Math.min(outline.length - 1, segIdx + 2); k++) {
+            const [sp1, sp2] = outline[k]
+            const marker = k === segIdx ? " <-- NON-ORTHOGONAL" : ""
+            console.log(`      [${k}]: (${sp1.x.toFixed(4)}, ${sp1.y.toFixed(4)}) -> (${sp2.x.toFixed(4)}, ${sp2.y.toFixed(4)})${marker}`)
+          }
+          nonOrthogonalCount++
+        }
+      }
+    }
+    console.log(`\nTotal non-orthogonal segments: ${nonOrthogonalCount}`)
+    expect(nonOrthogonalCount).toBe(0)
+  }
+})
+
 test.skip("repro10 - debug iteration 4006 viableBounds issue", async () => {
   const packOutput = convertCircuitJsonToPackOutput(circuitJson as CircuitJson, {
     shouldAddInnerObstacles: true,

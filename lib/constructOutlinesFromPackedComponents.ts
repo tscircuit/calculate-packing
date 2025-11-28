@@ -217,7 +217,8 @@ export const constructOutlinesFromPackedComponents = (
     ...parsed.obstacleContainingLoops.map(simplifyCollinearSegments),
   ]
 
-  return allOutlines
+  // Filter out degenerate outlines (less than 3 segments can't form a closed polygon)
+  return allOutlines.filter((outline) => outline.length >= 3)
 }
 
 /**
@@ -283,11 +284,16 @@ export const constructSemanticOutlinesFromPackedComponents = (
   // Parse free space into semantic loop types
   const parsed = parseFlattenPolygonSegments(freeSpace)
 
+  // Filter out degenerate outlines (less than 3 segments can't form a closed polygon)
+  const filterDegenerate = (outline: Outline) => outline.length >= 3
+
   return {
-    obstacleFreeLoops: parsed.obstacleFreeLoops.map(simplifyCollinearSegments),
-    obstacleContainingLoops: parsed.obstacleContainingLoops.map(
-      simplifyCollinearSegments,
-    ),
+    obstacleFreeLoops: parsed.obstacleFreeLoops
+      .map(simplifyCollinearSegments)
+      .filter(filterDegenerate),
+    obstacleContainingLoops: parsed.obstacleContainingLoops
+      .map(simplifyCollinearSegments)
+      .filter(filterDegenerate),
   }
 }
 
