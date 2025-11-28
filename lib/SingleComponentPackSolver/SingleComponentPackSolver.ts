@@ -179,6 +179,67 @@ export class SingleComponentPackSolver extends BaseSolver {
       }
     }
 
+    // Also add boundary outline segments if available
+    // This allows components to be placed in empty areas along the board edges
+    // where no packed components exist to create outline segments
+    if (this.boundaryOutline && this.boundaryOutline.length >= 3) {
+      const boundarySegments: Segment[] = []
+      for (let i = 0; i < this.boundaryOutline.length; i++) {
+        const p1 = this.boundaryOutline[i]!
+        const p2 = this.boundaryOutline[(i + 1) % this.boundaryOutline.length]!
+        boundarySegments.push([p1, p2])
+      }
+
+      // Add boundary segments with a unique segment index offset
+      const boundaryOutlineIndex = this.outlines.length
+      for (let i = 0; i < boundarySegments.length; i++) {
+        const segment = boundarySegments[i]!
+        this.queuedOutlineSegments.push({
+          segment,
+          availableRotations: [...availableRotations],
+          segmentIndex: boundaryOutlineIndex * 1000 + i,
+          ccwFullOutline: boundarySegments,
+        })
+      }
+    }
+
+    // Add obstacle boundary segments for isolated obstacles
+    // This allows components to be placed adjacent to obstacles that aren't
+    // connected to the main packed component cluster
+    let obstacleOutlineIndex = this.outlines.length + 1
+    for (const obstacle of this.obstacles) {
+      const hw = obstacle.width / 2 + this.minGap
+      const hh = obstacle.height / 2 + this.minGap
+      const cx = obstacle.absoluteCenter.x
+      const cy = obstacle.absoluteCenter.y
+
+      // Create a CCW outline around the obstacle (including minGap)
+      const obstacleCorners = [
+        { x: cx - hw, y: cy - hh },
+        { x: cx + hw, y: cy - hh },
+        { x: cx + hw, y: cy + hh },
+        { x: cx - hw, y: cy + hh },
+      ]
+
+      const obstacleSegments: Segment[] = [
+        [obstacleCorners[0]!, obstacleCorners[1]!], // bottom
+        [obstacleCorners[1]!, obstacleCorners[2]!], // right
+        [obstacleCorners[2]!, obstacleCorners[3]!], // top
+        [obstacleCorners[3]!, obstacleCorners[0]!], // left
+      ]
+
+      for (let i = 0; i < obstacleSegments.length; i++) {
+        const segment = obstacleSegments[i]!
+        this.queuedOutlineSegments.push({
+          segment,
+          availableRotations: [...availableRotations],
+          segmentIndex: obstacleOutlineIndex * 1000 + i,
+          ccwFullOutline: obstacleSegments,
+        })
+      }
+      obstacleOutlineIndex++
+    }
+
     // Move to next phase
     this.currentPhase = "segment_candidate"
     this.currentSegmentIndex = 0
