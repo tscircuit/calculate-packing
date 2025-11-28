@@ -160,12 +160,28 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       x: this.largestRectMidPoint.x + outwardNormal.x * 0.0001,
       y: this.largestRectMidPoint.y + outwardNormal.y * 0.0001,
     }
+
+    // Calculate signed area to determine outline winding
+    // CCW (positive): use "outside" mode - free space is outside the obstacle boundary
+    // CW (negative): use "inside" mode - free space is inside the hole
+    const outlinePoints = this.ccwFullOutline.flatMap(([p]) => p)
+    let signedArea = 0
+    for (let i = 0; i < outlinePoints.length; i++) {
+      const p1 = outlinePoints[i]!
+      const p2 = outlinePoints[(i + 1) % outlinePoints.length]!
+      signedArea += p1.x * p2.y - p2.x * p1.y
+    }
+    signedArea /= 2
+    const isCW = signedArea < 0
+    const rectSearchMode = isCW ? "inside" : "outside"
+
     const largestRectSolverParams: ConstructorParameters<
       typeof LargestRectOutsideOutlineFromPointSolver
     >[0] = {
-      ccwFullOutline: this.ccwFullOutline.flatMap(([p]) => p),
+      ccwFullOutline: outlinePoints,
       globalBounds: packedComponentBoundsWithMargin,
       origin: this.largestRectOrigin,
+      mode: rectSearchMode,
     }
     const largestRectSolver = new LargestRectOutsideOutlineFromPointSolver(
       largestRectSolverParams,

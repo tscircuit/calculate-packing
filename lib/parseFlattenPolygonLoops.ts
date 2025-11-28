@@ -1,5 +1,5 @@
-import type { Point } from "@tscircuit/math-utils"
 import type Flatten from "@flatten-js/core"
+import type { Point } from "@tscircuit/math-utils"
 
 /**
  * Parsed outline loops from a flatten-js polygon.
@@ -101,5 +101,55 @@ export function parseFlattenPolygonLoops(
   return {
     obstacleFreeLoops,
     obstacleContainingLoops,
+  }
+}
+
+/**
+ * Segment-based outline loops (compatible with existing codebase)
+ */
+export interface ParsedOutlineSegments {
+  /**
+   * CCW loops (positive signed area) - boundaries of free space.
+   * Each loop is an array of segments [Point, Point].
+   */
+  obstacleFreeLoops: Array<[Point, Point]>[]
+
+  /**
+   * CW loops (negative signed area) - boundaries around obstacles.
+   * Each loop is an array of segments [Point, Point].
+   */
+  obstacleContainingLoops: Array<[Point, Point]>[]
+}
+
+/**
+ * Convert a points array to segments array
+ */
+function pointsToSegments(points: Point[]): Array<[Point, Point]> {
+  const segments: Array<[Point, Point]> = []
+  for (let i = 0; i < points.length; i++) {
+    const p1 = points[i]!
+    const p2 = points[(i + 1) % points.length]!
+    segments.push([p1, p2])
+  }
+  return segments
+}
+
+/**
+ * Parse a flatten-js polygon into semantically named outline loops as segments.
+ *
+ * This is similar to parseFlattenPolygonLoops but returns segments instead of points,
+ * which is compatible with the existing outline format in the codebase.
+ *
+ * @param polygon - A flatten-js Polygon (result of boolean operations)
+ * @returns ParsedOutlineSegments with classified loops as segments
+ */
+export function parseFlattenPolygonSegments(
+  polygon: Flatten.Polygon,
+): ParsedOutlineSegments {
+  const loops = parseFlattenPolygonLoops(polygon)
+
+  return {
+    obstacleFreeLoops: loops.obstacleFreeLoops.map(pointsToSegments),
+    obstacleContainingLoops: loops.obstacleContainingLoops.map(pointsToSegments),
   }
 }

@@ -1,6 +1,9 @@
-import { test, expect } from "bun:test"
+import { expect, test } from "bun:test"
 import Flatten from "@flatten-js/core"
-import { parseFlattenPolygonLoops, type ParsedOutlineLoops } from "./parseFlattenPolygonLoops"
+import {
+  parseFlattenPolygonLoops,
+  parseFlattenPolygonSegments,
+} from "./parseFlattenPolygonLoops"
 
 /**
  * This test file verifies our understanding of flatten-js polygon conventions:
@@ -344,4 +347,169 @@ test("parseFlattenPolygonLoops: loops have correct point order for semantic mean
   const obstacleLoopArea = signedArea(result.obstacleContainingLoops[0]!)
   console.log("  obstacleContainingLoop signed area:", obstacleLoopArea)
   expect(obstacleLoopArea).toBeLessThan(0)
+})
+
+// ============================================================================
+// Tests that mirror constructOutlinesFromPackedComponents behavior
+// ============================================================================
+
+test("constructOutlinesFromPackedComponents approach: B - A gives obstacleContainingLoops", () => {
+  // This mirrors what constructOutlinesFromPackedComponents does:
+  // 1. Create bounding box B
+  // 2. Subtract obstacles from B to get A (free space)
+  // 3. Do B - A to get "union" (the obstacles)
+  // 4. Extract faces from union
+
+  // Bounding box
+  const B = new Flatten.Polygon([
+    [0, 0],
+    [30, 0],
+    [30, 30],
+    [0, 30],
+  ])
+
+  // Two obstacles (pads) at different locations
+  const obstacle1 = new Flatten.Polygon([
+    [5, 5],
+    [10, 5],
+    [10, 10],
+    [5, 10],
+  ])
+
+  const obstacle2 = new Flatten.Polygon([
+    [20, 20],
+    [25, 20],
+    [25, 25],
+    [20, 25],
+  ])
+
+  // A = B - obstacles (free space)
+  let A = B.clone()
+  A = Flatten.BooleanOperations.subtract(A, obstacle1)
+  A = Flatten.BooleanOperations.subtract(A, obstacle2)
+
+  // union = B - A (the obstacles, what constructOutlinesFromPackedComponents returns)
+  const union = Flatten.BooleanOperations.subtract(B, A)
+
+  const result = parseFlattenPolygonLoops(union)
+
+  console.log("\nconstructOutlinesFromPackedComponents approach (B - A):")
+  console.log("  obstacleFreeLoops:", result.obstacleFreeLoops.length)
+  console.log("  obstacleContainingLoops:", result.obstacleContainingLoops.length)
+
+  // The current approach returns:
+  // - CCW faces (obstacleFreeLoops): These are the outer boundaries OF the obstacles
+  // - No CW faces because we're looking at the union of obstacles, not their holes
+
+  // Actually, let me check what we get...
+  for (const loop of result.obstacleFreeLoops) {
+    console.log("  obstacleFreeLoop points:", loop.length, "area:", signedArea(loop))
+  }
+  for (const loop of result.obstacleContainingLoops) {
+    console.log("  obstacleContainingLoop points:", loop.length, "area:", signedArea(loop))
+  }
+
+  // The union of obstacles should produce CCW outer boundaries for each obstacle
+  // These are NOT "obstacleFree" in the semantic sense - they ARE the obstacles!
+  // This is the naming confusion we need to fix.
+})
+
+test("correct approach: A = B - obstacles gives proper semantic loops", () => {
+  // The correct approach for packing should be:
+  // - Work with A (the FREE space), not with union (the obstacles)
+  // - A has CCW outer boundary (the bounding box edge) = obstacleFreeLoop
+  // - A has CW inner boundaries (around obstacles) = obstacleContainingLoops
+
+  const B = new Flatten.Polygon([
+    [0, 0],
+    [30, 0],
+    [30, 30],
+    [0, 30],
+  ])
+
+  const obstacle1 = new Flatten.Polygon([
+    [5, 5],
+    [10, 5],
+    [10, 10],
+    [5, 10],
+  ])
+
+  const obstacle2 = new Flatten.Polygon([
+    [20, 20],
+    [25, 20],
+    [25, 25],
+    [20, 25],
+  ])
+
+  // A = B - obstacles (the FREE space polygon)
+  let A = B.clone()
+  A = Flatten.BooleanOperations.subtract(A, obstacle1)
+  A = Flatten.BooleanOperations.subtract(A, obstacle2)
+
+  const result = parseFlattenPolygonLoops(A)
+
+  console.log("\nCorrect approach (free space = B - obstacles):")
+  console.log("  obstacleFreeLoops:", result.obstacleFreeLoops.length)
+  console.log("  obstacleContainingLoops:", result.obstacleContainingLoops.length)
+
+  for (const loop of result.obstacleFreeLoops) {
+    console.log("  obstacleFreeLoop points:", loop.length, "area:", signedArea(loop).toFixed(2))
+  }
+  for (const loop of result.obstacleContainingLoops) {
+    console.log("  obstacleContainingLoop points:", loop.length, "area:", signedArea(loop).toFixed(2))
+  }
+
+  // This should give us:
+  // - 1 obstacleFreeLoop (CCW): the outer bounding box = edge of free space
+  // - 2 obstacleContainingLoops (CW): boundaries around each obstacle
+  expect(result.obstacleFreeLoops.length).toBe(1)
+  expect(result.obstacleContainingLoops.length).toBe(2)
+
+  // The obstacleFreeLoop should have the largest absolute area (the bounding box)
+  const freeArea = Math.abs(signedArea(result.obstacleFreeLoops[0]!))
+  expect(freeArea).toBe(900) // 30x30
+
+  // The obstacleContainingLoops should be smaller (5x5 each)
+  for (const loop of result.obstacleContainingLoops) {
+    const area = Math.abs(signedArea(loop))
+    expect(area).toBe(25) // 5x5
+  }
+})
+
+test("parseFlattenPolygonSegments: returns segments format compatible with existing code", () => {
+  const B = new Flatten.Polygon([
+    [0, 0],
+    [20, 0],
+    [20, 20],
+    [0, 20],
+  ])
+
+  const obstacle = new Flatten.Polygon([
+    [5, 5],
+    [15, 5],
+    [15, 15],
+    [5, 15],
+  ])
+
+  const freeSpace = Flatten.BooleanOperations.subtract(B, obstacle)
+  const result = parseFlattenPolygonSegments(freeSpace)
+
+  console.log("\nparseFlattenPolygonSegments test:")
+  console.log("  obstacleFreeLoops:", result.obstacleFreeLoops.length)
+  console.log("  obstacleContainingLoops:", result.obstacleContainingLoops.length)
+
+  expect(result.obstacleFreeLoops.length).toBe(1)
+  expect(result.obstacleContainingLoops.length).toBe(1)
+
+  // Each loop should have 4 segments (for a rectangle)
+  expect(result.obstacleFreeLoops[0]!.length).toBe(4)
+  expect(result.obstacleContainingLoops[0]!.length).toBe(4)
+
+  // Each segment should be a tuple of two points
+  const segment = result.obstacleFreeLoops[0]![0]!
+  expect(segment.length).toBe(2)
+  expect(segment[0]).toHaveProperty("x")
+  expect(segment[0]).toHaveProperty("y")
+  expect(segment[1]).toHaveProperty("x")
+  expect(segment[1]).toHaveProperty("y")
 })

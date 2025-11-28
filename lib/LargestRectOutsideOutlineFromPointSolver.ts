@@ -13,16 +13,29 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
   origin: Point
   globalBounds: Bounds
   largestRect: Rect | null = null
+  /**
+   * Mode for finding rectangles:
+   * - "outside": Find rect outside the polygon (for CCW obstacle boundaries)
+   * - "inside": Find rect inside the polygon (for CW free space pockets)
+   */
+  mode: "outside" | "inside"
 
   constructor(params: {
     ccwFullOutline: Point[]
     origin: Point
     globalBounds: Bounds
+    /**
+     * Mode for finding rectangles:
+     * - "outside" (default): Find rect outside the polygon (for CCW obstacle boundaries)
+     * - "inside": Find rect inside the polygon (for CW free space pockets)
+     */
+    mode?: "outside" | "inside"
   }) {
     super()
     this.ccwFullOutline = params.ccwFullOutline
     this.origin = params.origin
     this.globalBounds = params.globalBounds
+    this.mode = params.mode ?? "outside"
   }
 
   override getConstructorParams() {
@@ -30,6 +43,7 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
       ccwFullOutline: this.ccwFullOutline,
       origin: this.origin,
       globalBounds: this.globalBounds,
+      mode: this.mode,
     }
   }
 
@@ -38,11 +52,11 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
   }
 
   override _step() {
-    this.largestRect = this.computeLargestRectOutside()
+    this.largestRect = this.computeLargestRect()
     this.solved = true
   }
 
-  private computeLargestRectOutside(): Rect | null {
+  private computeLargestRect(): Rect | null {
     const edges = this.makeEdges(this.ccwFullOutline)
     const bounds = {
       x: this.globalBounds.minX,
@@ -55,7 +69,7 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
       edges,
       this.origin,
       bounds,
-      "outside",
+      this.mode,
     )
   }
 
@@ -132,14 +146,20 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
     y0: number,
     bx1: number,
     bx2: number,
-    mode: "outside",
+    mode: "outside" | "inside",
   ): [number, number][] {
     const inside = this.clipIntervals(
       this.scanlineIntervalsAtY(edges, y0),
       bx1,
       bx2,
     )
-    // outside: complement of inside within [bx1,bx2]
+
+    if (mode === "inside") {
+      // For "inside" mode, return the intervals directly (inside the polygon)
+      return inside
+    }
+
+    // For "outside" mode, compute complement of inside within [bx1,bx2]
     const outs: [number, number][] = []
     let prev = bx1
     for (const [L, R] of inside) {
@@ -154,7 +174,7 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
     edges: Segment[],
     p: Point,
     bounds: { x: number; y: number; w: number; h: number },
-    mode: "outside",
+    mode: "outside" | "inside",
   ): Rect | null {
     const BX1 = bounds.x
     const BX2 = bounds.x + bounds.w
