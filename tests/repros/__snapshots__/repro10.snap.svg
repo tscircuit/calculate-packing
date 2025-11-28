@@ -1,1305 +1,319 @@
 <svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="white" />
   <g>
-    <circle data-type="point" data-label="outlines [0] [0]" data-x="-5.462104100000006" data-y="-10.667226949999998" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <polyline data-points="0,10.55 7.090000000000001,10.55 7.441162579629032,10.515413504725815 7.778830178257163,10.412983158520316 8.090026419435285,10.246645302144582 8.362792206135786,10.022792206135785 8.586645302144582,9.750026419435283 8.752983158520317,9.438830178257161 8.855413504725815,9.101162579629031 8.89,8.75 8.89,-8.75 8.855413504725815,-9.101162579629031 8.752983158520317,-9.438830178257161 8.586645302144582,-9.750026419435283 8.362792206135786,-10.022792206135785 8.090026419435285,-10.246645302144582 7.778830178257163,-10.412983158520316 7.441162579629032,-10.515413504725815 7.090000000000001,-10.55 -7.090000000000001,-10.55 -7.441162579629031,-10.515413504725815 -7.778830178257162,-10.412983158520316 -8.090026419435285,-10.246645302144582 -8.362792206135786,-10.022792206135787 -8.586645302144582,-9.750026419435283 -8.752983158520317,-9.438830178257161 -8.855413504725815,-9.101162579629031 -8.89,-8.75 -8.89,8.75 -8.855413504725815,9.101162579629031 -8.752983158520317,9.438830178257161 -8.586645302144582,9.750026419435283 -8.362792206135786,10.022792206135787 -8.090026419435285,10.246645302144582 -7.778830178257162,10.412983158520316 -7.441162579629031,10.515413504725815 -7.090000000000001,10.55 0,10.55" data-type="line" data-label="" points="320,40 508.1706161137441,40 517.4905708337562,40.917935419599246 526.4523649205693,43.636465935005845 534.7116016532588,48.0511199430822 541.9508831960209,53.992244766064516 547.8920080190031,61.23152630882663 552.3066620270795,69.49076304151612 555.025192542486,78.45255712832906 555.9431279620853,87.77251184834125 555.9431279620853,552.2274881516587 555.025192542486,561.5474428716709 552.3066620270795,570.5092369584838 547.8920080190031,578.7684736911733 541.9508831960209,586.0077552339355 534.7116016532588,591.9488800569178 526.4523649205693,596.3635340649942 517.4905708337562,599.0820645804008 508.1706161137441,600 131.82938388625593,600 122.50942916624373,599.0820645804008 113.54763507943079,596.3635340649942 105.28839834674127,591.9488800569178 98.04911680397916,586.0077552339355 92.1079919809969,578.7684736911733 87.69333797292052,570.5092369584838 84.97480745751395,561.5474428716709 84.0568720379147,552.2274881516587 84.0568720379147,87.77251184834125 84.97480745751395,78.45255712832906 87.69333797292052,69.49076304151612 92.1079919809969,61.23152630882663 98.04911680397916,53.99224476606446 105.28839834674127,48.0511199430822 113.54763507943079,43.636465935005845 122.50942916624373,40.917935419599246 131.82938388625593,40 320,40" fill="none" stroke="rgba(0, 0, 255, 0.5)" stroke-width="1" stroke-dasharray="4 2" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [1]" data-x="-3.5421041000000058" data-y="-10.667226949999998" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_component_33" data-x="2" data-y="-2.499999999999943" x="264.2612386729855" y="277.5347514691916" width="217.63866009478733" height="217.6319188625617" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [2]" data-x="-3.5421041000000058" data-y="-9.584453899999996" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_component_34" data-x="0" data-y="6.28749940000003" x="189.28615886255952" y="63.247045118484834" width="261.4276822748809" height="179.76186578198616" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [3]" data-x="-3.4820341000001656" data-y="-9.584453899999996" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_0" data-x="-8.25" data-y="7.62" x="61.23222748815169" y="91.22274881516589" width="79.62085308056871" height="53.08056872037915" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [4]" data-x="-3.4820341000001656" data-y="-10.667226949999998" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_1" data-x="-8.25" data-y="5.08" x="61.23222748815169" y="158.6350710900474" width="79.62085308056871" height="53.08056872037915" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [5]" data-x="-1.5620341000001656" data-y="-10.667226949999998" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_2" data-x="-8.25" data-y="2.54" x="61.23222748815169" y="226.04739336492892" width="79.62085308056871" height="53.08056872037915" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [6]" data-x="-1.5620341000001656" data-y="-10.036925850000003" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_3" data-x="-8.25" data-y="0" x="61.23222748815169" y="293.45971563981044" width="79.62085308056871" height="53.08056872037912" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [7]" data-x="-0.5480407000001529" data-y="-10.036925850000003" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_4" data-x="-8.25" data-y="-2.54" x="61.23222748815169" y="360.87203791469193" width="79.62085308056871" height="53.080568720379176" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [8]" data-x="-0.5480407000001529" data-y="-10.562507474999999" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_5" data-x="-8.25" data-y="-5.079999999999999" x="61.23222748815169" y="428.2843601895734" width="79.62085308056871" height="53.080568720379176" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [9]" data-x="1.3719592999998471" data-y="-10.562507474999999" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_6" data-x="-8.25" data-y="-7.62" x="61.23222748815169" y="495.69668246445497" width="79.62085308056871" height="53.08056872037912" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [10]" data-x="1.3719592999998471" data-y="-10.385" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_7" data-x="8.25" data-y="7.62" x="499.14691943127957" y="91.22274881516589" width="79.62085308056874" height="53.08056872037915" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [11]" data-x="2.491959299999847" data-y="-10.385" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_8" data-x="8.25" data-y="5.08" x="499.14691943127957" y="158.6350710900474" width="79.62085308056874" height="53.08056872037915" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [12]" data-x="2.891959299999847" data-y="-10.385" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_9" data-x="8.25" data-y="2.54" x="499.14691943127957" y="226.04739336492892" width="79.62085308056874" height="53.08056872037915" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [13]" data-x="4.011959299999847" data-y="-10.385" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_10" data-x="8.25" data-y="0" x="499.14691943127957" y="293.45971563981044" width="79.62085308056874" height="53.08056872037912" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [14]" data-x="4.411959299999848" data-y="-10.385" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_11" data-x="8.25" data-y="-2.54" x="499.14691943127957" y="360.87203791469193" width="79.62085308056874" height="53.080568720379176" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [15]" data-x="5.531959299999848" data-y="-10.385" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_12" data-x="8.25" data-y="-5.079999999999999" x="499.14691943127957" y="428.2843601895734" width="79.62085308056874" height="53.080568720379176" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [16]" data-x="5.531959299999848" data-y="-10.505" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="pcb_plated_hole_13" data-x="8.25" data-y="-7.62" x="499.14691943127957" y="495.69668246445497" width="79.62085308056874" height="53.08056872037912" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [17]" data-x="7.891959299999847" data-y="-10.505" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-6.454037600000079" data-y="-9.820023800000019" x="143.93083260663502" y="576.6448523222759" width="9.554348436014891" height="7.962743507107916" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [18]" data-x="7.891959299999847" data-y="-9.065" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-6.453986800000083" data-y="-9.170012400000036" x="143.93218085307592" y="559.3933649289099" width="9.554348436023929" height="7.962743507110986" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [19]" data-x="5.931959299999848" data-y="-9.065" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-5.642101199999987" data-y="-9.171003000000116" x="165.4798555450246" y="559.4196557346007" width="9.554348436017904" height="7.96274350710803" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [20]" data-x="5.931959299999848" data-y="-8.172514949999995" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-5.642101199999987" data-y="-9.821065200000039" x="165.4798555450246" y="576.6724913744076" width="9.554348436017904" height="7.962743507110872" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [21]" data-x="5.980979649999923" data-y="-8.172514949999995" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-6.045999299999922" data-y="-9.494980000000186" x="153.16766900474144" y="565.6296788625641" width="12.739580663507098" height="12.73958066350724" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [22]" data-x="5.980979649999923" data-y="-7.000029899999991" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-6.048069400000005" data-y="-9.495538800000038" x="143.93083260663502" y="559.3933649289099" width="31.103371374407487" height="25.241869952608567" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [23]" data-x="6.35" data-y="-7.000029899999991" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-2.4620331000001654" data-y="-8.884454499999997" x="241.38682578198615" y="547.8338794312795" width="26.540231279620855" height="15.924138767772547" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [24]" data-x="6.35" data-y="-9.02" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-2.4620331000001654" data-y="-7.584482499999858" x="241.38682578198615" y="513.3322528909914" width="26.540231279620855" height="15.924138767772547" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [25]" data-x="10.15" data-y="-9.02" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-4.562105100000006" data-y="-7.584482499999858" x="185.65031772511833" y="513.3322528909914" width="26.540231279620855" height="15.924138767772547" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [26]" data-x="10.15" data-y="9.02" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-4.562105100000006" data-y="-8.884454499999997" x="185.65031772511833" y="547.8338794312795" width="26.540231279620855" height="15.924138767772547" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [27]" data-x="8.287555399999995" data-y="9.02" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-3.512069100000086" data-y="-8.234468499999927" x="185.65031772511833" y="513.3322528909914" width="82.27673933648867" height="50.42576530806059" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [28]" data-x="8.287555399999995" data-y="10.06" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-0.7300444000001529" data-y="-8.256600949999989" x="295.79398407582534" y="530.0160316587675" width="9.660859905213272" height="18.233010805687172" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [29]" data-x="5.927555399999996" data-y="10.06" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-1.3800304000001655" data-y="-8.256600949999989" x="278.5431708056828" y="530.0160316587675" width="9.660859905213272" height="18.233010805687172" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [30]" data-x="5.927555399999996" data-y="8.62" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-1.3800304000001655" data-y="-9.293428950000003" x="278.5431708056828" y="557.5337416113745" width="9.660859905213272" height="18.233010805687172" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [31]" data-x="6.35" data-y="8.62" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-0.7300444000001529" data-y="-9.293428950000003" x="295.79398407582534" y="557.5337416113745" width="9.660859905213272" height="18.233010805687172" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [32]" data-x="6.35" data-y="7.895000000000001" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-1.0550374000001592" data-y="-8.775014949999996" x="278.5431708056828" y="530.0160316587675" width="26.911673175355816" height="45.750720758294165" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [33]" data-x="5.32511079999999" data-y="7.895000000000001" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-4.832104100000006" data-y="-10.067226949999998" x="185.65031772511833" y="581.879009099526" width="12.208530805687246" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [34]" data-x="5.32511079999999" data-y="10.074084549999949" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-4.172104100000006" data-y="-10.067226949999998" x="203.16690540284344" y="581.879009099526" width="12.208530805687246" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [35]" data-x="-5.255110799999991" data-y="10.074084549999949" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-4.502104100000006" data-y="-10.067226949999998" x="185.65031772511833" y="581.879009099526" width="29.72511848341236" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [36]" data-x="-5.255110799999991" data-y="10.154717993750033" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-2.8520341000001657" data-y="-10.067226949999998" x="238.20193857819467" y="581.879009099526" width="12.20853080568719" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [37]" data-x="-6.165110799999991" data-y="10.154717993750033" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-2.1920341000001655" data-y="-10.067226949999998" x="255.71852625591978" y="581.879009099526" width="12.208530805687218" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [38]" data-x="-6.165110799999991" data-y="10.624717993750032" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-2.5220341000001656" data-y="-10.067226949999998" x="238.20193857819467" y="581.879009099526" width="29.72511848341233" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [39]" data-x="-8.085110799999992" data-y="10.624717993750032" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="0.08195929999984713" data-y="-8.775014949999996" x="316.07095772511445" y="547.5833351658766" width="12.20853080568719" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [40]" data-x="-8.085110799999992" data-y="9.424717993750033" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="0.7419592999998472" data-y="-8.775014949999996" x="333.58754540283957" y="547.5833351658766" width="12.20853080568719" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [41]" data-x="-6.845110799999991" data-y="9.424717993750033" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="0.41195929999984715" data-y="-8.775014949999996" x="316.07095772511445" y="547.5833351658766" width="29.725118483412302" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [42]" data-x="-6.845110799999991" data-y="9.02" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="0.08195929999984713" data-y="-9.962507474999999" x="316.07095772511445" y="579.0997244549762" width="12.20853080568719" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [43]" data-x="-10.15" data-y="9.02" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="0.7419592999998472" data-y="-9.962507474999999" x="333.58754540283957" y="579.0997244549762" width="12.20853080568719" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [44]" data-x="-10.15" data-y="-9.02" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="0.41195929999984715" data-y="-9.962507474999999" x="316.07095772511445" y="579.0997244549762" width="29.725118483412302" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [45]" data-x="-7.034034700000003" data-y="-9.02" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="1.601959299999847" data-y="-9.785" x="356.4121899526026" y="574.388625592417" width="12.20853080568719" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [46]" data-x="-7.034034700000003" data-y="-9.185" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="2.2619592999998472" data-y="-9.785" x="373.9287776303277" y="574.388625592417" width="12.20853080568719" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [47]" data-x="-8.554034700000004" data-y="-9.185" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="1.9319592999998472" data-y="-9.785" x="356.4121899526026" y="574.388625592417" width="29.725118483412302" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [48]" data-x="-8.554034700000004" data-y="-10.385" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="3.121959299999847" data-y="-9.785" x="396.75342218009075" y="574.388625592417" width="12.20853080568719" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [49]" data-x="-6.6340347000000035" data-y="-10.385" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="3.7819592999998473" data-y="-9.785" x="414.2700098578158" y="574.388625592417" width="12.208530805687246" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [50]" data-x="-6.6340347000000035" data-y="-10.371077600000076" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="3.451959299999847" data-y="-9.785" x="396.75342218009075" y="574.388625592417" width="29.725118483412302" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [0] [51]" data-x="-5.462104100000006" data-y="-10.371077600000076" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="4.641959299999847" data-y="-9.785" x="437.09465440757884" y="574.388625592417" width="12.208530805687246" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [0]" data-x="4.060979649999923" data-y="-7.000029899999991" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="5.301959299999847" data-y="-9.785" x="454.61124208530396" y="574.388625592417" width="12.208530805687246" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [1]" data-x="4.060979649999923" data-y="-7.344999999999999" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="4.971959299999847" data-y="-9.785" x="437.09465440757884" y="574.388625592417" width="29.72511848341236" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [2]" data-x="2.540979649999923" data-y="-7.344999999999999" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="6.201959299999848" data-y="-9.785" x="477.43588663506705" y="571.2037914691942" width="14.33175355450237" height="16.985781990521332" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [3]" data-x="2.540979649999923" data-y="-8.545" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="7.221959299999847" data-y="-9.785" x="504.5069766824604" y="571.2037914691942" width="14.33175355450237" height="16.985781990521332" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [4]" data-x="3.5719592999998473" data-y="-8.545" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="6.711959299999847" data-y="-9.785" x="477.43588663506705" y="571.2037914691942" width="41.40284360189571" height="16.985781990521332" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [5]" data-x="3.5719592999998473" data-y="-9.185" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="4.241959299999848" data-y="-8.865" x="425.4169292890955" y="546.7867298578199" width="14.33175355450237" height="16.985781990521332" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [6]" data-x="2.891959299999847" data-y="-9.185" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="5.261959299999847" data-y="-8.865" x="452.48801933648883" y="546.7867298578199" width="14.33175355450237" height="16.985781990521332" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [7]" data-x="2.491959299999847" data-y="-9.185" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="4.7519592999998475" data-y="-8.865" x="425.4169292890955" y="546.7867298578199" width="41.40284360189571" height="16.985781990521332" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [8]" data-x="1.3719592999998471" data-y="-9.185" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="3.1709796499999228" data-y="-7.944999999999999" x="398.0544362085287" y="525.5545023696682" width="12.208530805687246" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [9]" data-x="1.3719592999998471" data-y="-8.175014949999996" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="3.830979649999923" data-y="-7.944999999999999" x="415.5710238862539" y="525.5545023696682" width="12.20853080568719" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [10]" data-x="-0.1480407000001529" data-y="-8.175014949999996" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="3.500979649999923" data-y="-7.944999999999999" x="398.0544362085287" y="525.5545023696682" width="29.72511848341236" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [11]" data-x="-0.1480407000001529" data-y="-7.513104049999988" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="4.690979649999923" data-y="-7.572514949999995" x="438.3956684360169" y="515.6686432227486" width="12.208530805687246" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [12]" data-x="-1.5620341000001656" data-y="-7.513104049999988" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="5.350979649999923" data-y="-7.572514949999995" x="455.912256113742" y="515.6686432227486" width="12.208530805687246" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [1] [13]" data-x="-1.5620341000001656" data-y="-7.000029899999991" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="5.020979649999923" data-y="-7.572514949999995" x="438.3956684360169" y="515.6686432227486" width="29.72511848341236" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [2] [0]" data-x="-6.35" data-y="1.5288719750001367" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="5.789999999999999" data-y="6.635000000000001" x="468.3601895734597" y="137.80094786729856" width="10.61611374407579" height="12.208530805687246" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [2] [1]" data-x="-4.925110799999991" data-y="2.500914250000111" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="5.789999999999999" data-y="7.295000000000001" x="468.3601895734597" y="120.28436018957345" width="10.61611374407579" height="12.208530805687218" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [2] [2]" data-x="5.32511079999999" data-y="2.500914250000111" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="5.789999999999999" data-y="6.965000000000001" x="468.3601895734597" y="120.28436018957348" width="10.61611374407579" height="29.725118483412302" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [2] [3]" data-x="5.32511079999999" data-y="6.035" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="6.597555399999996" data-y="9.34" x="487.93511962085296" y="63.620853080568736" width="14.331753554502313" height="16.98578199052136" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [2] [4]" data-x="6.35" data-y="6.035" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="7.617555399999995" data-y="9.34" x="515.0062096682464" y="63.620853080568736" width="14.331753554502257" height="16.98578199052136" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [2] [5]" data-x="6.35" data-y="2.0000299000001043" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="7.107555399999995" data-y="9.34" x="487.9351196208529" y="63.620853080568736" width="41.40284360189571" height="16.98578199052136" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [2] [6]" data-x="-2.500156900000011" data-y="2.0000299000001043" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-5.885110799999991" data-y="2.128871975000137" x="158.4994290047396" y="257.39486701421436" width="10.616113744075847" height="12.208530805687246" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [2] [7]" data-x="-2.500156900000011" data-y="-6.8844830999998585" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-5.885110799999991" data-y="2.788871975000137" x="158.4994290047396" y="239.87827933648927" width="10.616113744075847" height="12.20853080568719" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [2] [8]" data-x="-5.462104100000007" data-y="-6.8844830999998585" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-5.885110799999991" data-y="2.458871975000137" x="158.4994290047396" y="239.87827933648927" width="10.616113744075847" height="29.72511848341233" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [2] [9]" data-x="-5.462104100000007" data-y="-8.62" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-5.885110799999991" data-y="6.639435987500068" x="158.4994290047396" y="137.68321549762854" width="10.616113744075847" height="12.208530805687218" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [2] [10]" data-x="-6.35" data-y="-8.62" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-5.885110799999991" data-y="7.299435987500068" x="158.4994290047396" y="120.16662781990343" width="10.616113744075847" height="12.208530805687218" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [3] [0]" data-x="-5.32511079999999" data-y="6.0394359875000685" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-5.885110799999991" data-y="6.969435987500068" x="158.4994290047396" y="120.16662781990343" width="10.616113744075847" height="29.72511848341233" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [3] [1]" data-x="-5.32511079999999" data-y="3.388871975000137" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-5.885110799999991" data-y="8.894717993750033" x="158.4994290047396" y="77.82738973933562" width="10.616113744075847" height="12.208530805687246" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [3] [2]" data-x="-6.35" data-y="3.94" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-5.885110799999991" data-y="9.554717993750034" x="158.4994290047396" y="60.3108020616105" width="10.616113744075847" height="12.208530805687218" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [3] [3]" data-x="-6.35" data-y="6.0394359875000685" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-5.885110799999991" data-y="9.224717993750033" x="158.4994290047396" y="60.3108020616105" width="10.616113744075847" height="29.72511848341236" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="outlines [4] [0]" data-x="-5.32511079999999" data-y="8.294717993750034" cx="NaN" cy="NaN" r="3" fill="#ff4444" />
+    <rect data-type="rect" data-label="" data-x="-7.455110799999991" data-y="10.024717993750032" x="116.03497402843627" y="48.63307694312715" width="12.208530805687218" height="10.61611374407579" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3341846556458909" data-x="5.367555399999995" data-y="9.2225" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="-6.795110799999991" data-y="10.024717993750032" x="133.55156170616138" y="48.63307694312715" width="12.208530805687246" height="10.61611374407579" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3341846556458909" data-x="5.367555399999995" data-y="9.2225" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="-7.125110799999991" data-y="10.024717993750032" x="116.03497402843627" y="48.63307694312715" width="29.72511848341236" height="10.61611374407579" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2632216443781983" data-x="5.885110799999991" data-y="9.2225" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="-7.9240347000000035" data-y="-9.785" x="103.58960037914684" y="574.388625592417" width="12.208530805687218" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.32239049934692965" data-x="5.885110799999991" data-y="9.2225" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="-7.264034700000003" data-y="-9.785" x="121.10618805687196" y="574.388625592417" width="12.208530805687218" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3724850500000043" data-x="4.6209796499999225" data-y="-7.172514949999995" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="-7.5940347000000035" data-y="-9.785" x="103.58960037914684" y="574.388625592417" width="29.72511848341233" height="10.616113744075733" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.36021643004380327" data-x="4.6209796499999225" data-y="-7.172514949999995" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="1.6509796499999227" data-y="-7.587522424999993" x="357.7132039810406" y="516.066945876777" width="12.208530805687246" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.6209796499999225" data-y="-7.172514949999995" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="2.310979649999923" data-y="-7.587522424999993" x="375.22979165876575" y="516.066945876777" width="12.20853080568719" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.30805843601498717" data-x="4.6209796499999225" data-y="-7.172514949999995" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="1.9809796499999228" data-y="-7.587522424999993" x="357.7132039810406" y="516.066945876777" width="29.72511848341236" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.38000000000000034" data-x="4.340979649999923" data-y="-7.544999999999999" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="0.08195929999984713" data-y="-7.587522424999993" x="316.07095772511445" y="516.066945876777" width="12.20853080568719" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.13659320522672602" data-x="4.160979649999923" data-y="-7.874999999999999" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="0.7419592999998472" data-y="-7.587522424999993" x="333.58754540283957" y="516.066945876777" width="12.20853080568719" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3799999999999999" data-x="4.340979649999923" data-y="-7.544999999999999" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="0.41195929999984715" data-y="-7.587522424999993" x="316.07095772511445" y="516.066945876777" width="29.725118483412302" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.160979649999923" data-y="-7.874999999999999" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="1.3449215499999942" data-y="2.2000299000001045" x="349.59033497630315" y="256.3025239810399" width="12.20853080568719" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="3.100979649999923" data-y="-7.945" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="2.0049215499999944" data-y="2.2000299000001045" x="367.10692265402827" y="256.3025239810399" width="12.208530805687246" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="3.100979649999923" data-y="-7.945" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="1.6749215499999943" data-y="2.2000299000001045" x="349.59033497630315" y="256.3025239810399" width="29.72511848341236" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.22000000000000064" data-x="3.851959299999847" data-y="-8.345" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="-3.390156900000011" data-y="-2.4999999999999436" x="223.92000644549734" y="381.0426540284345" width="12.208530805687218" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.1044030650891059" data-x="3.6719592999998474" data-y="-8.015" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="-2.730156900000011" data-y="-2.4999999999999436" x="241.43659412322245" y="381.0426540284345" width="12.208530805687218" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="3.851959299999847" data-y="-8.345" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="-3.060156900000011" data-y="-2.4999999999999436" x="223.92000644549734" y="381.0426540284345" width="29.72511848341233" height="10.616113744075847" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.18422299181728746" data-x="3.6719592999998474" data-y="-8.015" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="-0.33" data-y="2.300914250000111" x="305.13744075829385" y="253.62502464454684" width="12.20853080568719" height="10.61611374407579" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.131959299999847" data-y="-8.865" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="0.33" data-y="2.300914250000111" x="322.65402843601896" y="253.62502464454684" width="12.20853080568719" height="10.61611374407579" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.17888543819998334" data-x="4.131959299999847" data-y="-8.865" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="0" data-y="2.300914250000111" x="305.13744075829385" y="253.62502464454684" width="29.725118483412302" height="10.61611374407579" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.131959299999847" data-y="-8.865" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="5.885110799999991" data-y="4.675457125000055" x="470.8844572511846" y="189.80777298578053" width="10.616113744075847" height="12.208530805687218" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.131959299999847" data-y="-8.865" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
+    <rect data-type="rect" data-label="" data-x="5.885110799999991" data-y="5.3354571250000555" x="470.8844572511846" y="172.29118530805542" width="10.616113744075847" height="12.208530805687218" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.17999999999999972" data-x="3.231959299999847" data-y="-9.385" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.020000000000000018" data-x="3.231959299999847" data-y="-9.385" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2999999999999998" data-x="2.691959299999847" data-y="-9.385" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2999999999999998" data-x="2.691959299999847" data-y="-9.385" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=1.7763568394002505e-15" data-x="1.9319592999998472" data-y="-9.385" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.20000000000000018" data-x="1.9319592999998472" data-y="-9.385" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.125286516527134" data-x="0.8119592999998471" data-y="-9.285" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.33999999999999914" data-x="0.8119592999998471" data-y="-9.362507474999997" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.12528651652713393" data-x="0.8119592999998471" data-y="-9.285" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3460618859841038" data-x="0.8119592999998471" data-y="-9.362507474999997" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-0.4280407000001527" data-y="-8.375014949999995" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.22801538955169826" data-x="-0.24804070000015266" data-y="-8.705014949999995" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.24984370193383237" data-x="-0.4280407000001527" data-y="-8.375014949999995" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.15498992030452052" data-x="-0.24804070000015277" data-y="-8.705014949999995" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-0.708040700000153" data-y="-8.275014949999996" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-0.708040700000153" data-y="-8.455014949999995" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-0.708040700000153" data-y="-8.275014949999996" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-0.708040700000153" data-y="-8.455014949999995" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.8420341000001657" data-y="-7.7131040499999886" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.10172405485479913" data-x="-1.6620341000001657" data-y="-8.043104049999988" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2548401521040907" data-x="-1.8420341000001657" data-y="-7.7131040499999886" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.16292176995244023" data-x="-1.6620341000001657" data-y="-8.043104049999988" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.1220341000001657" data-y="-7.2565669749999895" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.1220341000001657" data-y="-7.2565669749999895" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.1220341000001657" data-y="-7.2565669749999895" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2374079506566323" data-x="-2.1220341000001657" data-y="-7.2565669749999895" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="1.2494727749998784" data-y="-6.80002989999999" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="1.2494727749998784" data-y="-6.47002989999999" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="1.2494727749998784" data-y="-6.80002989999999" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="1.2494727749998784" data-y="-6.47002989999999" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2675892843090363" data-x="-6.898496650000007" data-y="2.214893112500124" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.718496650000008" data-y="2.544893112500124" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2675892843090363" data-x="-6.898496650000007" data-y="2.214893112500124" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.718496650000008" data-y="2.544893112500124" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.7824446000000052" data-y="2.7009142500001113" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.7824446000000056" data-y="3.0309142500001114" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.7824446000000052" data-y="2.7009142500001113" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.7824446000000056" data-y="3.0309142500001114" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.76511079999999" data-y="5.787957125000055" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.76511079999999" data-y="5.787957125000055" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.76511079999999" data-y="5.787957125000055" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="4.76511079999999" data-y="5.787957125000055" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="5.837555399999995" data-y="6.235" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="5.837555399999995" data-y="6.565" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="5.837555399999995" data-y="6.235" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="5.837555399999995" data-y="6.565" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="6.91" data-y="3.420029900000104" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3440686804897419" data-x="6.91" data-y="3.2400299000001036" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="6.91" data-y="3.420029900000104" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3440686804897419" data-x="6.91" data-y="3.2400299000001036" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.23" data-x="0" data-y="1.8000299000001043" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="0" data-y="1.4700299000001043" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.23000000000000004" data-x="0" data-y="1.800029900000104" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="0" data-y="1.4700299000001043" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.940156900000011" data-y="-4.274985049999948" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.940156900000011" data-y="-4.274985049999948" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.940156900000011" data-y="-4.274985049999948" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-1.940156900000011" data-y="-4.274985049999948" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.2201569000000108" data-y="-7.084483099999859" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.400156900000011" data-y="-7.414483099999859" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.2201569000000108" data-y="-7.084483099999859" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-2.400156900000011" data-y="-7.414483099999859" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.10374905000020718" data-x="-4.902104100000006" data-y="-8.71724154999993" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3806795194204029" data-x="-4.902104100000006" data-y="-8.71724154999993" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.902104100000006" data-y="-8.71724154999993" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.3382274776953544" data-x="-4.902104100000006" data-y="-8.71724154999993" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.17999710000009372" data-x="-5.906052050000003" data-y="-8.819999999999999" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.17268238897875687" data-x="-5.906052050000003" data-y="-9.149999999999999" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.0660565780530645" data-x="-5.906052050000003" data-y="-8.819999999999999" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.17059617313268674" data-x="-5.906052050000003" data-y="-9.149999999999999" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="-0.7375000000000007" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="-0.7375000000000007" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="-0.7375000000000007" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="-0.7375000000000007" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.76511079999999" data-y="4.714153981250103" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.76511079999999" data-y="4.714153981250103" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.76511079999999" data-y="4.714153981250103" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-4.76511079999999" data-y="4.714153981250103" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2864860909437407" data-x="-5.837555399999995" data-y="3.4644359875000683" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.22074727530420435" data-x="-5.837555399999995" data-y="3.1344359875000682" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.2511018126263267" data-x="-5.837555399999995" data-y="3.4644359875000683" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0.22074727530420435" data-x="-5.837555399999995" data-y="3.1344359875000682" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="4.989717993750034" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="4.989717993750034" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="4.989717993750034" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-6.91" data-y="4.989717993750034" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="6.239435987500069" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="6.569435987500069" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="6.239435987500069" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=0" data-x="-5.837555399999995" data-y="6.569435987500069" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=-1" data-x="NaN" data-y="NaN" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=-1" data-x="NaN" data-y="NaN" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=-1" data-x="NaN" data-y="NaN" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <circle data-type="point" data-label="rejected, d=0.000
-gap_distance=-1" data-x="NaN" data-y="NaN" cx="NaN" cy="NaN" r="3" fill="rgba(255,0,0,0.8)" />
-  </g>
-  <g>
-    <polyline data-points="0,10.55 7.090000000000001,10.55 7.441162579629032,10.515413504725815 7.778830178257163,10.412983158520316 8.090026419435285,10.246645302144582 8.362792206135786,10.022792206135785 8.586645302144582,9.750026419435283 8.752983158520317,9.438830178257161 8.855413504725815,9.101162579629031 8.89,8.75 8.89,-8.75 8.855413504725815,-9.101162579629031 8.752983158520317,-9.438830178257161 8.586645302144582,-9.750026419435283 8.362792206135786,-10.022792206135785 8.090026419435285,-10.246645302144582 7.778830178257163,-10.412983158520316 7.441162579629032,-10.515413504725815 7.090000000000001,-10.55 -7.090000000000001,-10.55 -7.441162579629031,-10.515413504725815 -7.778830178257162,-10.412983158520316 -8.090026419435285,-10.246645302144582 -8.362792206135786,-10.022792206135787 -8.586645302144582,-9.750026419435283 -8.752983158520317,-9.438830178257161 -8.855413504725815,-9.101162579629031 -8.89,-8.75 -8.89,8.75 -8.855413504725815,9.101162579629031 -8.752983158520317,9.438830178257161 -8.586645302144582,9.750026419435283 -8.362792206135786,10.022792206135787 -8.090026419435285,10.246645302144582 -7.778830178257162,10.412983158520316 -7.441162579629031,10.515413504725815 -7.090000000000001,10.55 0,10.55" data-type="line" data-label="" points="NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN NaN,NaN" fill="none" stroke="rgba(0, 0, 255, 0.5)" stroke-width="1" stroke-dasharray="4 2" />
-  </g>
-  <g>
-    <polyline data-points="-5.462104100000006,-10.667226949999998 -3.5421041000000058,-10.667226949999998" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-3.5421041000000058,-10.667226949999998 -3.5421041000000058,-9.584453899999996" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-3.5421041000000058,-9.584453899999996 -3.4820341000001656,-9.584453899999996" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-3.4820341000001656,-9.584453899999996 -3.4820341000001656,-10.667226949999998" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-3.4820341000001656,-10.667226949999998 -1.5620341000001656,-10.667226949999998" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-1.5620341000001656,-10.667226949999998 -1.5620341000001656,-10.036925850000003" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-1.5620341000001656,-10.036925850000003 -0.5480407000001529,-10.036925850000003" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-0.5480407000001529,-10.036925850000003 -0.5480407000001529,-10.562507474999999" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-0.5480407000001529,-10.562507474999999 1.3719592999998471,-10.562507474999999" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="1.3719592999998471,-10.562507474999999 1.3719592999998471,-10.385" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="1.3719592999998471,-10.385 2.491959299999847,-10.385" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="2.491959299999847,-10.385 2.891959299999847,-10.385" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="2.891959299999847,-10.385 4.011959299999847,-10.385" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="4.011959299999847,-10.385 4.411959299999848,-10.385" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="4.411959299999848,-10.385 5.531959299999848,-10.385" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.531959299999848,-10.385 5.531959299999848,-10.505" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.531959299999848,-10.505 7.891959299999847,-10.505" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="7.891959299999847,-10.505 7.891959299999847,-9.065" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="7.891959299999847,-9.065 5.931959299999848,-9.065" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.931959299999848,-9.065 5.931959299999848,-8.172514949999995" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.931959299999848,-8.172514949999995 5.980979649999923,-8.172514949999995" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.980979649999923,-8.172514949999995 5.980979649999923,-7.000029899999991" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.980979649999923,-7.000029899999991 6.35,-7.000029899999991" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="6.35,-7.000029899999991 6.35,-9.02" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="6.35,-9.02 10.15,-9.02" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="10.15,-9.02 10.15,9.02" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="10.15,9.02 8.287555399999995,9.02" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="8.287555399999995,9.02 8.287555399999995,10.06" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="8.287555399999995,10.06 5.927555399999996,10.06" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.927555399999996,10.06 5.927555399999996,8.62" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.927555399999996,8.62 6.35,8.62" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="6.35,8.62 6.35,7.895000000000001" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="6.35,7.895000000000001 5.32511079999999,7.895000000000001" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.32511079999999,7.895000000000001 5.32511079999999,10.074084549999949" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.32511079999999,10.074084549999949 -5.255110799999991,10.074084549999949" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.255110799999991,10.074084549999949 -5.255110799999991,10.154717993750033" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.255110799999991,10.154717993750033 -6.165110799999991,10.154717993750033" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.165110799999991,10.154717993750033 -6.165110799999991,10.624717993750032" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.165110799999991,10.624717993750032 -8.085110799999992,10.624717993750032" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-8.085110799999992,10.624717993750032 -8.085110799999992,9.424717993750033" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-8.085110799999992,9.424717993750033 -6.845110799999991,9.424717993750033" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.845110799999991,9.424717993750033 -6.845110799999991,9.02" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.845110799999991,9.02 -10.15,9.02" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-10.15,9.02 -10.15,-9.02" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-10.15,-9.02 -7.034034700000003,-9.02" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-7.034034700000003,-9.02 -7.034034700000003,-9.185" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-7.034034700000003,-9.185 -8.554034700000004,-9.185" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-8.554034700000004,-9.185 -8.554034700000004,-10.385" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-8.554034700000004,-10.385 -6.6340347000000035,-10.385" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.6340347000000035,-10.385 -6.6340347000000035,-10.371077600000076" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.6340347000000035,-10.371077600000076 -5.462104100000006,-10.371077600000076" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.462104100000006,-10.371077600000076 -5.462104100000006,-10.667226949999998" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="4.060979649999923,-7.000029899999991 4.060979649999923,-7.344999999999999" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="4.060979649999923,-7.344999999999999 2.540979649999923,-7.344999999999999" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="2.540979649999923,-7.344999999999999 2.540979649999923,-8.545" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="2.540979649999923,-8.545 3.5719592999998473,-8.545" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="3.5719592999998473,-8.545 3.5719592999998473,-9.185" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="3.5719592999998473,-9.185 2.891959299999847,-9.185" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="2.891959299999847,-9.185 2.491959299999847,-9.185" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="2.491959299999847,-9.185 1.3719592999998471,-9.185" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="1.3719592999998471,-9.185 1.3719592999998471,-8.175014949999996" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="1.3719592999998471,-8.175014949999996 -0.1480407000001529,-8.175014949999996" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-0.1480407000001529,-8.175014949999996 -0.1480407000001529,-7.513104049999988" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-0.1480407000001529,-7.513104049999988 -1.5620341000001656,-7.513104049999988" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-1.5620341000001656,-7.513104049999988 -1.5620341000001656,-7.000029899999991" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-1.5620341000001656,-7.000029899999991 4.060979649999923,-7.000029899999991" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.35,1.5288719750001367 -4.925110799999991,2.500914250000111" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-4.925110799999991,2.500914250000111 5.32511079999999,2.500914250000111" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.32511079999999,2.500914250000111 5.32511079999999,6.035" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="5.32511079999999,6.035 6.35,6.035" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="6.35,6.035 6.35,2.0000299000001043" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="6.35,2.0000299000001043 -2.500156900000011,2.0000299000001043" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-2.500156900000011,2.0000299000001043 -2.500156900000011,-6.8844830999998585" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-2.500156900000011,-6.8844830999998585 -5.462104100000007,-6.8844830999998585" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.462104100000007,-6.8844830999998585 -5.462104100000007,-8.62" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.462104100000007,-8.62 -6.35,-8.62" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.35,-8.62 -6.35,1.5288719750001367" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.32511079999999,6.0394359875000685 -5.32511079999999,3.388871975000137" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.32511079999999,3.388871975000137 -6.35,3.94" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.35,3.94 -6.35,6.0394359875000685" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-6.35,6.0394359875000685 -5.32511079999999,6.0394359875000685" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <polyline data-points="-5.32511079999999,8.294717993750034 -5.32511079999999,8.294717993750034" data-type="line" data-label="" points="NaN,NaN NaN,NaN" fill="none" stroke="#ff4444" stroke-width="1" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_32
-ccwRotationOffset: 0.0°" data-x="-6.048069400000005" data-y="-9.495538800000038" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_56 unnamed56" data-x="-6.454037600000079" data-y="-9.820023800000019" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_57 unnamed57" data-x="-6.453986800000083" data-y="-9.170012400000036" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_58 unnamed58" data-x="-5.642101199999987" data-y="-9.171003000000116" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_59 unnamed59" data-x="-5.642101199999987" data-y="-9.821065200000039" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_60 unnamed60" data-x="-6.045999299999922" data-y="-9.494980000000186" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_32-inner pcb_component_32-inner" data-x="-6.048069400000005" data-y="-9.495538800000038" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_28
-ccwRotationOffset: 0.0°" data-x="-3.512069100000086" data-y="-8.234468499999927" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_46 unnamed46" data-x="-2.4620331000001654" data-y="-8.884454499999997" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_47 unnamed47" data-x="-2.4620331000001654" data-y="-7.584482499999858" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_48 unnamed48" data-x="-4.562105100000006" data-y="-7.584482499999858" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_49 unnamed49" data-x="-4.562105100000006" data-y="-8.884454499999997" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_28-inner pcb_component_28-inner" data-x="-3.512069100000086" data-y="-8.234468499999927" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_29
-ccwRotationOffset: 0.0°" data-x="-1.0550374000001592" data-y="-8.775014949999996" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_50 unnamed50" data-x="-0.7300444000001529" data-y="-8.256600949999989" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_51 unnamed51" data-x="-1.3800304000001655" data-y="-8.256600949999989" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_52 unnamed52" data-x="-1.3800304000001655" data-y="-9.293428950000003" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_53 unnamed53" data-x="-0.7300444000001529" data-y="-9.293428950000003" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_29-inner pcb_component_29-inner" data-x="-1.0550374000001592" data-y="-8.775014949999996" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_1
-ccwRotationOffset: 0.0°" data-x="-4.502104100000006" data-y="-10.067226949999998" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_0 unnamed0" data-x="-4.832104100000006" data-y="-10.067226949999998" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_1 unnamed1" data-x="-4.172104100000006" data-y="-10.067226949999998" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_1-inner pcb_component_1-inner" data-x="-4.502104100000006" data-y="-10.067226949999998" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_2
-ccwRotationOffset: 0.0°" data-x="-2.5220341000001656" data-y="-10.067226949999998" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_2 unnamed2" data-x="-2.8520341000001657" data-y="-10.067226949999998" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_3 unnamed3" data-x="-2.1920341000001655" data-y="-10.067226949999998" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_2-inner pcb_component_2-inner" data-x="-2.5220341000001656" data-y="-10.067226949999998" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_3
-ccwRotationOffset: 0.0°" data-x="0.41195929999984715" data-y="-8.775014949999996" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_4 unnamed4" data-x="0.08195929999984713" data-y="-8.775014949999996" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_5 unnamed5" data-x="0.7419592999998472" data-y="-8.775014949999996" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_3-inner pcb_component_3-inner" data-x="0.41195929999984715" data-y="-8.775014949999996" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_4
-ccwRotationOffset: 0.0°" data-x="0.41195929999984715" data-y="-9.962507474999999" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_6 unnamed6" data-x="0.08195929999984713" data-y="-9.962507474999999" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_7 unnamed7" data-x="0.7419592999998472" data-y="-9.962507474999999" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_4-inner pcb_component_4-inner" data-x="0.41195929999984715" data-y="-9.962507474999999" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_5
-ccwRotationOffset: 0.0°" data-x="1.9319592999998472" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_8 unnamed8" data-x="1.601959299999847" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_9 unnamed9" data-x="2.2619592999998472" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_5-inner pcb_component_5-inner" data-x="1.9319592999998472" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_6
-ccwRotationOffset: 0.0°" data-x="3.451959299999847" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_10 unnamed10" data-x="3.121959299999847" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_11 unnamed11" data-x="3.7819592999998473" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_6-inner pcb_component_6-inner" data-x="3.451959299999847" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_7
-ccwRotationOffset: 0.0°" data-x="4.971959299999847" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_12 unnamed12" data-x="4.641959299999847" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_13 unnamed13" data-x="5.301959299999847" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_7-inner pcb_component_7-inner" data-x="4.971959299999847" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_8
-ccwRotationOffset: 0.0°" data-x="6.711959299999847" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_14 unnamed14" data-x="6.201959299999848" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_15 unnamed15" data-x="7.221959299999847" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_8-inner pcb_component_8-inner" data-x="6.711959299999847" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_9
-ccwRotationOffset: 0.0°" data-x="4.7519592999998475" data-y="-8.865" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_16 unnamed16" data-x="4.241959299999848" data-y="-8.865" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_17 unnamed17" data-x="5.261959299999847" data-y="-8.865" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_9-inner pcb_component_9-inner" data-x="4.7519592999998475" data-y="-8.865" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_10
-ccwRotationOffset: 0.0°" data-x="3.500979649999923" data-y="-7.944999999999999" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_18 unnamed18" data-x="3.1709796499999228" data-y="-7.944999999999999" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_19 unnamed19" data-x="3.830979649999923" data-y="-7.944999999999999" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_10-inner pcb_component_10-inner" data-x="3.500979649999923" data-y="-7.944999999999999" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_11
-ccwRotationOffset: 0.0°" data-x="5.020979649999923" data-y="-7.572514949999995" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_20 unnamed20" data-x="4.690979649999923" data-y="-7.572514949999995" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_21 unnamed21" data-x="5.350979649999923" data-y="-7.572514949999995" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_11-inner pcb_component_11-inner" data-x="5.020979649999923" data-y="-7.572514949999995" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_12
-ccwRotationOffset: 90.0°" data-x="5.789999999999999" data-y="6.965000000000001" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_22 unnamed22" data-x="5.789999999999999" data-y="6.635000000000001" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_23 unnamed23" data-x="5.789999999999999" data-y="7.295000000000001" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_12-inner pcb_component_12-inner" data-x="5.789999999999999" data-y="6.965000000000001" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_17
-ccwRotationOffset: 0.0°" data-x="7.107555399999995" data-y="9.34" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_24 unnamed24" data-x="6.597555399999996" data-y="9.34" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_25 unnamed25" data-x="7.617555399999995" data-y="9.34" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_17-inner pcb_component_17-inner" data-x="7.107555399999995" data-y="9.34" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_18
-ccwRotationOffset: 90.0°" data-x="-5.885110799999991" data-y="2.458871975000137" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_26 unnamed26" data-x="-5.885110799999991" data-y="2.128871975000137" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_27 unnamed27" data-x="-5.885110799999991" data-y="2.788871975000137" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_18-inner pcb_component_18-inner" data-x="-5.885110799999991" data-y="2.458871975000137" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_19
-ccwRotationOffset: 90.0°" data-x="-5.885110799999991" data-y="6.969435987500068" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_28 unnamed28" data-x="-5.885110799999991" data-y="6.639435987500068" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_29 unnamed29" data-x="-5.885110799999991" data-y="7.299435987500068" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_19-inner pcb_component_19-inner" data-x="-5.885110799999991" data-y="6.969435987500068" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_20
-ccwRotationOffset: 90.0°" data-x="-5.885110799999991" data-y="9.224717993750033" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_30 unnamed30" data-x="-5.885110799999991" data-y="8.894717993750033" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_31 unnamed31" data-x="-5.885110799999991" data-y="9.554717993750034" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_20-inner pcb_component_20-inner" data-x="-5.885110799999991" data-y="9.224717993750033" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_21
-ccwRotationOffset: 0.0°" data-x="-7.125110799999991" data-y="10.024717993750032" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_32 unnamed32" data-x="-7.455110799999991" data-y="10.024717993750032" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_33 unnamed33" data-x="-6.795110799999991" data-y="10.024717993750032" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_21-inner pcb_component_21-inner" data-x="-7.125110799999991" data-y="10.024717993750032" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_22
-ccwRotationOffset: 0.0°" data-x="-7.5940347000000035" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.25)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_34 unnamed34" data-x="-7.9240347000000035" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_smtpad_35 unnamed35" data-x="-7.264034700000003" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_22-inner pcb_component_22-inner" data-x="-7.5940347000000035" data-y="-9.785" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(255,0,0,0.8)" stroke="black" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_33" data-x="2" data-y="-2.499999999999943" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_component_34" data-x="0" data-y="6.28749940000003" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_0" data-x="-8.25" data-y="7.62" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_1" data-x="-8.25" data-y="5.08" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_2" data-x="-8.25" data-y="2.54" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_3" data-x="-8.25" data-y="0" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_4" data-x="-8.25" data-y="-2.54" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_5" data-x="-8.25" data-y="-5.079999999999999" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_6" data-x="-8.25" data-y="-7.62" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_7" data-x="8.25" data-y="7.62" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_8" data-x="8.25" data-y="5.08" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_9" data-x="8.25" data-y="2.54" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_10" data-x="8.25" data-y="0" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_11" data-x="8.25" data-y="-2.54" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_12" data-x="8.25" data-y="-5.079999999999999" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
-  </g>
-  <g>
-    <rect data-type="rect" data-label="pcb_plated_hole_13" data-x="8.25" data-y="-7.62" x="NaN" y="NaN" width="NaN" height="NaN" fill="rgba(0,0,0,0.1)" stroke="#555" stroke-width="0.0017857142857142857" />
+    <rect data-type="rect" data-label="" data-x="5.885110799999991" data-y="5.0054571250000555" x="470.8844572511846" y="172.29118530805542" width="10.616113744075847" height="29.725118483412302" fill="rgba(255,0,0,0.5)" stroke="black" stroke-width="0.037678571428571436" />
   </g>
   <g id="crosshair" style="display: none">
     <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
@@ -1329,12 +343,12 @@ ccwRotationOffset: 0.0°" data-x="-7.5940347000000035" data-y="-9.785" x="NaN" y
 
       // Calculate real coordinates using inverse transformation
       const matrix = {
-        "a": 560,
+        "a": 26.54028436018957,
         "c": 0,
-        "e": null,
+        "e": 320,
         "b": 0,
-        "d": -560,
-        "f": null
+        "d": -26.54028436018957,
+        "f": 320
       };
       // Manually invert and apply the affine transform
       // Since we only use translate and scale, we can directly compute:
