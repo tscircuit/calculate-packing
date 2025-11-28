@@ -49,6 +49,10 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   irlsSolver?: MultiOffsetIrlsSolver
   twoPhaseIrlsSolver?: TwoPhaseIrlsSolver
 
+  largestRectBounds?: Bounds
+  largestRectMidPoint?: Point
+  largestRectOrigin?: Point
+
   constructor(params: {
     outlineSegment: [Point, Point]
     ccwFullOutline: [Point, Point][] // The entire outline containing the segment
@@ -147,15 +151,21 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
           2 +
         this.minGap * 2,
     })
+
+    this.largestRectMidPoint = {
+      x: (p1.x + p2.x) / 2,
+      y: (p1.y + p2.y) / 2,
+    }
+    this.largestRectOrigin = {
+      x: this.largestRectMidPoint.x + outwardNormal.x * 0.0001,
+      y: this.largestRectMidPoint.y + outwardNormal.y * 0.0001,
+    }
     const largestRectSolverParams: ConstructorParameters<
       typeof LargestRectOutsideOutlineFromPointSolver
     >[0] = {
       ccwFullOutline: this.ccwFullOutline.flatMap(([p]) => p),
       globalBounds: packedComponentBoundsWithMargin,
-      origin: {
-        x: (p1.x + p2.x) / 2 + outwardNormal.x * 0.0001,
-        y: (p1.y + p2.y) / 2 + outwardNormal.y * 0.0001,
-      },
+      origin: this.largestRectOrigin,
     }
     const largestRectSolver = new LargestRectOutsideOutlineFromPointSolver(
       largestRectSolverParams,
@@ -163,6 +173,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     largestRectSolver.solve()
 
     const largestRectBounds = largestRectSolver.getLargestRectBounds()
+    this.largestRectBounds = largestRectBounds
 
     // The viable bounds is the largest rect bounds minus padding for the
     // component
@@ -574,6 +585,34 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
         height: this.viableBounds.maxY - this.viableBounds.minY,
         fill: "rgba(0,255,0,0.1)",
         label: "Viable Bounds",
+      })
+    }
+
+    if (this.largestRectBounds) {
+      graphics.rects!.push({
+        center: {
+          x: (this.largestRectBounds.minX + this.largestRectBounds.maxX) / 2,
+          y: (this.largestRectBounds.minY + this.largestRectBounds.maxY) / 2,
+        },
+        width: this.largestRectBounds.maxX - this.largestRectBounds.minX,
+        height: this.largestRectBounds.maxY - this.largestRectBounds.minY,
+        fill: "rgba(255,0,255,0.4)",
+      })
+    }
+
+    if (this.largestRectMidPoint) {
+      graphics.points!.push({
+        ...this.largestRectMidPoint,
+        label: "Largest Rect Mid Point",
+        color: "rgba(128,0,255,1)",
+      })
+    }
+
+    if (this.largestRectOrigin) {
+      graphics.points!.push({
+        ...this.largestRectOrigin,
+        label: "Largest Rect Origin",
+        color: "rgba(255,0,128,1)",
       })
     }
 
