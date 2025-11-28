@@ -1,6 +1,17 @@
-import type { Bounds, Point } from "@tscircuit/math-utils"
-import { pointInOutline } from "../geometry/pointInOutline"
+import type { Point } from "@tscircuit/math-utils"
 
+/**
+ * Get the normal direction pointing toward FREE SPACE for component placement.
+ *
+ * For the obstacles polygon (B - A) returned by constructOutlinesFromPackedComponents:
+ * - CCW outlines (positive area): outer boundaries of obstacle islands
+ *   → Free space is OUTSIDE the polygon → return geometric outward normal
+ * - CW outlines (negative area): holes within obstacles (free space pockets)
+ *   → Free space is INSIDE the polygon → return geometric INWARD normal
+ *
+ * This ensures the LargestRectOutsideOutlineFromPointSolver searches in the
+ * correct direction for component placement.
+ */
 export function getOutwardNormal(
   outlineSegment: [Point, Point],
   ccwFullOutline: [Point, Point][],
@@ -22,37 +33,7 @@ export function getOutwardNormal(
   const left = { x: -dirY, y: dirX }
   const right = { x: dirY, y: -dirX }
 
-  // Segment midpoint
-  const mid = {
-    x: (p1.x + p2.x) / 2,
-    y: (p1.y + p2.y) / 2,
-  }
-
-  // Use a scale-aware test distance to reduce numeric issues
-  const bbox = getOutlineBoundsWithMargin(ccwFullOutline)
-  const scale = Math.max(bbox.maxX - bbox.minX, bbox.maxY - bbox.minY) || 1
-  const testDistance = Math.max(1e-4, 1e-3 * scale)
-
-  // Test points offset from the segment midpoint in both normal directions
-  const testLeft = {
-    x: mid.x + left.x * testDistance,
-    y: mid.y + left.y * testDistance,
-  }
-  const testRight = {
-    x: mid.x + right.x * testDistance,
-    y: mid.y + right.y * testDistance,
-  }
-
-  const locLeft = pointInOutline(testLeft, ccwFullOutline)
-  if (locLeft === "outside") {
-    return left
-  }
-  const locRight = pointInOutline(testRight, ccwFullOutline)
-  if (locRight === "outside") {
-    return right
-  }
-
-  // Fallback 1: infer from polygon orientation (CCW => inside on left => outward is right)
+  // Calculate signed area to determine winding direction
   const verts: Point[] = []
   if (ccwFullOutline.length > 0) {
     verts.push(ccwFullOutline[0]![0])
@@ -69,41 +50,21 @@ export function getOutwardNormal(
     }
     return a / 2
   })()
-  if (Math.abs(signedArea) > 1e-12) {
-    return signedArea > 0 ? right : left
+
+  // Determine the geometric outward normal based on winding
+  // CCW (positive area): outward is right (perpendicular to walking direction)
+  // CW (negative area): outward is left
+  const geometricOutward = signedArea > 0 ? right : left
+
+  // For CW outlines (holes/free space pockets), we want to search INSIDE
+  // the polygon (where the free space is), not outside.
+  // So we INVERT the normal for CW outlines.
+  const isCW = signedArea < 0
+  if (isCW) {
+    // For CW outlines, return the INWARD normal (toward free space inside the hole)
+    return { x: -geometricOutward.x, y: -geometricOutward.y }
   }
 
-  // Fallback 2: push away from outline bbox center
-  const center = {
-    x: (bbox.minX + bbox.maxX) / 2,
-    y: (bbox.minY + bbox.maxY) / 2,
-  }
-  const away = { x: mid.x - center.x, y: mid.y - center.y }
-  const dotLeft = left.x * away.x + left.y * away.y
-  const dotRight = right.x * away.x + right.y * away.y
-  return dotRight >= dotLeft ? right : left
-}
-
-function getOutlineBoundsWithMargin(
-  ccwFullOutline: [Point, Point][],
-  margin = 0,
-): Bounds {
-  let minX = Infinity
-  let minY = Infinity
-  let maxX = -Infinity
-  let maxY = -Infinity
-
-  for (const [p1, p2] of ccwFullOutline) {
-    minX = Math.min(minX, p1.x, p2.x)
-    minY = Math.min(minY, p1.y, p2.y)
-    maxX = Math.max(maxX, p1.x, p2.x)
-    maxY = Math.max(maxY, p1.y, p2.y)
-  }
-
-  return {
-    minX: minX - margin,
-    minY: minY - margin,
-    maxX: maxX + margin,
-    maxY: maxY + margin,
-  }
+  // For CCW outlines, return the geometric outward normal (toward free space outside)
+  return geometricOutward
 }

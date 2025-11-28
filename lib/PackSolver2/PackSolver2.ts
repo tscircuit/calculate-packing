@@ -36,8 +36,20 @@ export class PackSolver2 extends BaseSolver {
   override _setup() {
     const { components, packOrderStrategy, packFirst = [] } = this.packInput
 
+    // Filter out components with no valid pads (e.g., pads with -Infinity sizes)
+    const validComponents = components.filter((component) => {
+      if (component.pads.length === 0) return false
+      return component.pads.every(
+        (pad) =>
+          Number.isFinite(pad.size.x) &&
+          Number.isFinite(pad.size.y) &&
+          pad.size.x > 0 &&
+          pad.size.y > 0,
+      )
+    })
+
     this.unpackedComponentQueue = sortComponentQueue({
-      components,
+      components: validComponents,
       packOrderStrategy,
       packFirst,
     })

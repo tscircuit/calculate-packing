@@ -30,8 +30,8 @@ export function simplifyCollinearSegments(
     const [nextStart, nextEnd] = nextSegment
 
     // Check if current segment end connects to next segment start
-    // Use a much smaller tolerance for connectivity (1e-10) than for collinearity
-    const connectionTolerance = 1e-10
+    // Use a reasonable tolerance for connectivity to handle floating point errors
+    const connectionTolerance = 1e-9
     const isConnected =
       Math.abs(currentSegmentEnd.x - nextStart.x) < connectionTolerance &&
       Math.abs(currentSegmentEnd.y - nextStart.y) < connectionTolerance
@@ -48,7 +48,19 @@ export function simplifyCollinearSegments(
     // We need to check if the three points (currentSegmentStart, currentSegmentEnd, nextEnd) are collinear
     const crossProduct = cross(currentSegmentStart, currentSegmentEnd, nextEnd)
 
-    if (Math.abs(crossProduct) < tolerance) {
+    // Use a tolerance that scales with the segment lengths to avoid issues with long segments
+    const segLen1 = Math.hypot(
+      currentSegmentEnd.x - currentSegmentStart.x,
+      currentSegmentEnd.y - currentSegmentStart.y,
+    )
+    const segLen2 = Math.hypot(
+      nextEnd.x - currentSegmentEnd.x,
+      nextEnd.y - currentSegmentEnd.y,
+    )
+    // Cross product scales with the product of segment lengths, so scale tolerance accordingly
+    const scaledTolerance = Math.max(tolerance, tolerance * segLen1 * segLen2)
+
+    if (Math.abs(crossProduct) < scaledTolerance) {
       // Segments are collinear, extend the current segment
       currentSegmentEnd = nextEnd
     } else {
@@ -69,21 +81,35 @@ export function simplifyCollinearSegments(
 
     // Check if last segment can merge with the first segment (for closed outlines)
     if (firstSegment && simplified.length > 0) {
-      const connectionTolerance = 1e-10
+      const connectionTolerance = 1e-9
       const isLastConnectedToFirst =
         Math.abs(currentSegmentEnd.x - firstSegment[0].x) <
           connectionTolerance &&
         Math.abs(currentSegmentEnd.y - firstSegment[0].y) < connectionTolerance
 
       if (isLastConnectedToFirst) {
-        // Check if they're collinear
+        // Check if they're collinear using scaled tolerance
         const crossProduct = cross(
           currentSegmentStart,
           currentSegmentEnd,
           firstSegment[1],
         )
 
-        if (Math.abs(crossProduct) < tolerance) {
+        // Scale tolerance with segment lengths to avoid issues with long segments
+        const segLen1 = Math.hypot(
+          currentSegmentEnd.x - currentSegmentStart.x,
+          currentSegmentEnd.y - currentSegmentStart.y,
+        )
+        const segLen2 = Math.hypot(
+          firstSegment[1].x - currentSegmentEnd.x,
+          firstSegment[1].y - currentSegmentEnd.y,
+        )
+        const scaledTolerance = Math.max(
+          tolerance,
+          tolerance * segLen1 * segLen2,
+        )
+
+        if (Math.abs(crossProduct) < scaledTolerance) {
           // Merge last segment with first segment
           simplified[0] = [currentSegmentStart, firstSegment[1]]
         } else {

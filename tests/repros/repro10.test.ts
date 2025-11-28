@@ -1,11 +1,10 @@
-import { test, expect } from "bun:test"
-import circuitJson from "./repro10/XiaoRP2040Board.circuit.circuit.json"
+import { expect, test } from "bun:test"
+import type { CircuitJson } from "circuit-json"
+import { getSvgFromGraphicsObject } from "graphics-debug"
+import { PackSolver2 } from "../../lib/PackSolver2/PackSolver2"
 import { convertCircuitJsonToPackOutput } from "../../lib/plumbing/convertCircuitJsonToPackOutput"
 import { convertPackOutputToPackInput } from "../../lib/plumbing/convertPackOutputToPackInput"
-import { PackSolver2 } from "../../lib/PackSolver2/PackSolver2"
-import { getSvgFromGraphicsObject } from "graphics-debug"
-import { getGraphicsFromPackOutput } from "../../lib/testing/getGraphicsFromPackOutput"
-import type { CircuitJson } from "circuit-json"
+import circuitJson from "./repro10/XiaoRP2040Board.circuit.circuit.json"
 
 test("repro10 - final output after running PackSolver2 to completion", async () => {
   // Convert circuitJson to packOutput, then to packInput
