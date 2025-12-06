@@ -295,9 +295,7 @@ export const convertCircuitJsonToPackOutput = (
   }
 
   // Build weightedConnections from source traces that directly connect two ports
-  const strongWeightedConnections: NonNullable<
-    PackInput["weightedConnections"]
-  > = []
+  const weightedConnections: NonNullable<PackInput["weightedConnections"]> = []
   const seenConnections = new Set<string>()
 
   const sourceTraces =
@@ -309,10 +307,10 @@ export const convertCircuitJsonToPackOutput = (
     const connectedPorts = sourceTrace.connected_source_port_ids || []
     const connectedNets = sourceTrace.connected_source_net_ids || []
 
-    const shouldCreateStrongConnections =
+    const shouldCreateWeightedConnections =
       connectedPorts.length === 2 && connectedNets.length === 0
 
-    if (!shouldCreateStrongConnections) continue
+    if (!shouldCreateWeightedConnections) continue
 
     const [portA, portB] = connectedPorts
     const padIdsA = portA ? (sourcePortToPadIds.get(portA) ?? []) : []
@@ -323,7 +321,7 @@ export const convertCircuitJsonToPackOutput = (
         const connectionKey = [padA, padB].sort().join("--")
         if (seenConnections.has(connectionKey)) continue
 
-        strongWeightedConnections.push({
+        weightedConnections.push({
           padIds: [padA, padB],
           weight: 1,
           ignoreWeakConnections: true,
@@ -333,8 +331,8 @@ export const convertCircuitJsonToPackOutput = (
     }
   }
 
-  if (strongWeightedConnections.length > 0) {
-    packOutput.weightedConnections = strongWeightedConnections
+  if (weightedConnections.length > 0) {
+    packOutput.weightedConnections = weightedConnections
   }
 
   return packOutput
