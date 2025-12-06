@@ -26,6 +26,7 @@ type PadInfo = {
   networkId: string
   size: { x: number; y: number }
   absoluteCenter: { x: number; y: number }
+  pcbPortId?: string
 }
 
 /* pads of one pcb_component – absolute centres only (offset filled in later) */
@@ -56,6 +57,7 @@ export const extractPadInfos = (
       networkId: getNetworkId(pcbPortId),
       size: { x: sx, y: sy },
       absoluteCenter: { x, y },
+      pcbPortId,
     })
 
   for (const ph of db.pcb_plated_hole.list({

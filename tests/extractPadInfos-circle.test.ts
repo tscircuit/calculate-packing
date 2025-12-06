@@ -46,6 +46,7 @@ test("extractPadInfos handles circle plated hole", () => {
       networkId: "port1",
       size: { x: 3, y: 3 },
       absoluteCenter: { x: 1, y: 2 },
+      pcbPortId: "port1",
     },
   ])
   expect(warnings).toHaveLength(0)

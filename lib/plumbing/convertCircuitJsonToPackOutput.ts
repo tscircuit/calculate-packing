@@ -19,6 +19,7 @@ const buildPackedComponent = (
   db: ReturnType<typeof cju>,
   getNetworkId: (pcbPortId?: string) => string,
   shouldAddInnerObstacles?: boolean,
+  sourcePortToPadIds: Map<string, string[]> = new Map(),
   chipMarginsMap: Record<
     string,
     { left: number; right: number; top: number; bottom: number }
@@ -65,6 +66,17 @@ const buildPackedComponent = (
       y: p.absoluteCenter.y - center.y,
     },
   }))
+
+  for (const padInfo of padInfos) {
+    if (!padInfo.pcbPortId) continue
+
+    const sourcePortId = db.pcb_port.get(padInfo.pcbPortId)?.source_port_id
+    if (!sourcePortId) continue
+
+    const existingPadIds = sourcePortToPadIds.get(sourcePortId) ?? []
+    existingPadIds.push(padInfo.padId)
+    sourcePortToPadIds.set(sourcePortId, existingPadIds)
+  }
 
   if (shouldAddInnerObstacles) {
     // Create a pad that represents the inside of the component using the
@@ -125,6 +137,8 @@ export const convertCircuitJsonToPackOutput = (
   })
   const db = cju(circuitJson)
   let unnamedCounter = 0
+
+  const sourcePortToPadIds = new Map<string, string[]>()
 
   const elementsOutsideTree = getElementOutsideTree(db, tree)
 
@@ -201,6 +215,7 @@ export const convertCircuitJsonToPackOutput = (
           db,
           getNetworkId,
           shouldAddInnerObstaclesForComp,
+          sourcePortToPadIds,
           opts.chipMarginsMap,
         ),
       )
@@ -218,6 +233,7 @@ export const convertCircuitJsonToPackOutput = (
           db,
           getNetworkId,
           undefined,
+          sourcePortToPadIds,
           opts.chipMarginsMap,
         ),
       )
@@ -276,6 +292,49 @@ export const convertCircuitJsonToPackOutput = (
         height: rect_pad_height,
       })
     }
+  }
+
+  // Build weightedConnections from source traces that directly connect two ports
+  const strongWeightedConnections: NonNullable<
+    PackInput["weightedConnections"]
+  > = []
+  const seenConnections = new Set<string>()
+
+  const sourceTraces =
+    typeof db.source_trace.list === "function"
+      ? db.source_trace.list()
+      : (circuitJson as any[]).filter((item) => item.type === "source_trace")
+
+  for (const sourceTrace of sourceTraces) {
+    const connectedPorts = sourceTrace.connected_source_port_ids || []
+    const connectedNets = sourceTrace.connected_source_net_ids || []
+
+    const shouldCreateStrongConnections =
+      connectedPorts.length === 2 && connectedNets.length === 0
+
+    if (!shouldCreateStrongConnections) continue
+
+    const [portA, portB] = connectedPorts
+    const padIdsA = portA ? (sourcePortToPadIds.get(portA) ?? []) : []
+    const padIdsB = portB ? (sourcePortToPadIds.get(portB) ?? []) : []
+
+    for (const padA of padIdsA) {
+      for (const padB of padIdsB) {
+        const connectionKey = [padA, padB].sort().join("--")
+        if (seenConnections.has(connectionKey)) continue
+
+        strongWeightedConnections.push({
+          padIds: [padA, padB],
+          weight: 1,
+          ignoreWeakConnections: true,
+        })
+        seenConnections.add(connectionKey)
+      }
+    }
+  }
+
+  if (strongWeightedConnections.length > 0) {
+    packOutput.weightedConnections = strongWeightedConnections
   }
 
   return packOutput
