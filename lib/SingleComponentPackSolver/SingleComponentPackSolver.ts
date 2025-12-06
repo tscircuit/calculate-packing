@@ -10,7 +10,9 @@ import type {
   PackedComponent,
   PackPlacementStrategy,
   InputObstacle,
+  PackInput,
 } from "../types"
+import { isStrongConnection } from "../utils/isStrongConnection"
 import { checkOverlapWithPackedComponents } from "lib/PackSolver2/checkOverlapWithPackedComponents"
 import { computeDistanceBetweenBoxes, type Bounds } from "@tscircuit/math-utils"
 import { isPointInPolygon } from "lib/math/isPointInPolygon"
@@ -54,6 +56,7 @@ export class SingleComponentPackSolver extends BaseSolver {
   minGap: number
   obstacles: InputObstacle[]
   boundaryOutline?: Array<{ x: number; y: number }>
+  weightedConnections?: PackInput["weightedConnections"]
 
   // Phase management
   currentPhase: Phase = "outline"
@@ -76,6 +79,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     obstacles?: InputObstacle[]
     bounds?: Bounds
     boundaryOutline?: Array<{ x: number; y: number }>
+    weightedConnections?: PackInput["weightedConnections"]
   }) {
     super()
     this.componentToPack = params.componentToPack
@@ -85,6 +89,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     this.obstacles = params.obstacles ?? []
     this.bounds = params.bounds
     this.boundaryOutline = params.boundaryOutline
+    this.weightedConnections = params.weightedConnections
   }
 
   override _setup() {
@@ -418,6 +423,7 @@ export class SingleComponentPackSolver extends BaseSolver {
         obstacles: this.obstacles,
         globalBounds: this.bounds,
         boundaryOutline: this.boundaryOutline,
+        weightedConnections: this.weightedConnections,
       })
 
       this.activeSubSolver.setup()
@@ -468,6 +474,18 @@ export class SingleComponentPackSolver extends BaseSolver {
       for (const packedComponent of this.packedComponents) {
         for (const packedPad of packedComponent.pads) {
           if (packedPad.networkId === pad.networkId) {
+            // Check if this is a strong connection (should be considered)
+            // or a weak connection (should be ignored when weightedConnections is provided)
+            if (
+              !isStrongConnection(
+                pad.padId,
+                packedPad.padId,
+                this.weightedConnections,
+              )
+            ) {
+              continue // Skip weak connections
+            }
+
             const dx = pad.absoluteCenter.x - packedPad.absoluteCenter.x
             const dy = pad.absoluteCenter.y - packedPad.absoluteCenter.y
             const dist = Math.sqrt(dx * dx + dy * dy)
@@ -716,6 +734,7 @@ export class SingleComponentPackSolver extends BaseSolver {
       obstacles: this.obstacles,
       bounds: this.bounds,
       boundaryOutline: this.boundaryOutline,
+      weightedConnections: this.weightedConnections,
     }
   }
 }

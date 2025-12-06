@@ -2,6 +2,7 @@ import type { GraphicsObject, Rect, Line } from "graphics-debug"
 import { createColorMapFromStrings } from "./createColorMapFromStrings"
 import type { PackOutput } from "../types"
 import { getComponentBounds } from "../geometry/getComponentBounds"
+import { isStrongConnection } from "../utils/isStrongConnection"
 
 export const getGraphicsFromPackOutput = (
   packOutput: PackOutput,
@@ -84,9 +85,18 @@ export const getGraphicsFromPackOutput = (
     )
     for (let i = 0; i < padsOnNet.length; i++) {
       for (let j = i + 1; j < padsOnNet.length; j++) {
+        const pad1 = padsOnNet[i]!
+        const pad2 = padsOnNet[j]!
+        const isStrong = isStrongConnection(
+          pad1.padId,
+          pad2.padId,
+          packOutput.weightedConnections,
+        )
         lines.push({
-          points: [padsOnNet[i]!.absoluteCenter, padsOnNet[j]!.absoluteCenter],
+          points: [pad1.absoluteCenter, pad2.absoluteCenter],
           strokeColor: colorMap[netId],
+          // Dashed line for weak connections, solid for strong
+          strokeDash: isStrong ? undefined : "4 2",
         } as Line)
       }
     }

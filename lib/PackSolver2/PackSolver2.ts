@@ -139,6 +139,7 @@ export class PackSolver2 extends BaseSolver {
       obstacles: obstacles,
       bounds: this.packInput.bounds,
       boundaryOutline: this.packInput.boundaryOutline,
+      weightedConnections: this.packInput.weightedConnections,
     })
     fallbackSolver.solve()
     const result = fallbackSolver.getResult()
@@ -185,6 +186,7 @@ export class PackSolver2 extends BaseSolver {
         obstacles: this.packInput.obstacles ?? [],
         bounds: this.packInput.bounds,
         boundaryOutline: this.packInput.boundaryOutline,
+        weightedConnections: this.packInput.weightedConnections,
       })
       this.activeSubSolver.setup()
     }

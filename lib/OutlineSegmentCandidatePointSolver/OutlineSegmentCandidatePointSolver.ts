@@ -12,7 +12,9 @@ import type {
   PackedComponent,
   PackPlacementStrategy,
   InputObstacle,
+  PackInput,
 } from "lib/types"
+import { isStrongConnection } from "lib/utils/isStrongConnection"
 import { rotatePoint } from "lib/math/rotatePoint"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
@@ -45,6 +47,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   viableBounds?: Bounds
   globalBounds?: Bounds
   boundaryOutline?: Array<{ x: number; y: number }>
+  weightedConnections?: PackInput["weightedConnections"]
   optimalPosition?: Point
   irlsSolver?: MultiOffsetIrlsSolver
   twoPhaseIrlsSolver?: TwoPhaseIrlsSolver
@@ -64,6 +67,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     obstacles?: InputObstacle[]
     globalBounds?: Bounds
     boundaryOutline?: Array<{ x: number; y: number }>
+    weightedConnections?: PackInput["weightedConnections"]
   }) {
     super()
     this.outlineSegment = params.outlineSegment
@@ -76,6 +80,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     this.obstacles = params.obstacles ?? []
     this.globalBounds = params.globalBounds
     this.boundaryOutline = params.boundaryOutline
+    this.weightedConnections = params.weightedConnections
   }
 
   override getConstructorParams(): ConstructorParameters<
@@ -92,6 +97,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       obstacles: this.obstacles,
       globalBounds: this.globalBounds,
       boundaryOutline: this.boundaryOutline,
+      weightedConnections: this.weightedConnections,
     }
   }
 
@@ -343,6 +349,16 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       for (const packedComponent of this.packedComponents) {
         for (const packedPad of packedComponent.pads) {
           if (packedPad.networkId === pad.networkId) {
+            // Only include strong connections (skip weak connections when weightedConnections is provided)
+            if (
+              !isStrongConnection(
+                pad.padId,
+                packedPad.padId,
+                this.weightedConnections,
+              )
+            ) {
+              continue
+            }
             targetPoints.push({
               ...packedPad.absoluteCenter,
               networkId: packedPad.networkId,
@@ -703,11 +719,17 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       for (const packedComponent of this.packedComponents) {
         for (const packedPad of packedComponent.pads) {
           if (packedPad.networkId === pad.networkId) {
+            const isStrong = isStrongConnection(
+              pad.padId,
+              packedPad.padId,
+              this.weightedConnections,
+            )
             graphics.lines!.push({
               points: [padPos, packedPad.absoluteCenter],
               strokeColor: pad.networkId === "VCC" ? "#FF6B6B" : "#4ECDC4",
-              strokeDash: [2, 2],
-              label: `${pad.networkId} connection`,
+              // Solid line for strong connections, dashed for weak
+              strokeDash: isStrong ? undefined : "4 2",
+              label: `${pad.networkId} ${isStrong ? "strong" : "weak"}`,
             })
           }
         }
