@@ -59,6 +59,12 @@ export interface PackInput {
   packOrderStrategy: "largest_to_smallest"
   packPlacementStrategy: PackPlacementStrategy
 
+  weightedConnections?: Array<{
+    padIds: string[]
+    weight: number
+    ignoreWeakConnections?: boolean
+  }>
+
   disconnectedPackDirection?:
     | "left"
     | "right"
