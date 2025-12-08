@@ -208,8 +208,11 @@ export const convertCircuitJsonToPackOutput = (
         continue
       }
 
-      let shouldAddInnerObstaclesForComp = opts.shouldAddInnerObstacles
-      if (pcbComponent.obstructs_within_bounds === false) {
+      let shouldAddInnerObstaclesForComp = opts.shouldAddInnerObstacles ?? false
+
+      if (pcbComponent.obstructs_within_bounds === true) {
+        shouldAddInnerObstaclesForComp = true
+      } else if (pcbComponent.obstructs_within_bounds === false) {
         shouldAddInnerObstaclesForComp = false
       }
 
