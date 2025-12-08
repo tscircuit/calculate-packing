@@ -60,6 +60,19 @@ export const extractPadInfos = (
       pcbPortId,
     })
 
+  for (const via of db.pcb_via.list({
+    pcb_component_id: pcbComponent.pcb_component_id,
+  })) {
+    pushPad({
+      padId: via.pcb_via_id,
+      pcbPortId: (via as any).pcb_port_id,
+      sx: via.outer_diameter ?? via.hole_diameter ?? 0,
+      sy: via.outer_diameter ?? via.hole_diameter ?? 0,
+      x: via.x,
+      y: via.y,
+    })
+  }
+
   for (const ph of db.pcb_plated_hole.list({
     pcb_component_id: pcbComponent.pcb_component_id,
   })) {
