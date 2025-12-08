@@ -15,9 +15,16 @@ import type { PackInput, PackOutput } from "../types"
  */
 export const convertPackOutputToPackInput = (packed: PackOutput): PackInput => {
   const strippedComponents = packed.components.map((pc) => ({
-    componentId: pc.componentId,
-    availableRotationDegrees: pc.availableRotationDegrees, // Preserve rotation constraints
-    pads: pc.pads.map(({ absoluteCenter: _ac, ...rest }) => rest),
+    ...(pc.isStatic
+      ? {
+          ...pc,
+          pads: pc.pads.map((pad) => ({ ...pad })),
+        }
+      : {
+          componentId: pc.componentId,
+          availableRotationDegrees: pc.availableRotationDegrees, // Preserve rotation constraints
+          pads: pc.pads.map(({ absoluteCenter: _ac, ...rest }) => rest),
+        }),
   }))
 
   /* eslint-disable @typescript-eslint/consistent-type-assertions */

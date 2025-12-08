@@ -128,3 +128,57 @@ test("PackSolver2 visualization works", () => {
   const finalViz = solver.visualize()
   expect(finalViz).toBeDefined()
 })
+
+test("PackSolver2 keeps static components fixed and packs others around them", () => {
+  const packInput: PackInput = {
+    components: [
+      {
+        componentId: "STATIC_COMP",
+        isStatic: true,
+        center: { x: 5, y: 5 },
+        ccwRotationOffset: 0,
+        pads: [
+          {
+            padId: "STATIC_PAD",
+            type: "rect",
+            offset: { x: 1, y: 0 },
+            size: { x: 2, y: 2 },
+            networkId: "net_static",
+          },
+        ],
+      },
+      {
+        componentId: "DYNAMIC_COMP",
+        pads: [
+          {
+            padId: "DYN_PAD",
+            type: "rect",
+            offset: { x: 0, y: 0 },
+            size: { x: 1, y: 1 },
+            networkId: "net_static",
+          },
+        ],
+      },
+    ],
+    minGap: 0.5,
+    packOrderStrategy: "largest_to_smallest",
+    packPlacementStrategy: "minimum_sum_distance_to_network",
+  }
+
+  const solver = new PackSolver2(packInput)
+  solver.solve()
+
+  expect(solver.failed).toBe(false)
+
+  const staticComponent = solver.packedComponents.find(
+    (component) => component.componentId === "STATIC_COMP",
+  )
+  expect(staticComponent?.center).toEqual({ x: 5, y: 5 })
+  expect(staticComponent?.pads[0]?.absoluteCenter).toEqual({ x: 6, y: 5 })
+
+  const dynamicComponent = solver.packedComponents.find(
+    (component) => component.componentId === "DYNAMIC_COMP",
+  )
+  expect(dynamicComponent).toBeDefined()
+  expect(dynamicComponent?.center).not.toEqual({ x: 5, y: 5 })
+})

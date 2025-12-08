@@ -65,3 +65,60 @@ test("convertPackOutputToPackInput should preserve availableRotationDegrees", ()
 
   console.log("✅ convertPackOutputToPackInput preserves rotation constraints!")
 })
+
+test("static components keep absolute placement when converting to PackInput", () => {
+  const packOutput: PackOutput = {
+    components: [
+      {
+        componentId: "STATIC1",
+        isStatic: true,
+        center: { x: 12, y: -4 },
+        ccwRotationOffset: 90,
+        pads: [
+          {
+            padId: "STATIC1_P1",
+            networkId: "GND",
+            type: "rect",
+            offset: { x: 1, y: 0 },
+            size: { x: 2, y: 4 },
+            absoluteCenter: { x: 13, y: -4 },
+          },
+        ],
+      },
+      {
+        componentId: "DYNAMIC1",
+        center: { x: 0, y: 0 },
+        ccwRotationOffset: 0,
+        pads: [
+          {
+            padId: "DYNAMIC1_P1",
+            networkId: "VCC",
+            type: "rect",
+            offset: { x: 0, y: 0 },
+            size: { x: 1, y: 1 },
+            absoluteCenter: { x: 0, y: 0 },
+          },
+        ],
+      },
+    ],
+    minGap: 1,
+    packOrderStrategy: "largest_to_smallest",
+    packPlacementStrategy: "minimum_sum_squared_distance_to_network",
+  }
+
+  const packInput = convertPackOutputToPackInput(packOutput)
+
+  const staticComponent = packInput.components.find(
+    (component) => component.componentId === "STATIC1",
+  )
+  expect(staticComponent?.isStatic).toBe(true)
+  expect(staticComponent?.center).toEqual({ x: 12, y: -4 })
+  expect(staticComponent?.ccwRotationOffset).toBe(90)
+  expect(staticComponent?.pads[0]?.absoluteCenter).toEqual({ x: 13, y: -4 })
+
+  const dynamicComponent = packInput.components.find(
+    (component) => component.componentId === "DYNAMIC1",
+  )
+  expect(dynamicComponent).not.toHaveProperty("center")
+  expect(dynamicComponent?.pads[0]).not.toHaveProperty("absoluteCenter")
+})

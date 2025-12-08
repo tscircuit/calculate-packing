@@ -24,6 +24,7 @@ const buildPackedComponent = (
     string,
     { left: number; right: number; top: number; bottom: number }
   > = {},
+  isStatic = false,
 ): PackedComponent => {
   const padInfos = pcbComponents.flatMap((pc) => {
     const pads = extractPadInfos(pc, db, getNetworkId)
@@ -94,6 +95,7 @@ const buildPackedComponent = (
 
   return {
     componentId,
+    isStatic,
     center,
     ccwRotationOffset: 0,
     pads,
@@ -122,6 +124,7 @@ export const convertCircuitJsonToPackOutput = (
       { left: number; right: number; top: number; bottom: number }
     >
     obstacles?: InputObstacle[]
+    staticPcbComponentIds?: string[]
   } = {},
 ): PackOutput => {
   const packOutput: PackOutput = {
@@ -191,6 +194,8 @@ export const convertCircuitJsonToPackOutput = (
     return relativeComponents
   }
 
+  const staticComponentIds = new Set(opts.staticPcbComponentIds ?? [])
+
   for (const node of topLevelNodes) {
     if (node.nodeType === "component") {
       const pcbComponent = node.otherChildElements.find(
@@ -217,6 +222,7 @@ export const convertCircuitJsonToPackOutput = (
           shouldAddInnerObstaclesForComp,
           sourcePortToPadIds,
           opts.chipMarginsMap,
+          staticComponentIds.has(pcbComponent.pcb_component_id),
         ),
       )
     } else if (node.nodeType === "group") {
@@ -235,6 +241,7 @@ export const convertCircuitJsonToPackOutput = (
           undefined,
           sourcePortToPadIds,
           opts.chipMarginsMap,
+          staticComponentIds.has(compId),
         ),
       )
     }

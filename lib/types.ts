@@ -8,6 +8,7 @@ export interface InputPad {
   type: "rect"
   offset: { x: number; y: number }
   size: { x: number; y: number }
+  absoluteCenter?: { x: number; y: number }
 }
 
 export interface OutputPad extends InputPad {
@@ -16,10 +17,16 @@ export interface OutputPad extends InputPad {
 
 export interface InputComponent {
   componentId: string
+  /** Components marked as static are not moved by the packer */
+  isStatic?: boolean
   /**
    * If not provided, the component can be rotated by 0, 90, 180, or 270 degrees.
    */
   availableRotationDegrees?: number[]
+  /** Preconfigured center for static components */
+  center?: { x: number; y: number }
+  /** Preconfigured rotation (degrees CCW) for static components */
+  ccwRotationOffset?: number
   pads: InputPad[]
 }
 

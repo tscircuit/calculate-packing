@@ -48,12 +48,34 @@ export class PackSolver2 extends BaseSolver {
       )
     })
 
+    const staticComponents = validComponents.filter(
+      (component) => component.isStatic,
+    )
+    const dynamicComponents = validComponents.filter(
+      (component) => !component.isStatic,
+    )
+
+    this.packedComponents = staticComponents.map((component) => {
+      const packedComponent: PackedComponent = {
+        ...component,
+        center: component.center ?? { x: 0, y: 0 },
+        ccwRotationOffset: component.ccwRotationOffset ?? 0,
+        pads: component.pads.map((pad) => ({
+          ...pad,
+          absoluteCenter: pad.absoluteCenter ?? { x: 0, y: 0 },
+        })),
+      }
+
+      setPackedComponentPadCenters(packedComponent)
+
+      return packedComponent
+    })
+
     this.unpackedComponentQueue = sortComponentQueue({
-      components: validComponents,
+      components: dynamicComponents,
       packOrderStrategy,
       packFirst,
     })
-    this.packedComponents = []
   }
 
   private packFirstComponent(): void {

@@ -52,11 +52,15 @@ export const getGraphicsFromPackOutput = (
     const bounds = getComponentBounds(component)
     const width = bounds.maxX - bounds.minX
     const height = bounds.maxY - bounds.minY
+    const isStatic = Boolean(component.isStatic)
+    const staticFill = "rgba(33, 150, 243, 0.25)"
+    const staticStroke = "rgba(33, 150, 243, 0.6)"
     const rect: Rect = {
       center: { x: component.center.x, y: component.center.y },
       width,
       height,
-      fill: "rgba(0,0,0,0.25)",
+      fill: isStatic ? staticFill : "rgba(0,0,0,0.25)",
+      stroke: isStatic ? staticStroke : undefined,
       label: [
         component.componentId,
         `ccwRotationOffset: ${component.ccwRotationOffset.toFixed(1)}°`,
