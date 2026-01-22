@@ -14,6 +14,10 @@ export class BaseSolver {
   stats: Record<string, any> = {}
   _setupDone = false
 
+  getSolverName(): string {
+    return this.constructor.name
+  }
+
   setup() {
     if (this._setupDone) return
     this._setup()
@@ -31,7 +35,7 @@ export class BaseSolver {
     try {
       this._step()
     } catch (e) {
-      this.error = `${this.constructor.name} error: ${e}`
+      this.error = `${this.getSolverName()} error: ${e}`
       console.error(this.error)
       this.failed = true
       throw e
@@ -40,7 +44,7 @@ export class BaseSolver {
       this.tryFinalAcceptance()
     }
     if (!this.solved && this.iterations > this.MAX_ITERATIONS) {
-      this.error = `${this.constructor.name} ran out of iterations`
+      this.error = `${this.getSolverName()} ran out of iterations`
       console.error(this.error)
       this.failed = true
     }

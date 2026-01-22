@@ -58,6 +58,10 @@ export class SingleComponentPackSolver extends BaseSolver {
   boundaryOutline?: Array<{ x: number; y: number }>
   weightedConnections?: PackInput["weightedConnections"]
 
+  override getSolverName(): string {
+    return "SingleComponentPackSolver"
+  }
+
   // Phase management
   currentPhase: Phase = "outline"
   outlines: Segment[][] = []

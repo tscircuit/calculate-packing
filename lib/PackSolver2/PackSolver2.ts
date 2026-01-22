@@ -20,6 +20,10 @@ export class PackSolver2 extends BaseSolver {
 
   packInput: PackInput
 
+  override getSolverName(): string {
+    return "PackSolver2"
+  }
+
   unpackedComponentQueue: InputComponent[] = []
   packedComponents: PackedComponent[] = []
   componentToPack?: InputComponent | null | undefined

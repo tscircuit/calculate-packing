@@ -53,6 +53,10 @@ export class MultiOffsetIrlsSolver extends BaseSolver {
 
   private readonly initialPosition: Point
 
+  override getSolverName(): string {
+    return "MultiOffsetIrlsSolver"
+  }
+
   constructor(params: MultiOffsetIrlsSolverParams) {
     super()
     this.offsetPadPoints = [...params.offsetPadPoints]

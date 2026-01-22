@@ -20,6 +20,10 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
    */
   mode: "outside" | "inside"
 
+  override getSolverName(): string {
+    return "LargestRectOutsideOutlineFromPointSolver"
+  }
+
   constructor(params: {
     ccwFullOutline: Point[]
     origin: Point

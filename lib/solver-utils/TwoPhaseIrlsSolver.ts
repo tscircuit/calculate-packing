@@ -32,6 +32,10 @@ export class TwoPhaseIrlsSolver extends BaseSolver {
   private readonly phase2Epsilon: number
   private readonly maxIterations: number
 
+  override getSolverName(): string {
+    return "TwoPhaseIrlsSolver"
+  }
+
   private phase1Solver?: MultiOffsetIrlsSolver
   private phase2Solver?: MultiOffsetIrlsSolver
   private currentPhase: 1 | 2 = 1

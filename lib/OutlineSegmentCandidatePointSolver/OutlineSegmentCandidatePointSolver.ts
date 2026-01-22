@@ -52,6 +52,10 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   irlsSolver?: MultiOffsetIrlsSolver
   twoPhaseIrlsSolver?: TwoPhaseIrlsSolver
 
+  override getSolverName(): string {
+    return "OutlineSegmentCandidatePointSolver"
+  }
+
   largestRectBounds?: Bounds
   largestRectMidPoint?: Point
   largestRectOrigin?: Point

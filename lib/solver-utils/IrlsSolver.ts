@@ -38,6 +38,10 @@ export class IrlsSolver extends BaseSolver {
 
   private readonly initialPosition: Point
 
+  override getSolverName(): string {
+    return "IrlsSolver"
+  }
+
   constructor(params: IrlsSolverParams) {
     super()
     this.targetPoints = params.targetPoints
