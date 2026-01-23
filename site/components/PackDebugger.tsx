@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useReducer, useState } from "react"
+import React, {
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+  useCallback,
+} from "react"
 import { InteractiveGraphics } from "graphics-debug/react"
 import type { PackInput, PackOutput } from "../../lib/types"
 import { getGraphicsFromPackOutput } from "../../lib/testing/getGraphicsFromPackOutput"
@@ -7,6 +13,7 @@ import { PackSolver2 } from "../../lib/PackSolver2/PackSolver2"
 import { GenericSolverToolbar } from "@tscircuit/solver-utils/react"
 
 type SolverType = "PhasedPackSolver" | "PackSolver2"
+type RendererOption = "vector" | "canvas"
 
 interface PackDebuggerProps {
   initialPackOutput?: PackOutput
@@ -25,6 +32,8 @@ export const PackDebugger = ({
   const [selectedSolver, setSelectedSolver] =
     useState<SolverType>("PackSolver2")
   const [renderCount, incRenderCount] = useReducer((x) => x + 1, 0)
+  const [renderer, setRenderer] = useState<RendererOption>("vector")
+  const [animationSpeed, setAnimationSpeed] = useState(25)
 
   const packSolver = useMemo(() => {
     // TODO base on selectedSolver
@@ -55,6 +64,19 @@ export const PackDebugger = ({
       (visualization.circles?.length || 0) === 0,
     [visualization],
   )
+
+  const handleDownloadVisualization = useCallback(() => {
+    const dataStr = JSON.stringify(visualization, null, 2)
+    const blob = new Blob([dataStr], { type: "application/json" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `${packSolver.getSolverName()}_visualization.json`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }, [visualization, packSolver])
 
   useEffect(() => {
     if (typeof document === "undefined") return
@@ -90,7 +112,11 @@ export const PackDebugger = ({
       <GenericSolverToolbar
         solver={packSolver}
         triggerRender={incRenderCount}
-        animationSpeed={25}
+        animationSpeed={animationSpeed}
+        renderer={renderer}
+        onRendererChange={setRenderer}
+        onAnimationSpeedChange={setAnimationSpeed}
+        onDownloadVisualization={handleDownloadVisualization}
         onSolverStarted={(solver) => {
           console.log("Pack solver started:", solver)
         }}
