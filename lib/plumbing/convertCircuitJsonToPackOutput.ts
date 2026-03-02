@@ -1,8 +1,6 @@
 import type { CircuitJson, PcbComponent } from "circuit-json"
 import { cju, getCircuitJsonTree } from "@tscircuit/circuit-json-util"
 import type {
-  InputComponent,
-  InputPad,
   OutputPad,
   PackedComponent,
   PackInput,
@@ -10,10 +8,8 @@ import type {
   InputObstacle,
 } from "../types"
 import { extractPadInfos } from "./extractPadInfos"
-import {
-  getElementOutsideTree,
-  getObstacleFromElement,
-} from "./getElementsOutsideTree"
+import { getElementOutsideTree } from "./getElementsOutsideTree"
+import { getObstacleFromElement } from "./getObstacleFromElement"
 
 /* build a single PackedComponent from one or more pcb_components */
 const buildPackedComponent = (
@@ -152,7 +148,7 @@ export const convertCircuitJsonToPackOutput = (
   const pcbBoard = (circuitJson as any[]).find(
     (item: any) => item.type === "pcb_board",
   )
-  if (pcbBoard && pcbBoard.outline) {
+  if (pcbBoard?.outline) {
     packOutput.boundaryOutline = pcbBoard.outline
   }
 
