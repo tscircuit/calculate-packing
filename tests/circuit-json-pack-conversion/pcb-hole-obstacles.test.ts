@@ -1,12 +1,9 @@
 import { expect, test } from "bun:test"
 import type { CircuitJson } from "circuit-json"
+import { getSvgFromGraphicsObject } from "graphics-debug"
 import { convertCircuitJsonToPackOutput } from "../../lib/plumbing/convertCircuitJsonToPackOutput"
+import { getGraphicsFromPackOutput } from "../../lib/testing/getGraphicsFromPackOutput"
 
-/**
- * Minimal circuit JSON with a source group, pcb_group, pcb_board, one
- * component (so the tree is non-empty), and pcb_hole elements to verify
- * they are converted into obstacles.
- */
 const makeCircuitJson = (holes: Record<string, unknown>[]): CircuitJson =>
   [
     {
@@ -152,4 +149,45 @@ test("multiple pcb_holes are all added as obstacles", () => {
     o.obstacleId.startsWith("pcb_hole_"),
   )
   expect(holeObstacles).toHaveLength(3)
+})
+
+test("pcb_hole obstacles svg snapshot", async () => {
+  const circuitJson = makeCircuitJson([
+    {
+      type: "pcb_hole",
+      pcb_hole_id: "pcb_hole_0",
+      hole_shape: "circle",
+      hole_diameter: 3.302,
+      x: 5,
+      y: -3,
+    },
+    {
+      type: "pcb_hole",
+      pcb_hole_id: "pcb_hole_1",
+      hole_shape: "rect",
+      hole_width: 4,
+      hole_height: 2,
+      x: -5,
+      y: -5,
+    },
+    {
+      type: "pcb_hole",
+      pcb_hole_id: "pcb_hole_2",
+      hole_shape: "oval",
+      hole_width: 5,
+      hole_height: 3,
+      x: -2,
+      y: 4,
+    },
+  ])
+
+  const packOutput = convertCircuitJsonToPackOutput(circuitJson, {
+    source_group_id: "source_group_0",
+  })
+
+  const graphics = getGraphicsFromPackOutput(packOutput)
+
+  await expect(
+    getSvgFromGraphicsObject(graphics, { backgroundColor: "white" }),
+  ).toMatchSvgSnapshot(import.meta.path)
 })
