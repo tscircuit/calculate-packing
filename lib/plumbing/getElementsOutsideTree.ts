@@ -19,22 +19,22 @@ export const getElementOutsideTree = (
 
   collectComponentIds(tree)
 
-  // Elements considered outside the tree: board-level plated holes (e.g., mounting holes)
-  // These typically have no pcb_component_id
   const outside: AnyCircuitElement[] = []
 
+  // Board-level plated holes (e.g., mounting holes)
   for (const ph of db.pcb_plated_hole.list({})) {
-    // board-level: no pcb_component_id
     if (!("pcb_component_id" in ph) || !ph.pcb_component_id) {
       outside.push(ph as AnyCircuitElement)
       continue
     }
-    // If the plated hole is attached to a component not in the tree, it's outside as well
     if (!componentIdsInTree.has(ph.pcb_component_id)) {
-      // Depending on desired behavior, include or exclude.
-      // Conservatively include as outside-the-tree.
       outside.push(ph as AnyCircuitElement)
     }
+  }
+
+  // Non-plated holes (pcb_hole) are always board-level obstacles
+  for (const hole of db.pcb_hole.list({})) {
+    outside.push(hole as AnyCircuitElement)
   }
 
   return outside
