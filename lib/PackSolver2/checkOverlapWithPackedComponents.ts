@@ -1,5 +1,6 @@
 import type { PackedComponent } from "../types"
 import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
+import { getComponentCollisionBoxes } from "./getComponentCollisionBoxes"
 
 export interface CheckOverlapWithPackedComponentsParams {
   component: PackedComponent
@@ -15,24 +16,16 @@ export function checkOverlapWithPackedComponents({
   hasOverlap: boolean
   gapDistance?: number
 } {
-  const allPackedPadBoxes = packedComponents.flatMap((c) =>
-    c.pads.map((p) => ({
-      center: { x: p.absoluteCenter.x, y: p.absoluteCenter.y },
-      width: p.size.x,
-      height: p.size.y,
-    })),
+  const allPackedBoxes = packedComponents.flatMap((c) =>
+    getComponentCollisionBoxes(c),
   )
-  const newComponentPadBoxes = component.pads.map((p) => ({
-    center: { x: p.absoluteCenter.x, y: p.absoluteCenter.y },
-    width: p.size.x,
-    height: p.size.y,
-  }))
+  const newComponentBoxes = getComponentCollisionBoxes(component)
 
-  for (const newComponentPadBox of newComponentPadBoxes) {
-    for (const packedPadBox of allPackedPadBoxes) {
+  for (const newBox of newComponentBoxes) {
+    for (const packedBox of allPackedBoxes) {
       const { distance: boxDist } = computeDistanceBetweenBoxes(
-        newComponentPadBox,
-        packedPadBox,
+        newBox,
+        packedBox,
       )
       if (boxDist + 1e-6 < minGap) {
         return {

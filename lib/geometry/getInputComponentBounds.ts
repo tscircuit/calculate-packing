@@ -1,6 +1,6 @@
-import type { InputComponent, PackedComponent } from "../types"
-import { rotatePoint } from "../math/rotatePoint"
+import type { InputComponent } from "../types"
 import type { Bounds } from "@tscircuit/math-utils"
+import { expandRotatedRectIntoBounds } from "./expandRotatedRectIntoBounds"
 
 export const getInputComponentBounds = (
   component: InputComponent,
@@ -13,31 +13,27 @@ export const getInputComponentBounds = (
     maxY: -Infinity,
   }
 
+  const angleRad = (rotationDegrees * Math.PI) / 180
+
   for (const pad of component.pads) {
-    const hw = pad.size.x / 2
-    const hh = pad.size.y / 2
-    const localCorners = [
-      { x: pad.offset.x - hw, y: pad.offset.y - hh },
-      { x: pad.offset.x + hw, y: pad.offset.y - hh },
-      { x: pad.offset.x + hw, y: pad.offset.y + hh },
-      { x: pad.offset.x - hw, y: pad.offset.y + hh },
-    ]
-
-    for (const corner of localCorners) {
-      const world = rotatePoint(corner, (rotationDegrees * Math.PI) / 180) // Convert to radians for math
-      const x = world.x
-      const y = world.y
-      bounds.minX = Math.min(bounds.minX, x)
-      bounds.maxX = Math.max(bounds.maxX, x)
-      bounds.minY = Math.min(bounds.minY, y)
-      bounds.maxY = Math.max(bounds.maxY, y)
-    }
+    expandRotatedRectIntoBounds({
+      bounds,
+      center: pad.offset,
+      width: pad.size.x,
+      height: pad.size.y,
+      angleRad,
+    })
   }
 
-  return {
-    minX: bounds.minX,
-    maxX: bounds.maxX,
-    minY: bounds.minY,
-    maxY: bounds.maxY,
+  if (component.courtyard) {
+    expandRotatedRectIntoBounds({
+      bounds,
+      center: component.courtyard.offsetFromCenter,
+      width: component.courtyard.width,
+      height: component.courtyard.height,
+      angleRad,
+    })
   }
+
+  return bounds
 }

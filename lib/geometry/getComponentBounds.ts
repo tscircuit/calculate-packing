@@ -1,12 +1,6 @@
+import type { Bounds } from "@tscircuit/math-utils"
 import type { PackedComponent } from "../types"
-import { rotatePoint } from "../math/rotatePoint"
-
-export interface Bounds {
-  minX: number
-  maxX: number
-  minY: number
-  maxY: number
-}
+import { expandRotatedRectIntoBounds } from "./expandRotatedRectIntoBounds"
 
 /** Axis-aligned bounds of a component, expanded by `minGap`. */
 export const getComponentBounds = (
@@ -20,29 +14,29 @@ export const getComponentBounds = (
     maxY: -Infinity,
   }
 
-  component.pads.forEach((pad) => {
-    const hw = pad.size.x / 2
-    const hh = pad.size.y / 2
-    const localCorners = [
-      { x: pad.offset.x - hw, y: pad.offset.y - hh },
-      { x: pad.offset.x + hw, y: pad.offset.y - hh },
-      { x: pad.offset.x + hw, y: pad.offset.y + hh },
-      { x: pad.offset.x - hw, y: pad.offset.y + hh },
-    ]
+  const angleRad = (component.ccwRotationOffset * Math.PI) / 180
 
-    localCorners.forEach((corner) => {
-      const world = rotatePoint(
-        corner,
-        (component.ccwRotationOffset * Math.PI) / 180,
-      ) // Convert to radians for math
-      const x = world.x + component.center.x
-      const y = world.y + component.center.y
-      bounds.minX = Math.min(bounds.minX, x)
-      bounds.maxX = Math.max(bounds.maxX, x)
-      bounds.minY = Math.min(bounds.minY, y)
-      bounds.maxY = Math.max(bounds.maxY, y)
+  for (const pad of component.pads) {
+    expandRotatedRectIntoBounds({
+      bounds,
+      center: pad.offset,
+      width: pad.size.x,
+      height: pad.size.y,
+      angleRad,
+      translate: component.center,
     })
-  })
+  }
+
+  if (component.courtyard) {
+    expandRotatedRectIntoBounds({
+      bounds,
+      center: component.courtyard.offsetFromCenter,
+      width: component.courtyard.width,
+      height: component.courtyard.height,
+      angleRad,
+      translate: component.center,
+    })
+  }
 
   return {
     minX: bounds.minX - minGap,

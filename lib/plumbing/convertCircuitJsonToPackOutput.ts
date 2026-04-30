@@ -6,10 +6,84 @@ import type {
   PackInput,
   PackOutput,
   InputObstacle,
+  ComponentCourtyard,
 } from "../types"
 import { extractPadInfos } from "./extractPadInfos"
 import { getElementOutsideTree } from "./getElementsOutsideTree"
 import { getObstacleFromElement } from "./getObstacleFromElement"
+
+/**
+ * Extract a bounding-box courtyard for a set of pcb_component_ids using the db.
+ * Supports pcb_courtyard_rect, pcb_courtyard_polygon, pcb_courtyard_outline,
+ * and pcb_courtyard_circle.
+ */
+const extractCourtyardForComponent = (opts: {
+  db: ReturnType<typeof cju>
+  pcbComponentIds: string[]
+  componentCenter: { x: number; y: number }
+}): ComponentCourtyard | undefined => {
+  const { db, pcbComponentIds, componentCenter } = opts
+  const idSet = new Set(pcbComponentIds)
+  let minX = Infinity
+  let minY = Infinity
+  let maxX = -Infinity
+  let maxY = -Infinity
+  let found = false
+
+  for (const rect of db.pcb_courtyard_rect.list()) {
+    if (!idSet.has(rect.pcb_component_id)) continue
+    minX = Math.min(minX, rect.center.x - rect.width / 2)
+    maxX = Math.max(maxX, rect.center.x + rect.width / 2)
+    minY = Math.min(minY, rect.center.y - rect.height / 2)
+    maxY = Math.max(maxY, rect.center.y + rect.height / 2)
+    found = true
+  }
+
+  for (const polygon of db.pcb_courtyard_polygon.list()) {
+    if (!idSet.has(polygon.pcb_component_id)) continue
+    for (const pt of polygon.points) {
+      minX = Math.min(minX, pt.x)
+      maxX = Math.max(maxX, pt.x)
+      minY = Math.min(minY, pt.y)
+      maxY = Math.max(maxY, pt.y)
+    }
+    found = true
+  }
+
+  for (const outline of db.pcb_courtyard_outline.list()) {
+    if (!idSet.has(outline.pcb_component_id)) continue
+    for (const pt of outline.outline) {
+      minX = Math.min(minX, pt.x)
+      maxX = Math.max(maxX, pt.x)
+      minY = Math.min(minY, pt.y)
+      maxY = Math.max(maxY, pt.y)
+    }
+    found = true
+  }
+
+  for (const circle of db.pcb_courtyard_circle.list()) {
+    if (!idSet.has(circle.pcb_component_id)) continue
+    minX = Math.min(minX, circle.center.x - circle.radius)
+    maxX = Math.max(maxX, circle.center.x + circle.radius)
+    minY = Math.min(minY, circle.center.y - circle.radius)
+    maxY = Math.max(maxY, circle.center.y + circle.radius)
+    found = true
+  }
+
+  if (!found) return undefined
+
+  const courtyardCenterX = (minX + maxX) / 2
+  const courtyardCenterY = (minY + maxY) / 2
+
+  return {
+    offsetFromCenter: {
+      x: courtyardCenterX - componentCenter.x,
+      y: courtyardCenterY - componentCenter.y,
+    },
+    width: maxX - minX,
+    height: maxY - minY,
+  }
+}
 
 /* build a single PackedComponent from one or more pcb_components */
 const buildPackedComponent = (
@@ -92,12 +166,19 @@ const buildPackedComponent = (
     pads.push(innerPad)
   }
 
+  const courtyard = extractCourtyardForComponent({
+    db,
+    pcbComponentIds: pcbComponents.map((pc) => pc.pcb_component_id),
+    componentCenter: center,
+  })
+
   return {
     componentId,
     isStatic,
     center,
     ccwRotationOffset: 0,
     pads,
+    courtyard,
   } as PackedComponent
 }
 

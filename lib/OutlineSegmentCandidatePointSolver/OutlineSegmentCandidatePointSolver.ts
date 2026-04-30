@@ -458,6 +458,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
           },
         }
       }),
+      courtyard: this.componentToPack.courtyard,
     }
   }
 

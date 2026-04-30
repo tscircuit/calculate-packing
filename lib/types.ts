@@ -15,6 +15,12 @@ export interface OutputPad extends InputPad {
   absoluteCenter: { x: number; y: number }
 }
 
+export interface ComponentCourtyard {
+  offsetFromCenter: { x: number; y: number }
+  width: number
+  height: number
+}
+
 export interface InputComponent {
   componentId: string
   /** Components marked as static are not moved by the packer */
@@ -28,6 +34,8 @@ export interface InputComponent {
   /** Preconfigured rotation (degrees CCW) for static components */
   ccwRotationOffset?: number
   pads: InputPad[]
+  /** Optional courtyard defining the component's physical boundary */
+  courtyard?: ComponentCourtyard
 }
 
 export interface PackedComponent extends InputComponent {
