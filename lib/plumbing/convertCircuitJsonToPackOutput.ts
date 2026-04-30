@@ -13,16 +13,16 @@ import { getElementOutsideTree } from "./getElementsOutsideTree"
 import { getObstacleFromElement } from "./getObstacleFromElement"
 
 /**
- * Extract a bounding-box courtyard for a set of pcb_component_ids from the
- * raw circuit-json array. Supports pcb_courtyard_rect, pcb_courtyard_polygon,
- * and pcb_courtyard_outline element types.
+ * Extract a bounding-box courtyard for a set of pcb_component_ids using the db.
+ * Supports pcb_courtyard_rect, pcb_courtyard_polygon, pcb_courtyard_outline,
+ * and pcb_courtyard_circle.
  */
 const extractCourtyardForComponent = (opts: {
-  circuitJson: CircuitJson
+  db: ReturnType<typeof cju>
   pcbComponentIds: string[]
   componentCenter: { x: number; y: number }
 }): ComponentCourtyard | undefined => {
-  const { circuitJson, pcbComponentIds, componentCenter } = opts
+  const { db, pcbComponentIds, componentCenter } = opts
   const idSet = new Set(pcbComponentIds)
   let minX = Infinity
   let minY = Infinity
@@ -30,39 +30,44 @@ const extractCourtyardForComponent = (opts: {
   let maxY = -Infinity
   let found = false
 
-  for (const el of circuitJson as Array<Record<string, unknown>>) {
-    if (
-      typeof el.pcb_component_id !== "string" ||
-      !idSet.has(el.pcb_component_id)
-    )
-      continue
+  for (const rect of db.pcb_courtyard_rect.list()) {
+    if (!idSet.has(rect.pcb_component_id)) continue
+    minX = Math.min(minX, rect.center.x - rect.width / 2)
+    maxX = Math.max(maxX, rect.center.x + rect.width / 2)
+    minY = Math.min(minY, rect.center.y - rect.height / 2)
+    maxY = Math.max(maxY, rect.center.y + rect.height / 2)
+    found = true
+  }
 
-    if (el.type === "pcb_courtyard_rect") {
-      const center = el.center as { x: number; y: number }
-      const width = el.width as number
-      const height = el.height as number
-      minX = Math.min(minX, center.x - width / 2)
-      maxX = Math.max(maxX, center.x + width / 2)
-      minY = Math.min(minY, center.y - height / 2)
-      maxY = Math.max(maxY, center.y + height / 2)
-      found = true
-    } else if (el.type === "pcb_courtyard_polygon") {
-      for (const pt of el.points as Array<{ x: number; y: number }>) {
-        minX = Math.min(minX, pt.x)
-        maxX = Math.max(maxX, pt.x)
-        minY = Math.min(minY, pt.y)
-        maxY = Math.max(maxY, pt.y)
-      }
-      found = true
-    } else if (el.type === "pcb_courtyard_outline") {
-      for (const pt of el.outline as Array<{ x: number; y: number }>) {
-        minX = Math.min(minX, pt.x)
-        maxX = Math.max(maxX, pt.x)
-        minY = Math.min(minY, pt.y)
-        maxY = Math.max(maxY, pt.y)
-      }
-      found = true
+  for (const polygon of db.pcb_courtyard_polygon.list()) {
+    if (!idSet.has(polygon.pcb_component_id)) continue
+    for (const pt of polygon.points) {
+      minX = Math.min(minX, pt.x)
+      maxX = Math.max(maxX, pt.x)
+      minY = Math.min(minY, pt.y)
+      maxY = Math.max(maxY, pt.y)
     }
+    found = true
+  }
+
+  for (const outline of db.pcb_courtyard_outline.list()) {
+    if (!idSet.has(outline.pcb_component_id)) continue
+    for (const pt of outline.outline) {
+      minX = Math.min(minX, pt.x)
+      maxX = Math.max(maxX, pt.x)
+      minY = Math.min(minY, pt.y)
+      maxY = Math.max(maxY, pt.y)
+    }
+    found = true
+  }
+
+  for (const circle of db.pcb_courtyard_circle.list()) {
+    if (!idSet.has(circle.pcb_component_id)) continue
+    minX = Math.min(minX, circle.center.x - circle.radius)
+    maxX = Math.max(maxX, circle.center.x + circle.radius)
+    minY = Math.min(minY, circle.center.y - circle.radius)
+    maxY = Math.max(maxY, circle.center.y + circle.radius)
+    found = true
   }
 
   if (!found) return undefined
@@ -93,7 +98,6 @@ const buildPackedComponent = (
     { left: number; right: number; top: number; bottom: number }
   > = {},
   isStatic = false,
-  circuitJson?: CircuitJson,
 ): PackedComponent => {
   const padInfos = pcbComponents.flatMap((pc) => {
     const pads = extractPadInfos(pc, db, getNetworkId)
@@ -162,14 +166,11 @@ const buildPackedComponent = (
     pads.push(innerPad)
   }
 
-  let courtyard: ComponentCourtyard | undefined
-  if (circuitJson) {
-    courtyard = extractCourtyardForComponent({
-      circuitJson,
-      pcbComponentIds: pcbComponents.map((pc) => pc.pcb_component_id),
-      componentCenter: center,
-    })
-  }
+  const courtyard = extractCourtyardForComponent({
+    db,
+    pcbComponentIds: pcbComponents.map((pc) => pc.pcb_component_id),
+    componentCenter: center,
+  })
 
   return {
     componentId,
@@ -305,7 +306,6 @@ export const convertCircuitJsonToPackOutput = (
           sourcePortToPadIds,
           opts.chipMarginsMap,
           staticComponentIds.has(pcbComponent.pcb_component_id),
-          circuitJson,
         ),
       )
     } else if (node.nodeType === "group") {
@@ -325,7 +325,6 @@ export const convertCircuitJsonToPackOutput = (
           sourcePortToPadIds,
           opts.chipMarginsMap,
           staticComponentIds.has(compId),
-          circuitJson,
         ),
       )
     }
