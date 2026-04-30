@@ -11,6 +11,7 @@ import type {
 } from "../types"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
 import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
+import { getComponentCollisionBoxes } from "./getComponentCollisionBoxes"
 import { getComponentBounds } from "../geometry/getComponentBounds"
 import { isPointInPolygon } from "../math/isPointInPolygon"
 import { getPolygonCentroid } from "../math/getPolygonCentroid"
@@ -108,19 +109,15 @@ export class PackSolver2 extends BaseSolver {
 
     // If there are obstacles, ensure at least minGap clearance; otherwise fall back to outline-based placement
     const obstacles = this.packInput.obstacles ?? []
+    const newComponentBoxes = getComponentCollisionBoxes(newPackedComponent)
     const tooCloseToObstacles = obstacles.some((obs) => {
       const obsBox = {
         center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
         width: obs.width,
         height: obs.height,
       }
-      return newPackedComponent.pads.some((p) => {
-        const padBox = {
-          center: { x: p.absoluteCenter.x, y: p.absoluteCenter.y },
-          width: p.size.x,
-          height: p.size.y,
-        }
-        const { distance } = computeDistanceBetweenBoxes(padBox, obsBox)
+      return newComponentBoxes.some((box) => {
+        const { distance } = computeDistanceBetweenBoxes(box, obsBox)
         return distance + 1e-6 < this.packInput.minGap
       })
     })

@@ -34,6 +34,37 @@ export const getInputComponentBounds = (
     }
   }
 
+  if (component.courtyard) {
+    const courtyard = component.courtyard
+    const hw = courtyard.width / 2
+    const hh = courtyard.height / 2
+    const localCorners = [
+      {
+        x: courtyard.offsetFromCenter.x - hw,
+        y: courtyard.offsetFromCenter.y - hh,
+      },
+      {
+        x: courtyard.offsetFromCenter.x + hw,
+        y: courtyard.offsetFromCenter.y - hh,
+      },
+      {
+        x: courtyard.offsetFromCenter.x + hw,
+        y: courtyard.offsetFromCenter.y + hh,
+      },
+      {
+        x: courtyard.offsetFromCenter.x - hw,
+        y: courtyard.offsetFromCenter.y + hh,
+      },
+    ]
+    for (const corner of localCorners) {
+      const world = rotatePoint(corner, (rotationDegrees * Math.PI) / 180)
+      bounds.minX = Math.min(bounds.minX, world.x)
+      bounds.maxX = Math.max(bounds.maxX, world.x)
+      bounds.minY = Math.min(bounds.minY, world.y)
+      bounds.maxY = Math.max(bounds.maxY, world.y)
+    }
+  }
+
   return {
     minX: bounds.minX,
     maxX: bounds.maxX,

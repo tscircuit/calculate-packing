@@ -14,6 +14,7 @@ import type {
 } from "../types"
 import { isStrongConnection } from "../utils/isStrongConnection"
 import { checkOverlapWithPackedComponents } from "lib/PackSolver2/checkOverlapWithPackedComponents"
+import { getComponentCollisionBoxes } from "lib/PackSolver2/getComponentCollisionBoxes"
 import { computeDistanceBetweenBoxes, type Bounds } from "@tscircuit/math-utils"
 import { isPointInPolygon } from "lib/math/isPointInPolygon"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
@@ -133,19 +134,15 @@ export class SingleComponentPackSolver extends BaseSolver {
 
       // Build candidate at center and verify obstacle clearance
       const candidate = this.createPackedComponent(position, rotation)
+      const candidateBoxes = getComponentCollisionBoxes(candidate)
       const tooCloseToObstacles = (this.obstacles ?? []).some((obs) => {
         const obsBox = {
           center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
           width: obs.width,
           height: obs.height,
         }
-        return candidate.pads.some((p) => {
-          const padBox = {
-            center: { x: p.absoluteCenter.x, y: p.absoluteCenter.y },
-            width: p.size.x,
-            height: p.size.y,
-          }
-          const { distance } = computeDistanceBetweenBoxes(padBox, obsBox)
+        return candidateBoxes.some((box) => {
+          const { distance } = computeDistanceBetweenBoxes(box, obsBox)
           return distance + 1e-6 < this.minGap
         })
       })
@@ -281,19 +278,16 @@ export class SingleComponentPackSolver extends BaseSolver {
 
         // Also ensure we keep minGap from any obstacles
         let minObstacleGapDistance = Infinity
+        const candidateCollisionBoxes =
+          getComponentCollisionBoxes(candidateComponent)
         const tooCloseToObstacles = (this.obstacles ?? []).some((obs) => {
           const obsBox = {
             center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
             width: obs.width,
             height: obs.height,
           }
-          return candidateComponent.pads.some((p) => {
-            const padBox = {
-              center: { x: p.absoluteCenter.x, y: p.absoluteCenter.y },
-              width: p.size.x,
-              height: p.size.y,
-            }
-            const { distance } = computeDistanceBetweenBoxes(padBox, obsBox)
+          return candidateCollisionBoxes.some((box) => {
+            const { distance } = computeDistanceBetweenBoxes(box, obsBox)
             minObstacleGapDistance = Math.min(minObstacleGapDistance, distance)
             return distance + 1e-6 < this.minGap
           })

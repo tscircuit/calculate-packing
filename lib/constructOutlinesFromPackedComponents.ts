@@ -5,7 +5,11 @@ import { getComponentBounds } from "./geometry/getComponentBounds"
 import { simplifyCollinearSegments } from "./geometry/simplify-collinear-segments"
 import { rotatePoint } from "./math/rotatePoint"
 import { parseFlattenPolygonSegments } from "./parseFlattenPolygonLoops"
-import type { InputObstacle, PackedComponent } from "./types"
+import type {
+  ComponentCourtyard,
+  InputObstacle,
+  PackedComponent,
+} from "./types"
 
 type Outline = Array<[Point, Point]>
 
@@ -27,6 +31,64 @@ export interface ConstructedOutlines {
    * Components should be placed outside these boundaries.
    */
   obstacleContainingLoops: Outline[]
+}
+
+/**
+ * Create a single polygon from a courtyard (inflated by minGap),
+ * positioned and rotated according to the component's placement.
+ */
+const createCourtyardPolygon = (opts: {
+  component: PackedComponent
+  courtyard: ComponentCourtyard
+  minGap: number
+}): PadShape => {
+  const { component, courtyard, minGap } = opts
+  const hw = courtyard.width / 2 + minGap
+  const hh = courtyard.height / 2 + minGap
+
+  const localCorners = [
+    {
+      x: courtyard.offsetFromCenter.x - hw,
+      y: courtyard.offsetFromCenter.y - hh,
+    },
+    {
+      x: courtyard.offsetFromCenter.x + hw,
+      y: courtyard.offsetFromCenter.y - hh,
+    },
+    {
+      x: courtyard.offsetFromCenter.x + hw,
+      y: courtyard.offsetFromCenter.y + hh,
+    },
+    {
+      x: courtyard.offsetFromCenter.x - hw,
+      y: courtyard.offsetFromCenter.y + hh,
+    },
+  ]
+
+  const worldCorners = localCorners.map((corner) => {
+    const rotated = rotatePoint(
+      corner,
+      (component.ccwRotationOffset * Math.PI) / 180,
+    )
+    return {
+      x: rotated.x + component.center.x,
+      y: rotated.y + component.center.y,
+    }
+  })
+
+  const arr = worldCorners.map(({ x, y }) => [x, y] as [number, number])
+  const poly = new Flatten.Polygon(arr)
+
+  const xs = worldCorners.map((p) => p.x)
+  const ys = worldCorners.map((p) => p.y)
+  const bbox = {
+    minX: Math.min(...xs),
+    minY: Math.min(...ys),
+    maxX: Math.max(...xs),
+    maxY: Math.max(...ys),
+  }
+
+  return { poly, bbox }
 }
 
 /**
@@ -142,8 +204,18 @@ export const constructOutlinesFromPackedComponents = (
   // Build pad polygons (inflated by minGap) and obstacle polygons
   const allPadShapes: PadShape[] = []
   for (const component of components) {
-    const padShapes = createPadPolygons(component, minGap)
-    allPadShapes.push(...padShapes)
+    if (component.courtyard) {
+      allPadShapes.push(
+        createCourtyardPolygon({
+          component,
+          courtyard: component.courtyard,
+          minGap,
+        }),
+      )
+    } else {
+      const padShapes = createPadPolygons(component, minGap)
+      allPadShapes.push(...padShapes)
+    }
   }
   const obstacleShapes = createObstaclePolygons(obstacles, minGap)
   allPadShapes.push(...obstacleShapes)
@@ -258,8 +330,18 @@ export const constructSemanticOutlinesFromPackedComponents = (
   // Build pad polygons (inflated by minGap) and obstacle polygons
   const allPadShapes: PadShape[] = []
   for (const component of components) {
-    const padShapes = createPadPolygons(component, minGap)
-    allPadShapes.push(...padShapes)
+    if (component.courtyard) {
+      allPadShapes.push(
+        createCourtyardPolygon({
+          component,
+          courtyard: component.courtyard,
+          minGap,
+        }),
+      )
+    } else {
+      const padShapes = createPadPolygons(component, minGap)
+      allPadShapes.push(...padShapes)
+    }
   }
   const obstacleShapes = createObstaclePolygons(obstacles, minGap)
   allPadShapes.push(...obstacleShapes)

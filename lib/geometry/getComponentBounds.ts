@@ -44,6 +44,42 @@ export const getComponentBounds = (
     })
   })
 
+  if (component.courtyard) {
+    const courtyard = component.courtyard
+    const hw = courtyard.width / 2
+    const hh = courtyard.height / 2
+    const localCorners = [
+      {
+        x: courtyard.offsetFromCenter.x - hw,
+        y: courtyard.offsetFromCenter.y - hh,
+      },
+      {
+        x: courtyard.offsetFromCenter.x + hw,
+        y: courtyard.offsetFromCenter.y - hh,
+      },
+      {
+        x: courtyard.offsetFromCenter.x + hw,
+        y: courtyard.offsetFromCenter.y + hh,
+      },
+      {
+        x: courtyard.offsetFromCenter.x - hw,
+        y: courtyard.offsetFromCenter.y + hh,
+      },
+    ]
+    for (const corner of localCorners) {
+      const world = rotatePoint(
+        corner,
+        (component.ccwRotationOffset * Math.PI) / 180,
+      )
+      const x = world.x + component.center.x
+      const y = world.y + component.center.y
+      bounds.minX = Math.min(bounds.minX, x)
+      bounds.maxX = Math.max(bounds.maxX, x)
+      bounds.minY = Math.min(bounds.minY, y)
+      bounds.maxY = Math.max(bounds.maxY, y)
+    }
+  }
+
   return {
     minX: bounds.minX - minGap,
     maxX: bounds.maxX + minGap,

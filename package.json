@@ -28,7 +28,7 @@
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^5.0.0",
     "bun-match-svg": "^0.0.12",
-    "circuit-json": "^0.0.309",
+    "circuit-json": "^0.0.421",
     "framer-motion": "^12.23.12",
     "graphics-debug": "^0.0.78",
     "react": "^19.1.0",
