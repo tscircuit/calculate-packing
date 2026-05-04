@@ -23,11 +23,11 @@ const extractCourtyardForComponent = (opts: {
   componentCenter: { x: number; y: number }
 }): ComponentCourtyard | undefined => {
   const { db, pcbComponentIds, componentCenter } = opts
-  const uniqueIds = Array.from(new Set(pcbComponentIds))
+  const uniquePcbComponentIds = Array.from(new Set(pcbComponentIds))
 
   // Courtyard is footprint-level geometry. Do not synthesize one aggregate
   // courtyard from multiple pcb_components.
-  if (uniqueIds.length !== 1) return undefined
+  if (uniquePcbComponentIds.length !== 1) return undefined
 
   const idSet = new Set(pcbComponentIds)
   let minX = Infinity
