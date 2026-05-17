@@ -204,7 +204,22 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
     const m = xs.length - 1
     if (m <= 0) return null
 
-    // 3) For each slab, find top[i] and bot[i] via vertical shots at mid x
+    // 3) Pre-filter horizontal edges that overlap the interval [X_L, X_R] to avoid redundant scanning in the loop
+    const relevantHorizontalEdges: { y: number; minX: number; maxX: number }[] =
+      []
+    for (const e of edges) {
+      if (!this.isHorizontal(e)) continue
+      const y = e[0].y
+      const x1 = e[0].x
+      const x2 = e[1].x
+      const minX = x1 < x2 ? x1 : x2
+      const maxX = x1 < x2 ? x2 : x1
+      if (maxX >= X_L - 1e-9 && minX <= X_R + 1e-9) {
+        relevantHorizontalEdges.push({ y, minX, maxX })
+      }
+    }
+
+    // For each slab, find top[i] and bot[i] via vertical shots at mid x
     const top: number[] = Array(m).fill(-Infinity)
     const bot: number[] = Array(m).fill(+Infinity)
 
@@ -220,14 +235,10 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
       let minAbove = BY2 // bottom bound caps the upward ray in SVG coords
       let maxBelow = BY1 // top bound caps the downward ray in SVG coords
 
-      for (const e of edges) {
-        if (!this.isHorizontal(e)) continue
-        const y = e[0].y
-        const x1 = Math.min(e[0].x, e[1].x)
-        const x2 = Math.max(e[0].x, e[1].x)
-        if (x1 - 1e-9 <= xm && xm <= x2 + 1e-9) {
-          if (y > p.y) minAbove = Math.min(minAbove, y)
-          if (y < p.y) maxBelow = Math.max(maxBelow, y)
+      for (const e of relevantHorizontalEdges) {
+        if (e.minX - 1e-9 <= xm && xm <= e.maxX + 1e-9) {
+          if (e.y > p.y) minAbove = Math.min(minAbove, e.y)
+          if (e.y < p.y) maxBelow = Math.max(maxBelow, e.y)
         }
       }
 
