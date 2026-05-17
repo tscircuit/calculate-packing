@@ -214,7 +214,7 @@ export class LargestRectOutsideOutlineFromPointSolver extends BaseSolver {
       const x2 = e[1].x
       const minX = x1 < x2 ? x1 : x2
       const maxX = x1 < x2 ? x2 : x1
-      if (maxX >= X_L - 1e-9 && minX <= X_R + 1e-9) {
+      if (maxX >= X_L - 1e-5 && minX <= X_R + 1e-5) {
         relevantHorizontalEdges.push({ y, minX, maxX })
       }
     }
