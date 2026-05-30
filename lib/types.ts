@@ -59,6 +59,9 @@ export type PackPlacementStrategy =
   | "minimum_sum_distance_to_network"
   | "minimum_sum_squared_distance_to_network"
   | "minimum_closest_sum_squared_distance"
+  // Additive spike strategy: analytical / force-directed placement.
+  // See lib/ForceDirectedPackSolver/ForceDirectedPackSolver.ts
+  | "force_directed"
 
 export interface PackInput {
   components: InputComponent[]
