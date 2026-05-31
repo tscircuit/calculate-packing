@@ -656,6 +656,20 @@ export abstract class BoxPackSolverBase {
   protected nudgeUntilClear(maxSweeps: number): boolean {
     const dispX = new Float64Array(this.bodies.length)
     const dispY = new Float64Array(this.bodies.length)
+    // Stop when overlap removal stalls. Inside a tight bounds rect the
+    // bounds-projection fights the nudge so the overlap count oscillates around a
+    // floor instead of reaching the fully-settled exit, burning the whole budget
+    // chasing benign boundary jitter - this alone was the 184-key keyboard's 18s.
+    // Tracking the fewest overlaps seen and bailing once that stops improving
+    // ends the grind at the same legal layout the full budget converges to (the
+    // keyboard is identical at 40 vs 2000 sweeps). Unbounded boards never project,
+    // so they hit the fully-settled exit the moment overlaps clear and never reach
+    // this; bounded boards still genuinely reducing overlaps keep finding new
+    // minima and run on. The caller's exact gate + fallback handle any residual.
+    const STALL_LIMIT = 12
+    const MIN_SWEEPS = 10
+    let bestOverlap = Number.POSITIVE_INFINITY
+    let stalled = 0
 
     for (let sweep = 0; sweep < maxSweeps; sweep++) {
       this.grid.clear()
@@ -670,6 +684,7 @@ export abstract class BoxPackSolverBase {
       dispY.fill(0)
 
       let anyOverlap = false
+      let overlapCount = 0
       for (const a of this.bodies) {
         const neighbors = this.grid
           .queryNeighbors(a.x + a.boxOffX, a.y + a.boxOffY)
@@ -690,6 +705,7 @@ export abstract class BoxPackSolverBase {
           if (overlapX <= 0 || overlapY <= 0) continue
 
           anyOverlap = true
+          overlapCount++
 
           let tx = 0
           let ty = 0
@@ -726,6 +742,7 @@ export abstract class BoxPackSolverBase {
             const oy = a.halfH + o.halfH - Math.abs(ay - o.y)
             if (ox <= 0 || oy <= 0) continue
             anyOverlap = true
+            overlapCount++
             const needX = ox + LEGALIZE_MARGIN
             const needY = oy + LEGALIZE_MARGIN
             if (needX < needY) {
@@ -759,6 +776,23 @@ export abstract class BoxPackSolverBase {
       }
 
       if (!anyOverlap && !anyProjected) return true
+
+      // The stall bail only applies when a bounds rect / polygon is present:
+      // that is the only setting where projection fights the nudge and the count
+      // oscillates around a floor. Unbounded boards always clear by spreading and
+      // their count can plateau transiently mid-spread, so gating here keeps them
+      // running to first-clear (full quality). A new fewest-overlaps reading means
+      // we are still making progress, so reset the stall counter.
+      if (this.bounds || this.polygon) {
+        if (overlapCount < bestOverlap) {
+          bestOverlap = overlapCount
+          stalled = 0
+        } else {
+          stalled++
+        }
+        if (sweep + 1 >= MIN_SWEEPS && stalled >= STALL_LIMIT)
+          return !anyOverlap
+      }
     }
     return false
   }
