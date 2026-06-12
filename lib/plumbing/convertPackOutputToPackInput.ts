@@ -25,6 +25,8 @@ export const convertPackOutputToPackInput = (packed: PackOutput): PackInput => {
           availableRotationDegrees: pc.availableRotationDegrees, // Preserve rotation constraints
           pads: pc.pads.map(({ absoluteCenter: _ac, ...rest }) => rest),
           courtyard: pc.courtyard,
+          mustBeOnBoundary: pc.mustBeOnBoundary,
+          shouldBeOnEdgeOfBoard: pc.shouldBeOnEdgeOfBoard,
         }),
   }))
 

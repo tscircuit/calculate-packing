@@ -36,7 +36,10 @@ export interface InputComponent {
   pads: InputPad[]
   /** Optional courtyard defining the component's physical boundary */
   courtyard?: ComponentCourtyard
+  mustBeOnBoundary?: boolean
+  shouldBeOnEdgeOfBoard?: boolean
 }
+
 
 export interface PackedComponent extends InputComponent {
   center: { x: number; y: number }

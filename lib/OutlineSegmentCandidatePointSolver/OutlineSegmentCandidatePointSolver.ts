@@ -51,6 +51,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   optimalPosition?: Point
   irlsSolver?: MultiOffsetIrlsSolver
   twoPhaseIrlsSolver?: TwoPhaseIrlsSolver
+  isBoundaryOutline?: boolean
 
   override getSolverName(): string {
     return "OutlineSegmentCandidatePointSolver"
@@ -72,6 +73,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     globalBounds?: Bounds
     boundaryOutline?: Array<{ x: number; y: number }>
     weightedConnections?: PackInput["weightedConnections"]
+    isBoundaryOutline?: boolean
   }) {
     super()
     this.outlineSegment = params.outlineSegment
@@ -85,6 +87,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     this.globalBounds = params.globalBounds
     this.boundaryOutline = params.boundaryOutline
     this.weightedConnections = params.weightedConnections
+    this.isBoundaryOutline = params.isBoundaryOutline
   }
 
   override getConstructorParams(): ConstructorParameters<
@@ -102,6 +105,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       globalBounds: this.globalBounds,
       boundaryOutline: this.boundaryOutline,
       weightedConnections: this.weightedConnections,
+      isBoundaryOutline: this.isBoundaryOutline,
     }
   }
 
@@ -144,10 +148,13 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       return this.adjustPositionForOutlineCollision(projectedPoint)
     }
 
-    const outwardNormal = getOutwardNormal(
+    let outwardNormal = getOutwardNormal(
       this.outlineSegment,
       this.ccwFullOutline,
     )
+    if (this.isBoundaryOutline) {
+      outwardNormal = { x: -outwardNormal.x, y: -outwardNormal.y }
+    }
     const componentBounds = getInputComponentBounds(this.componentToPack, {
       rotationDegrees: this.componentRotationDegrees,
     })
@@ -183,7 +190,10 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     }
     signedArea /= 2
     const isCW = signedArea < 0
-    const rectSearchMode = isCW ? "inside" : "outside"
+    let rectSearchMode: "inside" | "outside" = isCW ? "inside" : "outside"
+    if (this.isBoundaryOutline) {
+      rectSearchMode = isCW ? "outside" : "inside"
+    }
 
     const largestRectSolverParams: ConstructorParameters<
       typeof LargestRectOutsideOutlineFromPointSolver
@@ -467,6 +477,9 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
    * and ensure the component stays within the boundary outline
    */
   private adjustPositionForOutlineCollision(center: Point): Point {
+    if (this.isBoundaryOutline) {
+      return center
+    }
     // Create temporary component at this position
     const tempComponent = this.createTemporaryPackedComponent(center)
 
@@ -474,10 +487,13 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     const bounds = getComponentBounds(tempComponent, 0)
 
     // Get the outward normal for the current segment to push the component out
-    const outwardNormal = getOutwardNormal(
+    let outwardNormal = getOutwardNormal(
       this.outlineSegment,
       this.ccwFullOutline,
     )
+    if (this.isBoundaryOutline) {
+      outwardNormal = { x: -outwardNormal.x, y: -outwardNormal.y }
+    }
 
     // To compute push distance, we need to consider the direction of the
     // outward normal and the distance we need to push using the minX/maxX or

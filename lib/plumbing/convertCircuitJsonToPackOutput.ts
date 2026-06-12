@@ -178,6 +178,14 @@ const buildPackedComponent = (
     componentCenter: center,
   })
 
+  const shouldBeOnEdgeOfBoard = pcbComponents.some(
+    (pc: any) =>
+      pc.should_be_on_edge_of_board === true ||
+      pc.shouldBeOnEdgeOfBoard === true ||
+      pc.must_be_on_boundary === true ||
+      pc.mustBeOnBoundary === true,
+  )
+
   return {
     componentId,
     isStatic,
@@ -185,6 +193,8 @@ const buildPackedComponent = (
     ccwRotationOffset: 0,
     pads,
     courtyard,
+    shouldBeOnEdgeOfBoard,
+    mustBeOnBoundary: shouldBeOnEdgeOfBoard,
   } as PackedComponent
 }
 
@@ -237,6 +247,21 @@ export const convertCircuitJsonToPackOutput = (
   )
   if (pcbBoard?.outline) {
     packOutput.boundaryOutline = pcbBoard.outline
+  } else if (
+    pcbBoard &&
+    pcbBoard.width !== undefined &&
+    pcbBoard.height !== undefined
+  ) {
+    const cx = pcbBoard.center?.x ?? 0
+    const cy = pcbBoard.center?.y ?? 0
+    const w = pcbBoard.width
+    const h = pcbBoard.height
+    packOutput.boundaryOutline = [
+      { x: cx - w / 2, y: cy - h / 2 },
+      { x: cx + w / 2, y: cy - h / 2 },
+      { x: cx + w / 2, y: cy + h / 2 },
+      { x: cx - w / 2, y: cy + h / 2 },
+    ]
   }
 
   const getNetworkId = (pcbPortId?: string): string => {
