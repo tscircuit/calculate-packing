@@ -29,7 +29,6 @@ interface QueuedOutlineSegment {
   isBoundaryOutline?: boolean
 }
 
-
 interface CandidateResult {
   segment: Segment
   rotation: number
@@ -319,7 +318,10 @@ export class SingleComponentPackSolver extends BaseSolver {
 
           // Check if all pads are within the boundary outline
           const allPadsInside = candidateComponent.pads.every((pad) =>
-            isPointInsideOrOnBoundary(pad.absoluteCenter, this.boundaryOutline!),
+            isPointInsideOrOnBoundary(
+              pad.absoluteCenter,
+              this.boundaryOutline!,
+            ),
           )
 
           // Also check corners of component bounds
@@ -328,7 +330,9 @@ export class SingleComponentPackSolver extends BaseSolver {
             { x: componentBounds.minX, y: componentBounds.maxY },
             { x: componentBounds.maxX, y: componentBounds.minY },
             { x: componentBounds.maxX, y: componentBounds.maxY },
-          ].every((corner) => isPointInsideOrOnBoundary(corner, this.boundaryOutline!))
+          ].every((corner) =>
+            isPointInsideOrOnBoundary(corner, this.boundaryOutline!),
+          )
 
           outsideBoundaryOutline = !allPadsInside || !cornersInside
         }
@@ -771,11 +775,7 @@ export class SingleComponentPackSolver extends BaseSolver {
   }
 }
 
-function getPointToSegmentDistance(
-  p: Point,
-  a: Point,
-  b: Point,
-): number {
+function getPointToSegmentDistance(p: Point, a: Point, b: Point): number {
   const vx = b.x - a.x
   const vy = b.y - a.y
   const wx = p.x - a.x
@@ -884,4 +884,3 @@ function isPointInsideOrOnBoundary(
   }
   return false
 }
-

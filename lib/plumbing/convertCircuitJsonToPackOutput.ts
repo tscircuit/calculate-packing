@@ -245,12 +245,22 @@ export const convertCircuitJsonToPackOutput = (
   const pcbBoard = (circuitJson as any[]).find(
     (item: any) => item.type === "pcb_board",
   )
+  const hasEdgeConstrainedComponent = (circuitJson as any[]).some(
+    (item: any) =>
+      item.type === "pcb_component" &&
+      (item.should_be_on_edge_of_board === true ||
+        item.shouldBeOnEdgeOfBoard === true ||
+        item.must_be_on_boundary === true ||
+        item.mustBeOnBoundary === true),
+  )
+
   if (pcbBoard?.outline) {
     packOutput.boundaryOutline = pcbBoard.outline
   } else if (
     pcbBoard &&
     pcbBoard.width !== undefined &&
-    pcbBoard.height !== undefined
+    pcbBoard.height !== undefined &&
+    hasEdgeConstrainedComponent
   ) {
     const cx = pcbBoard.center?.x ?? 0
     const cy = pcbBoard.center?.y ?? 0

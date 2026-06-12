@@ -39,8 +39,6 @@ test("PackSolver2 places components with mustBeOnBoundary on the board edge", ()
   const solver = new PackSolver2(packInput)
   solver.solve()
 
-
-
   expect(solver.solved).toBe(true)
   expect(solver.failed).toBe(false)
   expect(solver.packedComponents).toHaveLength(1)
@@ -119,8 +117,12 @@ test("PackSolver2 places multiple components correctly with boundary outline", (
   expect(solver.failed).toBe(false)
   expect(solver.packedComponents).toHaveLength(2)
 
-  const edgeComp = solver.packedComponents.find(c => c.componentId === "edge_comp")!
-  const normalComp = solver.packedComponents.find(c => c.componentId === "normal_comp")!
+  const edgeComp = solver.packedComponents.find(
+    (c) => c.componentId === "edge_comp",
+  )!
+  const normalComp = solver.packedComponents.find(
+    (c) => c.componentId === "normal_comp",
+  )!
 
   // edgeComp must touch the boundary
   const x = edgeComp.center.x
@@ -140,25 +142,85 @@ test("reproduce SOIC8 chip boundary placement on 40x40 board", () => {
         componentId: "chip_u1",
         shouldBeOnEdgeOfBoard: true,
         pads: [
-          { padId: "pad0", type: "rect", offset: { x: -2.15, y: 1.905 }, size: { x: 1, y: 0.6 }, networkId: "net1" },
-          { padId: "pad1", type: "rect", offset: { x: -2.15, y: 0.635 }, size: { x: 1, y: 0.6 }, networkId: "net1" },
-          { padId: "pad2", type: "rect", offset: { x: -2.15, y: -0.635 }, size: { x: 1, y: 0.6 }, networkId: "net1" },
-          { padId: "pad3", type: "rect", offset: { x: -2.15, y: -1.905 }, size: { x: 1, y: 0.6 }, networkId: "net1" },
-          { padId: "pad4", type: "rect", offset: { x: 2.15, y: -1.905 }, size: { x: 1, y: 0.6 }, networkId: "net1" },
-          { padId: "pad5", type: "rect", offset: { x: 2.15, y: -0.635 }, size: { x: 1, y: 0.6 }, networkId: "net1" },
-          { padId: "pad6", type: "rect", offset: { x: 2.15, y: 0.635 }, size: { x: 1, y: 0.6 }, networkId: "net1" },
-          { padId: "pad7", type: "rect", offset: { x: 2.15, y: 1.905 }, size: { x: 1, y: 0.6 }, networkId: "net1" },
+          {
+            padId: "pad0",
+            type: "rect",
+            offset: { x: -2.15, y: 1.905 },
+            size: { x: 1, y: 0.6 },
+            networkId: "net1",
+          },
+          {
+            padId: "pad1",
+            type: "rect",
+            offset: { x: -2.15, y: 0.635 },
+            size: { x: 1, y: 0.6 },
+            networkId: "net1",
+          },
+          {
+            padId: "pad2",
+            type: "rect",
+            offset: { x: -2.15, y: -0.635 },
+            size: { x: 1, y: 0.6 },
+            networkId: "net1",
+          },
+          {
+            padId: "pad3",
+            type: "rect",
+            offset: { x: -2.15, y: -1.905 },
+            size: { x: 1, y: 0.6 },
+            networkId: "net1",
+          },
+          {
+            padId: "pad4",
+            type: "rect",
+            offset: { x: 2.15, y: -1.905 },
+            size: { x: 1, y: 0.6 },
+            networkId: "net1",
+          },
+          {
+            padId: "pad5",
+            type: "rect",
+            offset: { x: 2.15, y: -0.635 },
+            size: { x: 1, y: 0.6 },
+            networkId: "net1",
+          },
+          {
+            padId: "pad6",
+            type: "rect",
+            offset: { x: 2.15, y: 0.635 },
+            size: { x: 1, y: 0.6 },
+            networkId: "net1",
+          },
+          {
+            padId: "pad7",
+            type: "rect",
+            offset: { x: 2.15, y: 1.905 },
+            size: { x: 1, y: 0.6 },
+            networkId: "net1",
+          },
         ],
         availableRotationDegrees: [0],
       },
       {
         componentId: "res_r1",
         pads: [
-          { padId: "pad8", type: "rect", offset: { x: -0.5, y: 0 }, size: { x: 0.6, y: 0.6 }, networkId: "net1" },
-          { padId: "pad9", type: "rect", offset: { x: 0.5, y: 0 }, size: { x: 0.6, y: 0.6 }, networkId: "net1" },
+          {
+            padId: "pad8",
+            type: "rect",
+            offset: { x: -0.5, y: 0 },
+            size: { x: 0.6, y: 0.6 },
+            networkId: "net1",
+          },
+          {
+            padId: "pad9",
+            type: "rect",
+            offset: { x: 0.5, y: 0 },
+            size: { x: 0.6, y: 0.6 },
+            networkId: "net1",
+          },
         ],
         availableRotationDegrees: [0],
-      }
+      },
     ],
     boundaryOutline: [
       { x: -20, y: -20 },
@@ -178,16 +240,16 @@ test("reproduce SOIC8 chip boundary placement on 40x40 board", () => {
   expect(solver.failed).toBe(false)
   expect(solver.packedComponents).toHaveLength(2)
 
-  const u1 = solver.packedComponents.find(c => c.componentId === "chip_u1")!
+  const u1 = solver.packedComponents.find((c) => c.componentId === "chip_u1")!
   console.log("REPRODUCTION U1 CENTER:", u1.center)
   console.log("REPRODUCTION U1 PADS:", JSON.stringify(u1.pads, null, 2))
 
   const halfWidth = 5.3 / 2
   const halfHeight = 4.41 / 2
-  const distToLeft = Math.abs((u1.center.x - halfWidth) - -20)
-  const distToRight = Math.abs((u1.center.x + halfWidth) - 20)
-  const distToBottom = Math.abs((u1.center.y - halfHeight) - -20)
-  const distToTop = Math.abs((u1.center.y + halfHeight) - 20)
+  const distToLeft = Math.abs(u1.center.x - halfWidth - -20)
+  const distToRight = Math.abs(u1.center.x + halfWidth - 20)
+  const distToBottom = Math.abs(u1.center.y - halfHeight - -20)
+  const distToTop = Math.abs(u1.center.y + halfHeight - 20)
   const minDistance = Math.min(distToLeft, distToRight, distToBottom, distToTop)
 
   expect(minDistance).toBeLessThan(0.1)

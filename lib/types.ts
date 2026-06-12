@@ -40,7 +40,6 @@ export interface InputComponent {
   shouldBeOnEdgeOfBoard?: boolean
 }
 
-
 export interface PackedComponent extends InputComponent {
   center: { x: number; y: number }
   /** @deprecated Rotation in degrees (counterclockwise) */

@@ -152,7 +152,6 @@ export class PackSolver2 extends BaseSolver {
       outsideBoundaryOutline = !allPadsInside || !cornersInside
     }
 
-
     if (!tooCloseToObstacles && !outsideBoundaryOutline) {
       this.packedComponents.push(newPackedComponent)
       return
