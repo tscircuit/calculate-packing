@@ -64,7 +64,10 @@ export class PackSolver2 extends BaseSolver {
       const packedComponent: PackedComponent = {
         ...component,
         center: component.center ?? { x: 0, y: 0 },
-        ccwRotationOffset: component.ccwRotationOffset ?? 0,
+        ccwRotationOffset:
+          component.ccwRotationOffset ??
+          component.availableRotationDegrees?.[0] ??
+          0,
         pads: component.pads.map((pad) => ({
           ...pad,
           absoluteCenter: pad.absoluteCenter ?? { x: 0, y: 0 },
@@ -98,7 +101,10 @@ export class PackSolver2 extends BaseSolver {
     const newPackedComponent: PackedComponent = {
       ...firstComponentToPack,
       center: initialPosition,
-      ccwRotationOffset: 0,
+      ccwRotationOffset:
+        firstComponentToPack.ccwRotationOffset ??
+        firstComponentToPack.availableRotationDegrees?.[0] ??
+        0,
       pads: firstComponentToPack.pads.map((p) => ({
         ...p,
         absoluteCenter: { x: 0, y: 0 },
@@ -231,7 +237,10 @@ export class PackSolver2 extends BaseSolver {
         const packedComponent: PackedComponent = {
           ...this.componentToPack!,
           center: { x: 0, y: 0 },
-          ccwRotationOffset: 0,
+          ccwRotationOffset:
+            this.componentToPack?.ccwRotationOffset ??
+            this.componentToPack?.availableRotationDegrees?.[0] ??
+            0,
           pads: this.componentToPack!.pads.map((p) => ({
             ...p,
             absoluteCenter: { x: 0, y: 0 },
