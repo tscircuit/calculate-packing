@@ -25,6 +25,8 @@ export interface InputComponent {
   componentId: string
   /** Components marked as static are not moved by the packer */
   isStatic?: boolean
+  /** Dynamic components marked this way are constrained to a board boundary */
+  mustBeOnBoundary?: boolean
   /**
    * If not provided, the component can be rotated by 0, 90, 180, or 270 degrees.
    */
