@@ -7,7 +7,7 @@ import type { PackedComponent } from "../types"
 // in the world. setPackedComponentPadCenters swaps the pad size to match, but
 // getComponentBounds then rotates the already-swapped rect again, so the bounds
 // come out transposed (2 wide x 1 tall).
-test.failing("getComponentBounds handles a 90deg-rotated rect pad", () => {
+test("getComponentBounds handles a 90deg-rotated rect pad", () => {
   const component: PackedComponent = {
     componentId: "C1",
     center: { x: 0, y: 0 },
