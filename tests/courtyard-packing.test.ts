@@ -80,6 +80,86 @@ test("convertCircuitJsonToPackOutput extracts pcb_courtyard_rect", () => {
   })
 })
 
+test("fixed components use courtyard bounds as packing obstacles", () => {
+  const circuitJson = [
+    {
+      type: "source_group",
+      source_group_id: "root",
+      name: "root",
+    },
+    {
+      type: "source_component",
+      source_component_id: "sc1",
+      source_group_id: "root",
+      name: "J1",
+      ftype: "simple_chip",
+    },
+    {
+      type: "source_port",
+      source_port_id: "sp1",
+      source_component_id: "sc1",
+      name: "1",
+    },
+    {
+      type: "pcb_component",
+      pcb_component_id: "pc1",
+      source_component_id: "sc1",
+      center: { x: 1, y: 2 },
+      rotation: 0,
+      width: 1,
+      height: 1,
+      layer: "top",
+      position_mode: "relative_to_group_anchor",
+    },
+    {
+      type: "pcb_port",
+      pcb_port_id: "pp1",
+      pcb_component_id: "pc1",
+      source_port_id: "sp1",
+      x: 1,
+      y: 2,
+      layers: ["top"],
+    },
+    {
+      type: "pcb_smtpad",
+      pcb_smtpad_id: "pad1",
+      pcb_component_id: "pc1",
+      pcb_port_id: "pp1",
+      shape: "rect",
+      x: 1,
+      y: 2,
+      width: 1,
+      height: 1,
+      layer: "top",
+    },
+    {
+      type: "pcb_courtyard_outline",
+      pcb_courtyard_outline_id: "cy1",
+      pcb_component_id: "pc1",
+      outline: [
+        { x: -2, y: 1 },
+        { x: 8, y: 1 },
+        { x: 8, y: 7 },
+        { x: -2, y: 7 },
+      ],
+      layer: "top",
+    },
+  ] as any
+
+  const result = convertCircuitJsonToPackOutput(circuitJson, {
+    source_group_id: "root",
+  })
+
+  expect(result.obstacles).toEqual([
+    {
+      obstacleId: "pc1",
+      absoluteCenter: { x: 3, y: 4 },
+      width: 10,
+      height: 6,
+    },
+  ])
+})
+
 test("overlapping courtyards are detected even when pads don't overlap", () => {
   // Two components with small pads (1x1) but large courtyards (6x4)
   // Placed 4mm apart: pads have 3mm gap, but courtyards overlap by 2mm
