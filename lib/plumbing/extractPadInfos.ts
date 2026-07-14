@@ -154,6 +154,17 @@ export const extractPadInfos = (
         })
         break
       }
+      case "pill": {
+        pushPad({
+          padId: sp.pcb_smtpad_id,
+          pcbPortId: sp.pcb_port_id,
+          sx: sp.width,
+          sy: sp.height,
+          x: sp.x,
+          y: sp.y,
+        })
+        break
+      }
       case "circle": {
         pushPad({
           padId: sp.pcb_smtpad_id,
