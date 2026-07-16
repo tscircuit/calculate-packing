@@ -20,6 +20,28 @@ const getPolygonBoundingBox = (points: Array<{ x: number; y: number }>) => {
   return { minX, maxX, minY, maxY }
 }
 
+const getRotatedBoundingBoxSize = (opts: {
+  width: number
+  height: number
+  ccwRotationDegrees: number
+}) => {
+  const { width, height, ccwRotationDegrees } = opts
+  const angleRad = (ccwRotationDegrees * Math.PI) / 180
+  const normalizeTrigValue = (value: number) => {
+    const absoluteValue = Math.abs(value)
+    if (absoluteValue < 1e-12) return 0
+    if (Math.abs(absoluteValue - 1) < 1e-12) return 1
+    return absoluteValue
+  }
+  const absCos = normalizeTrigValue(Math.cos(angleRad))
+  const absSin = normalizeTrigValue(Math.sin(angleRad))
+
+  return {
+    width: width * absCos + height * absSin,
+    height: width * absSin + height * absCos,
+  }
+}
+
 /* ---------- Flattened type helpers and pad extraction ---------- */
 type PadInfo = {
   padId: string
@@ -160,6 +182,25 @@ export const extractPadInfos = (
           pcbPortId: sp.pcb_port_id,
           sx: sp.width,
           sy: sp.height,
+          x: sp.x,
+          y: sp.y,
+        })
+        break
+      }
+      case "rotated_rect":
+      case "rotated_pill": {
+        // PackInput pads are axis-aligned rectangles, so preserve collision
+        // coverage by using the rotated pad's axis-aligned bounding box.
+        const size = getRotatedBoundingBoxSize({
+          width: sp.width,
+          height: sp.height,
+          ccwRotationDegrees: sp.ccw_rotation,
+        })
+        pushPad({
+          padId: sp.pcb_smtpad_id,
+          pcbPortId: sp.pcb_port_id,
+          sx: size.width,
+          sy: size.height,
           x: sp.x,
           y: sp.y,
         })
