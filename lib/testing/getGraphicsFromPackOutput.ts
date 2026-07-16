@@ -1,4 +1,10 @@
-import type { Circle, GraphicsObject, Rect, Line } from "graphics-debug"
+import type {
+  Circle,
+  GraphicsObject,
+  Line,
+  Polygon,
+  Rect,
+} from "graphics-debug"
 import { createColorMapFromStrings } from "./createColorMapFromStrings"
 import type { PackOutput } from "../types"
 import { getComponentBounds } from "../geometry/getComponentBounds"
@@ -11,6 +17,7 @@ export const getGraphicsFromPackOutput = (
   const rects: Rect[] = []
   const lines: Line[] = []
   const circles: Circle[] = []
+  const polygons: Polygon[] = []
 
   if (packOutput.boundaryOutline && packOutput.boundaryOutline.length) {
     const outlinePoints = [...packOutput.boundaryOutline]
@@ -39,7 +46,7 @@ export const getGraphicsFromPackOutput = (
   // Draw obstacles if present
   if (packOutput.obstacles && packOutput.obstacles.length > 0) {
     for (const obstacle of packOutput.obstacles) {
-      addObstacleToGraphics({ rects, lines, circles }, obstacle)
+      addObstacleToGraphics({ rects, lines, circles, polygons }, obstacle)
     }
   }
 
@@ -106,5 +113,6 @@ export const getGraphicsFromPackOutput = (
     rects,
     lines,
     circles,
+    polygons,
   }
 }

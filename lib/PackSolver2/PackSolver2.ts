@@ -261,8 +261,10 @@ export class PackSolver2 extends BaseSolver {
       title: "Pack Solver 2",
       points: [],
       lines: [],
+      infiniteLines: [],
       rects: [],
       circles: [],
+      polygons: [],
       texts: [],
       arrows: [],
     }
