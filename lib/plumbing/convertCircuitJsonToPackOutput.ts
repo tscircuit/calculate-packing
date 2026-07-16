@@ -342,6 +342,25 @@ export const convertCircuitJsonToPackOutput = (
   )
 
   for (const pcbComponent of relativeComponents) {
+    const courtyard = extractCourtyardForComponent({
+      db,
+      pcbComponentIds: [pcbComponent.pcb_component_id],
+      componentCenter: pcbComponent.center,
+    })
+
+    if (courtyard) {
+      packOutput.obstacles!.push({
+        obstacleId: pcbComponent.pcb_component_id,
+        absoluteCenter: {
+          x: pcbComponent.center.x + courtyard.offsetFromCenter.x,
+          y: pcbComponent.center.y + courtyard.offsetFromCenter.y,
+        },
+        width: courtyard.width,
+        height: courtyard.height,
+      })
+      continue
+    }
+
     // Get all pads for this component to determine its bounds
     const padInfos = extractPadInfos(pcbComponent, db, getNetworkId)
 
