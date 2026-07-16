@@ -27,14 +27,14 @@ const getRotatedBoundingBoxSize = (opts: {
 }) => {
   const { width, height, ccwRotationDegrees } = opts
   const angleRad = (ccwRotationDegrees * Math.PI) / 180
-  const normalizeTrigValue = (value: number) => {
+  const snapTrigMagnitude = (value: number) => {
     const absoluteValue = Math.abs(value)
     if (absoluteValue < 1e-12) return 0
     if (Math.abs(absoluteValue - 1) < 1e-12) return 1
     return absoluteValue
   }
-  const absCos = normalizeTrigValue(Math.cos(angleRad))
-  const absSin = normalizeTrigValue(Math.sin(angleRad))
+  const absCos = snapTrigMagnitude(Math.cos(angleRad))
+  const absSin = snapTrigMagnitude(Math.sin(angleRad))
 
   return {
     width: width * absCos + height * absSin,
