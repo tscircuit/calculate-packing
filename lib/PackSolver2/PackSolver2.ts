@@ -10,11 +10,12 @@ import type {
   PackInput,
 } from "../types"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
-import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
 import { getComponentCollisionBoxes } from "./getComponentCollisionBoxes"
 import { getComponentBounds } from "../geometry/getComponentBounds"
+import { getDistanceBetweenBoxAndObstacle } from "../geometry/obstacleGeometry"
 import { isPointInPolygon } from "../math/isPointInPolygon"
 import { getPolygonCentroid } from "../math/getPolygonCentroid"
+import { addObstacleToGraphics } from "../testing/addObstacleToGraphics"
 
 export class PackSolver2 extends BaseSolver {
   declare activeSubSolver: SingleComponentPackSolver | null | undefined
@@ -117,13 +118,8 @@ export class PackSolver2 extends BaseSolver {
     const obstacles = this.packInput.obstacles ?? []
     const newComponentBoxes = getComponentCollisionBoxes(newPackedComponent)
     const tooCloseToObstacles = obstacles.some((obs) => {
-      const obsBox = {
-        center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
-        width: obs.width,
-        height: obs.height,
-      }
       return newComponentBoxes.some((box) => {
-        const { distance } = computeDistanceBetweenBoxes(box, obsBox)
+        const distance = getDistanceBetweenBoxAndObstacle(box, obs)
         return distance + 1e-6 < this.packInput.minGap
       })
     })
@@ -274,14 +270,7 @@ export class PackSolver2 extends BaseSolver {
     // Draw obstacles from PackInput (if any)
     if (this.packInput.obstacles && this.packInput.obstacles.length > 0) {
       for (const obstacle of this.packInput.obstacles) {
-        graphics.rects!.push({
-          center: obstacle.absoluteCenter,
-          width: obstacle.width,
-          height: obstacle.height,
-          fill: "rgba(0,0,0,0.1)",
-          stroke: "#555",
-          label: obstacle.obstacleId,
-        })
+        addObstacleToGraphics(graphics, obstacle)
       }
     }
 

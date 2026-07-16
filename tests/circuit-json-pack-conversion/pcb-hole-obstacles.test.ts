@@ -57,6 +57,7 @@ test("circular pcb_hole is added as an obstacle", () => {
   )
   expect(holeObstacle).toBeDefined()
   expect(holeObstacle!.absoluteCenter).toEqual({ x: 5, y: -3 })
+  expect(holeObstacle!.shape).toBe("circle")
   expect(holeObstacle!.width).toBe(3.302)
   expect(holeObstacle!.height).toBe(3.302)
 })
@@ -82,6 +83,7 @@ test("rectangular pcb_hole is added as an obstacle with correct dimensions", () 
     (o) => o.obstacleId === "pcb_hole_rect",
   )
   expect(holeObstacle).toBeDefined()
+  expect(holeObstacle!.shape).toBe("rect")
   expect(holeObstacle!.width).toBe(4)
   expect(holeObstacle!.height).toBe(2)
 })
@@ -108,6 +110,7 @@ test("oval pcb_hole is added as an obstacle with correct dimensions", () => {
   )
   expect(holeObstacle).toBeDefined()
   expect(holeObstacle!.absoluteCenter).toEqual({ x: -2, y: 4 })
+  expect(holeObstacle!.shape).toBe("oval")
   expect(holeObstacle!.width).toBe(5)
   expect(holeObstacle!.height).toBe(3)
 })
@@ -149,6 +152,52 @@ test("multiple pcb_holes are all added as obstacles", () => {
     o.obstacleId.startsWith("pcb_hole_"),
   )
   expect(holeObstacles).toHaveLength(3)
+})
+
+test("pill and rotated-pill pcb_holes preserve shape", () => {
+  const circuitJson = makeCircuitJson([
+    {
+      type: "pcb_hole",
+      pcb_hole_id: "pcb_hole_pill",
+      hole_shape: "pill",
+      hole_width: 6,
+      hole_height: 2,
+      x: 0,
+      y: 0,
+    },
+    {
+      type: "pcb_hole",
+      pcb_hole_id: "pcb_hole_rotated_pill",
+      hole_shape: "rotated_pill",
+      hole_width: 6,
+      hole_height: 2,
+      ccw_rotation: 37,
+      x: 5,
+      y: 5,
+    },
+  ])
+
+  const packOutput = convertCircuitJsonToPackOutput(circuitJson, {
+    source_group_id: "source_group_0",
+  })
+
+  const pill = packOutput.obstacles!.find(
+    (obstacle) => obstacle.obstacleId === "pcb_hole_pill",
+  )
+  const rotatedPill = packOutput.obstacles!.find(
+    (obstacle) => obstacle.obstacleId === "pcb_hole_rotated_pill",
+  )
+
+  expect(pill).toMatchObject({
+    shape: "pill",
+    width: 6,
+    height: 2,
+  })
+  expect(rotatedPill).toMatchObject({
+    shape: "rotated_pill",
+    width: 6,
+    height: 2,
+  })
 })
 
 test("pcb_hole obstacles svg snapshot", async () => {

@@ -1,14 +1,16 @@
-import type { GraphicsObject, Rect, Line } from "graphics-debug"
+import type { Circle, GraphicsObject, Rect, Line } from "graphics-debug"
 import { createColorMapFromStrings } from "./createColorMapFromStrings"
 import type { PackOutput } from "../types"
 import { getComponentBounds } from "../geometry/getComponentBounds"
 import { isStrongConnection } from "../utils/isStrongConnection"
+import { addObstacleToGraphics } from "./addObstacleToGraphics"
 
 export const getGraphicsFromPackOutput = (
   packOutput: PackOutput,
 ): GraphicsObject => {
   const rects: Rect[] = []
   const lines: Line[] = []
+  const circles: Circle[] = []
 
   if (packOutput.boundaryOutline && packOutput.boundaryOutline.length) {
     const outlinePoints = [...packOutput.boundaryOutline]
@@ -37,14 +39,7 @@ export const getGraphicsFromPackOutput = (
   // Draw obstacles if present
   if (packOutput.obstacles && packOutput.obstacles.length > 0) {
     for (const obstacle of packOutput.obstacles) {
-      rects.push({
-        center: { x: obstacle.absoluteCenter.x, y: obstacle.absoluteCenter.y },
-        width: obstacle.width,
-        height: obstacle.height,
-        fill: "rgba(0,0,0,0.1)",
-        stroke: "#555",
-        label: obstacle.obstacleId,
-      })
+      addObstacleToGraphics({ rects, lines, circles }, obstacle)
     }
   }
 
@@ -110,5 +105,6 @@ export const getGraphicsFromPackOutput = (
     coordinateSystem: "cartesian",
     rects,
     lines,
+    circles,
   }
 }

@@ -50,6 +50,11 @@ export interface PackedComponent extends InputComponent {
 export interface InputObstacle {
   obstacleId: string
   absoluteCenter: { x: number; y: number }
+  /**
+   * The physical shape of the obstacle. Omitted for backwards-compatible
+   * rectangular obstacles.
+   */
+  shape?: "rect" | "circle" | "oval" | "pill" | "rotated_pill"
   width: number
   height: number
 }
