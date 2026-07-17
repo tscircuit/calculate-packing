@@ -1,12 +1,12 @@
-import type { CircuitJson, PcbComponent } from "circuit-json"
 import { cju, getCircuitJsonTree } from "@tscircuit/circuit-json-util"
+import type { CircuitJson, PcbComponent } from "circuit-json"
 import type {
+  ComponentCourtyard,
+  InputObstacle,
   OutputPad,
   PackedComponent,
   PackInput,
   PackOutput,
-  InputObstacle,
-  ComponentCourtyard,
 } from "../types"
 import { extractPadInfos } from "./extractPadInfos"
 import { getElementOutsideTree } from "./getElementsOutsideTree"
@@ -299,6 +299,13 @@ export const convertCircuitJsonToPackOutput = (
       if (pcbComponent.obstructs_within_bounds === true) {
         shouldAddInnerObstaclesForComp = true
       } else if (pcbComponent.obstructs_within_bounds === false) {
+        shouldAddInnerObstaclesForComp = false
+      }
+
+      const sourceComponent = db.source_component.get(
+        pcbComponent.source_component_id,
+      )
+      if ((sourceComponent as any)?.ftype === "simple_pinout") {
         shouldAddInnerObstaclesForComp = false
       }
 
