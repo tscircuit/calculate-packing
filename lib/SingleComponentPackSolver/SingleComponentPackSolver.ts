@@ -15,9 +15,14 @@ import type {
 import { isStrongConnection } from "../utils/isStrongConnection"
 import { checkOverlapWithPackedComponents } from "lib/PackSolver2/checkOverlapWithPackedComponents"
 import { getComponentCollisionBoxes } from "lib/PackSolver2/getComponentCollisionBoxes"
-import { computeDistanceBetweenBoxes, type Bounds } from "@tscircuit/math-utils"
+import type { Bounds } from "@tscircuit/math-utils"
 import { isPointInPolygon } from "lib/math/isPointInPolygon"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
+import { addObstacleToGraphics } from "lib/testing/addObstacleToGraphics"
+import {
+  getDistanceBetweenBoxAndObstacle,
+  getObstacleOutlinePoints,
+} from "lib/geometry/obstacleGeometry"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 
@@ -136,13 +141,8 @@ export class SingleComponentPackSolver extends BaseSolver {
       const candidate = this.createPackedComponent(position, rotation)
       const candidateBoxes = getComponentCollisionBoxes(candidate)
       const tooCloseToObstacles = (this.obstacles ?? []).some((obs) => {
-        const obsBox = {
-          center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
-          width: obs.width,
-          height: obs.height,
-        }
         return candidateBoxes.some((box) => {
-          const { distance } = computeDistanceBetweenBoxes(box, obsBox)
+          const distance = getDistanceBetweenBoxAndObstacle(box, obs)
           return distance + 1e-6 < this.minGap
         })
       })
@@ -209,37 +209,26 @@ export class SingleComponentPackSolver extends BaseSolver {
       }
     }
 
-    // Add obstacle boundary segments for isolated obstacles
-    // This allows components to be placed adjacent to obstacles that aren't
-    // connected to the main packed component cluster
+    // Preserve the legacy candidate ordering for rectangular obstacles.
+    // Curved obstacles are already represented by the constructed outlines;
+    // duplicating all of their sampled edges would greatly inflate the queue.
     let obstacleOutlineIndex = this.outlines.length + 1
     for (const obstacle of this.obstacles) {
-      const hw = obstacle.width / 2 + this.minGap
-      const hh = obstacle.height / 2 + this.minGap
-      const cx = obstacle.absoluteCenter.x
-      const cy = obstacle.absoluteCenter.y
+      if (obstacle.shape && obstacle.shape !== "rect") continue
 
-      // Create a CCW outline around the obstacle (including minGap)
-      const obstacleCorners = [
-        { x: cx - hw, y: cy - hh },
-        { x: cx + hw, y: cy - hh },
-        { x: cx + hw, y: cy + hh },
-        { x: cx - hw, y: cy + hh },
-      ]
+      const obstacleOutline = getObstacleOutlinePoints(obstacle, this.minGap)
+      const obstacleSegments: Segment[] = obstacleOutline.map(
+        (point, index) => [
+          point,
+          obstacleOutline[(index + 1) % obstacleOutline.length]!,
+        ],
+      )
 
-      const obstacleSegments: Segment[] = [
-        [obstacleCorners[0]!, obstacleCorners[1]!], // bottom
-        [obstacleCorners[1]!, obstacleCorners[2]!], // right
-        [obstacleCorners[2]!, obstacleCorners[3]!], // top
-        [obstacleCorners[3]!, obstacleCorners[0]!], // left
-      ]
-
-      for (let i = 0; i < obstacleSegments.length; i++) {
-        const segment = obstacleSegments[i]!
+      for (let index = 0; index < obstacleSegments.length; index++) {
         this.queuedOutlineSegments.push({
-          segment,
+          segment: obstacleSegments[index]!,
           availableRotations: [...availableRotations],
-          segmentIndex: obstacleOutlineIndex * 1000 + i,
+          segmentIndex: obstacleOutlineIndex * 1000 + index,
           ccwFullOutline: obstacleSegments,
         })
       }
@@ -281,13 +270,8 @@ export class SingleComponentPackSolver extends BaseSolver {
         const candidateCollisionBoxes =
           getComponentCollisionBoxes(candidateComponent)
         const tooCloseToObstacles = (this.obstacles ?? []).some((obs) => {
-          const obsBox = {
-            center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
-            width: obs.width,
-            height: obs.height,
-          }
           return candidateCollisionBoxes.some((box) => {
-            const { distance } = computeDistanceBetweenBoxes(box, obsBox)
+            const distance = getDistanceBetweenBoxAndObstacle(box, obs)
             minObstacleGapDistance = Math.min(minObstacleGapDistance, distance)
             return distance + 1e-6 < this.minGap
           })
@@ -540,14 +524,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     // Draw obstacles from PackInput (if any)
     if (this.obstacles && this.obstacles.length > 0) {
       for (const obstacle of this.obstacles) {
-        graphics.rects!.push({
-          center: obstacle.absoluteCenter,
-          width: obstacle.width,
-          height: obstacle.height,
-          fill: "rgba(0,0,0,0.1)",
-          stroke: "#555",
-          label: obstacle.obstacleId,
-        } as Rect)
+        addObstacleToGraphics(graphics, obstacle)
       }
     }
 

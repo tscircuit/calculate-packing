@@ -22,14 +22,18 @@ export const getObstacleFromElement = (
   }
 
   if (element.type === "pcb_hole") {
-    const { x, y, pcb_hole_id } = element
+    const { x, y, pcb_hole_id, hole_shape } = element
     const width =
       "hole_diameter" in element ? element.hole_diameter : element.hole_width
     const height =
       "hole_diameter" in element ? element.hole_diameter : element.hole_height
+
+    const shape = hole_shape === "square" ? "rect" : hole_shape
+
     return {
       obstacleId: pcb_hole_id,
       absoluteCenter: { x, y },
+      shape,
       width,
       height,
     }
