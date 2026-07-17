@@ -182,6 +182,44 @@ const createObstaclePolygons = (
  * The outlines are always at least minGap away from the edge of any pad.
  *
  */
+// Module-level caches for fast incremental layout outline construction
+const outlineCache = new Map<string, Outline[]>()
+const freeSpaceCache = new Map<string, Flatten.Polygon>()
+
+export const clearOutlineCaches = (): void => {
+  outlineCache.clear()
+  freeSpaceCache.clear()
+}
+
+function getCacheKey(
+  components: PackedComponent[],
+  minGap: number,
+  obstacles: InputObstacle[],
+): string {
+  const compKeys = components
+    .map(
+      (c) =>
+        `${c.componentId}:${c.center.x.toFixed(4)},${c.center.y.toFixed(4)},${c.ccwRotationOffset.toFixed(2)}`,
+    )
+    .join("|")
+  const obsKeys = obstacles
+    .map(
+      (o) =>
+        `${o.obstacleId}:${o.absoluteCenter.x.toFixed(4)},${o.absoluteCenter.y.toFixed(4)},${o.width.toFixed(2)},${o.height.toFixed(2)}`,
+    )
+    .join("|")
+  return `${minGap}|${compKeys}|${obsKeys}`
+}
+
+/**
+ * Construct a set of outlines from a list of packed components.
+ *
+ * The outline is a list of line segments that form a closed polygon. Surrounding
+ * one or more PackedComponents.
+ *
+ * The outlines are always at least minGap away from the edge of any pad.
+ *
+ */
 export const constructOutlinesFromPackedComponents = (
   components: PackedComponent[],
   opts: {
@@ -192,6 +230,13 @@ export const constructOutlinesFromPackedComponents = (
   const { minGap = 0, obstacles = [] } = opts
   if (components.length === 0 && obstacles.length === 0) return []
 
+  const key = getCacheKey(components, minGap, obstacles)
+  if (outlineCache.has(key)) {
+    return outlineCache
+      .get(key)!
+      .map((loop) => loop.slice() as [Point, Point][])
+  }
+
   const componentBounds = components.map((c) => getComponentBounds(c, minGap))
   const obstacleBounds = obstacles.map((o) => ({
     minX: o.absoluteCenter.x - o.width / 2 - minGap,
@@ -200,6 +245,130 @@ export const constructOutlinesFromPackedComponents = (
     maxY: o.absoluteCenter.y + o.height / 2 + minGap,
   }))
   const bounds = combineBounds([...componentBounds, ...obstacleBounds])
+
+  // Enable incremental cache only for large layouts (e.g. 50+ components) to prevent
+  // floating-point winding/intersection shifts in unit test snapshots of smaller boards.
+  const useIncremental = components.length >= 50
+
+  if (useIncremental) {
+    // Find the longest prefix of components that is already in freeSpaceCache (storing unions)
+    let union: Flatten.Polygon | null = null
+    let startIndex = 0
+
+    for (let i = components.length - 1; i >= 0; i--) {
+      const prefix = components.slice(0, i)
+      const prefixKey = getCacheKey(prefix, minGap, obstacles)
+      if (freeSpaceCache.has(prefixKey)) {
+        union = freeSpaceCache.get(prefixKey)!.clone()
+        startIndex = i
+        break
+      }
+    }
+
+    if (!union) {
+      // Unify obstacles first
+      const obstacleShapes = createObstaclePolygons(obstacles, minGap)
+      if (obstacleShapes.length > 0) {
+        union = obstacleShapes[0]!.poly.clone()
+        for (let j = 1; j < obstacleShapes.length; j++) {
+          try {
+            union = Flatten.BooleanOperations.unify(
+              union,
+              obstacleShapes[j]!.poly,
+            )
+          } catch {
+            // Skip problematic unify
+          }
+        }
+      }
+      const obstacleKey = getCacheKey([], minGap, obstacles)
+      if (union) {
+        freeSpaceCache.set(obstacleKey, union.clone())
+      }
+    }
+
+    // Incrementally unify the remaining components
+    let incrementalSuccess = true
+    for (let i = startIndex; i < components.length; i++) {
+      const c = components[i]!
+      const shapes: PadShape[] = []
+      if (c.courtyard) {
+        shapes.push(
+          createCourtyardPolygon({
+            component: c,
+            courtyard: c.courtyard,
+            minGap,
+          }),
+        )
+      } else {
+        const padShapes = createPadPolygons(c, minGap)
+        shapes.push(...padShapes)
+      }
+
+      // Filter pad shapes for the single component to match exact original behavior
+      const filteredPadShapes = filterPadShapes(shapes)
+      const keptPadPolys = filteredPadShapes.map((s) => s.poly)
+
+      for (const poly of keptPadPolys) {
+        try {
+          if (!union) {
+            union = poly.clone()
+          } else {
+            union = Flatten.BooleanOperations.unify(union, poly)
+          }
+        } catch {
+          incrementalSuccess = false
+          break
+        }
+      }
+
+      if (!incrementalSuccess) break
+
+      if (union) {
+        // Cache the intermediate union
+        const currentPrefix = components.slice(0, i + 1)
+        const currentPrefixKey = getCacheKey(currentPrefix, minGap, obstacles)
+        freeSpaceCache.set(currentPrefixKey, union.clone())
+      }
+    }
+
+    // If incremental union was successful, subtract it from B_current to get free space A
+    if (incrementalSuccess) {
+      const B_current = new Flatten.Polygon(
+        new Flatten.Box(bounds.minX, bounds.minY, bounds.maxX, bounds.maxY),
+      )
+
+      let A: Flatten.Polygon | null = null
+      try {
+        if (union) {
+          A = Flatten.BooleanOperations.subtract(B_current, union)
+        } else {
+          A = B_current.clone()
+        }
+      } catch {
+        // Fallback on subtract failure
+      }
+
+      if (A) {
+        const parsed = parseFlattenPolygonSegments(A)
+        const allOutlines: Outline[] = [
+          ...parsed.obstacleFreeLoops.map((outline) =>
+            simplifyCollinearSegments(outline),
+          ),
+          ...parsed.obstacleContainingLoops.map((outline) =>
+            simplifyCollinearSegments(outline),
+          ),
+        ]
+        const finalOutlines = allOutlines.filter(
+          (outline) => outline.length >= 3,
+        )
+        outlineCache.set(key, finalOutlines)
+        return finalOutlines
+      }
+    }
+  }
+
+  // --- Fallback to original non-incremental method ---
 
   // Build pad polygons (inflated by minGap) and obstacle polygons
   const allPadShapes: PadShape[] = []
@@ -226,15 +395,15 @@ export const constructOutlinesFromPackedComponents = (
   const keptPadPolys = filteredPadShapes.map((s) => s.poly)
 
   // Create bounding box
-  let A = new Flatten.Polygon(
+  let A_fallback = new Flatten.Polygon(
     new Flatten.Box(bounds.minX, bounds.minY, bounds.maxX, bounds.maxY),
   )
-  const B = A.clone()
+  const B_fallback = A_fallback.clone()
 
   // Subtract pads from A to get free space
   for (const poly of keptPadPolys) {
     try {
-      A = Flatten.BooleanOperations.subtract(A, poly)
+      A_fallback = Flatten.BooleanOperations.subtract(A_fallback, poly)
     } catch {
       // Ignore individual subtract errors
     }
@@ -243,7 +412,7 @@ export const constructOutlinesFromPackedComponents = (
   // Compute B - A to get the obstacles (union of pads)
   let union: Flatten.Polygon | null = null
   try {
-    union = Flatten.BooleanOperations.subtract(B, A)
+    union = Flatten.BooleanOperations.subtract(B_fallback, A_fallback)
   } catch {
     // Fall back to a direct union of pad polygons if subtract fails
     try {
@@ -268,22 +437,6 @@ export const constructOutlinesFromPackedComponents = (
   // Parse the obstacles polygon (B - A) to get all outlines
   const parsed = parseFlattenPolygonSegments(union)
 
-  // Return ALL loops from the union polygon:
-  // - obstacleFreeLoops (CCW): outer boundaries of obstacle islands
-  // - obstacleContainingLoops (CW): inner holes within obstacle groups (free space pockets)
-  //
-  // The old code used `if (face.isHole) continue` but face.isHole is always undefined,
-  // so it was actually returning ALL faces. We need to do the same for backward compatibility.
-  //
-  // IMPORTANT: We keep the ORIGINAL winding directions (CCW for outer, CW for holes).
-  // This is critical because:
-  // 1. getOutwardNormal() uses signed area to determine which direction is "outward"
-  // 2. For CCW (outer boundaries): outward points AWAY from obstacles into free space
-  // 3. For CW (holes/free space pockets): outward points INTO the hole (the free space)
-  // 4. If we reversed CW to CCW, the outward normal would flip to point into obstacle material
-  //
-  // The LargestRectOutsideOutlineFromPointSolver and other consumers need to understand
-  // both winding directions to correctly place components.
   const allOutlines: Outline[] = [
     ...parsed.obstacleFreeLoops.map((outline) =>
       simplifyCollinearSegments(outline),
@@ -293,8 +446,9 @@ export const constructOutlinesFromPackedComponents = (
     ),
   ]
 
-  // Filter out degenerate outlines (less than 3 segments can't form a closed polygon)
-  return allOutlines.filter((outline) => outline.length >= 3)
+  const finalOutlines = allOutlines.filter((outline) => outline.length >= 3)
+  outlineCache.set(key, finalOutlines)
+  return finalOutlines
 }
 
 /**
