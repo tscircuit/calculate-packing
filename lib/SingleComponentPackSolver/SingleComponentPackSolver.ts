@@ -26,6 +26,7 @@ interface QueuedOutlineSegment {
   availableRotations: number[]
   segmentIndex: number
   ccwFullOutline: Segment[] // The entire outline containing this segment
+  isBoundaryOutline?: boolean
 }
 
 interface CandidateResult {
@@ -126,7 +127,11 @@ export class SingleComponentPackSolver extends BaseSolver {
 
   private executeOutlinePhase() {
     // Special case: if no packed components, attempt center; if too close to obstacles, fall back to outline-based placement
-    if (this.packedComponents.length === 0) {
+    if (
+      this.packedComponents.length === 0 &&
+      !this.componentToPack.mustBeOnBoundary &&
+      !this.componentToPack.shouldBeOnEdgeOfBoard
+    ) {
       const availableRotations = this.componentToPack
         .availableRotationDegrees ?? [0, 90, 180, 270]
       const position = { x: 0, y: 0 }
@@ -205,6 +210,7 @@ export class SingleComponentPackSolver extends BaseSolver {
           availableRotations: [...availableRotations],
           segmentIndex: boundaryOutlineIndex * 1000 + i,
           ccwFullOutline: boundarySegments,
+          isBoundaryOutline: true,
         })
       }
     }
@@ -312,7 +318,10 @@ export class SingleComponentPackSolver extends BaseSolver {
 
           // Check if all pads are within the boundary outline
           const allPadsInside = candidateComponent.pads.every((pad) =>
-            isPointInPolygon(pad.absoluteCenter, this.boundaryOutline!),
+            isPointInsideOrOnBoundary(
+              pad.absoluteCenter,
+              this.boundaryOutline!,
+            ),
           )
 
           // Also check corners of component bounds
@@ -321,9 +330,27 @@ export class SingleComponentPackSolver extends BaseSolver {
             { x: componentBounds.minX, y: componentBounds.maxY },
             { x: componentBounds.maxX, y: componentBounds.minY },
             { x: componentBounds.maxX, y: componentBounds.maxY },
-          ].every((corner) => isPointInPolygon(corner, this.boundaryOutline!))
+          ].every((corner) =>
+            isPointInsideOrOnBoundary(corner, this.boundaryOutline!),
+          )
 
           outsideBoundaryOutline = !allPadsInside || !cornersInside
+        }
+
+        // Check if component must touch the boundary outline
+        let violatesBoundaryConstraint = false
+        if (
+          (this.componentToPack.mustBeOnBoundary ||
+            this.componentToPack.shouldBeOnEdgeOfBoard) &&
+          this.boundaryOutline &&
+          this.boundaryOutline.length >= 3
+        ) {
+          const distanceToBoundary = getDistanceToBoundaryOutline(
+            candidateComponent,
+            this.boundaryOutline,
+          )
+          // Allow a small tolerance of 0.01 mm (10 microns)
+          violatesBoundaryConstraint = distanceToBoundary > 0.01
         }
 
         // Calculate distance based on pack strategy
@@ -368,6 +395,16 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: -1, // Special marker for boundary violation
+          })
+        } else if (violatesBoundaryConstraint) {
+          this.rejectedCandidates.push({
+            segment: queuedSegment.segment,
+            rotation,
+            optimalPosition,
+            distance,
+            segmentIndex: queuedSegment.segmentIndex,
+            rotationIndex: this.currentRotationIndex,
+            gapDistance: -2, // Special marker for boundary constraint violation
           })
         } else {
           // Store candidate result
@@ -422,6 +459,7 @@ export class SingleComponentPackSolver extends BaseSolver {
         globalBounds: this.bounds,
         boundaryOutline: this.boundaryOutline,
         weightedConnections: this.weightedConnections,
+        isBoundaryOutline: queuedSegment.isBoundaryOutline,
       })
 
       this.activeSubSolver.setup()
@@ -735,4 +773,114 @@ export class SingleComponentPackSolver extends BaseSolver {
       weightedConnections: this.weightedConnections,
     }
   }
+}
+
+function getPointToSegmentDistance(p: Point, a: Point, b: Point): number {
+  const vx = b.x - a.x
+  const vy = b.y - a.y
+  const wx = p.x - a.x
+  const wy = p.y - a.y
+  const vSq = vx * vx + vy * vy
+  if (vSq === 0) {
+    return Math.hypot(p.x - a.x, p.y - a.y)
+  }
+  let t = (wx * vx + wy * vy) / vSq
+  t = Math.max(0, Math.min(1, t))
+  const projX = a.x + t * vx
+  const projY = a.y + t * vy
+  return Math.hypot(p.x - projX, p.y - projY)
+}
+
+function ccw(a: Point, b: Point, c: Point): boolean {
+  return (c.y - a.y) * (b.x - a.x) > (b.y - a.y) * (c.x - a.x)
+}
+
+function intersect(a: Point, b: Point, c: Point, d: Point): boolean {
+  return ccw(a, c, d) !== ccw(b, c, d) && ccw(a, b, c) !== ccw(a, b, d)
+}
+
+function getSegmentToSegmentDistance(
+  a: Point,
+  b: Point,
+  c: Point,
+  d: Point,
+): number {
+  if (intersect(a, b, c, d)) {
+    return 0
+  }
+  return Math.min(
+    getPointToSegmentDistance(a, c, d),
+    getPointToSegmentDistance(b, c, d),
+    getPointToSegmentDistance(c, a, b),
+    getPointToSegmentDistance(d, a, b),
+  )
+}
+
+function getDistanceToBoundaryOutline(
+  component: PackedComponent,
+  boundaryOutline: Point[],
+): number {
+  const boxes = getComponentCollisionBoxes(component)
+  let minDistance = Infinity
+
+  const boundarySegments: [Point, Point][] = []
+  for (let i = 0; i < boundaryOutline.length; i++) {
+    boundarySegments.push([
+      boundaryOutline[i]!,
+      boundaryOutline[(i + 1) % boundaryOutline.length]!,
+    ])
+  }
+
+  for (const box of boxes) {
+    const minX = box.center.x - box.width / 2
+    const maxX = box.center.x + box.width / 2
+    const minY = box.center.y - box.height / 2
+    const maxY = box.center.y + box.height / 2
+
+    const corners = [
+      { x: minX, y: minY },
+      { x: maxX, y: minY },
+      { x: maxX, y: maxY },
+      { x: minX, y: maxY },
+    ]
+
+    const boxSegments: [Point, Point][] = [
+      [corners[0]!, corners[1]!],
+      [corners[1]!, corners[2]!],
+      [corners[2]!, corners[3]!],
+      [corners[3]!, corners[0]!],
+    ]
+
+    for (const boxSeg of boxSegments) {
+      for (const bSeg of boundarySegments) {
+        const dist = getSegmentToSegmentDistance(
+          boxSeg[0],
+          boxSeg[1],
+          bSeg[0],
+          bSeg[1],
+        )
+        if (dist < minDistance) {
+          minDistance = dist
+        }
+      }
+    }
+  }
+
+  return minDistance
+}
+
+function isPointInsideOrOnBoundary(
+  point: Point,
+  boundaryOutline: Point[],
+  tolerance = 0.01,
+): boolean {
+  if (isPointInPolygon(point, boundaryOutline)) return true
+
+  for (let i = 0; i < boundaryOutline.length; i++) {
+    const p1 = boundaryOutline[i]!
+    const p2 = boundaryOutline[(i + 1) % boundaryOutline.length]!
+    const dist = getPointToSegmentDistance(point, p1, p2)
+    if (dist <= tolerance) return true
+  }
+  return false
 }
