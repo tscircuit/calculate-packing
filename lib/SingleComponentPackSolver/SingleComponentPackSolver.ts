@@ -1,23 +1,28 @@
-import type { GraphicsObject, Line, Point, Rect } from "graphics-debug"
-import { constructOutlinesFromPackedComponents } from "../constructOutlinesFromPackedComponents"
-import { OutlineSegmentCandidatePointSolver } from "../OutlineSegmentCandidatePointSolver/OutlineSegmentCandidatePointSolver"
-import { setPackedComponentPadCenters } from "../PackSolver2/setPackedComponentPadCenters"
+import {
+  type Bounds,
+  clamp,
+  computeDistanceBetweenBoxes,
+} from "@tscircuit/math-utils"
 import { BaseSolver } from "@tscircuit/solver-utils"
-import { getGraphicsFromPackOutput } from "../testing/getGraphicsFromPackOutput"
-import type { Segment } from "../geometry/types"
-import type {
-  InputComponent,
-  PackedComponent,
-  PackPlacementStrategy,
-  InputObstacle,
-  PackInput,
-} from "../types"
-import { isStrongConnection } from "../utils/isStrongConnection"
+import type { GraphicsObject, Line, Point, Rect } from "graphics-debug"
+import { getComponentBounds } from "lib/geometry/getComponentBounds"
+import { getInputComponentBounds } from "lib/geometry/getInputComponentBounds"
+import { isPointInPolygon } from "lib/math/isPointInPolygon"
 import { checkOverlapWithPackedComponents } from "lib/PackSolver2/checkOverlapWithPackedComponents"
 import { getComponentCollisionBoxes } from "lib/PackSolver2/getComponentCollisionBoxes"
-import { computeDistanceBetweenBoxes, type Bounds } from "@tscircuit/math-utils"
-import { isPointInPolygon } from "lib/math/isPointInPolygon"
-import { getComponentBounds } from "lib/geometry/getComponentBounds"
+import { constructOutlinesFromPackedComponents } from "../constructOutlinesFromPackedComponents"
+import type { Segment } from "../geometry/types"
+import { OutlineSegmentCandidatePointSolver } from "../OutlineSegmentCandidatePointSolver/OutlineSegmentCandidatePointSolver"
+import { setPackedComponentPadCenters } from "../PackSolver2/setPackedComponentPadCenters"
+import { getGraphicsFromPackOutput } from "../testing/getGraphicsFromPackOutput"
+import type {
+  InputComponent,
+  InputObstacle,
+  PackedComponent,
+  PackInput,
+  PackPlacementStrategy,
+} from "../types"
+import { isStrongConnection } from "../utils/isStrongConnection"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 
@@ -26,6 +31,7 @@ interface QueuedOutlineSegment {
   availableRotations: number[]
   segmentIndex: number
   ccwFullOutline: Segment[] // The entire outline containing this segment
+  isBoundarySegment?: boolean
 }
 
 interface CandidateResult {
@@ -35,6 +41,7 @@ interface CandidateResult {
   distance: number
   segmentIndex: number
   rotationIndex: number
+  isBoundarySegment?: boolean
 }
 
 /**
@@ -108,6 +115,23 @@ export class SingleComponentPackSolver extends BaseSolver {
     this.currentRotationIndex = 0
   }
 
+  private getEffectiveBoundaryOutline():
+    | Array<{ x: number; y: number }>
+    | undefined {
+    if (this.boundaryOutline && this.boundaryOutline.length >= 3) {
+      return this.boundaryOutline
+    }
+
+    if (!this.bounds) return undefined
+
+    return [
+      { x: this.bounds.minX, y: this.bounds.minY },
+      { x: this.bounds.maxX, y: this.bounds.minY },
+      { x: this.bounds.maxX, y: this.bounds.maxY },
+      { x: this.bounds.minX, y: this.bounds.maxY },
+    ]
+  }
+
   override _step() {
     if (this.solved || this.failed) return
 
@@ -126,7 +150,10 @@ export class SingleComponentPackSolver extends BaseSolver {
 
   private executeOutlinePhase() {
     // Special case: if no packed components, attempt center; if too close to obstacles, fall back to outline-based placement
-    if (this.packedComponents.length === 0) {
+    if (
+      this.packedComponents.length === 0 &&
+      !this.componentToPack.mustBeOnBoundary
+    ) {
       const availableRotations = this.componentToPack
         .availableRotationDegrees ?? [0, 90, 180, 270]
       const position = { x: 0, y: 0 }
@@ -188,11 +215,13 @@ export class SingleComponentPackSolver extends BaseSolver {
     // Also add boundary outline segments if available
     // This allows components to be placed in empty areas along the board edges
     // where no packed components exist to create outline segments
-    if (this.boundaryOutline && this.boundaryOutline.length >= 3) {
+    const effectiveBoundaryOutline = this.getEffectiveBoundaryOutline()
+    if (effectiveBoundaryOutline && effectiveBoundaryOutline.length >= 3) {
       const boundarySegments: Segment[] = []
-      for (let i = 0; i < this.boundaryOutline.length; i++) {
-        const p1 = this.boundaryOutline[i]!
-        const p2 = this.boundaryOutline[(i + 1) % this.boundaryOutline.length]!
+      for (let i = 0; i < effectiveBoundaryOutline.length; i++) {
+        const p1 = effectiveBoundaryOutline[i]!
+        const p2 =
+          effectiveBoundaryOutline[(i + 1) % effectiveBoundaryOutline.length]!
         boundarySegments.push([p1, p2])
       }
 
@@ -205,6 +234,7 @@ export class SingleComponentPackSolver extends BaseSolver {
           availableRotations: [...availableRotations],
           segmentIndex: boundaryOutlineIndex * 1000 + i,
           ccwFullOutline: boundarySegments,
+          isBoundarySegment: true,
         })
       }
     }
@@ -338,6 +368,7 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: gapDistance!,
+            isBoundarySegment: queuedSegment.isBoundarySegment,
           })
         } else if (tooCloseToObstacles) {
           this.rejectedCandidates.push({
@@ -348,6 +379,7 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: minObstacleGapDistance,
+            isBoundarySegment: queuedSegment.isBoundarySegment,
           })
         } else if (outsideBounds) {
           this.rejectedCandidates.push({
@@ -358,6 +390,7 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: -1, // Special marker for bounds violation
+            isBoundarySegment: queuedSegment.isBoundarySegment,
           })
         } else if (outsideBoundaryOutline) {
           this.rejectedCandidates.push({
@@ -368,6 +401,21 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: -1, // Special marker for boundary violation
+            isBoundarySegment: queuedSegment.isBoundarySegment,
+          })
+        } else if (
+          this.componentToPack.mustBeOnBoundary &&
+          !queuedSegment.isBoundarySegment
+        ) {
+          this.rejectedCandidates.push({
+            segment: queuedSegment.segment,
+            rotation,
+            optimalPosition,
+            distance,
+            segmentIndex: queuedSegment.segmentIndex,
+            rotationIndex: this.currentRotationIndex,
+            gapDistance: -2, // Special marker for non-boundary candidate
+            isBoundarySegment: queuedSegment.isBoundarySegment,
           })
         } else {
           // Store candidate result
@@ -378,6 +426,7 @@ export class SingleComponentPackSolver extends BaseSolver {
             distance,
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
+            isBoundarySegment: queuedSegment.isBoundarySegment,
           })
         }
       }
@@ -433,6 +482,13 @@ export class SingleComponentPackSolver extends BaseSolver {
   }
 
   private executeEvaluatePhase() {
+    if (
+      this.candidateResults.length === 0 &&
+      this.componentToPack.mustBeOnBoundary
+    ) {
+      this.addDirectBoundaryCandidates()
+    }
+
     // Find the best candidate (lowest distance)
     if (this.candidateResults.length === 0) {
       this.failed = true
@@ -453,6 +509,124 @@ export class SingleComponentPackSolver extends BaseSolver {
     }
 
     this.solved = true
+  }
+
+  private addDirectBoundaryCandidates() {
+    const boundaryOutline = this.getEffectiveBoundaryOutline()
+    if (!boundaryOutline || boundaryOutline.length < 3) return
+
+    const boundaryBounds = boundaryOutline.reduce(
+      (bounds, point) => ({
+        minX: Math.min(bounds.minX, point.x),
+        minY: Math.min(bounds.minY, point.y),
+        maxX: Math.max(bounds.maxX, point.x),
+        maxY: Math.max(bounds.maxY, point.y),
+      }),
+      {
+        minX: Infinity,
+        minY: Infinity,
+        maxX: -Infinity,
+        maxY: -Infinity,
+      },
+    )
+    const availableRotations = this.componentToPack
+      .availableRotationDegrees ?? [0, 90, 180, 270]
+    const epsilon = 1e-6
+
+    for (let i = 0; i < boundaryOutline.length; i++) {
+      const p1 = boundaryOutline[i]!
+      const p2 = boundaryOutline[(i + 1) % boundaryOutline.length]!
+      const isHorizontal = Math.abs(p1.y - p2.y) < epsilon
+      const isVertical = Math.abs(p1.x - p2.x) < epsilon
+      if (!isHorizontal && !isVertical) continue
+
+      for (
+        let rotationIndex = 0;
+        rotationIndex < availableRotations.length;
+        rotationIndex++
+      ) {
+        const rotation = availableRotations[rotationIndex]!
+        const componentBounds = getInputComponentBounds(this.componentToPack, {
+          rotationDegrees: rotation,
+        })
+
+        let center: Point
+        if (isHorizontal) {
+          const centerX = clamp(
+            (p1.x + p2.x) / 2,
+            boundaryBounds.minX - componentBounds.minX,
+            boundaryBounds.maxX - componentBounds.maxX,
+          )
+          const centerY =
+            Math.abs(p1.y - boundaryBounds.minY) < epsilon
+              ? p1.y - componentBounds.minY
+              : p1.y - componentBounds.maxY
+          center = { x: centerX, y: centerY }
+        } else {
+          const centerX =
+            Math.abs(p1.x - boundaryBounds.minX) < epsilon
+              ? p1.x - componentBounds.minX
+              : p1.x - componentBounds.maxX
+          const centerY = clamp(
+            (p1.y + p2.y) / 2,
+            boundaryBounds.minY - componentBounds.minY,
+            boundaryBounds.maxY - componentBounds.maxY,
+          )
+          center = { x: centerX, y: centerY }
+        }
+
+        const candidateComponent = this.createPackedComponent(center, rotation)
+        if (!this.isCandidateAcceptable(candidateComponent)) continue
+
+        this.candidateResults.push({
+          segment: [p1, p2],
+          rotation,
+          optimalPosition: center,
+          distance: this.calculateDistance(center, rotation),
+          segmentIndex: i,
+          rotationIndex,
+          isBoundarySegment: true,
+        })
+      }
+    }
+  }
+
+  private isCandidateAcceptable(candidateComponent: PackedComponent) {
+    const { hasOverlap } = checkOverlapWithPackedComponents({
+      component: candidateComponent,
+      packedComponents: this.packedComponents,
+      minGap: this.minGap,
+    })
+    if (hasOverlap) return false
+
+    const candidateCollisionBoxes =
+      getComponentCollisionBoxes(candidateComponent)
+    const tooCloseToObstacles = (this.obstacles ?? []).some((obs) => {
+      const obsBox = {
+        center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
+        width: obs.width,
+        height: obs.height,
+      }
+      return candidateCollisionBoxes.some((box) => {
+        const { distance } = computeDistanceBetweenBoxes(box, obsBox)
+        return distance + 1e-6 < this.minGap
+      })
+    })
+    if (tooCloseToObstacles) return false
+
+    if (this.bounds) {
+      const componentBounds = getComponentBounds(candidateComponent, 0)
+      if (
+        componentBounds.minX < this.bounds.minX - 1e-6 ||
+        componentBounds.maxX > this.bounds.maxX + 1e-6 ||
+        componentBounds.minY < this.bounds.minY - 1e-6 ||
+        componentBounds.maxY > this.bounds.maxY + 1e-6
+      ) {
+        return false
+      }
+    }
+
+    return true
   }
 
   private calculateDistance(position: Point, rotation: number): number {
@@ -565,7 +739,7 @@ export class SingleComponentPackSolver extends BaseSolver {
       })
     }
 
-    if (this.boundaryOutline && this.boundaryOutline.length) {
+    if (this.boundaryOutline?.length) {
       const outlinePoints = [...this.boundaryOutline]
       if (
         outlinePoints.length > 0 &&
@@ -611,7 +785,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     for (let i = 0; i < this.outlines.length; i++) {
       const outline = this.outlines[i]!
       for (let u = 0; u < outline.length; u++) {
-        const [p1, p2] = outline[u]!
+        const [p1, _p2] = outline[u]!
         graphics.points!.push({
           x: p1.x,
           y: p1.y,

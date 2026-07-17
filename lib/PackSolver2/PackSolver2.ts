@@ -1,20 +1,20 @@
-import type { GraphicsObject } from "graphics-debug"
-import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
-import { sortComponentQueue } from "./sortComponentQueue"
-import { SingleComponentPackSolver } from "../SingleComponentPackSolver/SingleComponentPackSolver"
+import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
 import { BaseSolver } from "@tscircuit/solver-utils"
+import type { GraphicsObject } from "graphics-debug"
+import { getColorForString } from "lib/testing/createColorMapFromStrings"
+import { getComponentBounds } from "../geometry/getComponentBounds"
+import { getPolygonCentroid } from "../math/getPolygonCentroid"
+import { isPointInPolygon } from "../math/isPointInPolygon"
+import { SingleComponentPackSolver } from "../SingleComponentPackSolver/SingleComponentPackSolver"
 import type {
   InputComponent,
   OutputPad,
   PackedComponent,
   PackInput,
 } from "../types"
-import { getColorForString } from "lib/testing/createColorMapFromStrings"
-import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
 import { getComponentCollisionBoxes } from "./getComponentCollisionBoxes"
-import { getComponentBounds } from "../geometry/getComponentBounds"
-import { isPointInPolygon } from "../math/isPointInPolygon"
-import { getPolygonCentroid } from "../math/getPolygonCentroid"
+import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
+import { sortComponentQueue } from "./sortComponentQueue"
 
 export class PackSolver2 extends BaseSolver {
   declare activeSubSolver: SingleComponentPackSolver | null | undefined
@@ -88,6 +88,36 @@ export class PackSolver2 extends BaseSolver {
 
   private packFirstComponent(): void {
     const firstComponentToPack = this.unpackedComponentQueue.shift()!
+
+    if (firstComponentToPack.mustBeOnBoundary) {
+      const boundaryOutline =
+        this.packInput.boundaryOutline ??
+        (this.packInput.bounds
+          ? [
+              { x: this.packInput.bounds.minX, y: this.packInput.bounds.minY },
+              { x: this.packInput.bounds.maxX, y: this.packInput.bounds.minY },
+              { x: this.packInput.bounds.maxX, y: this.packInput.bounds.maxY },
+              { x: this.packInput.bounds.minX, y: this.packInput.bounds.maxY },
+            ]
+          : undefined)
+
+      const boundarySolver = new SingleComponentPackSolver({
+        packedComponents: [],
+        componentToPack: firstComponentToPack,
+        packPlacementStrategy: this.packInput.packPlacementStrategy,
+        minGap: this.packInput.minGap,
+        obstacles: this.packInput.obstacles ?? [],
+        bounds: this.packInput.bounds,
+        boundaryOutline,
+        weightedConnections: this.packInput.weightedConnections,
+      })
+      boundarySolver.solve()
+      const result = boundarySolver.getResult()
+      if (result) {
+        this.packedComponents.push(result)
+        return
+      }
+    }
 
     // If boundary outline exists, use its geometric centroid as the starting position
     let initialPosition = { x: 0, y: 0 }
@@ -299,10 +329,7 @@ export class PackSolver2 extends BaseSolver {
       })
     }
 
-    if (
-      this.packInput.boundaryOutline &&
-      this.packInput.boundaryOutline.length
-    ) {
+    if (this.packInput.boundaryOutline?.length) {
       const points = [...this.packInput.boundaryOutline]
       if (
         points.length > 0 &&
