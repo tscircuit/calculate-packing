@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { getDistanceBetweenBoxAndObstacle } from "./getDistanceBetweenBoxAndObstacle"
+import { getDistanceBetweenBoxAndObstacle } from "../../lib/geometry/getDistanceBetweenBoxAndObstacle"
 
 test("computes distance to the circular edge instead of its bounding box", () => {
   const distance = getDistanceBetweenBoxAndObstacle(

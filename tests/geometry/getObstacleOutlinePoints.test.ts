@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { getObstacleOutlinePoints } from "./getObstacleOutlinePoints"
+import { getObstacleOutlinePoints } from "../../lib/geometry/getObstacleOutlinePoints"
 
 test("circular obstacle outline preserves the requested radial clearance", () => {
   const center = { x: 1, y: -2 }
