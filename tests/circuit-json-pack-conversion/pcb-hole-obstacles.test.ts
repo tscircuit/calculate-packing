@@ -59,6 +59,7 @@ test("circular pcb_hole is added as an obstacle", () => {
   expect(holeObstacle!.absoluteCenter).toEqual({ x: 5, y: -3 })
   expect(holeObstacle!.width).toBe(3.302)
   expect(holeObstacle!.height).toBe(3.302)
+  expect(holeObstacle!.shape).toBe("circle")
 })
 
 test("rectangular pcb_hole is added as an obstacle with correct dimensions", () => {
@@ -84,6 +85,7 @@ test("rectangular pcb_hole is added as an obstacle with correct dimensions", () 
   expect(holeObstacle).toBeDefined()
   expect(holeObstacle!.width).toBe(4)
   expect(holeObstacle!.height).toBe(2)
+  expect(holeObstacle!.shape).toBe("rect")
 })
 
 test("oval pcb_hole is added as an obstacle with correct dimensions", () => {
@@ -110,6 +112,7 @@ test("oval pcb_hole is added as an obstacle with correct dimensions", () => {
   expect(holeObstacle!.absoluteCenter).toEqual({ x: -2, y: 4 })
   expect(holeObstacle!.width).toBe(5)
   expect(holeObstacle!.height).toBe(3)
+  expect(holeObstacle!.shape).toBe("rect")
 })
 
 test("multiple pcb_holes are all added as obstacles", () => {

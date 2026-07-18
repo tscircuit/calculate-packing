@@ -52,6 +52,8 @@ export interface InputObstacle {
   absoluteCenter: { x: number; y: number }
   width: number
   height: number
+  /** Defaults to "rect" when omitted for backwards compatibility. */
+  shape?: "rect" | "circle"
 }
 
 export type PackPlacementStrategy =

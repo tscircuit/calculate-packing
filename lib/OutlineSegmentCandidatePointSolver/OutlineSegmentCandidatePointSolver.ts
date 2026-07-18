@@ -570,14 +570,24 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     // Draw obstacles
     if (this.obstacles && this.obstacles.length > 0) {
       for (const obstacle of this.obstacles) {
-        graphics.rects!.push({
-          center: obstacle.absoluteCenter,
-          width: obstacle.width,
-          height: obstacle.height,
-          fill: "rgba(0,0,0,0.1)",
-          stroke: "#555",
-          label: obstacle.obstacleId,
-        })
+        if (obstacle.shape === "circle") {
+          graphics.circles!.push({
+            center: obstacle.absoluteCenter,
+            radius: obstacle.width / 2,
+            fill: "rgba(0,0,0,0.1)",
+            stroke: "#555",
+            label: obstacle.obstacleId,
+          })
+        } else {
+          graphics.rects!.push({
+            center: obstacle.absoluteCenter,
+            width: obstacle.width,
+            height: obstacle.height,
+            fill: "rgba(0,0,0,0.1)",
+            stroke: "#555",
+            label: obstacle.obstacleId,
+          })
+        }
       }
     }
 

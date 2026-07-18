@@ -32,6 +32,7 @@ export const getObstacleFromElement = (
       absoluteCenter: { x, y },
       width,
       height,
+      shape: element.hole_shape === "circle" ? "circle" : "rect",
     }
   }
 

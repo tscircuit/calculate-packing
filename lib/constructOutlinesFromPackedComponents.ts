@@ -2,6 +2,7 @@ import Flatten from "@flatten-js/core"
 import type { Point } from "@tscircuit/math-utils"
 import { combineBounds } from "./geometry/combineBounds"
 import { getComponentBounds } from "./geometry/getComponentBounds"
+import { getObstacleOutlinePoints } from "./geometry/getObstacleOutlinePoints"
 import { simplifyCollinearSegments } from "./geometry/simplify-collinear-segments"
 import { rotatePoint } from "./math/rotatePoint"
 import { parseFlattenPolygonSegments } from "./parseFlattenPolygonLoops"
@@ -145,17 +146,7 @@ const createObstaclePolygons = (
   minGap: number,
 ): PadShape[] => {
   return obstacles.map((obs) => {
-    const hw = obs.width / 2 + minGap
-    const hh = obs.height / 2 + minGap
-    const cx = obs.absoluteCenter.x
-    const cy = obs.absoluteCenter.y
-
-    const worldCorners = [
-      { x: cx - hw, y: cy - hh },
-      { x: cx + hw, y: cy - hh },
-      { x: cx + hw, y: cy + hh },
-      { x: cx - hw, y: cy + hh },
-    ]
+    const worldCorners = getObstacleOutlinePoints(obs, minGap)
 
     const arr = worldCorners.map(({ x, y }) => [x, y] as [number, number])
     const poly = new Flatten.Polygon(arr)

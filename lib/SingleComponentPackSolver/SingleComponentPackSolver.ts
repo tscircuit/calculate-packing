@@ -15,9 +15,11 @@ import type {
 import { isStrongConnection } from "../utils/isStrongConnection"
 import { checkOverlapWithPackedComponents } from "lib/PackSolver2/checkOverlapWithPackedComponents"
 import { getComponentCollisionBoxes } from "lib/PackSolver2/getComponentCollisionBoxes"
-import { computeDistanceBetweenBoxes, type Bounds } from "@tscircuit/math-utils"
+import type { Bounds } from "@tscircuit/math-utils"
 import { isPointInPolygon } from "lib/math/isPointInPolygon"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
+import { getDistanceBetweenBoxAndObstacle } from "lib/geometry/getDistanceBetweenBoxAndObstacle"
+import { getObstacleOutlinePoints } from "lib/geometry/getObstacleOutlinePoints"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 
@@ -136,13 +138,8 @@ export class SingleComponentPackSolver extends BaseSolver {
       const candidate = this.createPackedComponent(position, rotation)
       const candidateBoxes = getComponentCollisionBoxes(candidate)
       const tooCloseToObstacles = (this.obstacles ?? []).some((obs) => {
-        const obsBox = {
-          center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
-          width: obs.width,
-          height: obs.height,
-        }
         return candidateBoxes.some((box) => {
-          const { distance } = computeDistanceBetweenBoxes(box, obsBox)
+          const distance = getDistanceBetweenBoxAndObstacle(box, obs)
           return distance + 1e-6 < this.minGap
         })
       })
@@ -214,25 +211,14 @@ export class SingleComponentPackSolver extends BaseSolver {
     // connected to the main packed component cluster
     let obstacleOutlineIndex = this.outlines.length + 1
     for (const obstacle of this.obstacles) {
-      const hw = obstacle.width / 2 + this.minGap
-      const hh = obstacle.height / 2 + this.minGap
-      const cx = obstacle.absoluteCenter.x
-      const cy = obstacle.absoluteCenter.y
-
       // Create a CCW outline around the obstacle (including minGap)
-      const obstacleCorners = [
-        { x: cx - hw, y: cy - hh },
-        { x: cx + hw, y: cy - hh },
-        { x: cx + hw, y: cy + hh },
-        { x: cx - hw, y: cy + hh },
-      ]
-
-      const obstacleSegments: Segment[] = [
-        [obstacleCorners[0]!, obstacleCorners[1]!], // bottom
-        [obstacleCorners[1]!, obstacleCorners[2]!], // right
-        [obstacleCorners[2]!, obstacleCorners[3]!], // top
-        [obstacleCorners[3]!, obstacleCorners[0]!], // left
-      ]
+      const obstacleCorners = getObstacleOutlinePoints(obstacle, this.minGap)
+      const obstacleSegments: Segment[] = obstacleCorners.map(
+        (corner, index) => [
+          corner,
+          obstacleCorners[(index + 1) % obstacleCorners.length]!,
+        ],
+      )
 
       for (let i = 0; i < obstacleSegments.length; i++) {
         const segment = obstacleSegments[i]!
@@ -281,13 +267,8 @@ export class SingleComponentPackSolver extends BaseSolver {
         const candidateCollisionBoxes =
           getComponentCollisionBoxes(candidateComponent)
         const tooCloseToObstacles = (this.obstacles ?? []).some((obs) => {
-          const obsBox = {
-            center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
-            width: obs.width,
-            height: obs.height,
-          }
           return candidateCollisionBoxes.some((box) => {
-            const { distance } = computeDistanceBetweenBoxes(box, obsBox)
+            const distance = getDistanceBetweenBoxAndObstacle(box, obs)
             minObstacleGapDistance = Math.min(minObstacleGapDistance, distance)
             return distance + 1e-6 < this.minGap
           })
@@ -540,14 +521,24 @@ export class SingleComponentPackSolver extends BaseSolver {
     // Draw obstacles from PackInput (if any)
     if (this.obstacles && this.obstacles.length > 0) {
       for (const obstacle of this.obstacles) {
-        graphics.rects!.push({
-          center: obstacle.absoluteCenter,
-          width: obstacle.width,
-          height: obstacle.height,
-          fill: "rgba(0,0,0,0.1)",
-          stroke: "#555",
-          label: obstacle.obstacleId,
-        } as Rect)
+        if (obstacle.shape === "circle") {
+          graphics.circles!.push({
+            center: obstacle.absoluteCenter,
+            radius: obstacle.width / 2,
+            fill: "rgba(0,0,0,0.1)",
+            stroke: "#555",
+            label: obstacle.obstacleId,
+          })
+        } else {
+          graphics.rects!.push({
+            center: obstacle.absoluteCenter,
+            width: obstacle.width,
+            height: obstacle.height,
+            fill: "rgba(0,0,0,0.1)",
+            stroke: "#555",
+            label: obstacle.obstacleId,
+          } as Rect)
+        }
       }
     }
 
