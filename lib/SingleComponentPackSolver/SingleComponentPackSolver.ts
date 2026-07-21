@@ -719,6 +719,28 @@ export class SingleComponentPackSolver extends BaseSolver {
     return this.outputPackedComponent
   }
 
+  /**
+   * Least-bad placement when every candidate was rejected. Prefers
+   * candidates that only violated bounds/boundary (gapDistance === -1) —
+   * a slightly out-of-bounds part beats overlapping another component —
+   * and among those picks the best placement score. Otherwise picks the
+   * rejected candidate with the largest clearance.
+   */
+  getBestRejectedResult(): PackedComponent | undefined {
+    const withPosition = this.rejectedCandidates.filter(
+      (c) => c.optimalPosition,
+    )
+    if (withPosition.length === 0) return undefined
+    const boundsOnly = withPosition.filter((c) => c.gapDistance === -1)
+    const best =
+      boundsOnly.length > 0
+        ? boundsOnly.reduce((a, b) => (a.distance <= b.distance ? a : b))
+        : withPosition.reduce((a, b) =>
+            a.gapDistance >= b.gapDistance ? a : b,
+          )
+    return this.createPackedComponent(best.optimalPosition!, best.rotation)
+  }
+
   override getOutput() {
     return this.getResult()
   }

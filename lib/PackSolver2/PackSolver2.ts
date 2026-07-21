@@ -28,6 +28,10 @@ export class PackSolver2 extends BaseSolver {
   unpackedComponentQueue: InputComponent[] = []
   packedComponents: PackedComponent[] = []
   componentToPack?: InputComponent | null | undefined
+  /** Components whose first placement attempt found no valid candidate —
+   * they are retried once after everything else has been packed. */
+  deferredComponents: InputComponent[] = []
+  private retriedComponentIds = new Set<string>()
 
   constructor(packInput: PackInput) {
     super()
@@ -198,8 +202,15 @@ export class PackSolver2 extends BaseSolver {
     if (!this.activeSubSolver) {
       // Need to start a new component
       if (this.unpackedComponentQueue.length === 0) {
-        this.solved = true
-        return
+        if (this.deferredComponents.length > 0) {
+          // Retry components that couldn't be placed earlier — the packed
+          // outline has grown since, so new candidate positions exist
+          this.unpackedComponentQueue = this.deferredComponents
+          this.deferredComponents = []
+        } else {
+          this.solved = true
+          return
+        }
       }
 
       this.componentToPack = this.unpackedComponentQueue.shift()
@@ -223,7 +234,26 @@ export class PackSolver2 extends BaseSolver {
     this.activeSubSolver.step()
 
     if (this.activeSubSolver.failed) {
-      this.failed = true
+      // Don't kill the whole pack (dropping every remaining component)
+      // because one component found no valid candidate.
+      const failedComponent = this.componentToPack!
+      if (!this.retriedComponentIds.has(failedComponent.componentId)) {
+        // Defer and retry once after the rest have been packed
+        this.retriedComponentIds.add(failedComponent.componentId)
+        this.deferredComponents.push(failedComponent)
+      } else {
+        // Retry also failed: place at the least-bad rejected candidate
+        // (a slight constraint violation beats losing the component)
+        const fallback = this.activeSubSolver.getBestRejectedResult()
+        if (fallback) {
+          this.packedComponents.push(fallback)
+        } else {
+          this.failed = true
+          return
+        }
+      }
+      this.componentToPack = undefined
+      this.activeSubSolver = undefined
       return
     }
 
