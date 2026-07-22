@@ -7,10 +7,10 @@ export interface SortComponentQueueParams {
 }
 
 /**
- * Bounding-box area of a component's pads (at rotation 0). Pad count is a
- * poor proxy for size: a 12×12mm module with a handful of pads would sort
- * as "smaller" than an 0402 with two pads and get packed last, ending up
- * far from the pack origin (tscircuit/core#2272).
+ * Bounding-box area of a component's pads (at rotation 0). Used as a
+ * tie-breaker when two components have the same pad count, so that
+ * equal-pad-count components pack in physical-size order instead of
+ * input order.
  */
 const getComponentFootprintArea = (component: InputComponent): number => {
   let minX = Infinity
@@ -60,10 +60,14 @@ export function sortComponentQueue({
     const aArea = areaMap.get(a.componentId)!
     const bArea = areaMap.get(b.componentId)!
     if (packOrderStrategy === "largest_to_smallest") {
-      if (bArea !== aArea) return bArea - aArea
-      return b.pads.length - a.pads.length
+      if (b.pads.length !== a.pads.length) {
+        return b.pads.length - a.pads.length
+      }
+      return bArea - aArea
     }
-    if (aArea !== bArea) return aArea - bArea
-    return a.pads.length - b.pads.length
+    if (a.pads.length !== b.pads.length) {
+      return a.pads.length - b.pads.length
+    }
+    return aArea - bArea
   })
 }

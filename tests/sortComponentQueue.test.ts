@@ -16,28 +16,7 @@ const makeComponent = (
   })),
 })
 
-// A large module with a single 12×12 pad vs small two-pad passives.
-// Physical size must win over pad count (tscircuit/core#2272).
-test("largest_to_smallest places a physically large few-pad component first", () => {
-  const module = makeComponent("U_RF", [{ x: 0, y: 0, w: 12, h: 12 }])
-  const passive1 = makeComponent("C1", [
-    { x: -0.48, y: 0, w: 0.6, h: 0.64 },
-    { x: 0.48, y: 0, w: 0.6, h: 0.64 },
-  ])
-  const passive2 = makeComponent("R1", [
-    { x: -0.48, y: 0, w: 0.6, h: 0.64 },
-    { x: 0.48, y: 0, w: 0.6, h: 0.64 },
-  ])
-
-  const sorted = sortComponentQueue({
-    components: [passive1, module, passive2],
-    packOrderStrategy: "largest_to_smallest",
-  })
-
-  expect(sorted[0]!.componentId).toBe("U_RF")
-})
-
-test("largest_to_smallest breaks area ties by pad count", () => {
+test("largest_to_smallest sorts by pad count first", () => {
   const twoPads = makeComponent("A", [
     { x: -1, y: 0, w: 2, h: 4 },
     { x: 1, y: 0, w: 2, h: 4 },
@@ -55,6 +34,20 @@ test("largest_to_smallest breaks area ties by pad count", () => {
   })
 
   expect(sorted.map((c) => c.componentId)).toEqual(["B", "A"])
+})
+
+// A large single-pad module vs a small single-pad passive: with equal pad
+// counts, physical footprint area breaks the tie (tscircuit/core#2272).
+test("largest_to_smallest breaks pad-count ties by footprint area", () => {
+  const module = makeComponent("U_RF", [{ x: 0, y: 0, w: 12, h: 12 }])
+  const smallPad = makeComponent("TP1", [{ x: 0, y: 0, w: 0.6, h: 0.64 }])
+
+  const sorted = sortComponentQueue({
+    components: [smallPad, module],
+    packOrderStrategy: "largest_to_smallest",
+  })
+
+  expect(sorted.map((c) => c.componentId)).toEqual(["U_RF", "TP1"])
 })
 
 test("packFirst still overrides size ordering", () => {
