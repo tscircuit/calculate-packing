@@ -1,0 +1,4449 @@
+{
+  "components": [
+    {
+      "componentId": "source_group_0",
+      "pads": [
+        {
+          "padId": "pcb_smtpad_0",
+          "networkId": "radio_transceiver_connectivity_net32",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 23.734855999999994
+          }
+        },
+        {
+          "padId": "pcb_smtpad_1",
+          "networkId": "radio_transceiver_connectivity_net33",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 23.234729999999992
+          }
+        },
+        {
+          "padId": "pcb_smtpad_2",
+          "networkId": "radio_transceiver_connectivity_net34",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 22.734857999999992
+          }
+        },
+        {
+          "padId": "pcb_smtpad_3",
+          "networkId": "radio_transceiver_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 22.234731999999994
+          }
+        },
+        {
+          "padId": "pcb_smtpad_4",
+          "networkId": "radio_transceiver_connectivity_net36",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 21.734859999999994
+          }
+        },
+        {
+          "padId": "pcb_smtpad_5",
+          "networkId": "radio_transceiver_connectivity_net37",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 21.234733999999992
+          }
+        },
+        {
+          "padId": "pcb_smtpad_6",
+          "networkId": "radio_transceiver_connectivity_net38",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 20.734861999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_7",
+          "networkId": "radio_transceiver_connectivity_net39",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 20.234735999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_8",
+          "networkId": "radio_transceiver_connectivity_net2",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 19.73486399999999
+          }
+        },
+        {
+          "padId": "pcb_smtpad_9",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 19.234737999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_10",
+          "networkId": "radio_transceiver_connectivity_net14",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 18.734865999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_11",
+          "networkId": "radio_transceiver_connectivity_net13",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 18.23473999999999
+          }
+        },
+        {
+          "padId": "pcb_smtpad_12",
+          "networkId": "radio_transceiver_connectivity_net12",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 17.73486799999999
+          }
+        },
+        {
+          "padId": "pcb_smtpad_13",
+          "networkId": "radio_transceiver_connectivity_net11",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 17.234741999999994
+          }
+        },
+        {
+          "padId": "pcb_smtpad_14",
+          "networkId": "radio_transceiver_connectivity_net40",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 16.734869999999994
+          }
+        },
+        {
+          "padId": "pcb_smtpad_15",
+          "networkId": "radio_transceiver_connectivity_net19",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -24.223707999999977,
+            "y": 16.234743999999992
+          }
+        },
+        {
+          "padId": "pcb_smtpad_16",
+          "networkId": "radio_transceiver_connectivity_net18",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -23.566355999999978,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_17",
+          "networkId": "radio_transceiver_connectivity_net41",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -23.066229999999976,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_18",
+          "networkId": "radio_transceiver_connectivity_net21",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -22.566357999999976,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_19",
+          "networkId": "radio_transceiver_connectivity_net20",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -22.066231999999978,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_20",
+          "networkId": "radio_transceiver_connectivity_net17",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -21.566359999999978,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_21",
+          "networkId": "radio_transceiver_connectivity_net51",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -21.066233999999977,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_22",
+          "networkId": "radio_transceiver_connectivity_net50",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -20.566361999999977,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_23",
+          "networkId": "radio_transceiver_connectivity_net5",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -20.06623599999998,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_24",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -19.566363999999975,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_25",
+          "networkId": "unnamed0",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -19.066237999999977,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_26",
+          "networkId": "radio_transceiver_connectivity_net10",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -18.566365999999977,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_27",
+          "networkId": "radio_transceiver_connectivity_net9",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -18.066239999999976,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_28",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -17.566367999999976,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_29",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -17.066241999999978,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_30",
+          "networkId": "radio_transceiver_connectivity_net8",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -16.566369999999978,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_31",
+          "networkId": "radio_transceiver_connectivity_net7",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -16.066243999999976,
+            "y": 15.577391999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_32",
+          "networkId": "radio_transceiver_connectivity_net3",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 16.234743999999992
+          }
+        },
+        {
+          "padId": "pcb_smtpad_33",
+          "networkId": "radio_transceiver_connectivity_net16",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 16.734869999999994
+          }
+        },
+        {
+          "padId": "pcb_smtpad_34",
+          "networkId": "radio_transceiver_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 17.234741999999994
+          }
+        },
+        {
+          "padId": "pcb_smtpad_35",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 17.73486799999999
+          }
+        },
+        {
+          "padId": "pcb_smtpad_36",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 18.23473999999999
+          }
+        },
+        {
+          "padId": "pcb_smtpad_37",
+          "networkId": "radio_transceiver_connectivity_net44",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 18.734865999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_38",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 19.234737999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_39",
+          "networkId": "radio_transceiver_connectivity_net45",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 19.73486399999999
+          }
+        },
+        {
+          "padId": "pcb_smtpad_40",
+          "networkId": "radio_transceiver_connectivity_net46",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 20.234735999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_41",
+          "networkId": "radio_transceiver_connectivity_net3",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 20.734861999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_42",
+          "networkId": "radio_transceiver_connectivity_net47",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 21.234733999999992
+          }
+        },
+        {
+          "padId": "pcb_smtpad_43",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 21.734859999999994
+          }
+        },
+        {
+          "padId": "pcb_smtpad_44",
+          "networkId": "radio_transceiver_connectivity_net6",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 22.234731999999994
+          }
+        },
+        {
+          "padId": "pcb_smtpad_45",
+          "networkId": "radio_transceiver_connectivity_net6",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 22.734857999999992
+          }
+        },
+        {
+          "padId": "pcb_smtpad_46",
+          "networkId": "radio_transceiver_connectivity_net6",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 23.234729999999992
+          }
+        },
+        {
+          "padId": "pcb_smtpad_47",
+          "networkId": "radio_transceiver_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 0.6649974,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -15.408891999999977,
+            "y": 23.734855999999994
+          }
+        },
+        {
+          "padId": "pcb_smtpad_48",
+          "networkId": "radio_transceiver_connectivity_net4",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -16.066243999999976,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_49",
+          "networkId": "radio_transceiver_connectivity_net22",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -16.566369999999978,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_50",
+          "networkId": "radio_transceiver_connectivity_net48",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -17.066241999999978,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_51",
+          "networkId": "radio_transceiver_connectivity_net49",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -17.566367999999976,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_52",
+          "networkId": "radio_transceiver_connectivity_net42",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -18.066239999999976,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_53",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -18.566365999999977,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_54",
+          "networkId": "radio_transceiver_connectivity_net23",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -19.066237999999977,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_55",
+          "networkId": "radio_transceiver_connectivity_net2",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -19.566363999999975,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_56",
+          "networkId": "radio_transceiver_connectivity_net24",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -20.06623599999998,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_57",
+          "networkId": "radio_transceiver_connectivity_net25",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -20.566361999999977,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_58",
+          "networkId": "radio_transceiver_connectivity_net26",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -21.066233999999977,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_59",
+          "networkId": "radio_transceiver_connectivity_net27",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -21.566359999999978,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_60",
+          "networkId": "radio_transceiver_connectivity_net28",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -22.066231999999978,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_61",
+          "networkId": "radio_transceiver_connectivity_net29",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -22.566357999999976,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_62",
+          "networkId": "radio_transceiver_connectivity_net30",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -23.066229999999976,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_63",
+          "networkId": "radio_transceiver_connectivity_net31",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.6649974
+          },
+          "offset": {
+            "x": -23.566355999999978,
+            "y": 24.392207999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_64",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 6.2999874,
+            "y": 6.2999874
+          },
+          "offset": {
+            "x": -19.816299999999977,
+            "y": 19.984799999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_65",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 1.125,
+            "y": 2.65
+          },
+          "offset": {
+            "x": -21.912800000000004,
+            "y": -7.734600000000064
+          }
+        },
+        {
+          "padId": "pcb_smtpad_66",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 1.125,
+            "y": 2.65
+          },
+          "offset": {
+            "x": -18.987800000000004,
+            "y": -7.734600000000064
+          }
+        },
+        {
+          "padId": "pcb_smtpad_67",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 1.125,
+            "y": 2.65
+          },
+          "offset": {
+            "x": -21.912800000000004,
+            "y": -11.894600000000061
+          }
+        },
+        {
+          "padId": "pcb_smtpad_68",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 1.125,
+            "y": 2.65
+          },
+          "offset": {
+            "x": -18.987800000000004,
+            "y": -11.894600000000061
+          }
+        },
+        {
+          "padId": "pcb_smtpad_69",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": -21.2753,
+            "y": -15.204600000000056
+          }
+        },
+        {
+          "padId": "pcb_smtpad_70",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": -19.625300000000003,
+            "y": -15.204600000000056
+          }
+        },
+        {
+          "padId": "pcb_smtpad_71",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": -21.2753,
+            "y": -17.66460000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_72",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": -19.625300000000003,
+            "y": -17.66460000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_73",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -20.960300000000004,
+            "y": -19.864600000000046
+          }
+        },
+        {
+          "padId": "pcb_smtpad_74",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -19.940300000000004,
+            "y": -19.864600000000046
+          }
+        },
+        {
+          "padId": "pcb_smtpad_75",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": -21.2753,
+            "y": -22.06460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_76",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": -19.625300000000003,
+            "y": -22.06460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_77",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -20.960300000000004,
+            "y": -24.264600000000037
+          }
+        },
+        {
+          "padId": "pcb_smtpad_78",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -19.940300000000004,
+            "y": -24.264600000000037
+          }
+        },
+        {
+          "padId": "pcb_smtpad_79",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -20.960300000000004,
+            "y": -26.204600000000035
+          }
+        },
+        {
+          "padId": "pcb_smtpad_80",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -19.940300000000004,
+            "y": -26.204600000000035
+          }
+        },
+        {
+          "padId": "pcb_smtpad_81",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -20.960300000000004,
+            "y": -28.144600000000032
+          }
+        },
+        {
+          "padId": "pcb_smtpad_82",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -19.940300000000004,
+            "y": -28.144600000000032
+          }
+        },
+        {
+          "padId": "pcb_smtpad_83",
+          "networkId": "radio_transceiver_connectivity_net44",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": -13.16150000000004,
+            "y": 18.734865999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_84",
+          "networkId": "radio_transceiver_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": -11.51150000000004,
+            "y": 18.734865999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_85",
+          "networkId": "radio_transceiver_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": -17.752800000000004,
+            "y": -24.74460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_86",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": -15.927800000000003,
+            "y": -24.74460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_87",
+          "networkId": "radio_transceiver_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -14.205300000000003,
+            "y": -27.164600000000043
+          }
+        },
+        {
+          "padId": "pcb_smtpad_88",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -13.185300000000003,
+            "y": -27.164600000000043
+          }
+        },
+        {
+          "padId": "pcb_smtpad_89",
+          "networkId": "radio_transceiver_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -17.072800000000004,
+            "y": -28.13460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_90",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -17.072800000000004,
+            "y": -27.114600000000046
+          }
+        },
+        {
+          "padId": "pcb_smtpad_91",
+          "networkId": "radio_transceiver_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -11.810300000000003,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_92",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -10.790300000000004,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_93",
+          "networkId": "radio_transceiver_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -8.950300000000004,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_94",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -7.930300000000004,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_95",
+          "networkId": "radio_transceiver_connectivity_net45",
+          "type": "rect",
+          "size": {
+            "x": 0.95,
+            "y": 0.8
+          },
+          "offset": {
+            "x": -13.08650000000004,
+            "y": 21.119865999999995
+          }
+        },
+        {
+          "padId": "pcb_smtpad_96",
+          "networkId": "radio_transceiver_connectivity_net46",
+          "type": "rect",
+          "size": {
+            "x": 0.95,
+            "y": 0.8
+          },
+          "offset": {
+            "x": -13.08650000000004,
+            "y": 22.769865999999993
+          }
+        },
+        {
+          "padId": "pcb_smtpad_97",
+          "networkId": "radio_transceiver_connectivity_net3",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": -5.628400000000022,
+            "y": -26.68460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_98",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": -3.803400000000021,
+            "y": -26.68460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_99",
+          "networkId": "radio_transceiver_connectivity_net3",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": -1.2684000000000246,
+            "y": -26.68460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_100",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": 0.5565999999999782,
+            "y": -26.68460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_101",
+          "networkId": "radio_transceiver_connectivity_net3",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": 2.9790999999999777,
+            "y": -26.68460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_102",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.8,
+            "y": 0.95
+          },
+          "offset": {
+            "x": 4.629099999999976,
+            "y": -26.68460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_103",
+          "networkId": "radio_transceiver_connectivity_net47",
+          "type": "rect",
+          "size": {
+            "x": 0.95,
+            "y": 0.8
+          },
+          "offset": {
+            "x": -13.08650000000004,
+            "y": 25.079865999999992
+          }
+        },
+        {
+          "padId": "pcb_smtpad_104",
+          "networkId": "radio_transceiver_connectivity_net2",
+          "type": "rect",
+          "size": {
+            "x": 0.95,
+            "y": 0.8
+          },
+          "offset": {
+            "x": -13.08650000000004,
+            "y": 26.729865999999994
+          }
+        },
+        {
+          "padId": "pcb_smtpad_105",
+          "networkId": "radio_transceiver_connectivity_net2",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": 7.051599999999976,
+            "y": -26.68460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_106",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": 8.876599999999979,
+            "y": -26.68460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_107",
+          "networkId": "radio_transceiver_connectivity_net2",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 2.279099999999975,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_108",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 3.299099999999978,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_109",
+          "networkId": "radio_transceiver_connectivity_net2",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.335600000000017,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_110",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -2.315600000000014,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_111",
+          "networkId": "radio_transceiver_connectivity_net6",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 10.031599999999973,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_112",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 11.051599999999976,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_113",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 6.155349999999974,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_114",
+          "networkId": "radio_transceiver_connectivity_net5",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 7.175349999999977,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_115",
+          "networkId": "radio_transceiver_connectivity_net5",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": 12.399099999999976,
+            "y": -26.68460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_116",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": 14.224099999999979,
+            "y": -26.68460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_117",
+          "networkId": "radio_transceiver_connectivity_net5",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 15.946599999999975,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_118",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 16.96659999999997,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_119",
+          "networkId": "radio_transceiver_connectivity_net5",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": 18.314099999999968,
+            "y": -26.68460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_120",
+          "networkId": "radio_transceiver_connectivity_net4",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": 20.13909999999997,
+            "y": -26.68460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_121",
+          "networkId": "radio_transceiver_connectivity_net4",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 21.861599999999967,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_122",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 22.881599999999963,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_123",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 24.721599999999967,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_124",
+          "networkId": "radio_transceiver_connectivity_net7",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 25.741599999999963,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_125",
+          "networkId": "radio_transceiver_connectivity_net7",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 27.581599999999966,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_126",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 28.601599999999962,
+            "y": -29.10460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_127",
+          "networkId": "radio_transceiver_connectivity_net11",
+          "type": "rect",
+          "size": {
+            "x": 1,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -22.144099999999966,
+            "y": 13.142899999999933
+          }
+        },
+        {
+          "padId": "pcb_smtpad_128",
+          "networkId": "radio_transceiver_connectivity_net12",
+          "type": "rect",
+          "size": {
+            "x": 1,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -22.144099999999966,
+            "y": 11.872899999999932
+          }
+        },
+        {
+          "padId": "pcb_smtpad_129",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 1,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -22.144099999999966,
+            "y": 10.602899999999932
+          }
+        },
+        {
+          "padId": "pcb_smtpad_130",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 1,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -22.144099999999966,
+            "y": 9.332899999999933
+          }
+        },
+        {
+          "padId": "pcb_smtpad_131",
+          "networkId": "radio_transceiver_connectivity_net13",
+          "type": "rect",
+          "size": {
+            "x": 1,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -17.84409999999997,
+            "y": 9.332899999999933
+          }
+        },
+        {
+          "padId": "pcb_smtpad_132",
+          "networkId": "radio_transceiver_connectivity_net14",
+          "type": "rect",
+          "size": {
+            "x": 1,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -17.84409999999997,
+            "y": 10.602899999999932
+          }
+        },
+        {
+          "padId": "pcb_smtpad_133",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 1,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -17.84409999999997,
+            "y": 11.872899999999932
+          }
+        },
+        {
+          "padId": "pcb_smtpad_134",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 1,
+            "y": 0.6
+          },
+          "offset": {
+            "x": -17.84409999999997,
+            "y": 13.142899999999933
+          }
+        },
+        {
+          "padId": "pcb_smtpad_135",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 28.314099999999968,
+            "y": -27.164600000000043
+          }
+        },
+        {
+          "padId": "pcb_smtpad_136",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 29.334099999999964,
+            "y": -27.164600000000043
+          }
+        },
+        {
+          "padId": "pcb_smtpad_137",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 28.314099999999968,
+            "y": -25.224600000000045
+          }
+        },
+        {
+          "padId": "pcb_smtpad_138",
+          "networkId": "radio_transceiver_connectivity_net11",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 29.334099999999964,
+            "y": -25.224600000000045
+          }
+        },
+        {
+          "padId": "pcb_smtpad_139",
+          "networkId": "radio_transceiver_connectivity_net14",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 28.314099999999968,
+            "y": -23.284600000000047
+          }
+        },
+        {
+          "padId": "pcb_smtpad_140",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 29.334099999999964,
+            "y": -23.284600000000047
+          }
+        },
+        {
+          "padId": "pcb_smtpad_141",
+          "networkId": "radio_transceiver_connectivity_net13",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 28.314099999999968,
+            "y": -21.34460000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_142",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 29.334099999999964,
+            "y": -21.34460000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_143",
+          "networkId": "radio_transceiver_connectivity_net48",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -16.806304999999977,
+            "y": 26.454600000000042
+          }
+        },
+        {
+          "padId": "pcb_smtpad_144",
+          "networkId": "radio_transceiver_connectivity_net49",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -17.826304999999977,
+            "y": 26.454600000000042
+          }
+        },
+        {
+          "padId": "pcb_smtpad_145",
+          "networkId": "radio_transceiver_connectivity_net48",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -16.806304999999977,
+            "y": 28.344600000000042
+          }
+        },
+        {
+          "padId": "pcb_smtpad_146",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -16.806304999999977,
+            "y": 29.364600000000042
+          }
+        },
+        {
+          "padId": "pcb_smtpad_147",
+          "networkId": "radio_transceiver_connectivity_net49",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -19.666304999999976,
+            "y": 26.454600000000042
+          }
+        },
+        {
+          "padId": "pcb_smtpad_148",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -20.686304999999976,
+            "y": 26.454600000000042
+          }
+        },
+        {
+          "padId": "pcb_smtpad_149",
+          "networkId": "radio_transceiver_connectivity_net50",
+          "type": "rect",
+          "size": {
+            "x": 0.875,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -24.681599999999968,
+            "y": 12.510399999999933
+          }
+        },
+        {
+          "padId": "pcb_smtpad_150",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.875
+          },
+          "offset": {
+            "x": -25.394099999999966,
+            "y": 13.222899999999933
+          }
+        },
+        {
+          "padId": "pcb_smtpad_151",
+          "networkId": "radio_transceiver_connectivity_net51",
+          "type": "rect",
+          "size": {
+            "x": 0.875,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -26.10659999999997,
+            "y": 12.510399999999933
+          }
+        },
+        {
+          "padId": "pcb_smtpad_152",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.875
+          },
+          "offset": {
+            "x": -25.394099999999966,
+            "y": 11.797899999999933
+          }
+        },
+        {
+          "padId": "pcb_smtpad_153",
+          "networkId": "radio_transceiver_connectivity_net50",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -25.77409999999997,
+            "y": 9.590399999999933
+          }
+        },
+        {
+          "padId": "pcb_smtpad_154",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -25.77409999999997,
+            "y": 8.570399999999934
+          }
+        },
+        {
+          "padId": "pcb_smtpad_155",
+          "networkId": "radio_transceiver_connectivity_net51",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -28.314099999999968,
+            "y": 12.510399999999933
+          }
+        },
+        {
+          "padId": "pcb_smtpad_156",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -29.334099999999967,
+            "y": 12.510399999999933
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_0",
+          "networkId": "radio_transceiver_connectivity_net52",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 1.5
+          },
+          "offset": {
+            "x": -22.534099999999967,
+            "y": 5.695399999999932
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_1",
+          "networkId": "radio_transceiver_connectivity_net17",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 1.5
+          },
+          "offset": {
+            "x": -19.994099999999968,
+            "y": 5.695399999999932
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_2",
+          "networkId": "radio_transceiver_connectivity_net53",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 1.5
+          },
+          "offset": {
+            "x": -17.45409999999997,
+            "y": 5.695399999999932
+          }
+        },
+        {
+          "padId": "pcb_smtpad_157",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -25.77409999999997,
+            "y": 6.730399999999934
+          }
+        },
+        {
+          "padId": "pcb_smtpad_158",
+          "networkId": "radio_transceiver_connectivity_net52",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -25.77409999999997,
+            "y": 5.710399999999934
+          }
+        },
+        {
+          "padId": "pcb_smtpad_159",
+          "networkId": "radio_transceiver_connectivity_net53",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -15.624099999999967,
+            "y": 8.885399999999931
+          }
+        },
+        {
+          "padId": "pcb_smtpad_160",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -15.624099999999967,
+            "y": 9.905399999999931
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_3",
+          "networkId": "radio_transceiver_connectivity_net54",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 1.5
+          },
+          "offset": {
+            "x": -22.534099999999967,
+            "y": 1.1553999999999327
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_4",
+          "networkId": "radio_transceiver_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 1.5
+          },
+          "offset": {
+            "x": -19.994099999999968,
+            "y": 1.1553999999999327
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_5",
+          "networkId": "radio_transceiver_connectivity_net55",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 1.5
+          },
+          "offset": {
+            "x": -17.45409999999997,
+            "y": 1.1553999999999327
+          }
+        },
+        {
+          "padId": "pcb_smtpad_161",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -25.77409999999997,
+            "y": 3.870399999999936
+          }
+        },
+        {
+          "padId": "pcb_smtpad_162",
+          "networkId": "radio_transceiver_connectivity_net54",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -25.77409999999997,
+            "y": 2.850399999999933
+          }
+        },
+        {
+          "padId": "pcb_smtpad_163",
+          "networkId": "radio_transceiver_connectivity_net55",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -13.744099999999966,
+            "y": 1.1553999999999327
+          }
+        },
+        {
+          "padId": "pcb_smtpad_164",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -13.744099999999966,
+            "y": 2.175399999999936
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_6",
+          "networkId": "radio_transceiver_connectivity_net56",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 1.5
+          },
+          "offset": {
+            "x": -22.534099999999967,
+            "y": -3.3846000000000664
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_7",
+          "networkId": "radio_transceiver_connectivity_net16",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 1.5
+          },
+          "offset": {
+            "x": -19.994099999999968,
+            "y": -3.3846000000000664
+          }
+        },
+        {
+          "padId": "pcb_plated_hole_8",
+          "networkId": "radio_transceiver_connectivity_net57",
+          "type": "rect",
+          "size": {
+            "x": 1.5,
+            "y": 1.5
+          },
+          "offset": {
+            "x": -17.454099999999965,
+            "y": -3.3846000000000664
+          }
+        },
+        {
+          "padId": "pcb_smtpad_165",
+          "networkId": "radio_transceiver_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -24.200300000000002,
+            "y": -7.594600000000067
+          }
+        },
+        {
+          "padId": "pcb_smtpad_166",
+          "networkId": "radio_transceiver_connectivity_net56",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -24.200300000000002,
+            "y": -6.574600000000064
+          }
+        },
+        {
+          "padId": "pcb_smtpad_167",
+          "networkId": "radio_transceiver_connectivity_net57",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -16.700300000000002,
+            "y": -6.574600000000064
+          }
+        },
+        {
+          "padId": "pcb_smtpad_168",
+          "networkId": "radio_transceiver_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -16.700300000000002,
+            "y": -7.594600000000067
+          }
+        },
+        {
+          "padId": "pcb_smtpad_169",
+          "networkId": "radio_transceiver_connectivity_net7",
+          "type": "rect",
+          "size": {
+            "x": 1,
+            "y": 1
+          },
+          "offset": {
+            "x": 13.499099999999977,
+            "y": -29.13460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_170",
+          "networkId": "radio_transceiver_connectivity_net23",
+          "type": "rect",
+          "size": {
+            "x": 1,
+            "y": 1
+          },
+          "offset": {
+            "x": 19.41409999999997,
+            "y": -29.13460000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_171",
+          "networkId": "radio_transceiver_connectivity_net24",
+          "type": "rect",
+          "size": {
+            "x": 1,
+            "y": 1
+          },
+          "offset": {
+            "x": 28.644099999999966,
+            "y": -19.37460000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_172",
+          "networkId": "radio_transceiver_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 1,
+            "y": 1
+          },
+          "offset": {
+            "x": 28.644099999999966,
+            "y": -17.37460000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_173",
+          "networkId": "radio_transceiver_connectivity_net17",
+          "type": "rect",
+          "size": {
+            "x": 1,
+            "y": 1
+          },
+          "offset": {
+            "x": 28.644099999999966,
+            "y": -15.37460000000005
+          }
+        }
+      ]
+    },
+    {
+      "componentId": "source_group_1",
+      "pads": [
+        {
+          "padId": "pcb_smtpad_174",
+          "networkId": "radio_level_shifter_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 0.7999984,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -6.5650303999999995,
+            "y": 1.249938
+          }
+        },
+        {
+          "padId": "pcb_smtpad_175",
+          "networkId": "radio_level_shifter_connectivity_net3",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.7999984
+          },
+          "offset": {
+            "x": -5.8134444,
+            "y": 0.24994000000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_176",
+          "networkId": "radio_level_shifter_connectivity_net4",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.7999984
+          },
+          "offset": {
+            "x": -5.3133184,
+            "y": 0.24994000000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_177",
+          "networkId": "radio_level_shifter_connectivity_net5",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.7999984
+          },
+          "offset": {
+            "x": -4.8134464,
+            "y": 0.24994000000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_178",
+          "networkId": "radio_level_shifter_connectivity_net6",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.7999984
+          },
+          "offset": {
+            "x": -4.3133204,
+            "y": 0.24994000000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_179",
+          "networkId": "unnamed1",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.7999984
+          },
+          "offset": {
+            "x": -3.8134484,
+            "y": 0.24994000000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_180",
+          "networkId": "radio_level_shifter_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.7999984,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -3.0649104,
+            "y": 1.249938
+          }
+        },
+        {
+          "padId": "pcb_smtpad_181",
+          "networkId": "radio_level_shifter_connectivity_net11",
+          "type": "rect",
+          "size": {
+            "x": 0.7999984,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -3.0649104,
+            "y": 2.750062
+          }
+        },
+        {
+          "padId": "pcb_smtpad_182",
+          "networkId": "unnamed2",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.7999984
+          },
+          "offset": {
+            "x": -3.8149724,
+            "y": 3.75006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_183",
+          "networkId": "radio_level_shifter_connectivity_net10",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.7999984
+          },
+          "offset": {
+            "x": -4.3148444,
+            "y": 3.75006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_184",
+          "networkId": "radio_level_shifter_connectivity_net9",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.7999984
+          },
+          "offset": {
+            "x": -4.8149704,
+            "y": 3.75006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_185",
+          "networkId": "radio_level_shifter_connectivity_net8",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.7999984
+          },
+          "offset": {
+            "x": -5.3148424,
+            "y": 3.75006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_186",
+          "networkId": "radio_level_shifter_connectivity_net7",
+          "type": "rect",
+          "size": {
+            "x": 0.2800096,
+            "y": 0.7999984
+          },
+          "offset": {
+            "x": -5.8149684,
+            "y": 3.75006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_187",
+          "networkId": "radio_level_shifter_connectivity_net2",
+          "type": "rect",
+          "size": {
+            "x": 0.7999984,
+            "y": 0.2800096
+          },
+          "offset": {
+            "x": -6.5650303999999995,
+            "y": 2.750062
+          }
+        },
+        {
+          "padId": "pcb_smtpad_188",
+          "networkId": "unnamed3",
+          "type": "rect",
+          "size": {
+            "x": 2.0500086,
+            "y": 2.0500086
+          },
+          "offset": {
+            "x": -4.8149704,
+            "y": 2
+          }
+        },
+        {
+          "padId": "pcb_smtpad_189",
+          "networkId": "radio_level_shifter_connectivity_net2",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 5.6750296,
+            "y": 4
+          }
+        },
+        {
+          "padId": "pcb_smtpad_190",
+          "networkId": "radio_level_shifter_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 6.6950296,
+            "y": 4
+          }
+        },
+        {
+          "padId": "pcb_smtpad_191",
+          "networkId": "radio_level_shifter_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 1.6750296000000002,
+            "y": -7
+          }
+        },
+        {
+          "padId": "pcb_smtpad_192",
+          "networkId": "radio_level_shifter_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 2.6950296,
+            "y": -7
+          }
+        },
+        {
+          "padId": "pcb_smtpad_193",
+          "networkId": "radio_level_shifter_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 5.6750296,
+            "y": 7
+          }
+        },
+        {
+          "padId": "pcb_smtpad_194",
+          "networkId": "radio_level_shifter_connectivity_net11",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 6.6950296,
+            "y": 7
+          }
+        }
+      ]
+    },
+    {
+      "componentId": "source_group_2",
+      "pads": [
+        {
+          "padId": "pcb_smtpad_195",
+          "networkId": "ble_module_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -4.356100000000003,
+            "y": 35.13015000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_196",
+          "networkId": "ble_module_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -4.356100000000003,
+            "y": 34.630050000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_197",
+          "networkId": "ble_module_connectivity_net1",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -4.356100000000003,
+            "y": 34.12995000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_198",
+          "networkId": "ble_module_connectivity_net2",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -4.356100000000003,
+            "y": 33.629850000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_199",
+          "networkId": "ble_module_connectivity_net3",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -4.356100000000003,
+            "y": 33.12975000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_200",
+          "networkId": "ble_module_connectivity_net4",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -4.356100000000003,
+            "y": 32.629650000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_201",
+          "networkId": "ble_module_connectivity_net5",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -4.356100000000003,
+            "y": 32.12955000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_202",
+          "networkId": "ble_module_connectivity_net6",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -4.356100000000003,
+            "y": 31.629450000000006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_203",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -4.356100000000003,
+            "y": 31.129350000000006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_204",
+          "networkId": "ble_module_connectivity_net8",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -4.356100000000003,
+            "y": 30.629250000000006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_205",
+          "networkId": "ble_module_connectivity_net9",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -3.606550000000004,
+            "y": 29.879700000000007
+          }
+        },
+        {
+          "padId": "pcb_smtpad_206",
+          "networkId": "ble_module_connectivity_net10",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -3.106450000000004,
+            "y": 29.879700000000007
+          }
+        },
+        {
+          "padId": "pcb_smtpad_207",
+          "networkId": "ble_module_connectivity_net11",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -2.606350000000004,
+            "y": 29.879700000000007
+          }
+        },
+        {
+          "padId": "pcb_smtpad_208",
+          "networkId": "ble_module_connectivity_net12",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -2.1062500000000037,
+            "y": 29.879700000000007
+          }
+        },
+        {
+          "padId": "pcb_smtpad_209",
+          "networkId": "ble_module_connectivity_net13",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -1.606150000000004,
+            "y": 29.879700000000007
+          }
+        },
+        {
+          "padId": "pcb_smtpad_210",
+          "networkId": "ble_module_connectivity_net14",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -1.1060500000000042,
+            "y": 29.879700000000007
+          }
+        },
+        {
+          "padId": "pcb_smtpad_211",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -0.605950000000004,
+            "y": 29.879700000000007
+          }
+        },
+        {
+          "padId": "pcb_smtpad_212",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -0.10585000000000377,
+            "y": 29.879700000000007
+          }
+        },
+        {
+          "padId": "pcb_smtpad_213",
+          "networkId": "ble_module_connectivity_net17",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": 0.394249999999996,
+            "y": 29.879700000000007
+          }
+        },
+        {
+          "padId": "pcb_smtpad_214",
+          "networkId": "ble_module_connectivity_net18",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": 0.8943499999999958,
+            "y": 29.879700000000007
+          }
+        },
+        {
+          "padId": "pcb_smtpad_215",
+          "networkId": "ble_module_connectivity_net19",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": 1.6438999999999955,
+            "y": 30.629250000000006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_216",
+          "networkId": "ble_module_connectivity_net20",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": 1.6438999999999955,
+            "y": 31.129350000000006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_217",
+          "networkId": "ble_module_connectivity_net21",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": 1.6438999999999955,
+            "y": 31.629450000000006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_218",
+          "networkId": "ble_module_connectivity_net22",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": 1.6438999999999955,
+            "y": 32.12955000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_219",
+          "networkId": "ble_module_connectivity_net23",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": 1.6438999999999955,
+            "y": 32.629650000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_220",
+          "networkId": "ble_module_connectivity_net38",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": 1.6438999999999955,
+            "y": 33.12975000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_221",
+          "networkId": "ble_module_connectivity_net25",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": 1.6438999999999955,
+            "y": 33.629850000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_222",
+          "networkId": "ble_module_connectivity_net26",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": 1.6438999999999955,
+            "y": 34.12995000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_223",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": 1.6438999999999955,
+            "y": 34.630050000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_224",
+          "networkId": "ble_module_connectivity_net37",
+          "type": "rect",
+          "size": {
+            "x": 0.9,
+            "y": 0.25
+          },
+          "offset": {
+            "x": 1.6438999999999955,
+            "y": 35.13015000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_225",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": 0.8943499999999958,
+            "y": 35.87970000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_226",
+          "networkId": "ble_module_connectivity_net29",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": 0.39424999999999577,
+            "y": 35.87970000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_227",
+          "networkId": "ble_module_connectivity_net30",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -0.10585000000000422,
+            "y": 35.87970000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_228",
+          "networkId": "ble_module_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -0.6059500000000042,
+            "y": 35.87970000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_229",
+          "networkId": "ble_module_connectivity_net31",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -1.1060500000000042,
+            "y": 35.87970000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_230",
+          "networkId": "ble_module_connectivity_net32",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -1.606150000000004,
+            "y": 35.87970000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_231",
+          "networkId": "unnamed4",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -2.106250000000004,
+            "y": 35.87970000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_232",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -2.6063500000000044,
+            "y": 35.87970000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_233",
+          "networkId": "ble_module_connectivity_net34",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -3.106450000000004,
+            "y": 35.87970000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_234",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.9
+          },
+          "offset": {
+            "x": -3.606550000000004,
+            "y": 35.87970000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_235",
+          "networkId": "unnamed5",
+          "type": "rect",
+          "size": {
+            "x": 4.7,
+            "y": 4.7
+          },
+          "offset": {
+            "x": -1.356100000000004,
+            "y": 32.87970000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_236",
+          "networkId": "ble_module_connectivity_net36",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.583899999999994,
+            "y": 11.830299999999948
+          }
+        },
+        {
+          "padId": "pcb_smtpad_237",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.563899999999994,
+            "y": 11.830299999999948
+          }
+        },
+        {
+          "padId": "pcb_smtpad_238",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.583899999999993,
+            "y": 7.290299999999949
+          }
+        },
+        {
+          "padId": "pcb_smtpad_239",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.563899999999993,
+            "y": 7.290299999999949
+          }
+        },
+        {
+          "padId": "pcb_smtpad_240",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.583899999999994,
+            "y": 5.350299999999951
+          }
+        },
+        {
+          "padId": "pcb_smtpad_241",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.563899999999993,
+            "y": 5.350299999999951
+          }
+        },
+        {
+          "padId": "pcb_smtpad_242",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": 4.211399999999996,
+            "y": 34.630050000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_243",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": 6.036399999999995,
+            "y": 34.630050000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_244",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": 0.8943499999999966,
+            "y": 38.099700000000006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_245",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": 0.8943499999999966,
+            "y": 39.11970000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_246",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -2.6063500000000044,
+            "y": 38.099700000000006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_247",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -2.6063500000000044,
+            "y": 39.11970000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_248",
+          "networkId": "ble_module_connectivity_net26",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 3.8638999999999957,
+            "y": 32.21005000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_249",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 4.883899999999995,
+            "y": 32.21005000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_250",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -6.576100000000005,
+            "y": 31.129350000000006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_251",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -7.596100000000004,
+            "y": 31.129350000000006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_252",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -0.6059500000000061,
+            "y": 27.659700000000008
+          }
+        },
+        {
+          "padId": "pcb_smtpad_253",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -0.6059500000000063,
+            "y": 26.639700000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_254",
+          "networkId": "ble_module_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -0.7638999999999949,
+            "y": 15.620299999999947
+          }
+        },
+        {
+          "padId": "pcb_smtpad_255",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 0.2561000000000051,
+            "y": 15.620299999999947
+          }
+        },
+        {
+          "padId": "pcb_smtpad_256",
+          "networkId": "ble_module_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 6.576100000000005,
+            "y": 15.420299999999948
+          }
+        },
+        {
+          "padId": "pcb_smtpad_257",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 7.596100000000004,
+            "y": 15.420299999999948
+          }
+        },
+        {
+          "padId": "pcb_smtpad_258",
+          "networkId": "ble_module_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.583899999999993,
+            "y": 3.4102999999999533
+          }
+        },
+        {
+          "padId": "pcb_smtpad_259",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.563899999999993,
+            "y": 3.4102999999999533
+          }
+        },
+        {
+          "padId": "pcb_smtpad_260",
+          "networkId": "ble_module_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": -4.9863999999999935,
+            "y": 0.9902999999999551
+          }
+        },
+        {
+          "padId": "pcb_smtpad_261",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 1.025,
+            "y": 1.4
+          },
+          "offset": {
+            "x": -3.1613999999999933,
+            "y": 0.9902999999999551
+          }
+        },
+        {
+          "padId": "pcb_smtpad_262",
+          "networkId": "ble_module_connectivity_net0",
+          "type": "rect",
+          "size": {
+            "x": 1.4,
+            "y": 1.025
+          },
+          "offset": {
+            "x": -1.671249999999999,
+            "y": 21.857799999999948
+          }
+        },
+        {
+          "padId": "pcb_smtpad_263",
+          "networkId": "ble_module_connectivity_net37",
+          "type": "rect",
+          "size": {
+            "x": 1.4,
+            "y": 1.025
+          },
+          "offset": {
+            "x": -1.671249999999999,
+            "y": 23.682799999999943
+          }
+        },
+        {
+          "padId": "pcb_smtpad_264",
+          "networkId": "ble_module_connectivity_net38",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": 3.9138999999999955,
+            "y": 30.320050000000005
+          }
+        },
+        {
+          "padId": "pcb_smtpad_265",
+          "networkId": "ble_module_connectivity_net25",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": 3.9138999999999955,
+            "y": 29.300050000000006
+          }
+        },
+        {
+          "padId": "pcb_smtpad_266",
+          "networkId": "ble_module_connectivity_net38",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.583899999999994,
+            "y": -1.4297000000000466
+          }
+        },
+        {
+          "padId": "pcb_smtpad_267",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.563899999999994,
+            "y": -1.4297000000000466
+          }
+        },
+        {
+          "padId": "pcb_smtpad_268",
+          "networkId": "ble_module_connectivity_net25",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.583899999999994,
+            "y": -3.3697000000000443
+          }
+        },
+        {
+          "padId": "pcb_smtpad_269",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.563899999999993,
+            "y": -3.3697000000000443
+          }
+        },
+        {
+          "padId": "pcb_smtpad_270",
+          "networkId": "ble_module_connectivity_net39",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -7.443899999999993,
+            "y": -1.4297000000000466
+          }
+        },
+        {
+          "padId": "pcb_smtpad_271",
+          "networkId": "ble_module_connectivity_net38",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -6.4238999999999935,
+            "y": -1.4297000000000466
+          }
+        },
+        {
+          "padId": "pcb_smtpad_272",
+          "networkId": "ble_module_connectivity_net25",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.583899999999993,
+            "y": -5.309700000000042
+          }
+        },
+        {
+          "padId": "pcb_smtpad_273",
+          "networkId": "ble_module_connectivity_net40",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.563899999999993,
+            "y": -5.309700000000042
+          }
+        },
+        {
+          "padId": "pcb_smtpad_274",
+          "networkId": "ble_module_connectivity_net32",
+          "type": "rect",
+          "size": {
+            "x": 0.875,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -1.5363999999999947,
+            "y": 18.590299999999946
+          }
+        },
+        {
+          "padId": "pcb_smtpad_275",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.875
+          },
+          "offset": {
+            "x": -0.8238999999999947,
+            "y": 17.877799999999944
+          }
+        },
+        {
+          "padId": "pcb_smtpad_276",
+          "networkId": "ble_module_connectivity_net31",
+          "type": "rect",
+          "size": {
+            "x": 0.875,
+            "y": 0.25
+          },
+          "offset": {
+            "x": -0.11139999999999484,
+            "y": 18.590299999999946
+          }
+        },
+        {
+          "padId": "pcb_smtpad_277",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.25,
+            "y": 0.875
+          },
+          "offset": {
+            "x": -0.8238999999999947,
+            "y": 19.302799999999948
+          }
+        },
+        {
+          "padId": "pcb_smtpad_278",
+          "networkId": "ble_module_connectivity_net32",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.583899999999994,
+            "y": -7.24970000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_279",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.563899999999993,
+            "y": -7.24970000000004
+          }
+        },
+        {
+          "padId": "pcb_smtpad_280",
+          "networkId": "ble_module_connectivity_net31",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.583899999999993,
+            "y": -9.189700000000038
+          }
+        },
+        {
+          "padId": "pcb_smtpad_281",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.563899999999993,
+            "y": -9.189700000000038
+          }
+        },
+        {
+          "padId": "pcb_smtpad_282",
+          "networkId": "ble_module_connectivity_net15",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 6.823899999999996,
+            "y": 30.27005000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_283",
+          "networkId": "ble_module_connectivity_net23",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": 5.803899999999996,
+            "y": 30.27005000000001
+          }
+        },
+        {
+          "padId": "pcb_smtpad_284",
+          "networkId": "ble_module_connectivity_net23",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": 5.853899999999995,
+            "y": 28.380050000000008
+          }
+        },
+        {
+          "padId": "pcb_smtpad_285",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": 5.853899999999995,
+            "y": 27.360050000000008
+          }
+        },
+        {
+          "padId": "pcb_smtpad_286",
+          "networkId": "ble_module_connectivity_net34",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.583899999999994,
+            "y": -11.129700000000035
+          }
+        },
+        {
+          "padId": "pcb_smtpad_287",
+          "networkId": "ble_module_connectivity_net41",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.563899999999993,
+            "y": -11.129700000000035
+          }
+        },
+        {
+          "padId": "pcb_smtpad_288",
+          "networkId": "ble_module_connectivity_net34",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -3.8451749999999985,
+            "y": -13.019700000000036
+          }
+        },
+        {
+          "padId": "pcb_smtpad_289",
+          "networkId": "ble_module_connectivity_net42",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -3.8451749999999985,
+            "y": -14.039700000000032
+          }
+        },
+        {
+          "padId": "pcb_smtpad_290",
+          "networkId": "ble_module_connectivity_net42",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -3.8451749999999985,
+            "y": -15.879700000000035
+          }
+        },
+        {
+          "padId": "pcb_smtpad_291",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.64,
+            "y": 0.54
+          },
+          "offset": {
+            "x": -3.8451749999999985,
+            "y": -16.89970000000003
+          }
+        },
+        {
+          "padId": "pcb_smtpad_292",
+          "networkId": "ble_module_connectivity_net41",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.355174999999999,
+            "y": -18.789700000000032
+          }
+        },
+        {
+          "padId": "pcb_smtpad_293",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.3351749999999987,
+            "y": -18.789700000000032
+          }
+        },
+        {
+          "padId": "pcb_smtpad_294",
+          "networkId": "ble_module_connectivity_net41",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.355174999999999,
+            "y": -20.72970000000003
+          }
+        },
+        {
+          "padId": "pcb_smtpad_295",
+          "networkId": "ble_module_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.3351749999999987,
+            "y": -20.72970000000003
+          }
+        },
+        {
+          "padId": "pcb_smtpad_296",
+          "networkId": "ble_module_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.355174999999999,
+            "y": -22.669700000000027
+          }
+        },
+        {
+          "padId": "pcb_smtpad_297",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.3351749999999987,
+            "y": -22.669700000000027
+          }
+        },
+        {
+          "padId": "pcb_smtpad_298",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.4,
+            "y": 0.7
+          },
+          "offset": {
+            "x": -4.195174999999999,
+            "y": -24.739700000000028
+          }
+        },
+        {
+          "padId": "pcb_smtpad_299",
+          "networkId": "ble_module_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.4,
+            "y": 0.7
+          },
+          "offset": {
+            "x": -3.495174999999999,
+            "y": -24.739700000000028
+          }
+        },
+        {
+          "padId": "pcb_smtpad_300",
+          "networkId": "ble_module_connectivity_net44",
+          "type": "rect",
+          "size": {
+            "x": 2.5,
+            "y": 1.8
+          },
+          "offset": {
+            "x": -5.8451749999999985,
+            "y": -28.08970000000003
+          }
+        },
+        {
+          "padId": "pcb_smtpad_301",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 2.5,
+            "y": 1.8
+          },
+          "offset": {
+            "x": -1.845174999999999,
+            "y": -28.08970000000003
+          }
+        },
+        {
+          "padId": "pcb_smtpad_302",
+          "networkId": "ble_module_connectivity_net44",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.614537499999996,
+            "y": -31.309700000000028
+          }
+        },
+        {
+          "padId": "pcb_smtpad_303",
+          "networkId": "ble_module_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.594537499999997,
+            "y": -31.309700000000028
+          }
+        },
+        {
+          "padId": "pcb_smtpad_304",
+          "networkId": "ble_module_connectivity_net43",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.614537499999996,
+            "y": -33.249700000000026
+          }
+        },
+        {
+          "padId": "pcb_smtpad_305",
+          "networkId": "ble_module_connectivity_net45",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.594537499999996,
+            "y": -33.249700000000026
+          }
+        },
+        {
+          "padId": "pcb_smtpad_306",
+          "networkId": "ble_module_connectivity_net45",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.614537499999996,
+            "y": -35.18970000000002
+          }
+        },
+        {
+          "padId": "pcb_smtpad_307",
+          "networkId": "ble_module_connectivity_net46",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.594537499999997,
+            "y": -35.18970000000002
+          }
+        },
+        {
+          "padId": "pcb_smtpad_308",
+          "networkId": "ble_module_connectivity_net45",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.614537499999996,
+            "y": -37.12970000000002
+          }
+        },
+        {
+          "padId": "pcb_smtpad_309",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.594537499999996,
+            "y": -37.12970000000002
+          }
+        },
+        {
+          "padId": "pcb_smtpad_310",
+          "networkId": "ble_module_connectivity_net46",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -4.614537499999996,
+            "y": -39.06970000000002
+          }
+        },
+        {
+          "padId": "pcb_smtpad_311",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 0.54,
+            "y": 0.64
+          },
+          "offset": {
+            "x": -3.594537499999997,
+            "y": -39.06970000000002
+          }
+        },
+        {
+          "padId": "pcb_smtpad_312",
+          "networkId": "ble_module_connectivity_net46",
+          "type": "rect",
+          "size": {
+            "x": 1.325,
+            "y": 0.6
+          },
+          "offset": {
+            "x": 2.588600000000005,
+            "y": 19.540299999999945
+          }
+        },
+        {
+          "padId": "pcb_smtpad_313",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 1.325,
+            "y": 0.6
+          },
+          "offset": {
+            "x": 2.588600000000005,
+            "y": 17.640299999999947
+          }
+        },
+        {
+          "padId": "pcb_smtpad_314",
+          "networkId": "ble_module_connectivity_net35",
+          "type": "rect",
+          "size": {
+            "x": 1.325,
+            "y": 0.6
+          },
+          "offset": {
+            "x": 4.863600000000005,
+            "y": 18.590299999999946
+          }
+        }
+      ]
+    }
+  ],
+  "minGap": 1,
+  "packOrderStrategy": "largest_to_smallest",
+  "packPlacementStrategy": "minimum_sum_squared_distance_to_network",
+  "obstacles": [
+    {
+      "obstacleId": "pcb_component_73",
+      "absoluteCenter": {
+        "x": -0.1524000000000001,
+        "y": 0.01269999999999527
+      },
+      "width": 5.072000000000003,
+      "height": 4.792599999999993
+    },
+    {
+      "obstacleId": "pcb_component_74",
+      "absoluteCenter": {
+        "x": 11,
+        "y": 2
+      },
+      "width": 1.8599999999999994,
+      "height": 0.9399999999999997
+    },
+    {
+      "obstacleId": "pcb_component_75",
+      "absoluteCenter": {
+        "x": 7,
+        "y": -9
+      },
+      "width": 1.8599999999999994,
+      "height": 0.9400000000000013
+    },
+    {
+      "obstacleId": "pcb_component_76",
+      "absoluteCenter": {
+        "x": 11,
+        "y": 5
+      },
+      "width": 1.8599999999999994,
+      "height": 0.9399999999999995
+    }
+  ],
+  "weightedConnections": [
+    {
+      "padIds": ["pcb_smtpad_37", "pcb_smtpad_83"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_39", "pcb_smtpad_95"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_40", "pcb_smtpad_96"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_42", "pcb_smtpad_103"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_50", "pcb_smtpad_143"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_51", "pcb_smtpad_144"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_145", "pcb_smtpad_143"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_147", "pcb_smtpad_144"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_22", "pcb_smtpad_149"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_21", "pcb_smtpad_151"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_153", "pcb_smtpad_149"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_155", "pcb_smtpad_151"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_158", "pcb_plated_hole_0"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_159", "pcb_plated_hole_2"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_162", "pcb_plated_hole_3"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_163", "pcb_plated_hole_5"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_166", "pcb_plated_hole_6"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_167", "pcb_plated_hole_8"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_194", "pcb_smtpad_181"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_203", "pcb_smtpad_250"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_211", "pcb_smtpad_252"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_219", "pcb_smtpad_283"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_222", "pcb_smtpad_248"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_223", "pcb_smtpad_242"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_225", "pcb_smtpad_244"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_232", "pcb_smtpad_246"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_233", "pcb_smtpad_288"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_262", "pcb_smtpad_260"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_263", "pcb_smtpad_224"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_264", "pcb_smtpad_220"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_266", "pcb_smtpad_271"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_271", "pcb_smtpad_264"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_283", "pcb_smtpad_284"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_288", "pcb_smtpad_286"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    },
+    {
+      "padIds": ["pcb_smtpad_289", "pcb_smtpad_290"],
+      "weight": 1,
+      "ignoreWeakConnections": true
+    }
+  ]
+}
