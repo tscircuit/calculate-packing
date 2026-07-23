@@ -10,6 +10,7 @@
     "format:check": "biome format .",
     "typecheck": "tsc --noEmit",
     "build": "tsup-node lib/index.ts --format esm --dts --outDir dist",
+    "prepare": "bun run build",
     "build:site": "cosmos-export"
   },
   "files": [
