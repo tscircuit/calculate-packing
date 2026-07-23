@@ -5,8 +5,10 @@ import type { PackInput } from "../types"
  *
  * - If weightedConnections is not provided or empty, all connections are strong
  *   (backward compatible with existing behavior)
- * - If weightedConnections is provided, only pad pairs explicitly listed in
- *   weightedConnections are considered strong
+ * - A pad pair explicitly listed together is always strong
+ * - Unweighted pads continue to use their shared network as a strong connection
+ * - A weighted connection can opt a participating pad out of weaker, unlisted
+ *   connections with ignoreWeakConnections
  *
  * @param pad1Id - First pad ID
  * @param pad2Id - Second pad ID
@@ -23,9 +25,25 @@ export function isStrongConnection(
     return true
   }
 
-  // Check if both pads are in the same weightedConnection group
-  return weightedConnections.some(
+  const hasExplicitWeightedConnection = weightedConnections.some(
     (wc) => wc.padIds.includes(pad1Id) && wc.padIds.includes(pad2Id),
+  )
+  if (hasExplicitWeightedConnection) {
+    return true
+  }
+
+  const weightedConnectionsForEitherPad = weightedConnections.filter(
+    (wc) => wc.padIds.includes(pad1Id) || wc.padIds.includes(pad2Id),
+  )
+
+  // Weighted connections elsewhere in the circuit must not globally weaken
+  // unrelated pads that still need to be packed using their shared network.
+  if (weightedConnectionsForEitherPad.length === 0) {
+    return true
+  }
+
+  return !weightedConnectionsForEitherPad.some(
+    (wc) => wc.ignoreWeakConnections === true,
   )
 }
 
