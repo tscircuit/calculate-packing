@@ -10,7 +10,7 @@
     "format:check": "biome format .",
     "typecheck": "tsc --noEmit",
     "build": "tsup-node lib/index.ts --format esm --dts --outDir dist --tsconfig tsconfig.json",
-    "prepare": "bun run --cwd \"$(dirname \"$npm_package_json\")\" build",
+    "prepare": "if [ -f node_modules/calculate-packing/lib/index.ts ]; then bun run --cwd node_modules/calculate-packing build; else bun run build; fi",
     "build:site": "cosmos-export"
   },
   "files": [
