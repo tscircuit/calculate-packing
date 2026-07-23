@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test"
-import { isStrongConnection } from "./isStrongConnection"
+import { isStrongConnection } from "../lib/utils/isStrongConnection"
 
 test("all connections are strong without weighted connections", () => {
   expect(isStrongConnection("pad1", "pad2")).toBe(true)
