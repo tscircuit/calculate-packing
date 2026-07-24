@@ -12,6 +12,8 @@ import { extractPadInfos } from "./extractPadInfos"
 import { getElementOutsideTree } from "./getElementsOutsideTree"
 import { getObstacleFromElement } from "./getObstacleFromElement"
 
+type PcbComponentId = PcbComponent["pcb_component_id"]
+
 /**
  * Extract a bounding-box courtyard for a set of pcb_component_ids using the db.
  * Supports pcb_courtyard_rect, pcb_courtyard_polygon, pcb_courtyard_outline,
@@ -281,7 +283,7 @@ export const convertCircuitJsonToPackOutput = (
   }
 
   const staticComponentIds = new Set(opts.staticPcbComponentIds ?? [])
-  const pcbComponentIdsRepresentedByPackedGroups = new Set<string>()
+  const pcbComponentIdsRepresentedByPackedGroups = new Set<PcbComponentId>()
 
   for (const node of topLevelNodes) {
     if (node.nodeType === "component") {
