@@ -21,30 +21,28 @@ export function isStrongConnection(
   pad2Id: string,
   weightedConnections?: PackInput["weightedConnections"],
 ): boolean {
-  // No weightedConnections = all connections are strong (backward compatibility)
-  if (!weightedConnections || weightedConnections.length === 0) {
+  if (!weightedConnections?.length) {
     return true
   }
 
-  const hasExplicitWeightedConnection = weightedConnections.some(
-    (wc) => wc.padIds.includes(pad1Id) && wc.padIds.includes(pad2Id),
-  )
-  if (hasExplicitWeightedConnection) {
+  const pairIsExplicitlyWeighted = weightedConnections.some(({ padIds }) => {
+    return padIds.includes(pad1Id) && padIds.includes(pad2Id)
+  })
+
+  if (pairIsExplicitlyWeighted) {
     return true
   }
 
-  const weightedConnectionsForEitherPad = weightedConnections.filter(
-    (wc) => wc.padIds.includes(pad1Id) || wc.padIds.includes(pad2Id),
+  const eitherPadRejectsWeakConnections = weightedConnections.some(
+    ({ padIds, ignoreWeakConnections }) => {
+      const containsEitherPad =
+        padIds.includes(pad1Id) || padIds.includes(pad2Id)
+
+      return ignoreWeakConnections === true && containsEitherPad
+    },
   )
 
-  // Weighted hints elsewhere in the circuit must not weaken this pair.
-  if (weightedConnectionsForEitherPad.length === 0) {
-    return true
-  }
-
-  return !weightedConnectionsForEitherPad.some(
-    (wc) => wc.ignoreWeakConnections === true,
-  )
+  return !eitherPadRejectsWeakConnections
 }
 
 /**
