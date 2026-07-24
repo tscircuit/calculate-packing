@@ -1,12 +1,12 @@
-import type { CircuitJson, PcbComponent } from "circuit-json"
 import { cju, getCircuitJsonTree } from "@tscircuit/circuit-json-util"
+import type { CircuitJson, PcbComponent } from "circuit-json"
 import type {
+  ComponentCourtyard,
+  InputObstacle,
   OutputPad,
   PackedComponent,
   PackInput,
   PackOutput,
-  InputObstacle,
-  ComponentCourtyard,
 } from "../types"
 import { extractPadInfos } from "./extractPadInfos"
 import { getElementOutsideTree } from "./getElementsOutsideTree"
@@ -281,6 +281,7 @@ export const convertCircuitJsonToPackOutput = (
   }
 
   const staticComponentIds = new Set(opts.staticPcbComponentIds ?? [])
+  const pcbComponentIdsRepresentedByPackedGroups = new Set<string>()
 
   for (const node of topLevelNodes) {
     if (node.nodeType === "component") {
@@ -317,6 +318,11 @@ export const convertCircuitJsonToPackOutput = (
     } else if (node.nodeType === "group") {
       const pcbComps = collectPcbComponents(node, db)
       if (!pcbComps.length) continue
+      for (const pcbComponent of pcbComps) {
+        pcbComponentIdsRepresentedByPackedGroups.add(
+          pcbComponent.pcb_component_id,
+        )
+      }
       const compId =
         node.sourceGroup?.source_group_id ??
         node.sourceGroup?.name ??
@@ -342,6 +348,17 @@ export const convertCircuitJsonToPackOutput = (
   )
 
   for (const pcbComponent of relativeComponents) {
+    // A top-level group is represented as one aggregate packed component. Its
+    // relatively positioned descendants are already part of that aggregate and
+    // must not also be emitted as fixed obstacles.
+    if (
+      pcbComponentIdsRepresentedByPackedGroups.has(
+        pcbComponent.pcb_component_id,
+      )
+    ) {
+      continue
+    }
+
     const courtyard = extractCourtyardForComponent({
       db,
       pcbComponentIds: [pcbComponent.pcb_component_id],
