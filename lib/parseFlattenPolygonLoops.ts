@@ -54,8 +54,22 @@ function extractFacePoints(face: any): Point[] {
 
   do {
     const shp = edge.shape
-    const ps = shp.start ?? shp.ps
-    points.push({ x: ps.x, y: ps.y })
+    if (
+      typeof shp.sweep === "number" &&
+      typeof shp.pointAtLength === "function"
+    ) {
+      const segmentCount = Math.max(
+        2,
+        Math.ceil((shp.sweep / (Math.PI * 2)) * 8),
+      )
+      for (let index = 0; index < segmentCount; index++) {
+        const point = shp.pointAtLength((shp.length * index) / segmentCount)
+        if (point) points.push({ x: point.x, y: point.y })
+      }
+    } else {
+      const ps = shp.start ?? shp.ps
+      points.push({ x: ps.x, y: ps.y })
+    }
     edge = edge.next
   } while (edge !== face.first)
 

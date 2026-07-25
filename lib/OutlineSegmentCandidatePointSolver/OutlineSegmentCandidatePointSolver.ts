@@ -23,6 +23,7 @@ import { LargestRectOutsideOutlineFromPointSolver } from "lib/LargestRectOutside
 import { getInputComponentBounds } from "lib/geometry/getInputComponentBounds"
 import { expandSegment } from "lib/math/expandSegment"
 import { isPointInPolygon } from "lib/math/isPointInPolygon"
+import { addObstacleToGraphics } from "lib/testing/addObstacleToGraphics"
 
 /**
  * Given a single segment on the outline, the component's rotation, compute the
@@ -570,14 +571,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     // Draw obstacles
     if (this.obstacles && this.obstacles.length > 0) {
       for (const obstacle of this.obstacles) {
-        graphics.rects!.push({
-          center: obstacle.absoluteCenter,
-          width: obstacle.width,
-          height: obstacle.height,
-          fill: "rgba(0,0,0,0.1)",
-          stroke: "#555",
-          label: obstacle.obstacleId,
-        })
+        addObstacleToGraphics(graphics, obstacle)
       }
     }
 

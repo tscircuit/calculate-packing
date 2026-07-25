@@ -2,6 +2,10 @@ import Flatten from "@flatten-js/core"
 import type { Point } from "@tscircuit/math-utils"
 import { combineBounds } from "./geometry/combineBounds"
 import { getComponentBounds } from "./geometry/getComponentBounds"
+import {
+  getObstacleBounds,
+  getObstaclePolygon,
+} from "./geometry/obstacleGeometry"
 import { simplifyCollinearSegments } from "./geometry/simplify-collinear-segments"
 import { rotatePoint } from "./math/rotatePoint"
 import { parseFlattenPolygonSegments } from "./parseFlattenPolygonLoops"
@@ -145,31 +149,10 @@ const createObstaclePolygons = (
   minGap: number,
 ): PadShape[] => {
   return obstacles.map((obs) => {
-    const hw = obs.width / 2 + minGap
-    const hh = obs.height / 2 + minGap
-    const cx = obs.absoluteCenter.x
-    const cy = obs.absoluteCenter.y
-
-    const worldCorners = [
-      { x: cx - hw, y: cy - hh },
-      { x: cx + hw, y: cy - hh },
-      { x: cx + hw, y: cy + hh },
-      { x: cx - hw, y: cy + hh },
-    ]
-
-    const arr = worldCorners.map(({ x, y }) => [x, y] as [number, number])
-    const poly = new Flatten.Polygon(arr)
-
-    const xs = worldCorners.map((p) => p.x)
-    const ys = worldCorners.map((p) => p.y)
-    const bbox = {
-      minX: Math.min(...xs),
-      minY: Math.min(...ys),
-      maxX: Math.max(...xs),
-      maxY: Math.max(...ys),
+    return {
+      poly: getObstaclePolygon(obs, minGap),
+      bbox: getObstacleBounds(obs, minGap),
     }
-
-    return { poly, bbox }
   })
 }
 
@@ -193,12 +176,9 @@ export const constructOutlinesFromPackedComponents = (
   if (components.length === 0 && obstacles.length === 0) return []
 
   const componentBounds = components.map((c) => getComponentBounds(c, minGap))
-  const obstacleBounds = obstacles.map((o) => ({
-    minX: o.absoluteCenter.x - o.width / 2 - minGap,
-    minY: o.absoluteCenter.y - o.height / 2 - minGap,
-    maxX: o.absoluteCenter.x + o.width / 2 + minGap,
-    maxY: o.absoluteCenter.y + o.height / 2 + minGap,
-  }))
+  const obstacleBounds = obstacles.map((obstacle) =>
+    getObstacleBounds(obstacle, minGap),
+  )
   const bounds = combineBounds([...componentBounds, ...obstacleBounds])
 
   // Build pad polygons (inflated by minGap) and obstacle polygons
@@ -319,12 +299,9 @@ export const constructSemanticOutlinesFromPackedComponents = (
   }
 
   const componentBounds = components.map((c) => getComponentBounds(c, minGap))
-  const obstacleBounds = obstacles.map((o) => ({
-    minX: o.absoluteCenter.x - o.width / 2 - minGap,
-    minY: o.absoluteCenter.y - o.height / 2 - minGap,
-    maxX: o.absoluteCenter.x + o.width / 2 + minGap,
-    maxY: o.absoluteCenter.y + o.height / 2 + minGap,
-  }))
+  const obstacleBounds = obstacles.map((obstacle) =>
+    getObstacleBounds(obstacle, minGap),
+  )
   const bounds = combineBounds([...componentBounds, ...obstacleBounds])
 
   // Build pad polygons (inflated by minGap) and obstacle polygons
