@@ -18,11 +18,12 @@ import { isStrongConnection } from "lib/utils/isStrongConnection"
 import { rotatePoint } from "lib/math/rotatePoint"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
-import { getOutwardNormal } from "./getOutwardNormal"
+import { getInteriorNormal, getOutwardNormal } from "./getOutwardNormal"
 import { LargestRectOutsideOutlineFromPointSolver } from "lib/LargestRectOutsideOutlineFromPointSolver"
 import { getInputComponentBounds } from "lib/geometry/getInputComponentBounds"
 import { expandSegment } from "lib/math/expandSegment"
 import { isPointInPolygon } from "lib/math/isPointInPolygon"
+import { getComponentCollisionBoxes } from "lib/PackSolver2/getComponentCollisionBoxes"
 
 /**
  * Given a single segment on the outline, the component's rotation, compute the
@@ -47,6 +48,8 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   viableBounds?: Bounds
   globalBounds?: Bounds
   boundaryOutline?: Array<{ x: number; y: number }>
+  isBoardBoundarySegment: boolean
+  relativeCollisionCorners: Point[] = []
   weightedConnections?: PackInput["weightedConnections"]
   optimalPosition?: Point
   irlsSolver?: MultiOffsetIrlsSolver
@@ -71,6 +74,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     obstacles?: InputObstacle[]
     globalBounds?: Bounds
     boundaryOutline?: Array<{ x: number; y: number }>
+    isBoardBoundarySegment?: boolean
     weightedConnections?: PackInput["weightedConnections"]
   }) {
     super()
@@ -84,6 +88,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     this.obstacles = params.obstacles ?? []
     this.globalBounds = params.globalBounds
     this.boundaryOutline = params.boundaryOutline
+    this.isBoardBoundarySegment = params.isBoardBoundarySegment ?? false
     this.weightedConnections = params.weightedConnections
   }
 
@@ -101,6 +106,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       obstacles: this.obstacles,
       globalBounds: this.globalBounds,
       boundaryOutline: this.boundaryOutline,
+      isBoardBoundarySegment: this.isBoardBoundarySegment,
       weightedConnections: this.weightedConnections,
     }
   }
@@ -132,6 +138,11 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     // Get pad offset points and target point mappings
     const { offsetPadPoints, targetPointMap } =
       this.getNetworkTargetPointMappings()
+
+    if (this.isBoardBoundarySegment) {
+      this.setupBoardBoundaryPlacement(offsetPadPoints, targetPointMap)
+      return
+    }
 
     const [p1, p2] = this.outlineSegment
 
@@ -284,21 +295,102 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       y: (vp1.y + vp2.y) / 2,
     })
 
+    this.setupPositionOptimizer({
+      offsetPadPoints,
+      targetPointMap,
+      initialPosition,
+      constraintFn,
+    })
+  }
+
+  private setupBoardBoundaryPlacement(
+    offsetPadPoints: OffsetPadPoint[],
+    targetPointMap: Map<string, Point[]>,
+  ): void {
+    const [start, end] = this.outlineSegment
+    const segmentLength = Math.hypot(end.x - start.x, end.y - start.y)
+    if (segmentLength === 0) {
+      this.failed = true
+      this.error = "Cannot place a component along a zero-length boundary"
+      return
+    }
+
+    const tangent = {
+      x: (end.x - start.x) / segmentLength,
+      y: (end.y - start.y) / segmentLength,
+    }
+    this.relativeCollisionCorners = getComponentCollisionBoxes(
+      this.createTemporaryPackedComponent({ x: 0, y: 0 }),
+    ).flatMap((box) => {
+      const halfWidth = box.width / 2
+      const halfHeight = box.height / 2
+      return [
+        { x: box.center.x - halfWidth, y: box.center.y - halfHeight },
+        { x: box.center.x - halfWidth, y: box.center.y + halfHeight },
+        { x: box.center.x + halfWidth, y: box.center.y - halfHeight },
+        { x: box.center.x + halfWidth, y: box.center.y + halfHeight },
+      ]
+    })
+    const tangentProjections = this.relativeCollisionCorners.map(
+      (corner) => corner.x * tangent.x + corner.y * tangent.y,
+    )
+    const startDistance = Math.max(0, -Math.min(...tangentProjections))
+    const endDistance = Math.min(
+      segmentLength,
+      segmentLength - Math.max(...tangentProjections),
+    )
+
+    if (startDistance > endDistance) {
+      this.failed = true
+      this.error =
+        "There is nowhere for the component to fit along this boundary section"
+      return
+    }
+
+    this.viableOutlineSegment = [
+      {
+        x: start.x + tangent.x * startDistance,
+        y: start.y + tangent.y * startDistance,
+      },
+      {
+        x: start.x + tangent.x * endDistance,
+        y: start.y + tangent.y * endDistance,
+      },
+    ]
+
+    const constraintFn = (point: Point): Point =>
+      this.adjustPositionForOutlineCollision(
+        this.projectPointOntoSegment(point, this.viableOutlineSegment!),
+      )
+    const [viableStart, viableEnd] = this.viableOutlineSegment
+    const initialPosition = this.adjustPositionForOutlineCollision({
+      x: (viableStart.x + viableEnd.x) / 2,
+      y: (viableStart.y + viableEnd.y) / 2,
+    })
+
+    this.setupPositionOptimizer({
+      offsetPadPoints,
+      targetPointMap,
+      initialPosition,
+      constraintFn,
+    })
+  }
+
+  private setupPositionOptimizer(params: {
+    offsetPadPoints: OffsetPadPoint[]
+    targetPointMap: Map<string, Point[]>
+    initialPosition: Point
+    constraintFn: (point: Point) => Point
+  }): void {
     if (this.packStrategy === "minimum_closest_sum_squared_distance") {
       this.twoPhaseIrlsSolver = new TwoPhaseIrlsSolver({
-        offsetPadPoints,
-        targetPointMap,
-        initialPosition,
-        constraintFn,
+        ...params,
         epsilon: 1e-6,
         maxIterations: 50,
       })
     } else {
       this.irlsSolver = new MultiOffsetIrlsSolver({
-        offsetPadPoints,
-        targetPointMap,
-        initialPosition,
-        constraintFn,
+        ...params,
         epsilon: 1e-6,
         maxIterations: 50,
         useSquaredDistance:
@@ -467,6 +559,22 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
    * and ensure the component stays within the boundary outline
    */
   private adjustPositionForOutlineCollision(center: Point): Point {
+    if (this.isBoardBoundarySegment) {
+      const inwardNormal = getInteriorNormal(
+        this.outlineSegment,
+        this.ccwFullOutline,
+      )
+      const minimumProjection = Math.min(
+        ...this.relativeCollisionCorners.map(
+          (corner) => corner.x * inwardNormal.x + corner.y * inwardNormal.y,
+        ),
+      )
+      return {
+        x: center.x - inwardNormal.x * minimumProjection,
+        y: center.y - inwardNormal.y * minimumProjection,
+      }
+    }
+
     // Create temporary component at this position
     const tempComponent = this.createTemporaryPackedComponent(center)
 

@@ -88,6 +88,7 @@ export class PackSolver2 extends BaseSolver {
 
   private packFirstComponent(): void {
     const firstComponentToPack = this.unpackedComponentQueue.shift()!
+    const mustBeOnBoundary = firstComponentToPack.mustBeOnBoundary === true
 
     // If boundary outline exists, use its geometric centroid as the starting position
     let initialPosition = { x: 0, y: 0 }
@@ -154,7 +155,7 @@ export class PackSolver2 extends BaseSolver {
       outsideBoundaryOutline = !allPadsInside || !cornersInside
     }
 
-    if (!tooCloseToObstacles && !outsideBoundaryOutline) {
+    if (!mustBeOnBoundary && !tooCloseToObstacles && !outsideBoundaryOutline) {
       this.packedComponents.push(newPackedComponent)
       return
     }
@@ -174,6 +175,11 @@ export class PackSolver2 extends BaseSolver {
     const result = fallbackSolver.getResult()
     if (result) {
       this.packedComponents.push(result)
+    } else if (mustBeOnBoundary) {
+      this.failed = true
+      this.error =
+        fallbackSolver.error ??
+        `Could not place component ${firstComponentToPack.componentId} on the boundary`
     } else {
       // Fallback: place at center even if it violates constraints (should rarely happen)
       // This typically indicates impossible constraints (e.g., component too large for boundary)
@@ -224,6 +230,7 @@ export class PackSolver2 extends BaseSolver {
 
     if (this.activeSubSolver.failed) {
       this.failed = true
+      this.error = this.activeSubSolver.error
       return
     }
 

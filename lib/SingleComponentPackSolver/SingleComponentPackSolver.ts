@@ -16,8 +16,8 @@ import { isStrongConnection } from "../utils/isStrongConnection"
 import { checkOverlapWithPackedComponents } from "lib/PackSolver2/checkOverlapWithPackedComponents"
 import { getComponentCollisionBoxes } from "lib/PackSolver2/getComponentCollisionBoxes"
 import { computeDistanceBetweenBoxes, type Bounds } from "@tscircuit/math-utils"
-import { isPointInPolygon } from "lib/math/isPointInPolygon"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
+import { pointInOutline } from "lib/geometry/pointInOutline"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 
@@ -26,6 +26,7 @@ interface QueuedOutlineSegment {
   availableRotations: number[]
   segmentIndex: number
   ccwFullOutline: Segment[] // The entire outline containing this segment
+  isBoardBoundarySegment?: boolean
 }
 
 interface CandidateResult {
@@ -125,8 +126,18 @@ export class SingleComponentPackSolver extends BaseSolver {
   }
 
   private executeOutlinePhase() {
+    const mustBeOnBoundary = this.componentToPack.mustBeOnBoundary === true
+    if (
+      mustBeOnBoundary &&
+      (!this.boundaryOutline || this.boundaryOutline.length < 3)
+    ) {
+      this.failed = true
+      this.error = `Component ${this.componentToPack.componentId} requires a boundaryOutline`
+      return
+    }
+
     // Special case: if no packed components, attempt center; if too close to obstacles, fall back to outline-based placement
-    if (this.packedComponents.length === 0) {
+    if (this.packedComponents.length === 0 && !mustBeOnBoundary) {
       const availableRotations = this.componentToPack
         .availableRotationDegrees ?? [0, 90, 180, 270]
       const position = { x: 0, y: 0 }
@@ -156,13 +167,12 @@ export class SingleComponentPackSolver extends BaseSolver {
     }
 
     // Construct outlines from packed components (and obstacles)
-    this.outlines = constructOutlinesFromPackedComponents(
-      this.packedComponents,
-      {
-        minGap: this.minGap,
-        obstacles: this.obstacles,
-      },
-    )
+    this.outlines = mustBeOnBoundary
+      ? []
+      : constructOutlinesFromPackedComponents(this.packedComponents, {
+          minGap: this.minGap,
+          obstacles: this.obstacles,
+        })
 
     // Queue all segment-rotation pairs
     const availableRotations = this.componentToPack
@@ -205,8 +215,14 @@ export class SingleComponentPackSolver extends BaseSolver {
           availableRotations: [...availableRotations],
           segmentIndex: boundaryOutlineIndex * 1000 + i,
           ccwFullOutline: boundarySegments,
+          isBoardBoundarySegment: mustBeOnBoundary,
         })
       }
+    }
+
+    if (mustBeOnBoundary) {
+      this.currentPhase = "segment_candidate"
+      return
     }
 
     // Add obstacle boundary segments for isolated obstacles
@@ -307,23 +323,65 @@ export class SingleComponentPackSolver extends BaseSolver {
 
         // Check if component is outside boundary outline
         let outsideBoundaryOutline = false
+        let doesNotTouchBoundary = false
         if (this.boundaryOutline && this.boundaryOutline.length >= 3) {
           const componentBounds = getComponentBounds(candidateComponent, 0)
+          const boundarySegments = this.boundaryOutline.map(
+            (point, index) =>
+              [
+                point,
+                this.boundaryOutline![
+                  (index + 1) % this.boundaryOutline!.length
+                ]!,
+              ] as Segment,
+          )
+          const getBoardLocation = (point: Point) =>
+            pointInOutline(point, boundarySegments)
 
           // Check if all pads are within the boundary outline
-          const allPadsInside = candidateComponent.pads.every((pad) =>
-            isPointInPolygon(pad.absoluteCenter, this.boundaryOutline!),
+          const allPadsInside = candidateComponent.pads.every(
+            (pad) => getBoardLocation(pad.absoluteCenter) !== "outside",
           )
 
           // Also check corners of component bounds
-          const cornersInside = [
+          const corners = [
             { x: componentBounds.minX, y: componentBounds.minY },
             { x: componentBounds.minX, y: componentBounds.maxY },
             { x: componentBounds.maxX, y: componentBounds.minY },
             { x: componentBounds.maxX, y: componentBounds.maxY },
-          ].every((corner) => isPointInPolygon(corner, this.boundaryOutline!))
+          ]
+          const cornersInside = corners.every(
+            (corner) => getBoardLocation(corner) !== "outside",
+          )
+          const collisionCorners = candidateCollisionBoxes.flatMap((box) => {
+            const halfWidth = box.width / 2
+            const halfHeight = box.height / 2
+            return [
+              {
+                x: box.center.x - halfWidth,
+                y: box.center.y - halfHeight,
+              },
+              {
+                x: box.center.x - halfWidth,
+                y: box.center.y + halfHeight,
+              },
+              {
+                x: box.center.x + halfWidth,
+                y: box.center.y - halfHeight,
+              },
+              {
+                x: box.center.x + halfWidth,
+                y: box.center.y + halfHeight,
+              },
+            ]
+          })
 
           outsideBoundaryOutline = !allPadsInside || !cornersInside
+          doesNotTouchBoundary =
+            this.componentToPack.mustBeOnBoundary === true &&
+            !collisionCorners.some(
+              (corner) => getBoardLocation(corner) === "boundary",
+            )
         }
 
         // Calculate distance based on pack strategy
@@ -368,6 +426,16 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: -1, // Special marker for boundary violation
+          })
+        } else if (doesNotTouchBoundary) {
+          this.rejectedCandidates.push({
+            segment: queuedSegment.segment,
+            rotation,
+            optimalPosition,
+            distance,
+            segmentIndex: queuedSegment.segmentIndex,
+            rotationIndex: this.currentRotationIndex,
+            gapDistance: -2, // Special marker for mustBeOnBoundary violation
           })
         } else {
           // Store candidate result
@@ -421,6 +489,7 @@ export class SingleComponentPackSolver extends BaseSolver {
         obstacles: this.obstacles,
         globalBounds: this.bounds,
         boundaryOutline: this.boundaryOutline,
+        isBoardBoundarySegment: queuedSegment.isBoardBoundarySegment,
         weightedConnections: this.weightedConnections,
       })
 

@@ -1,5 +1,27 @@
 import type { Point } from "@tscircuit/math-utils"
 
+/** Get the normal pointing inside a closed outline, regardless of winding. */
+export function getInteriorNormal(
+  outlineSegment: [Point, Point],
+  fullOutline: [Point, Point][],
+): Point {
+  const [start, end] = outlineSegment
+  const dx = end.x - start.x
+  const dy = end.y - start.y
+  const length = Math.hypot(dx, dy)
+  if (length === 0) return { x: 0, y: 1 }
+
+  const signedArea =
+    fullOutline.reduce(
+      (area, [p1, p2]) => area + p1.x * p2.y - p2.x * p1.y,
+      0,
+    ) / 2
+
+  return signedArea >= 0
+    ? { x: -dy / length, y: dx / length }
+    : { x: dy / length, y: -dx / length }
+}
+
 /**
  * Get the normal direction pointing toward FREE SPACE for component placement.
  *

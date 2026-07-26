@@ -10,6 +10,7 @@ test("convertPackOutputToPackInput should preserve availableRotationDegrees", ()
         center: { x: 0, y: 0 },
         ccwRotationOffset: 0,
         availableRotationDegrees: [0], // Should be preserved
+        mustBeOnBoundary: true,
         pads: [
           {
             padId: "U1_P1",
@@ -48,6 +49,7 @@ test("convertPackOutputToPackInput should preserve availableRotationDegrees", ()
   // Should preserve availableRotationDegrees
   expect(packInput.components[0]?.availableRotationDegrees).toEqual([0])
   expect(packInput.components[1]?.availableRotationDegrees).toEqual([0, 90])
+  expect(packInput.components[0]?.mustBeOnBoundary).toBe(true)
 
   // Should remove output-only properties
   expect(packInput.components[0]).not.toHaveProperty("center")
