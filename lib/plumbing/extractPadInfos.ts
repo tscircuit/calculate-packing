@@ -154,6 +154,22 @@ export const extractPadInfos = (
         })
         break
       }
+      case "rotated_pill_hole_with_rect_pad": {
+        const size = getRotatedBoundingBoxSize({
+          width: ph.rect_pad_width,
+          height: ph.rect_pad_height,
+          ccwRotationDegrees: ph.rect_ccw_rotation,
+        })
+        pushPad({
+          padId: ph.pcb_plated_hole_id,
+          pcbPortId: ph.pcb_port_id,
+          sx: size.width,
+          sy: size.height,
+          x: ph.x,
+          y: ph.y,
+        })
+        break
+      }
       default: {
         console.warn(`Unsupported plated hole shape ${(ph as any).shape}`)
         break
