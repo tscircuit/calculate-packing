@@ -151,6 +151,41 @@ test("multiple pcb_holes are all added as obstacles", () => {
   expect(holeObstacles).toHaveLength(3)
 })
 
+test("rotated pill plated hole with rect pad is added as an obstacle", () => {
+  const circuitJson = makeCircuitJson([
+    {
+      type: "pcb_plated_hole",
+      pcb_plated_hole_id: "pcb_plated_hole_rotated",
+      shape: "rotated_pill_hole_with_rect_pad",
+      hole_shape: "rotated_pill",
+      pad_shape: "rect",
+      hole_width: 4,
+      hole_height: 2,
+      hole_ccw_rotation: 30,
+      rect_pad_width: 6,
+      rect_pad_height: 4,
+      rect_ccw_rotation: 30,
+      hole_offset_x: 0,
+      hole_offset_y: 0,
+      x: 3,
+      y: -2,
+      layers: ["top", "bottom"],
+    },
+  ])
+
+  const packOutput = convertCircuitJsonToPackOutput(circuitJson, {
+    source_group_id: "source_group_0",
+  })
+
+  const obstacle = packOutput.obstacles!.find(
+    ({ obstacleId }) => obstacleId === "pcb_plated_hole_rotated",
+  )
+  expect(obstacle).toBeDefined()
+  expect(obstacle?.absoluteCenter).toEqual({ x: 3, y: -2 })
+  expect(obstacle?.width).toBeCloseTo(3 * Math.sqrt(3) + 2)
+  expect(obstacle?.height).toBeCloseTo(3 + 2 * Math.sqrt(3))
+})
+
 test("pcb_hole obstacles svg snapshot", async () => {
   const circuitJson = makeCircuitJson([
     {
