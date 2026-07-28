@@ -305,6 +305,13 @@ export const convertCircuitJsonToPackOutput = (
         shouldAddInnerObstaclesForComp = false
       }
 
+      const sourceComponent = db.source_component.get(
+        pcbComponent.source_component_id,
+      )
+      if ((sourceComponent as any)?.ftype === "simple_pinout") {
+        shouldAddInnerObstaclesForComp = false
+      }
+
       packOutput.components.push(
         buildPackedComponent(
           [pcbComponent],
