@@ -15,9 +15,11 @@
   "files": [
     "dist"
   ],
+  "dependencies": {
+    "@flatten-js/core": "^1.6.2"
+  },
   "devDependencies": {
     "@biomejs/biome": "^2.1.1",
-    "@flatten-js/core": "^1.6.2",
     "@react-hook/resize-observer": "^2.0.2",
     "@tscircuit/circuit-json-util": "^0.0.94",
     "@tscircuit/footprinter": "^0.0.203",
@@ -42,6 +44,8 @@
   },
   "peerDependencies": {
     "typescript": "^5",
-    "@tscircuit/circuit-json-util": "*"
+    "@tscircuit/circuit-json-util": "*",
+    "@tscircuit/math-utils": "*",
+    "@tscircuit/solver-utils": "*"
   }
 }
