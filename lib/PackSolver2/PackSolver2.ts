@@ -129,8 +129,12 @@ export class PackSolver2 extends BaseSolver {
     })
 
     // Check if component is outside boundary outline
-    let outsideBoundaryOutline = false
+    const mustBeOnEdge =
+      firstComponentToPack.mustBeOnBoundary ||
+      firstComponentToPack.shouldBeOnEdgeOfBoard
+    let outsideBoundaryOutline = mustBeOnEdge ? true : false
     if (
+      !mustBeOnEdge &&
       this.packInput.boundaryOutline &&
       this.packInput.boundaryOutline.length >= 3
     ) {
