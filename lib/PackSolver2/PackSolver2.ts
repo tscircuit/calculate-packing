@@ -3,6 +3,7 @@ import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
 import { sortComponentQueue } from "./sortComponentQueue"
 import { SingleComponentPackSolver } from "../SingleComponentPackSolver/SingleComponentPackSolver"
 import { BaseSolver } from "@tscircuit/solver-utils"
+import { clearOutlineCaches } from "../constructOutlinesFromPackedComponents"
 import type {
   InputComponent,
   OutputPad,
@@ -39,6 +40,7 @@ export class PackSolver2 extends BaseSolver {
   }
 
   override _setup() {
+    clearOutlineCaches()
     const { components, packOrderStrategy, packFirst = [] } = this.packInput
 
     // Filter out components with no valid pads (e.g., pads with -Infinity sizes)
