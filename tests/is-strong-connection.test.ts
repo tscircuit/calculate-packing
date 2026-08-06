@@ -1,9 +1,7 @@
 import { expect, test } from "bun:test"
-import {
-  getStronglyConnectedPadIds,
-  getWeightedConnectionIndex,
-  isStrongConnection,
-} from "../lib/utils/isStrongConnection"
+import { getStronglyConnectedPadIds } from "../lib/utils/getStronglyConnectedPadIds"
+import { getWeightedConnectionIndex } from "../lib/utils/getWeightedConnectionIndex"
+import { isStrongConnection } from "../lib/utils/isStrongConnection"
 
 test("all connections are strong without weighted connections", () => {
   expect(isStrongConnection("pad1", "pad2")).toBe(true)
