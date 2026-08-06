@@ -1,5 +1,66 @@
 import type { PackInput } from "../types"
 
+type WeightedConnections = NonNullable<PackInput["weightedConnections"]>
+
+export interface WeightedConnectionIndex {
+  explicitlyConnectedPadIdsByPadId: Map<string, Set<string>>
+  padIdsRejectingWeakConnections: Set<string>
+}
+
+const weightedConnectionIndexCache = new WeakMap<
+  WeightedConnections,
+  WeightedConnectionIndex
+>()
+
+/**
+ * Builds constant-time lookups for weighted-connection checks.
+ */
+export function createWeightedConnectionIndex(
+  weightedConnections: WeightedConnections,
+): WeightedConnectionIndex {
+  const explicitlyConnectedPadIdsByPadId = new Map<string, Set<string>>()
+  const padIdsRejectingWeakConnections = new Set<string>()
+
+  for (const { padIds, ignoreWeakConnections } of weightedConnections) {
+    for (const padId of padIds) {
+      let explicitlyConnectedPadIds =
+        explicitlyConnectedPadIdsByPadId.get(padId)
+      if (!explicitlyConnectedPadIds) {
+        explicitlyConnectedPadIds = new Set<string>()
+        explicitlyConnectedPadIdsByPadId.set(padId, explicitlyConnectedPadIds)
+      }
+
+      for (const connectedPadId of padIds) {
+        explicitlyConnectedPadIds.add(connectedPadId)
+      }
+
+      if (ignoreWeakConnections === true) {
+        padIdsRejectingWeakConnections.add(padId)
+      }
+    }
+  }
+
+  return {
+    explicitlyConnectedPadIdsByPadId,
+    padIdsRejectingWeakConnections,
+  }
+}
+
+/**
+ * Reuses an index for repeated checks against the same weighted-connections
+ * array. Pack inputs are treated as immutable while a layout is being solved.
+ */
+export function getWeightedConnectionIndex(
+  weightedConnections: WeightedConnections,
+): WeightedConnectionIndex {
+  const cachedIndex = weightedConnectionIndexCache.get(weightedConnections)
+  if (cachedIndex) return cachedIndex
+
+  const index = createWeightedConnectionIndex(weightedConnections)
+  weightedConnectionIndexCache.set(weightedConnections, index)
+  return index
+}
+
 /**
  * Checks if two pads have a "strong" (weighted) connection.
  *
@@ -25,22 +86,18 @@ export function isStrongConnection(
     return true
   }
 
-  const pairIsExplicitlyWeighted = weightedConnections.some(({ padIds }) => {
-    return padIds.includes(pad1Id) && padIds.includes(pad2Id)
-  })
+  const index = getWeightedConnectionIndex(weightedConnections)
+  const pairIsExplicitlyWeighted = index.explicitlyConnectedPadIdsByPadId
+    .get(pad1Id)
+    ?.has(pad2Id)
 
   if (pairIsExplicitlyWeighted) {
     return true
   }
 
-  const eitherPadRejectsWeakConnections = weightedConnections.some(
-    ({ padIds, ignoreWeakConnections }) => {
-      const containsEitherPad =
-        padIds.includes(pad1Id) || padIds.includes(pad2Id)
-
-      return ignoreWeakConnections === true && containsEitherPad
-    },
-  )
+  const eitherPadRejectsWeakConnections =
+    index.padIdsRejectingWeakConnections.has(pad1Id) ||
+    index.padIdsRejectingWeakConnections.has(pad2Id)
 
   return !eitherPadRejectsWeakConnections
 }
@@ -56,22 +113,16 @@ export function getStronglyConnectedPadIds(
   padId: string,
   weightedConnections?: PackInput["weightedConnections"],
 ): Set<string> {
-  const connectedPadIds = new Set<string>()
-
   // No weightedConnections = return empty set (will use networkId fallback)
   if (!weightedConnections || weightedConnections.length === 0) {
-    return connectedPadIds
+    return new Set<string>()
   }
 
-  for (const wc of weightedConnections) {
-    if (wc.padIds.includes(padId)) {
-      for (const otherPadId of wc.padIds) {
-        if (otherPadId !== padId) {
-          connectedPadIds.add(otherPadId)
-        }
-      }
-    }
-  }
+  const index = getWeightedConnectionIndex(weightedConnections)
+  const connectedPadIds = new Set(
+    index.explicitlyConnectedPadIdsByPadId.get(padId),
+  )
+  connectedPadIds.delete(padId)
 
   return connectedPadIds
 }
