@@ -129,10 +129,6 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   }
 
   override _setup() {
-    // Get pad offset points and target point mappings
-    const { offsetPadPoints, targetPointMap } =
-      this.getNetworkTargetPointMappings()
-
     const [p1, p2] = this.outlineSegment
 
     // Create constraint function to keep position on outline segment and avoid collision
@@ -283,6 +279,11 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       x: (vp1.x + vp2.x) / 2,
       y: (vp1.y + vp2.y) / 2,
     })
+
+    // Network targets do not affect whether the component can fit along this
+    // outline segment, so defer their construction until after fit rejection.
+    const { offsetPadPoints, targetPointMap } =
+      this.getNetworkTargetPointMappings()
 
     if (this.packStrategy === "minimum_closest_sum_squared_distance") {
       this.twoPhaseIrlsSolver = new TwoPhaseIrlsSolver({
