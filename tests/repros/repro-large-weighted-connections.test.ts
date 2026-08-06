@@ -21,6 +21,6 @@ test("repro-large-weighted-connections - PackSolver2 completes the captured boar
 
   solver.solve()
 
-  expect(solver.failed).toBe(true)
+  expect(solver.failed).toBe(false)
   expect(solver.packedComponents).toHaveLength(packInput.components.length)
-})
+}, 180_000)

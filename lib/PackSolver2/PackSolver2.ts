@@ -31,6 +31,9 @@ export class PackSolver2 extends BaseSolver {
 
   constructor(packInput: PackInput) {
     super()
+    // PackSolver2 counts every nested candidate and optimizer step against its
+    // own budget, so large boards can exceed BaseSolver's 100k default.
+    this.MAX_ITERATIONS = 500_000
     this.packInput = packInput
   }
 
