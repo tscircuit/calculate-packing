@@ -24,6 +24,11 @@ import { getInputComponentBounds } from "lib/geometry/getInputComponentBounds"
 import { expandSegment } from "lib/math/expandSegment"
 import { isPointInPolygon } from "lib/math/isPointInPolygon"
 
+export interface NetworkTargetPointMappings {
+  offsetPadPoints: OffsetPadPoint[]
+  targetPointMap: Map<string, Point[]>
+}
+
 /**
  * Given a single segment on the outline, the component's rotation, compute the
  * optimal position for the rotated component (the position that minimizes the
@@ -48,6 +53,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   globalBounds?: Bounds
   boundaryOutline?: Array<{ x: number; y: number }>
   weightedConnections?: PackInput["weightedConnections"]
+  networkTargetPointMappingsCache?: Map<number, NetworkTargetPointMappings>
   optimalPosition?: Point
   irlsSolver?: MultiOffsetIrlsSolver
   twoPhaseIrlsSolver?: TwoPhaseIrlsSolver
@@ -72,6 +78,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     globalBounds?: Bounds
     boundaryOutline?: Array<{ x: number; y: number }>
     weightedConnections?: PackInput["weightedConnections"]
+    networkTargetPointMappingsCache?: Map<number, NetworkTargetPointMappings>
   }) {
     super()
     this.outlineSegment = params.outlineSegment
@@ -85,6 +92,8 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     this.globalBounds = params.globalBounds
     this.boundaryOutline = params.boundaryOutline
     this.weightedConnections = params.weightedConnections
+    this.networkTargetPointMappingsCache =
+      params.networkTargetPointMappingsCache
   }
 
   override getConstructorParams(): ConstructorParameters<
@@ -102,6 +111,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       globalBounds: this.globalBounds,
       boundaryOutline: this.boundaryOutline,
       weightedConnections: this.weightedConnections,
+      networkTargetPointMappingsCache: this.networkTargetPointMappingsCache,
     }
   }
 
@@ -330,10 +340,12 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   /**
    * Get pad offset points and target point mappings for network connections
    */
-  private getNetworkTargetPointMappings(): {
-    offsetPadPoints: OffsetPadPoint[]
-    targetPointMap: Map<string, Point[]>
-  } {
+  private getNetworkTargetPointMappings(): NetworkTargetPointMappings {
+    const cachedMappings = this.networkTargetPointMappingsCache?.get(
+      this.componentRotationDegrees,
+    )
+    if (cachedMappings) return cachedMappings
+
     // Get rotated pads for the component being placed
     const rotatedPads = this.getRotatedComponentPads()
 
@@ -375,7 +387,12 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       targetPointMap.set(pad.padId, targetPoints)
     }
 
-    return { offsetPadPoints, targetPointMap }
+    const mappings = { offsetPadPoints, targetPointMap }
+    this.networkTargetPointMappingsCache?.set(
+      this.componentRotationDegrees,
+      mappings,
+    )
+    return mappings
   }
 
   /**

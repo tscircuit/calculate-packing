@@ -1,6 +1,9 @@
 import type { GraphicsObject, Line, Point, Rect } from "graphics-debug"
 import { constructOutlinesFromPackedComponents } from "../constructOutlinesFromPackedComponents"
-import { OutlineSegmentCandidatePointSolver } from "../OutlineSegmentCandidatePointSolver/OutlineSegmentCandidatePointSolver"
+import {
+  OutlineSegmentCandidatePointSolver,
+  type NetworkTargetPointMappings,
+} from "../OutlineSegmentCandidatePointSolver/OutlineSegmentCandidatePointSolver"
 import { setPackedComponentPadCenters } from "../PackSolver2/setPackedComponentPadCenters"
 import { BaseSolver } from "@tscircuit/solver-utils"
 import { getGraphicsFromPackOutput } from "../testing/getGraphicsFromPackOutput"
@@ -75,6 +78,10 @@ export class SingleComponentPackSolver extends BaseSolver {
   bestCandidate?: CandidateResult
   outputPackedComponent?: PackedComponent
   bounds?: Bounds
+  private networkTargetPointMappingsCache = new Map<
+    number,
+    NetworkTargetPointMappings
+  >()
 
   constructor(params: {
     componentToPack: InputComponent
@@ -106,6 +113,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     this.activeSubSolver = undefined
     this.currentSegmentIndex = 0
     this.currentRotationIndex = 0
+    this.networkTargetPointMappingsCache.clear()
   }
 
   override _step() {
@@ -422,6 +430,7 @@ export class SingleComponentPackSolver extends BaseSolver {
         globalBounds: this.bounds,
         boundaryOutline: this.boundaryOutline,
         weightedConnections: this.weightedConnections,
+        networkTargetPointMappingsCache: this.networkTargetPointMappingsCache,
       })
 
       this.activeSubSolver.setup()
