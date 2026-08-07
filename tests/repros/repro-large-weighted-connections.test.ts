@@ -16,25 +16,11 @@ test("repro-large-weighted-connections - captured input shape", () => {
   expect(packInput.weightedConnections).toHaveLength(670)
 })
 
-const performanceReproTest =
-  process.env.RUN_SLOW_PACKING_REPRO === "1" ? test : test.skip
+test("repro-large-weighted-connections - PackSolver2 completes the captured board", () => {
+  const solver = new PackSolver2(packInput)
 
-// Exact PackInput captured at @tscircuit/core's PackSolver2 boundary for the
-// adjacent circuit.tsx, a 218-component board with 825 explicit traces. This is
-// intentionally opt-in because the current solver takes a very long time as the
-// placed-component outline and pairwise weighted connection searches grow. Run
-// with:
-//
-//   RUN_SLOW_PACKING_REPRO=1 bun test \
-//     tests/repros/repro-large-weighted-connections.test.ts
-performanceReproTest(
-  "repro-large-weighted-connections - PackSolver2 completes the captured board",
-  () => {
-    const solver = new PackSolver2(packInput)
+  solver.solve()
 
-    solver.solve()
-
-    expect(solver.failed).toBe(false)
-    expect(solver.packedComponents).toHaveLength(packInput.components.length)
-  },
-)
+  expect(solver.failed).toBe(false)
+  expect(solver.packedComponents).toHaveLength(packInput.components.length)
+}, 180_000)
