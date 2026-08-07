@@ -1,4 +1,6 @@
 import { expect, test } from "bun:test"
+import { getStronglyConnectedPadIds } from "../lib/utils/getStronglyConnectedPadIds"
+import { getWeightedConnectionIndex } from "../lib/utils/getWeightedConnectionIndex"
 import { isStrongConnection } from "../lib/utils/isStrongConnection"
 
 test("all connections are strong without weighted connections", () => {
@@ -51,4 +53,33 @@ test("participating pads keep unlisted connections when weak connections are all
       },
     ]),
   ).toBe(true)
+})
+
+test("reuses one weighted-connection index for repeated checks", () => {
+  const weightedConnections = [
+    {
+      padIds: ["pad1", "pad2"],
+      weight: 2,
+      ignoreWeakConnections: true,
+    },
+  ]
+
+  expect(getWeightedConnectionIndex(weightedConnections)).toBe(
+    getWeightedConnectionIndex(weightedConnections),
+  )
+})
+
+test("indexes every pair in a multi-pad weighted connection", () => {
+  const weightedConnections = [
+    {
+      padIds: ["pad1", "pad2", "pad3"],
+      weight: 2,
+      ignoreWeakConnections: true,
+    },
+  ]
+
+  expect(isStrongConnection("pad1", "pad3", weightedConnections)).toBe(true)
+  expect(getStronglyConnectedPadIds("pad2", weightedConnections)).toEqual(
+    new Set(["pad1", "pad3"]),
+  )
 })
