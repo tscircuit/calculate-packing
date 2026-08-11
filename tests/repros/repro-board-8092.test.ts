@@ -9,6 +9,9 @@ test("repro imported components were packing", () => {
 
   solver.solve()
 
+  expect(solver.solved).toBe(false)
+  expect(solver.failed).toBe(true)
+
   expect(
     getSvgFromGraphicsObject(solver.visualize(), {
       backgroundColor: "white",
