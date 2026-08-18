@@ -17,6 +17,8 @@ import { isPointInPolygon } from "../math/isPointInPolygon"
 import { getPolygonCentroid } from "../math/getPolygonCentroid"
 
 export class PackSolver2 extends BaseSolver {
+  static solverName = "PackSolver2"
+
   declare activeSubSolver: SingleComponentPackSolver | null | undefined
 
   packInput: PackInput
