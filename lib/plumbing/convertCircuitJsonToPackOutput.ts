@@ -292,8 +292,14 @@ export const convertCircuitJsonToPackOutput = (
       ) as PcbComponent | undefined
       if (!pcbComponent) continue
 
-      // Skip components with relative_to_group_anchor position mode - they'll be added as obstacles
-      if ((pcbComponent as any).position_mode === "relative_to_group_anchor") {
+      // Relative components are normally represented as fixed obstacles. When
+      // the caller explicitly marks one static, keep it as a pad-bearing
+      // component so network scoring (and layer-aware adapters) can still use
+      // its electrical geometry without allowing the solver to move it.
+      if (
+        (pcbComponent as any).position_mode === "relative_to_group_anchor" &&
+        !staticComponentIds.has(pcbComponent.pcb_component_id)
+      ) {
         continue
       }
 
@@ -350,6 +356,9 @@ export const convertCircuitJsonToPackOutput = (
   )
 
   for (const pcbComponent of relativeComponents) {
+    // Static relative components were emitted above as packed components.
+    if (staticComponentIds.has(pcbComponent.pcb_component_id)) continue
+
     // A top-level group is represented as one aggregate packed component. Its
     // relatively positioned descendants are already part of that aggregate and
     // must not also be emitted as fixed obstacles.
