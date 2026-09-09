@@ -26,8 +26,10 @@ export const PackDebugger = ({
   initialPackInput,
   title = "Pack Debugger",
 }: PackDebuggerProps) => {
-  const packInput: PackInput =
-    initialPackInput ?? convertPackOutputToPackInput(initialPackOutput!)
+  const packInput = useMemo(
+    () => initialPackInput ?? convertPackOutputToPackInput(initialPackOutput!),
+    [initialPackInput, initialPackOutput],
+  )
 
   const [selectedSolver, setSelectedSolver] =
     useState<SolverType>("PackSolver2")
