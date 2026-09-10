@@ -1,7 +1,26 @@
 import { PackSolver2 } from "./PackSolver2/PackSolver2"
+import {
+  QuadraticPackSolver,
+  type QuadraticOptions,
+} from "./QuadraticPackSolver/QuadraticPackSolver"
+import { validatePackedLayout } from "./validatePackedLayout"
 import type { PackInput, PackOutput } from "./types"
 
-const DEFAULT_PACK_DIRECTION_FALLBACK = "right"
+/** Greedy strategy the analytical path falls back to when it can't satisfy the
+ *  constraints. Matches the strategy matchpack uses for partition packing. */
+const GREEDY_FALLBACK_STRATEGY = "minimum_sum_squared_distance_to_network"
+
+export interface PackOptions {
+  /** Tuning knobs forwarded to the analytical quadratic solver. */
+  quadratic?: QuadraticOptions
+  /**
+   * When the quadratic strategy is selected, re-validate its output (overlaps +
+   * bounds/obstacles/boundaryOutline + component count) and fall back to the
+   * greedy packer if it fails. Default true — this is the release safety gate.
+   * Set false to get the raw quadratic result (e.g. for benchmarking).
+   */
+  quadraticFallback?: boolean
+}
 
 /**
  * The pack algorithm performs the following steps:
@@ -17,8 +36,38 @@ const DEFAULT_PACK_DIRECTION_FALLBACK = "right"
  *    centers for the remaining pads at each possible rotation (making sure that
  *    we never pack such that two pads overlap)
  * 8. Go to step 2 until all components are packed
+ *
+ * When `packPlacementStrategy` is "quadratic", an ADDITIVE alternative
+ * analytical placer is used instead (see
+ * lib/QuadraticPackSolver/QuadraticPackSolver.ts). The default strategy and
+ * output are unchanged unless a caller opts in.
  */
-export const pack = (input: PackInput): PackOutput => {
+export const pack = (
+  input: PackInput,
+  options: PackOptions = {},
+): PackOutput => {
+  if (input.packPlacementStrategy === "quadratic") {
+    const solver = new QuadraticPackSolver(input, options.quadratic)
+    solver.solve()
+    const quadComponents = solver.packedComponents
+
+    // Release safety gate: ship the analytic result only if it satisfies every
+    // constraint, else fall back to the greedy packer (never worse than today).
+    // Opt-out for isolated solver benchmarking.
+    if (options.quadraticFallback === false) {
+      return { ...input, components: quadComponents }
+    }
+    if (validatePackedLayout(quadComponents, input).ok) {
+      return { ...input, components: quadComponents }
+    }
+    const greedyFallback = new PackSolver2({
+      ...input,
+      packPlacementStrategy: GREEDY_FALLBACK_STRATEGY,
+    })
+    greedyFallback.solve()
+    return { ...input, components: greedyFallback.packedComponents }
+  }
+
   const solver = new PackSolver2(input)
   solver.solve()
   return {

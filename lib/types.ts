@@ -59,6 +59,10 @@ export type PackPlacementStrategy =
   | "minimum_sum_distance_to_network"
   | "minimum_sum_squared_distance_to_network"
   | "minimum_closest_sum_squared_distance"
+  // Analytical quadratic placement (FastPlace/SimPL lineage). An additive,
+  // opt-in alternative to the greedy outline packer.
+  // See lib/QuadraticPackSolver/QuadraticPackSolver.ts
+  | "quadratic"
 
 export interface PackInput {
   components: InputComponent[]
