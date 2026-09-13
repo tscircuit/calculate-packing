@@ -24,6 +24,20 @@ import { getComponentBounds } from "lib/geometry/getComponentBounds"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 
+/** Why a candidate position was discarded during the evaluate phase. */
+type RejectionReason =
+  | "overlap_with_packed_component"
+  | "too_close_to_obstacle"
+  | "outside_bounds"
+  | "outside_boundary_outline"
+
+const REJECTION_REASON_LABELS: Record<RejectionReason, string> = {
+  overlap_with_packed_component: "overlapped already-packed components",
+  too_close_to_obstacle: "were too close to an obstacle",
+  outside_bounds: "fell outside the layout bounds",
+  outside_boundary_outline: "fell outside the board boundary",
+}
+
 interface QueuedOutlineSegment {
   segment: Segment
   availableRotations: number[]
@@ -74,7 +88,9 @@ export class SingleComponentPackSolver extends BaseSolver {
   currentRotationIndex = 0
   override activeSubSolver?: OutlineSegmentCandidatePointSolver | null = null
   candidateResults: CandidateResult[] = []
-  rejectedCandidates: Array<CandidateResult & { gapDistance: number }> = []
+  rejectedCandidates: Array<
+    CandidateResult & { gapDistance: number; reason: RejectionReason }
+  > = []
   bestCandidate?: CandidateResult
   outputPackedComponent?: PackedComponent
   bounds?: Bounds
@@ -346,6 +362,7 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: gapDistance!,
+            reason: "overlap_with_packed_component",
           })
         } else if (tooCloseToObstacles) {
           this.rejectedCandidates.push({
@@ -356,6 +373,7 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: minObstacleGapDistance,
+            reason: "too_close_to_obstacle",
           })
         } else if (outsideBounds) {
           this.rejectedCandidates.push({
@@ -366,6 +384,7 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: -1, // Special marker for bounds violation
+            reason: "outside_bounds",
           })
         } else if (outsideBoundaryOutline) {
           this.rejectedCandidates.push({
@@ -376,6 +395,7 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: -1, // Special marker for boundary violation
+            reason: "outside_boundary_outline",
           })
         } else {
           // Store candidate result
@@ -445,7 +465,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     // Find the best candidate (lowest distance)
     if (this.candidateResults.length === 0) {
       this.failed = true
-      this.error = "No valid candidates found"
+      this.error = this.buildNoValidCandidatesError()
       return
     }
 
@@ -462,6 +482,51 @@ export class SingleComponentPackSolver extends BaseSolver {
     }
 
     this.solved = true
+  }
+
+  /**
+   * Builds a descriptive error for the case where every candidate position was
+   * rejected. It names the component, the rotations that were tried, the
+   * component size, and the constraints that shrank the viable area (board
+   * boundary versus packed-component or obstacle overlap), so the caller can
+   * see which constraint failed instead of a flat "No valid candidates found".
+   */
+  private buildNoValidCandidatesError(): string {
+    const componentId = this.componentToPack.componentId
+    const availableRotations = this.componentToPack
+      .availableRotationDegrees ?? [0, 90, 180, 270]
+    const rotationsStr = availableRotations.map((r) => `${r}°`).join(", ")
+
+    const probe = this.createPackedComponent(
+      { x: 0, y: 0 },
+      availableRotations[0] ?? 0,
+    )
+    const probeBounds = getComponentBounds(probe, 0)
+    const width = (probeBounds.maxX - probeBounds.minX).toFixed(3)
+    const height = (probeBounds.maxY - probeBounds.minY).toFixed(3)
+
+    const prefix = `Could not place component "${componentId}" (size ${width}×${height}, tried rotations ${rotationsStr})`
+
+    if (this.rejectedCandidates.length === 0) {
+      return `${prefix}: no placement points were found along the packed outline.`
+    }
+
+    const counts = {
+      overlap_with_packed_component: 0,
+      too_close_to_obstacle: 0,
+      outside_bounds: 0,
+      outside_boundary_outline: 0,
+    } satisfies Record<RejectionReason, number>
+    for (const candidate of this.rejectedCandidates) {
+      counts[candidate.reason]++
+    }
+
+    const breakdown = (Object.keys(counts) as RejectionReason[])
+      .filter((reason) => counts[reason] > 0)
+      .map((reason) => `${counts[reason]} ${REJECTION_REASON_LABELS[reason]}`)
+      .join("; ")
+
+    return `${prefix}: all ${this.rejectedCandidates.length} candidate positions were rejected (${breakdown}).`
   }
 
   private calculateDistance(position: Point, rotation: number): number {
