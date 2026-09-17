@@ -1,9 +1,10 @@
 import { cju } from "@tscircuit/circuit-json-util"
 import { expect, test } from "bun:test"
 import type { CircuitJson, PcbComponent } from "circuit-json"
+import { getSvgFromGraphicsObject } from "graphics-debug"
 import { extractPadInfos } from "../lib/plumbing/extractPadInfos"
 
-test.failing("extractPadInfos handles plated holes with polygon pads", () => {
+test.failing("extractPadInfos handles plated holes with polygon pads", async () => {
   const circuitJson = [
     {
       type: "pcb_component",
@@ -46,6 +47,42 @@ test.failing("extractPadInfos handles plated holes with polygon pads", () => {
     (pcbPortId) => pcbPortId ?? "",
   )
   console.warn = originalWarn
+
+  await expect(
+    getSvgFromGraphicsObject({
+      coordinateSystem: "cartesian",
+      title: "source polygon pad (left) vs extracted packing pads (right)",
+      rects: [
+        {
+          center: { x: -3, y: 0 },
+          width: 4,
+          height: 4,
+          fill: "rgba(33, 150, 243, 0.15)",
+          stroke: "rgba(33, 150, 243, 0.8)",
+          label: "source polygon pad bounds",
+        },
+        {
+          center: { x: 3, y: 0 },
+          width: 4,
+          height: 4,
+          fill: "rgba(0, 0, 0, 0.03)",
+          stroke: "rgba(0, 0, 0, 0.35)",
+          label: "extracted packing pad bounds",
+        },
+        ...pads.map((pad) => ({
+          center: {
+            x: 3 + (pad.absoluteCenter.x - 3),
+            y: pad.absoluteCenter.y + 2,
+          },
+          width: pad.size.x,
+          height: pad.size.y,
+          fill: "rgba(255, 0, 0, 0.55)",
+          stroke: "rgba(180, 0, 0, 0.9)",
+          label: `extracted ${pad.padId}`,
+        })),
+      ],
+    }),
+  ).toMatchSvgSnapshot(import.meta.path)
 
   expect(pads).toEqual([
     {
