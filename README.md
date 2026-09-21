@@ -68,6 +68,11 @@ const result = pack(input)
 console.log(result.components) // → positioned & rotated components
 ```
 
+`weightedConnections` may include `maxDistance` to impose a hard maximum
+straight-line distance between the closest participating pads. The solver
+rejects placements that cannot satisfy the limit instead of returning a layout
+that violates it.
+
 See `tests/` for more elaborate examples (SVG snapshots, circuit-json fixtures).
 
 ## Development

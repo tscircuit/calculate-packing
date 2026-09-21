@@ -104,3 +104,36 @@ test("a relative component remains an obstacle unless explicitly static", () => 
     ),
   ).toBe(true)
 })
+
+test("maximum trace lengths are preserved in packing connections", () => {
+  const circuitJsonWithMaximumLengths = circuitJson.map((element) => {
+    if (element.type !== "source_trace") return element
+    if (
+      element.source_trace_id !== "source_trace_0" &&
+      element.source_trace_id !== "source_trace_6"
+    ) {
+      return element
+    }
+    return { ...element, max_length: 1 }
+  }) as CircuitJson
+
+  const packOutput = convertCircuitJsonToPackOutput(
+    circuitJsonWithMaximumLengths,
+  )
+  const maximumDistanceConnections = packOutput.weightedConnections?.filter(
+    (connection) => connection.maxDistance === 1,
+  )
+
+  expect(maximumDistanceConnections).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        padIds: expect.arrayContaining(["pcb_smtpad_4", "pcb_smtpad_11"]),
+        maxDistance: 1,
+      }),
+      expect.objectContaining({
+        padIds: expect.arrayContaining(["pcb_smtpad_10", "pcb_smtpad_0"]),
+        maxDistance: 1,
+      }),
+    ]),
+  )
+})

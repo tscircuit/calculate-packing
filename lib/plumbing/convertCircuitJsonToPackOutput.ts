@@ -427,7 +427,10 @@ export const convertCircuitJsonToPackOutput = (
     }
   }
 
-  // Build weightedConnections from source traces that directly connect two ports
+  // Build weightedConnections from source traces. Direct port-to-port traces
+  // identify the exact pads that should be close together. A maximum-length
+  // port-to-net trace identifies a set of valid pads on the target net; meeting
+  // the constraint only requires being close to one of them.
   const weightedConnections: NonNullable<PackInput["weightedConnections"]> = []
   const seenConnections = new Set<string>()
 
@@ -443,24 +446,58 @@ export const convertCircuitJsonToPackOutput = (
     const shouldCreateWeightedConnections =
       connectedPorts.length === 2 && connectedNets.length === 0
 
-    if (!shouldCreateWeightedConnections) continue
+    if (shouldCreateWeightedConnections) {
+      const [portA, portB] = connectedPorts
+      const padIdsA = portA ? (sourcePortToPadIds.get(portA) ?? []) : []
+      const padIdsB = portB ? (sourcePortToPadIds.get(portB) ?? []) : []
 
-    const [portA, portB] = connectedPorts
-    const padIdsA = portA ? (sourcePortToPadIds.get(portA) ?? []) : []
-    const padIdsB = portB ? (sourcePortToPadIds.get(portB) ?? []) : []
+      for (const padA of padIdsA) {
+        for (const padB of padIdsB) {
+          const connectionKey = [padA, padB].sort().join("--")
+          if (seenConnections.has(connectionKey)) continue
 
-    for (const padA of padIdsA) {
-      for (const padB of padIdsB) {
-        const connectionKey = [padA, padB].sort().join("--")
-        if (seenConnections.has(connectionKey)) continue
-
-        weightedConnections.push({
-          padIds: [padA, padB],
-          weight: 1,
-          ignoreWeakConnections: true,
-        })
-        seenConnections.add(connectionKey)
+          weightedConnections.push({
+            padIds: [padA, padB],
+            weight: 1,
+            ignoreWeakConnections: true,
+            ...(typeof sourceTrace.max_length === "number"
+              ? { maxDistance: sourceTrace.max_length }
+              : {}),
+          })
+          seenConnections.add(connectionKey)
+        }
       }
+    }
+
+    const shouldCreateMaximumDistanceToNet =
+      typeof sourceTrace.max_length === "number" &&
+      connectedPorts.length === 1 &&
+      connectedNets.length === 1
+
+    if (!shouldCreateMaximumDistanceToNet) continue
+
+    const sourcePadIds = sourcePortToPadIds.get(connectedPorts[0]!) ?? []
+    const sourceNet = db.source_net.get(connectedNets[0]!)
+    const targetNetworkId = sourceNet?.subcircuit_connectivity_map_key
+    if (!targetNetworkId) continue
+
+    const targetPadIds = packOutput.components.flatMap((component) =>
+      component.pads
+        .filter(
+          (pad) =>
+            pad.networkId === targetNetworkId &&
+            !sourcePadIds.includes(pad.padId),
+        )
+        .map((pad) => pad.padId),
+    )
+
+    for (const sourcePadId of sourcePadIds) {
+      if (targetPadIds.length === 0) continue
+      weightedConnections.push({
+        padIds: [sourcePadId, ...targetPadIds],
+        weight: 1,
+        maxDistance: sourceTrace.max_length,
+      })
     }
   }
 
