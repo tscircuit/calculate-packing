@@ -110,12 +110,18 @@ export const extractPadInfos = (
         })
         break
       }
-      case "oval": {
+      case "oval":
+      case "pill": {
+        const size = getRotatedBoundingBoxSize({
+          width: ph.outer_width,
+          height: ph.outer_height,
+          ccwRotationDegrees: ph.ccw_rotation,
+        })
         pushPad({
           padId: ph.pcb_plated_hole_id,
           pcbPortId: ph.pcb_port_id,
-          sx: ph.outer_width,
-          sy: ph.outer_height,
+          sx: size.width,
+          sy: size.height,
           x: ph.x,
           y: ph.y,
         })
@@ -127,17 +133,6 @@ export const extractPadInfos = (
           pcbPortId: ph.pcb_port_id,
           sx: ph.rect_pad_width,
           sy: ph.rect_pad_height,
-          x: ph.x,
-          y: ph.y,
-        })
-        break
-      }
-      case "pill": {
-        pushPad({
-          padId: ph.pcb_plated_hole_id,
-          pcbPortId: ph.pcb_port_id,
-          sx: ph.outer_width,
-          sy: ph.outer_height,
           x: ph.x,
           y: ph.y,
         })
