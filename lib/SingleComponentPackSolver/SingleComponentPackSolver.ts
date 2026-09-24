@@ -21,6 +21,9 @@ import { getComponentCollisionBoxes } from "lib/PackSolver2/getComponentCollisio
 import { computeDistanceBetweenBoxes, type Bounds } from "@tscircuit/math-utils"
 import { isPointInPolygon } from "lib/math/isPointInPolygon"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
+import { getOutwardNormal } from "../OutlineSegmentCandidatePointSolver/getOutwardNormal"
+import { combineBounds } from "../geometry/combineBounds"
+import { getInitialPackedComponent } from "../PackSolver2/getInitialPackedComponent"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 
@@ -61,6 +64,8 @@ export class SingleComponentPackSolver extends BaseSolver {
   obstacles: InputObstacle[]
   boundaryOutline?: Array<{ x: number; y: number }>
   weightedConnections?: PackInput["weightedConnections"]
+  disabledPackDirections?: PackInput["disabledPackDirections"]
+  directionBounds?: Partial<Bounds>
 
   override getSolverName(): string {
     return "SingleComponentPackSolver"
@@ -92,6 +97,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     bounds?: Bounds
     boundaryOutline?: Array<{ x: number; y: number }>
     weightedConnections?: PackInput["weightedConnections"]
+    disabledPackDirections?: PackInput["disabledPackDirections"]
   }) {
     super()
     this.componentToPack = params.componentToPack
@@ -102,6 +108,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     this.bounds = params.bounds
     this.boundaryOutline = params.boundaryOutline
     this.weightedConnections = params.weightedConnections
+    this.disabledPackDirections = params.disabledPackDirections
   }
 
   override _setup() {
@@ -114,6 +121,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     this.currentSegmentIndex = 0
     this.currentRotationIndex = 0
     this.networkTargetPointMappingsCache.clear()
+    this.directionBounds = undefined
   }
 
   override _step() {
@@ -133,29 +141,17 @@ export class SingleComponentPackSolver extends BaseSolver {
   }
 
   private executeOutlinePhase() {
-    // Special case: if no packed components, attempt center; if too close to obstacles, fall back to outline-based placement
+    // Both entry points share the same bounds, boundary, and obstacle checks for the seed.
     if (this.packedComponents.length === 0) {
-      const availableRotations = this.componentToPack
-        .availableRotationDegrees ?? [0, 90, 180, 270]
-      const position = { x: 0, y: 0 }
-      const rotation = availableRotations[0] ?? 0
-
-      // Build candidate at center and verify obstacle clearance
-      const candidate = this.createPackedComponent(position, rotation)
-      const candidateBoxes = getComponentCollisionBoxes(candidate)
-      const tooCloseToObstacles = (this.obstacles ?? []).some((obs) => {
-        const obsBox = {
-          center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
-          width: obs.width,
-          height: obs.height,
-        }
-        return candidateBoxes.some((box) => {
-          const { distance } = computeDistanceBetweenBoxes(box, obsBox)
-          return distance + 1e-6 < this.minGap
-        })
+      const candidate = getInitialPackedComponent(this.componentToPack, {
+        minGap: this.minGap,
+        obstacles: this.obstacles,
+        bounds: this.disabledPackDirections?.length ? this.bounds : undefined,
+        boundaryOutline: this.disabledPackDirections?.length
+          ? this.boundaryOutline
+          : undefined,
       })
-
-      if (!tooCloseToObstacles) {
+      if (candidate) {
         this.outputPackedComponent = candidate
         this.solved = true
         return
@@ -254,6 +250,54 @@ export class SingleComponentPackSolver extends BaseSolver {
       obstacleOutlineIndex++
     }
 
+    const disabledPackDirections = this.disabledPackDirections
+    if (disabledPackDirections?.length) {
+      const occupiedBounds = combineBounds([
+        ...this.packedComponents.map((component) =>
+          getComponentBounds(component, 0),
+        ),
+        ...this.obstacles.map((obstacle) => ({
+          minX: obstacle.absoluteCenter.x - obstacle.width / 2,
+          maxX: obstacle.absoluteCenter.x + obstacle.width / 2,
+          minY: obstacle.absoluteCenter.y - obstacle.height / 2,
+          maxY: obstacle.absoluteCenter.y + obstacle.height / 2,
+        })),
+      ])
+      this.directionBounds = {
+        ...(disabledPackDirections.includes("left") && {
+          minX: occupiedBounds.minX,
+        }),
+        ...(disabledPackDirections.includes("right") && {
+          maxX: occupiedBounds.maxX,
+        }),
+        ...(disabledPackDirections.includes("down") && {
+          minY: occupiedBounds.minY,
+        }),
+        ...(disabledPackDirections.includes("up") && {
+          maxY: occupiedBounds.maxY,
+        }),
+      }
+      this.queuedOutlineSegments = this.queuedOutlineSegments.filter(
+        ({ segment, ccwFullOutline }) => {
+          const normal = getOutwardNormal(segment, ccwFullOutline)
+          // Ignore floating-point residue on nominally horizontal/vertical edges.
+          const epsilon = 1e-9
+          return !disabledPackDirections.some((direction) => {
+            switch (direction) {
+              case "left":
+                return normal.x < -epsilon
+              case "right":
+                return normal.x > epsilon
+              case "up":
+                return normal.y > epsilon
+              case "down":
+                return normal.y < -epsilon
+            }
+          })
+        },
+      )
+    }
+
     // Move to next phase
     this.currentPhase = "segment_candidate"
     this.currentSegmentIndex = 0
@@ -311,6 +355,19 @@ export class SingleComponentPackSolver extends BaseSolver {
             componentBounds.maxX > this.bounds.maxX ||
             componentBounds.minY < this.bounds.minY ||
             componentBounds.maxY > this.bounds.maxY
+        }
+        if (this.directionBounds) {
+          const componentBounds = getComponentBounds(candidateComponent, 0)
+          const epsilon = 1e-6
+          outsideBounds ||=
+            componentBounds.minX <
+              (this.directionBounds.minX ?? -Infinity) - epsilon ||
+            componentBounds.maxX >
+              (this.directionBounds.maxX ?? Infinity) + epsilon ||
+            componentBounds.minY <
+              (this.directionBounds.minY ?? -Infinity) - epsilon ||
+            componentBounds.maxY >
+              (this.directionBounds.maxY ?? Infinity) + epsilon
         }
 
         // Check if component is outside boundary outline
@@ -428,6 +485,7 @@ export class SingleComponentPackSolver extends BaseSolver {
         componentToPack: this.componentToPack,
         obstacles: this.obstacles,
         globalBounds: this.bounds,
+        directionBounds: this.directionBounds,
         boundaryOutline: this.boundaryOutline,
         weightedConnections: this.weightedConnections,
         networkTargetPointMappingsCache: this.networkTargetPointMappingsCache,

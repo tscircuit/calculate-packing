@@ -86,6 +86,8 @@ export interface PackInput {
     | "up"
     | "down"
     | "nearest_to_center"
+  /** Disable outline sides and growth of the occupied bounds in these directions (+y is up). */
+  disabledPackDirections?: Array<"left" | "right" | "up" | "down">
   packFirst?: ComponentId[]
 }
 

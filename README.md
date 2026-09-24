@@ -70,6 +70,40 @@ console.log(result.components) // → positioned & rotated components
 
 See `tests/` for more elaborate examples (SVG snapshots, circuit-json fixtures).
 
+### Restricting packing directions
+
+Use `disabledPackDirections` to skip outline sides facing a particular direction:
+
+```ts
+const result = pack({ ...input, disabledPackDirections: ["up"] })
+
+// To permit only right-facing outline sides:
+const rightward = pack({
+  ...input,
+  disabledPackDirections: ["left", "up", "down"],
+})
+```
+
+Directions use world coordinates: `right` is +x, `left` is -x, `up` is +y,
+and `down` is -y. Each outline segment is filtered by its normal toward free
+space, including obstacle outlines and pockets between components. A diagonal
+side is skipped when its normal points partly in any disabled direction.
+The packed extents also stay within the current component/obstacle envelope
+on disabled sides, preventing later placements from drifting past those edges.
+With direction restrictions enabled, use `bounds` to set additional absolute limits on the placed component extents,
+including the initial dynamic seed. A seed outside these limits is moved inside
+them using its rotated pad and courtyard extents; other allowed rotations can
+be tried when needed. Static components retain their supplied positions.
+
+Omitting the option, or passing `[]`, keeps the default behavior. The first
+unobstructed component still seeds the layout at the usual initial position;
+subsequent outline placements follow the restriction. Obstacle fallback
+placement also follows it. If a restricted solve has no valid placement,
+`pack()` throws the solver error instead of returning an incomplete layout.
+For step-by-step solving, inspect `PackSolver2.failed` and `PackSolver2.error`.
+
+![Rightward packing](tests/__snapshots__/disabled-pack-directions-rightward.snap.svg)
+
 ## Development
 
 ```bash

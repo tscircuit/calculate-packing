@@ -51,6 +51,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
   componentToPack: InputComponent
   viableBounds?: Bounds
   globalBounds?: Bounds
+  directionBounds?: Partial<Bounds>
   boundaryOutline?: Array<{ x: number; y: number }>
   weightedConnections?: PackInput["weightedConnections"]
   networkTargetPointMappingsCache?: Map<number, NetworkTargetPointMappings>
@@ -76,6 +77,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     componentToPack: InputComponent
     obstacles?: InputObstacle[]
     globalBounds?: Bounds
+    directionBounds?: Partial<Bounds>
     boundaryOutline?: Array<{ x: number; y: number }>
     weightedConnections?: PackInput["weightedConnections"]
     networkTargetPointMappingsCache?: Map<number, NetworkTargetPointMappings>
@@ -90,6 +92,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
     this.componentToPack = params.componentToPack
     this.obstacles = params.obstacles ?? []
     this.globalBounds = params.globalBounds
+    this.directionBounds = params.directionBounds
     this.boundaryOutline = params.boundaryOutline
     this.weightedConnections = params.weightedConnections
     this.networkTargetPointMappingsCache =
@@ -109,6 +112,7 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       componentToPack: this.componentToPack,
       obstacles: this.obstacles,
       globalBounds: this.globalBounds,
+      directionBounds: this.directionBounds,
       boundaryOutline: this.boundaryOutline,
       weightedConnections: this.weightedConnections,
       networkTargetPointMappingsCache: this.networkTargetPointMappingsCache,
@@ -263,6 +267,40 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       this.error =
         "There is nowhere for the component to fit along this outline section"
       return
+    }
+
+    // Direction limits constrain the final component extents, so convert them
+    // to center limits after the ordinary outline-fit check above.
+    if (this.directionBounds) {
+      const limits = this.directionBounds
+      viableBounds = {
+        minX: Math.max(
+          viableBounds.minX,
+          (limits.minX ?? -Infinity) - componentBounds.minX,
+        ),
+        maxX: Math.min(
+          viableBounds.maxX,
+          (limits.maxX ?? Infinity) - componentBounds.maxX,
+        ),
+        minY: Math.max(
+          viableBounds.minY,
+          (limits.minY ?? -Infinity) - componentBounds.minY,
+        ),
+        maxY: Math.min(
+          viableBounds.maxY,
+          (limits.maxY ?? Infinity) - componentBounds.maxY,
+        ),
+      }
+      this.viableBounds = viableBounds
+      if (
+        viableBounds.minX > viableBounds.maxX ||
+        viableBounds.minY > viableBounds.maxY
+      ) {
+        this.failed = true
+        this.error =
+          "Component does not fit within the packing direction limits"
+        return
+      }
     }
 
     // The viable segment is the segment adjusted to fit inside the viable bounds

@@ -10,10 +10,7 @@ import type {
   PackInput,
 } from "../types"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
-import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
-import { getComponentCollisionBoxes } from "./getComponentCollisionBoxes"
-import { getComponentBounds } from "../geometry/getComponentBounds"
-import { isPointInPolygon } from "../math/isPointInPolygon"
+import { getInitialPackedComponent } from "./getInitialPackedComponent"
 import { getPolygonCentroid } from "../math/getPolygonCentroid"
 
 export class PackSolver2 extends BaseSolver {
@@ -92,6 +89,18 @@ export class PackSolver2 extends BaseSolver {
   private packFirstComponent(): void {
     const firstComponentToPack = this.unpackedComponentQueue.shift()!
 
+    const seed = getInitialPackedComponent(firstComponentToPack, {
+      ...this.packInput,
+      // Bounds enforcement is opt-in with direction restrictions; retain legacy layouts otherwise.
+      bounds: this.packInput.disabledPackDirections?.length
+        ? this.packInput.bounds
+        : undefined,
+    })
+    if (seed) {
+      this.packedComponents.push(seed)
+      return
+    }
+
     // If boundary outline exists, use its geometric centroid as the starting position
     let initialPosition = { x: 0, y: 0 }
     if (
@@ -116,51 +125,7 @@ export class PackSolver2 extends BaseSolver {
 
     setPackedComponentPadCenters(newPackedComponent)
 
-    // If there are obstacles, ensure at least minGap clearance; otherwise fall back to outline-based placement
     const obstacles = this.packInput.obstacles ?? []
-    const newComponentBoxes = getComponentCollisionBoxes(newPackedComponent)
-    const tooCloseToObstacles = obstacles.some((obs) => {
-      const obsBox = {
-        center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
-        width: obs.width,
-        height: obs.height,
-      }
-      return newComponentBoxes.some((box) => {
-        const { distance } = computeDistanceBetweenBoxes(box, obsBox)
-        return distance + 1e-6 < this.packInput.minGap
-      })
-    })
-
-    // Check if component is outside boundary outline
-    let outsideBoundaryOutline = false
-    if (
-      this.packInput.boundaryOutline &&
-      this.packInput.boundaryOutline.length >= 3
-    ) {
-      const componentBounds = getComponentBounds(newPackedComponent, 0)
-
-      // Check if all pads are within the boundary outline
-      const allPadsInside = newPackedComponent.pads.every((pad) =>
-        isPointInPolygon(pad.absoluteCenter, this.packInput.boundaryOutline!),
-      )
-
-      // Also check corners of component bounds
-      const cornersInside = [
-        { x: componentBounds.minX, y: componentBounds.minY },
-        { x: componentBounds.minX, y: componentBounds.maxY },
-        { x: componentBounds.maxX, y: componentBounds.minY },
-        { x: componentBounds.maxX, y: componentBounds.maxY },
-      ].every((corner) =>
-        isPointInPolygon(corner, this.packInput.boundaryOutline!),
-      )
-
-      outsideBoundaryOutline = !allPadsInside || !cornersInside
-    }
-
-    if (!tooCloseToObstacles && !outsideBoundaryOutline) {
-      this.packedComponents.push(newPackedComponent)
-      return
-    }
 
     // Attempt to place along obstacle outlines using the SingleComponentPackSolver
     const fallbackSolver = new SingleComponentPackSolver({
@@ -172,11 +137,15 @@ export class PackSolver2 extends BaseSolver {
       bounds: this.packInput.bounds,
       boundaryOutline: this.packInput.boundaryOutline,
       weightedConnections: this.packInput.weightedConnections,
+      disabledPackDirections: this.packInput.disabledPackDirections,
     })
     fallbackSolver.solve()
     const result = fallbackSolver.getResult()
     if (result) {
       this.packedComponents.push(result)
+    } else if (this.packInput.disabledPackDirections?.length) {
+      this.failed = true
+      this.error = fallbackSolver.error ?? "No valid candidates found"
     } else {
       // Fallback: place at center even if it violates constraints (should rarely happen)
       // This typically indicates impossible constraints (e.g., component too large for boundary)
@@ -219,6 +188,7 @@ export class PackSolver2 extends BaseSolver {
         bounds: this.packInput.bounds,
         boundaryOutline: this.packInput.boundaryOutline,
         weightedConnections: this.packInput.weightedConnections,
+        disabledPackDirections: this.packInput.disabledPackDirections,
       })
       this.activeSubSolver.setup()
     }
@@ -227,6 +197,7 @@ export class PackSolver2 extends BaseSolver {
 
     if (this.activeSubSolver.failed) {
       this.failed = true
+      this.error = this.activeSubSolver.error
       return
     }
 

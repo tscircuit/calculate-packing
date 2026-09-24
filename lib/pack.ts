@@ -21,6 +21,9 @@ const DEFAULT_PACK_DIRECTION_FALLBACK = "right"
 export const pack = (input: PackInput): PackOutput => {
   const solver = new PackSolver2(input)
   solver.solve()
+  if (input.disabledPackDirections?.length && solver.failed) {
+    throw new Error(solver.error ?? "No valid candidates found")
+  }
   return {
     ...input,
     components: solver.packedComponents,
