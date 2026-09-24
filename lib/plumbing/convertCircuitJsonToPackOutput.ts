@@ -1,5 +1,6 @@
 import { cju, getCircuitJsonTree } from "@tscircuit/circuit-json-util"
 import type { CircuitJson, PcbComponent } from "circuit-json"
+import { expandRotatedRectIntoBounds } from "../geometry/expandRotatedRectIntoBounds"
 import type {
   ComponentCourtyard,
   InputObstacle,
@@ -40,10 +41,24 @@ const extractCourtyardForComponent = (opts: {
 
   for (const rect of db.pcb_courtyard_rect.list()) {
     if (!idSet.has(rect.pcb_component_id)) continue
-    minX = Math.min(minX, rect.center.x - rect.width / 2)
-    maxX = Math.max(maxX, rect.center.x + rect.width / 2)
-    minY = Math.min(minY, rect.center.y - rect.height / 2)
-    maxY = Math.max(maxY, rect.center.y + rect.height / 2)
+    const rectBounds = {
+      minX: Infinity,
+      minY: Infinity,
+      maxX: -Infinity,
+      maxY: -Infinity,
+    }
+    expandRotatedRectIntoBounds({
+      bounds: rectBounds,
+      center: { x: 0, y: 0 },
+      width: rect.width,
+      height: rect.height,
+      angleRad: ((rect.ccw_rotation ?? 0) * Math.PI) / 180,
+      translate: rect.center,
+    })
+    minX = Math.min(minX, rectBounds.minX)
+    maxX = Math.max(maxX, rectBounds.maxX)
+    minY = Math.min(minY, rectBounds.minY)
+    maxY = Math.max(maxY, rectBounds.maxY)
     found = true
   }
 
