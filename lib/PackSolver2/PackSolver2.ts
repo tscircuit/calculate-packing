@@ -227,6 +227,9 @@ export class PackSolver2 extends BaseSolver {
 
     if (this.activeSubSolver.failed) {
       this.failed = true
+      this.error = this.activeSubSolver.error
+      this.failedSubSolvers ??= []
+      this.failedSubSolvers.push(this.activeSubSolver)
       return
     }
 

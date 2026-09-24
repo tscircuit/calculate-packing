@@ -168,6 +168,59 @@ test("SingleComponentPackSolver visualization works", () => {
   expect(finalViz).toBeDefined()
 })
 
+test("SingleComponentPackSolver reports which component and constraint failed when bounds are too small", () => {
+  const packedComponents: PackedComponent[] = [
+    {
+      componentId: "comp1",
+      center: { x: 0, y: 0 },
+      ccwRotationOffset: 0,
+      pads: [
+        {
+          padId: "pad1",
+          type: "rect",
+          offset: { x: 0, y: 0 },
+          size: { x: 1, y: 1 },
+          networkId: "net1",
+          absoluteCenter: { x: 0, y: 0 },
+        },
+      ],
+    },
+  ]
+
+  const componentToPack: InputComponent = {
+    componentId: "comp2",
+    pads: [
+      {
+        padId: "pad2",
+        type: "rect",
+        offset: { x: 0, y: 0 },
+        size: { x: 3, y: 3 }, // Too large to fit next to comp1 inside the bounds
+        networkId: "net1",
+      },
+    ],
+    availableRotationDegrees: [0, 90, 180, 270],
+  }
+
+  const solver = new SingleComponentPackSolver({
+    componentToPack,
+    packedComponents,
+    packPlacementStrategy: "minimum_sum_distance_to_network",
+    minGap: 0.1,
+    bounds: { minX: -2, maxX: 2, minY: -2, maxY: 2 },
+  })
+
+  solver.solve()
+
+  expect(solver.solved).toBe(false)
+  expect(solver.failed).toBe(true)
+
+  // The error names the failing component, the rotations tried, and the
+  // constraint that rejected every candidate rather than a flat message.
+  expect(solver.error).toContain("comp2")
+  expect(solver.error).toContain("layout bounds")
+  expect(solver.error).not.toBe("No valid candidates found")
+})
+
 test("SingleComponentPackSolver handles empty packed components", () => {
   const packedComponents: PackedComponent[] = []
   const componentToPack: InputComponent = {
