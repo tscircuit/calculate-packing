@@ -60,6 +60,26 @@ export type PackPlacementStrategy =
   | "minimum_sum_squared_distance_to_network"
   | "minimum_closest_sum_squared_distance"
 
+/**
+ * A distance constraint that fixes the relative position of two components
+ * along a specific axis.
+ *
+ * `fixed_x_distance_and_orientation`:
+ *   After both chips are packed, `rightChipId.center.x` is snapped to
+ *   `leftChipId.center.x + distance`. The Y coordinate is determined by the
+ *   pack algorithm and left unchanged, giving predictable single-axis layout.
+ */
+export interface DistanceConstraint {
+  /** The component whose X position is used as the reference anchor. */
+  leftChipId: ComponentId
+  /** The component whose X position will be overridden. */
+  rightChipId: ComponentId
+  /** The only currently supported constraint type. */
+  type: "fixed_x_distance_and_orientation"
+  /** Desired X distance from leftChipId.center.x to rightChipId.center.x (positive = rightward). */
+  distance: number
+}
+
 export interface PackInput {
   components: InputComponent[]
 
@@ -79,6 +99,12 @@ export interface PackInput {
     weight: number
     ignoreWeakConnections?: boolean
   }>
+
+  /**
+   * Optional list of inter-component distance constraints.
+   * These are applied after the normal pack step to snap component positions.
+   */
+  distanceConstraints?: DistanceConstraint[]
 
   disconnectedPackDirection?:
     | "left"
