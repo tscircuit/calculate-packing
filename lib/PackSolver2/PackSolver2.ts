@@ -15,6 +15,7 @@ import { getComponentCollisionBoxes } from "./getComponentCollisionBoxes"
 import { getComponentBounds } from "../geometry/getComponentBounds"
 import { isPointInPolygon } from "../math/isPointInPolygon"
 import { getPolygonCentroid } from "../math/getPolygonCentroid"
+import { createInitialComponentWithinBounds } from "./create-initial-component-within-bounds"
 
 export class PackSolver2 extends BaseSolver {
   declare activeSubSolver: SingleComponentPackSolver | null | undefined
@@ -101,20 +102,28 @@ export class PackSolver2 extends BaseSolver {
       initialPosition = getPolygonCentroid(this.packInput.boundaryOutline)
     }
 
-    const newPackedComponent: PackedComponent = {
-      ...firstComponentToPack,
-      center: initialPosition,
-      ccwRotationOffset:
-        firstComponentToPack.ccwRotationOffset ??
-        firstComponentToPack.availableRotationDegrees?.[0] ??
-        0,
-      pads: firstComponentToPack.pads.map((p) => ({
-        ...p,
-        absoluteCenter: { x: 0, y: 0 },
-      })),
+    const preferredRotation =
+      firstComponentToPack.ccwRotationOffset ??
+      firstComponentToPack.availableRotationDegrees?.[0] ??
+      0
+    const newPackedComponent = createInitialComponentWithinBounds({
+      component: firstComponentToPack,
+      position: initialPosition,
+      rotations: [
+        ...new Set([
+          preferredRotation,
+          ...(firstComponentToPack.availableRotationDegrees ?? [
+            0, 90, 180, 270,
+          ]),
+        ]),
+      ],
+      bounds: this.packInput.bounds,
+    })
+    if (!newPackedComponent) {
+      this.failed = true
+      this.error = `Component ${firstComponentToPack.componentId} does not fit within bounds`
+      return
     }
-
-    setPackedComponentPadCenters(newPackedComponent)
 
     // If there are obstacles, ensure at least minGap clearance; otherwise fall back to outline-based placement
     const obstacles = this.packInput.obstacles ?? []
@@ -177,6 +186,10 @@ export class PackSolver2 extends BaseSolver {
     const result = fallbackSolver.getResult()
     if (result) {
       this.packedComponents.push(result)
+    } else if (this.packInput.bounds) {
+      this.failed = true
+      this.error =
+        fallbackSolver.error ?? "No valid initial placement within bounds"
     } else {
       // Fallback: place at center even if it violates constraints (should rarely happen)
       // This typically indicates impossible constraints (e.g., component too large for boundary)

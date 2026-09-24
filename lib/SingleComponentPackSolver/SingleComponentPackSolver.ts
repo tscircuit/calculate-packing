@@ -21,6 +21,7 @@ import { getComponentCollisionBoxes } from "lib/PackSolver2/getComponentCollisio
 import { computeDistanceBetweenBoxes, type Bounds } from "@tscircuit/math-utils"
 import { isPointInPolygon } from "lib/math/isPointInPolygon"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
+import { createInitialComponentWithinBounds } from "../PackSolver2/create-initial-component-within-bounds"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
 
@@ -137,11 +138,18 @@ export class SingleComponentPackSolver extends BaseSolver {
     if (this.packedComponents.length === 0) {
       const availableRotations = this.componentToPack
         .availableRotationDegrees ?? [0, 90, 180, 270]
-      const position = { x: 0, y: 0 }
-      const rotation = availableRotations[0] ?? 0
-
       // Build candidate at center and verify obstacle clearance
-      const candidate = this.createPackedComponent(position, rotation)
+      const candidate = createInitialComponentWithinBounds({
+        component: this.componentToPack,
+        position: { x: 0, y: 0 },
+        rotations: availableRotations.length ? availableRotations : [0],
+        bounds: this.bounds,
+      })
+      if (!candidate) {
+        this.failed = true
+        this.error = `Component ${this.componentToPack.componentId} does not fit within bounds`
+        return
+      }
       const candidateBoxes = getComponentCollisionBoxes(candidate)
       const tooCloseToObstacles = (this.obstacles ?? []).some((obs) => {
         const obsBox = {
