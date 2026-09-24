@@ -22,8 +22,16 @@ function makePad(padId: string, networkId = "unconnected") {
 function baseTwoComponentInput(): PackInput {
   return {
     components: [
-      { componentId: "A", pads: [makePad("A1")], availableRotationDegrees: [0] },
-      { componentId: "B", pads: [makePad("B1")], availableRotationDegrees: [0] },
+      {
+        componentId: "A",
+        pads: [makePad("A1")],
+        availableRotationDegrees: [0],
+      },
+      {
+        componentId: "B",
+        pads: [makePad("B1")],
+        availableRotationDegrees: [0],
+      },
     ],
     minGap: 0.5,
     packOrderStrategy: "largest_to_smallest",
@@ -134,9 +142,21 @@ describe("distanceConstraints — fixed_x_distance_and_orientation", () => {
   test("multiple constraints on three components are all respected", () => {
     const input: PackInput = {
       components: [
-        { componentId: "A", pads: [makePad("A1")], availableRotationDegrees: [0] },
-        { componentId: "B", pads: [makePad("B1")], availableRotationDegrees: [0] },
-        { componentId: "C", pads: [makePad("C1")], availableRotationDegrees: [0] },
+        {
+          componentId: "A",
+          pads: [makePad("A1")],
+          availableRotationDegrees: [0],
+        },
+        {
+          componentId: "B",
+          pads: [makePad("B1")],
+          availableRotationDegrees: [0],
+        },
+        {
+          componentId: "C",
+          pads: [makePad("C1")],
+          availableRotationDegrees: [0],
+        },
       ],
       minGap: 0.5,
       packOrderStrategy: "largest_to_smallest",

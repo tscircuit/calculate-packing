@@ -118,4 +118,3 @@ export interface PackInput {
 export interface PackOutput extends PackInput {
   components: PackedComponent[]
 }
-
