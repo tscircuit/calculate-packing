@@ -4,6 +4,7 @@ import { sortComponentQueue } from "./sortComponentQueue"
 import { SingleComponentPackSolver } from "../SingleComponentPackSolver/SingleComponentPackSolver"
 import { BaseSolver } from "@tscircuit/solver-utils"
 import type {
+  DistanceConstraint,
   InputComponent,
   OutputPad,
   PackedComponent,
@@ -194,6 +195,9 @@ export class PackSolver2 extends BaseSolver {
         return
       }
       this.packFirstComponent()
+      // Apply constraints after the first component is placed
+      const justPacked = this.packedComponents[this.packedComponents.length - 1]
+      if (justPacked) this._applyDistanceConstraints(justPacked)
       return
     }
 
@@ -235,6 +239,8 @@ export class PackSolver2 extends BaseSolver {
       const result = this.activeSubSolver.getResult()
       if (result) {
         this.packedComponents.push(result)
+        // Apply distance constraints after the component is placed
+        this._applyDistanceConstraints(result)
       } else {
         // Fallback if solver didn't produce a result
         const packedComponent: PackedComponent = {
@@ -251,9 +257,61 @@ export class PackSolver2 extends BaseSolver {
         }
         setPackedComponentPadCenters(packedComponent)
         this.packedComponents.push(packedComponent)
+        this._applyDistanceConstraints(packedComponent)
       }
       this.componentToPack = undefined
       this.activeSubSolver = undefined
+    }
+  }
+
+  /**
+   * Enforces all `distanceConstraints` from `PackInput` that reference the
+   * newly placed component. Called immediately after each component is pushed
+   * to `this.packedComponents`.
+   *
+   * For `fixed_x_distance_and_orientation` constraints:
+   *   - When the `rightChipId` component was just placed: snap its X center to
+   *     `leftChip.center.x + constraint.distance` (if leftChip is already packed).
+   *   - When the `leftChipId` component was just placed: retroactively snap any
+   *     already-packed `rightChipId` to the correct X position.
+   *
+   * After adjusting a component's center, pad absolute positions are recomputed
+   * via `setPackedComponentPadCenters`.
+   */
+  private _applyDistanceConstraints(justPacked: PackedComponent): void {
+    const constraints: DistanceConstraint[] =
+      this.packInput.distanceConstraints ?? []
+    if (constraints.length === 0) return
+
+    for (const constraint of constraints) {
+      if (constraint.type !== "fixed_x_distance_and_orientation") continue
+
+      const { leftChipId, rightChipId, distance } = constraint
+
+      const findPacked = (id: string): PackedComponent | undefined =>
+        this.packedComponents.find((c) => c.componentId === id)
+
+      if (justPacked.componentId === rightChipId) {
+        // The right chip was just placed — snap its X if the anchor is available.
+        const leftChip = findPacked(leftChipId)
+        if (leftChip) {
+          justPacked.center = {
+            x: leftChip.center.x + distance,
+            y: justPacked.center.y,
+          }
+          setPackedComponentPadCenters(justPacked)
+        }
+      } else if (justPacked.componentId === leftChipId) {
+        // The anchor was just placed — retroactively adjust any already-packed rightChipId.
+        const rightChip = findPacked(rightChipId)
+        if (rightChip) {
+          rightChip.center = {
+            x: justPacked.center.x + distance,
+            y: rightChip.center.y,
+          }
+          setPackedComponentPadCenters(rightChip)
+        }
+      }
     }
   }
 
