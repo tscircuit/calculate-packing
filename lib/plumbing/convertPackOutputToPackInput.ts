@@ -3,7 +3,7 @@ import type { PackInput, PackOutput } from "../types"
 /**
  * Strip all “output only” properties (those added by the pack() solver)
  * so the result can be fed back into pack() again or compared against an
- * original PackInput.  Everything else must be preserved verbatim.
+ * original PackInput. Restore local pad dimensions from the rotated output.
  *
  * NOTE:
  * – PackInput.components is an array of **InputComponent**,
@@ -12,26 +12,35 @@ import type { PackInput, PackOutput } from "../types"
  *     • copy componentId
  *     • copy each pad but drop `absoluteCenter`
  *     • drop `center` and `ccwRotationOffset`
+ *   Static components retain their placement and absolute pad centers.
  */
 export const convertPackOutputToPackInput = (packed: PackOutput): PackInput => {
-  const strippedComponents = packed.components.map((pc) => ({
-    ...(pc.isStatic
-      ? {
-          ...pc,
-          pads: pc.pads.map((pad) => ({ ...pad })),
-        }
-      : {
-          componentId: pc.componentId,
-          availableRotationDegrees: pc.availableRotationDegrees, // Preserve rotation constraints
-          pads: pc.pads.map(({ absoluteCenter: _ac, ...rest }) => rest),
-          courtyard: pc.courtyard,
-        }),
-  }))
+  const strippedComponents = packed.components.map((pc) => {
+    const normalizedRotation = ((pc.ccwRotationOffset % 360) + 360) % 360
+    const shouldSwapDimensions =
+      normalizedRotation === 90 || normalizedRotation === 270
+    const pads = pc.pads.map(({ absoluteCenter, ...pad }) => ({
+      ...pad,
+      // The solver rotates pad sizes into board coordinates. Offsets remain
+      // local, so restore the matching local sizes before the next pack.
+      size: shouldSwapDimensions
+        ? { x: pad.size.y, y: pad.size.x }
+        : { ...pad.size },
+      ...(pc.isStatic ? { absoluteCenter } : {}),
+    }))
 
-  /* eslint-disable @typescript-eslint/consistent-type-assertions */
+    if (pc.isStatic) return { ...pc, pads }
+
+    return {
+      componentId: pc.componentId,
+      availableRotationDegrees: pc.availableRotationDegrees,
+      pads,
+      courtyard: pc.courtyard,
+    }
+  })
+
   return {
     ...packed,
-    // overwrite the components field with strippedComponents
     components: strippedComponents,
-  } as unknown as PackInput
+  }
 }
