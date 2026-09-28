@@ -60,6 +60,13 @@ export type PackPlacementStrategy =
   | "minimum_sum_squared_distance_to_network"
   | "minimum_closest_sum_squared_distance"
 
+export interface DistanceConstraint {
+  leftChipId: string
+  rightChipId: string
+  type: "fixed_x_distance_and_orientation"
+  distance: number
+}
+
 export interface PackInput {
   components: InputComponent[]
 
@@ -87,6 +94,8 @@ export interface PackInput {
     | "down"
     | "nearest_to_center"
   packFirst?: ComponentId[]
+
+  distanceConstraints?: DistanceConstraint[]
 }
 
 export interface PackOutput extends PackInput {
