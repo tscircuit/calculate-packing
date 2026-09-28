@@ -78,6 +78,10 @@ export class SingleComponentPackSolver extends BaseSolver {
   bestCandidate?: CandidateResult
   outputPackedComponent?: PackedComponent
   bounds?: Bounds
+  partnerConstraint?: {
+    partnerComponent: InputComponent
+    xOffset: number
+  }
   private networkTargetPointMappingsCache = new Map<
     number,
     NetworkTargetPointMappings
@@ -92,6 +96,10 @@ export class SingleComponentPackSolver extends BaseSolver {
     bounds?: Bounds
     boundaryOutline?: Array<{ x: number; y: number }>
     weightedConnections?: PackInput["weightedConnections"]
+    partnerConstraint?: {
+      partnerComponent: InputComponent
+      xOffset: number
+    }
   }) {
     super()
     this.componentToPack = params.componentToPack
@@ -102,6 +110,7 @@ export class SingleComponentPackSolver extends BaseSolver {
     this.bounds = params.bounds
     this.boundaryOutline = params.boundaryOutline
     this.weightedConnections = params.weightedConnections
+    this.partnerConstraint = params.partnerConstraint
   }
 
   override _setup() {
@@ -334,10 +343,81 @@ export class SingleComponentPackSolver extends BaseSolver {
           outsideBoundaryOutline = !allPadsInside || !cornersInside
         }
 
+        // Check if constrained partner component has collisions or violates bounds
+        let partnerOverlap = false
+        if (this.partnerConstraint && optimalPosition) {
+          const candidatePartner = this.createPartnerPackedComponent(
+            optimalPosition,
+            rotation,
+          )
+          if (candidatePartner) {
+            const partnerCheck = checkOverlapWithPackedComponents({
+              component: candidatePartner,
+              packedComponents: this.packedComponents,
+              minGap: this.minGap,
+            })
+            const selfBoxes = getComponentCollisionBoxes(candidateComponent)
+            const partnerBoxes = getComponentCollisionBoxes(candidatePartner)
+            const selfPartnerOverlap = selfBoxes.some((sBox) =>
+              partnerBoxes.some((pBox) => {
+                const { distance } = computeDistanceBetweenBoxes(sBox, pBox)
+                return distance + 1e-6 < this.minGap
+              }),
+            )
+            const partnerTooCloseToObstacles = (this.obstacles ?? []).some(
+              (obs) => {
+                const obsBox = {
+                  center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
+                  width: obs.width,
+                  height: obs.height,
+                }
+                return partnerBoxes.some((box) => {
+                  const { distance } = computeDistanceBetweenBoxes(box, obsBox)
+                  return distance + 1e-6 < this.minGap
+                })
+              },
+            )
+
+            let partnerOutsideBounds = false
+            if (this.bounds) {
+              const pBounds = getComponentBounds(candidatePartner, 0)
+              partnerOutsideBounds =
+                pBounds.minX < this.bounds.minX ||
+                pBounds.maxX > this.bounds.maxX ||
+                pBounds.minY < this.bounds.minY ||
+                pBounds.maxY > this.bounds.maxY
+            }
+
+            let partnerOutsideBoundaryOutline = false
+            if (this.boundaryOutline && this.boundaryOutline.length >= 3) {
+              const pBounds = getComponentBounds(candidatePartner, 0)
+              const allPadsIn = candidatePartner.pads.every((pad) =>
+                isPointInPolygon(pad.absoluteCenter, this.boundaryOutline!),
+              )
+              const cornersIn = [
+                { x: pBounds.minX, y: pBounds.minY },
+                { x: pBounds.minX, y: pBounds.maxY },
+                { x: pBounds.maxX, y: pBounds.minY },
+                { x: pBounds.maxX, y: pBounds.maxY },
+              ].every((corner) =>
+                isPointInPolygon(corner, this.boundaryOutline!),
+              )
+              partnerOutsideBoundaryOutline = !allPadsIn || !cornersIn
+            }
+
+            partnerOverlap =
+              partnerCheck.hasOverlap ||
+              selfPartnerOverlap ||
+              partnerTooCloseToObstacles ||
+              partnerOutsideBounds ||
+              partnerOutsideBoundaryOutline
+          }
+        }
+
         // Calculate distance based on pack strategy
         distance = this.calculateDistance(optimalPosition, rotation)
 
-        if (hasOverlap) {
+        if (hasOverlap || partnerOverlap) {
           this.rejectedCandidates.push({
             segment: queuedSegment.segment,
             rotation,
@@ -522,6 +602,29 @@ export class SingleComponentPackSolver extends BaseSolver {
       pads: this.componentToPack.pads.map((pad) => ({
         ...pad,
         absoluteCenter: { x: 0, y: 0 }, // Will be set by setPackedComponentPadCenters
+      })),
+    }
+
+    setPackedComponentPadCenters(component)
+    return component
+  }
+
+  private createPartnerPackedComponent(
+    position: Point,
+    rotation: number,
+  ): PackedComponent | null {
+    if (!this.partnerConstraint) return null
+    const partner = this.partnerConstraint.partnerComponent
+    const component: PackedComponent = {
+      ...partner,
+      center: {
+        x: position.x + this.partnerConstraint.xOffset,
+        y: position.y,
+      },
+      ccwRotationOffset: rotation,
+      pads: partner.pads.map((pad) => ({
+        ...pad,
+        absoluteCenter: { x: 0, y: 0 },
       })),
     }
 

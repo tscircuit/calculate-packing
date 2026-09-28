@@ -89,6 +89,24 @@ export class PackSolver2 extends BaseSolver {
     })
   }
 
+  private getConstraintForComponent(componentId: string): {
+    partnerId: string
+    xOffset: number
+  } | null {
+    if (!this.packInput.distanceConstraints) return null
+    for (const c of this.packInput.distanceConstraints) {
+      if (c.type === "fixed_x_distance_and_orientation") {
+        if (c.leftChipId === componentId) {
+          return { partnerId: c.rightChipId, xOffset: c.distance }
+        }
+        if (c.rightChipId === componentId) {
+          return { partnerId: c.leftChipId, xOffset: -c.distance }
+        }
+      }
+    }
+    return null
+  }
+
   private packFirstComponent(): void {
     const firstComponentToPack = this.unpackedComponentQueue.shift()!
 
@@ -115,6 +133,19 @@ export class PackSolver2 extends BaseSolver {
     }
 
     setPackedComponentPadCenters(newPackedComponent)
+
+    const partnerInfo = this.getConstraintForComponent(
+      firstComponentToPack.componentId,
+    )
+    let partnerComponent: InputComponent | undefined
+    if (partnerInfo) {
+      const idx = this.unpackedComponentQueue.findIndex(
+        (c) => c.componentId === partnerInfo.partnerId,
+      )
+      if (idx !== -1) {
+        partnerComponent = this.unpackedComponentQueue.splice(idx, 1)[0]
+      }
+    }
 
     // If there are obstacles, ensure at least minGap clearance; otherwise fall back to outline-based placement
     const obstacles = this.packInput.obstacles ?? []
@@ -159,6 +190,22 @@ export class PackSolver2 extends BaseSolver {
 
     if (!tooCloseToObstacles && !outsideBoundaryOutline) {
       this.packedComponents.push(newPackedComponent)
+      if (partnerComponent && partnerInfo) {
+        const partnerPacked: PackedComponent = {
+          ...partnerComponent,
+          center: {
+            x: newPackedComponent.center.x + partnerInfo.xOffset,
+            y: newPackedComponent.center.y,
+          },
+          ccwRotationOffset: newPackedComponent.ccwRotationOffset,
+          pads: partnerComponent.pads.map((p) => ({
+            ...p,
+            absoluteCenter: { x: 0, y: 0 },
+          })),
+        }
+        setPackedComponentPadCenters(partnerPacked)
+        this.packedComponents.push(partnerPacked)
+      }
       return
     }
 
@@ -172,15 +219,51 @@ export class PackSolver2 extends BaseSolver {
       bounds: this.packInput.bounds,
       boundaryOutline: this.packInput.boundaryOutline,
       weightedConnections: this.packInput.weightedConnections,
+      partnerConstraint:
+        partnerComponent && partnerInfo
+          ? { partnerComponent, xOffset: partnerInfo.xOffset }
+          : undefined,
     })
     fallbackSolver.solve()
     const result = fallbackSolver.getResult()
     if (result) {
       this.packedComponents.push(result)
+      if (partnerComponent && partnerInfo) {
+        const partnerPacked: PackedComponent = {
+          ...partnerComponent,
+          center: {
+            x: result.center.x + partnerInfo.xOffset,
+            y: result.center.y,
+          },
+          ccwRotationOffset: result.ccwRotationOffset,
+          pads: partnerComponent.pads.map((p) => ({
+            ...p,
+            absoluteCenter: { x: 0, y: 0 },
+          })),
+        }
+        setPackedComponentPadCenters(partnerPacked)
+        this.packedComponents.push(partnerPacked)
+      }
     } else {
       // Fallback: place at center even if it violates constraints (should rarely happen)
       // This typically indicates impossible constraints (e.g., component too large for boundary)
       this.packedComponents.push(newPackedComponent)
+      if (partnerComponent && partnerInfo) {
+        const partnerPacked: PackedComponent = {
+          ...partnerComponent,
+          center: {
+            x: newPackedComponent.center.x + partnerInfo.xOffset,
+            y: newPackedComponent.center.y,
+          },
+          ccwRotationOffset: newPackedComponent.ccwRotationOffset,
+          pads: partnerComponent.pads.map((p) => ({
+            ...p,
+            absoluteCenter: { x: 0, y: 0 },
+          })),
+        }
+        setPackedComponentPadCenters(partnerPacked)
+        this.packedComponents.push(partnerPacked)
+      }
     }
   }
 
@@ -210,6 +293,52 @@ export class PackSolver2 extends BaseSolver {
         this.solved = true
         return
       }
+
+      const partnerInfo = this.getConstraintForComponent(
+        this.componentToPack.componentId,
+      )
+
+      // Case 1: Partner is already packed (e.g. static or packed earlier)
+      if (partnerInfo) {
+        const alreadyPackedPartner = this.packedComponents.find(
+          (c) => c.componentId === partnerInfo.partnerId,
+        )
+        if (alreadyPackedPartner) {
+          const packedComponent: PackedComponent = {
+            ...this.componentToPack,
+            center: {
+              x: alreadyPackedPartner.center.x - partnerInfo.xOffset,
+              y: alreadyPackedPartner.center.y,
+            },
+            ccwRotationOffset: alreadyPackedPartner.ccwRotationOffset,
+            pads: this.componentToPack.pads.map((p) => ({
+              ...p,
+              absoluteCenter: { x: 0, y: 0 },
+            })),
+          }
+          setPackedComponentPadCenters(packedComponent)
+          this.packedComponents.push(packedComponent)
+          this.componentToPack = undefined
+          return
+        }
+      }
+
+      // Case 2: Partner is not packed yet, look in queue
+      let partnerConstraint:
+        | { partnerComponent: InputComponent; xOffset: number }
+        | undefined
+      if (partnerInfo) {
+        const partnerComp = this.unpackedComponentQueue.find(
+          (c) => c.componentId === partnerInfo.partnerId,
+        )
+        if (partnerComp) {
+          partnerConstraint = {
+            partnerComponent: partnerComp,
+            xOffset: partnerInfo.xOffset,
+          }
+        }
+      }
+
       this.activeSubSolver = new SingleComponentPackSolver({
         packedComponents: this.packedComponents,
         componentToPack: this.componentToPack,
@@ -219,6 +348,7 @@ export class PackSolver2 extends BaseSolver {
         bounds: this.packInput.bounds,
         boundaryOutline: this.packInput.boundaryOutline,
         weightedConnections: this.packInput.weightedConnections,
+        partnerConstraint,
       })
       this.activeSubSolver.setup()
     }
@@ -235,6 +365,34 @@ export class PackSolver2 extends BaseSolver {
       const result = this.activeSubSolver.getResult()
       if (result) {
         this.packedComponents.push(result)
+
+        // If partner constraint was active, also pack partner
+        const partnerInfo = this.getConstraintForComponent(result.componentId)
+        if (partnerInfo) {
+          const partnerIdx = this.unpackedComponentQueue.findIndex(
+            (c) => c.componentId === partnerInfo.partnerId,
+          )
+          if (partnerIdx !== -1) {
+            const partnerComp = this.unpackedComponentQueue.splice(
+              partnerIdx,
+              1,
+            )[0]!
+            const partnerPacked: PackedComponent = {
+              ...partnerComp,
+              center: {
+                x: result.center.x + partnerInfo.xOffset,
+                y: result.center.y,
+              },
+              ccwRotationOffset: result.ccwRotationOffset,
+              pads: partnerComp.pads.map((p) => ({
+                ...p,
+                absoluteCenter: { x: 0, y: 0 },
+              })),
+            }
+            setPackedComponentPadCenters(partnerPacked)
+            this.packedComponents.push(partnerPacked)
+          }
+        }
       } else {
         // Fallback if solver didn't produce a result
         const packedComponent: PackedComponent = {
