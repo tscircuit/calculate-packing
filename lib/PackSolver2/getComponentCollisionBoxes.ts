@@ -7,6 +7,13 @@ export interface CollisionBox {
   height: number
 }
 
+const snapTrigMagnitude = (value: number) => {
+  const absoluteValue = Math.abs(value)
+  if (absoluteValue < 1e-12) return 0
+  if (Math.abs(absoluteValue - 1) < 1e-12) return 1
+  return absoluteValue
+}
+
 /**
  * Returns the collision boxes for a component. If the component has a
  * courtyard, returns a single courtyard-derived box (rotated + translated).
@@ -20,15 +27,10 @@ export function getComponentCollisionBoxes(
     const angleRad = (component.ccwRotationOffset * Math.PI) / 180
     const rotatedOffset = rotatePoint(courtyard.offsetFromCenter, angleRad)
 
-    // For 90/270 degree rotations, swap width and height
-    const normalizedDeg = ((component.ccwRotationOffset % 360) + 360) % 360
-    const swapDims = normalizedDeg === 90 || normalizedDeg === 270
-    let width = courtyard.width
-    let height = courtyard.height
-    if (swapDims) {
-      width = courtyard.height
-      height = courtyard.width
-    }
+    const absCos = snapTrigMagnitude(Math.cos(angleRad))
+    const absSin = snapTrigMagnitude(Math.sin(angleRad))
+    const width = courtyard.width * absCos + courtyard.height * absSin
+    const height = courtyard.width * absSin + courtyard.height * absCos
 
     return [
       {
