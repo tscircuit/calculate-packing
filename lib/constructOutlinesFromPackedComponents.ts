@@ -102,27 +102,25 @@ const createPadPolygons = (
   component: PackedComponent,
   minGap: number,
 ): PadShape[] => {
+  const angleRad = (component.ccwRotationOffset * Math.PI) / 180
+
   return component.pads.map((pad) => {
+    // Position the pad by rotating its local offset (kept fresh from the
+    // component's current center), but treat its box as axis-aligned: pad.size
+    // is already the final rotated size (setPackedComponentPadCenters swaps w/h
+    // for 90/270), so rotating the rect again would apply the rotation twice.
+    const rotatedOffset = rotatePoint(pad.offset, angleRad)
+    const cx = component.center.x + rotatedOffset.x
+    const cy = component.center.y + rotatedOffset.y
     const hw = pad.size.x / 2 + minGap
     const hh = pad.size.y / 2 + minGap
 
-    const localCorners = [
-      { x: pad.offset.x - hw, y: pad.offset.y - hh },
-      { x: pad.offset.x + hw, y: pad.offset.y - hh },
-      { x: pad.offset.x + hw, y: pad.offset.y + hh },
-      { x: pad.offset.x - hw, y: pad.offset.y + hh },
+    const worldCorners = [
+      { x: cx - hw, y: cy - hh },
+      { x: cx + hw, y: cy - hh },
+      { x: cx + hw, y: cy + hh },
+      { x: cx - hw, y: cy + hh },
     ]
-
-    const worldCorners = localCorners.map((corner) => {
-      const rotated = rotatePoint(
-        corner,
-        (component.ccwRotationOffset * Math.PI) / 180,
-      )
-      return {
-        x: rotated.x + component.center.x,
-        y: rotated.y + component.center.y,
-      }
-    })
 
     const arr = worldCorners.map(({ x, y }) => [x, y] as [number, number])
     const poly = new Flatten.Polygon(arr)
