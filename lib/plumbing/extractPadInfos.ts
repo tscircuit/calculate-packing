@@ -128,11 +128,16 @@ export const extractPadInfos = (
         break
       }
       case "circular_hole_with_rect_pad": {
+        const size = getRotatedBoundingBoxSize({
+          width: ph.rect_pad_width,
+          height: ph.rect_pad_height,
+          ccwRotationDegrees: ph.rect_ccw_rotation ?? 0,
+        })
         pushPad({
           padId: ph.pcb_plated_hole_id,
           pcbPortId: ph.pcb_port_id,
-          sx: ph.rect_pad_width,
-          sy: ph.rect_pad_height,
+          sx: size.width,
+          sy: size.height,
           x: ph.x,
           y: ph.y,
         })
@@ -163,6 +168,32 @@ export const extractPadInfos = (
           x: ph.x,
           y: ph.y,
         })
+        break
+      }
+      case "hole_with_polygon_pad": {
+        if (ph.pad_outline && ph.pad_outline.length > 0) {
+          const angleRad = ((ph.ccw_rotation ?? 0) * Math.PI) / 180
+          const cos = Math.cos(angleRad)
+          const sin = Math.sin(angleRad)
+          const rotatedOutline = ph.pad_outline.map((pt) => ({
+            x: pt.x * cos - pt.y * sin,
+            y: pt.x * sin + pt.y * cos,
+          }))
+          const { minX, maxX, minY, maxY } =
+            getPolygonBoundingBox(rotatedOutline)
+          pushPad({
+            padId: ph.pcb_plated_hole_id,
+            pcbPortId: ph.pcb_port_id,
+            sx: maxX - minX,
+            sy: maxY - minY,
+            x: ph.x + (minX + maxX) / 2,
+            y: ph.y + (minY + maxY) / 2,
+          })
+        } else {
+          console.warn(
+            `Polygon plated hole ${ph.pcb_plated_hole_id} has no pad_outline points`,
+          )
+        }
         break
       }
       default: {
