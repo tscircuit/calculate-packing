@@ -304,3 +304,112 @@ test("convertPackOutputToPackInput preserves courtyard field", () => {
     height: 4,
   })
 })
+
+test("convertCircuitJsonToPackOutput extracts rotated pcb_courtyard_rect and pcb_courtyard_pill", () => {
+  const circuitJson = [
+    {
+      type: "source_group",
+      source_group_id: "root",
+      name: "root",
+    },
+    {
+      type: "source_component",
+      source_component_id: "sc1",
+      source_group_id: "root",
+      name: "U1",
+      ftype: "simple_chip",
+    },
+    {
+      type: "pcb_component",
+      pcb_component_id: "pc1",
+      source_component_id: "sc1",
+      center: { x: 0, y: 0 },
+      rotation: 90,
+      width: 2,
+      height: 6,
+      layer: "top",
+    },
+    {
+      type: "pcb_smtpad",
+      pcb_smtpad_id: "pad1",
+      pcb_component_id: "pc1",
+      shape: "rect",
+      x: 0,
+      y: 0,
+      width: 1,
+      height: 1,
+      layer: "top",
+    },
+    {
+      type: "pcb_courtyard_rect",
+      pcb_courtyard_rect_id: "cy1",
+      pcb_component_id: "pc1",
+      center: { x: 0.5, y: -0.25 },
+      width: 6,
+      height: 2,
+      ccw_rotation: 90,
+      layer: "top",
+    },
+    {
+      type: "source_component",
+      source_component_id: "sc2",
+      source_group_id: "root",
+      name: "J1",
+      ftype: "simple_chip",
+    },
+    {
+      type: "pcb_component",
+      pcb_component_id: "pc2",
+      source_component_id: "sc2",
+      center: { x: 4, y: -2 },
+      rotation: 0,
+      width: 3,
+      height: 1,
+      layer: "top",
+      position_mode: "relative_to_group_anchor",
+    },
+    {
+      type: "pcb_smtpad",
+      pcb_smtpad_id: "pad2",
+      pcb_component_id: "pc2",
+      shape: "rect",
+      x: 4,
+      y: -2,
+      width: 1,
+      height: 1,
+      layer: "top",
+    },
+    {
+      type: "pcb_courtyard_pill",
+      pcb_courtyard_pill_id: "cy2",
+      pcb_component_id: "pc2",
+      center: { x: 5, y: -1 },
+      width: 8,
+      height: 3,
+      radius: 1.5,
+      ccw_rotation: 90,
+      layer: "top",
+    },
+  ] as any
+
+  const result = convertCircuitJsonToPackOutput(circuitJson, {
+    source_group_id: "root",
+  })
+
+  const packedComp = result.components.find((c) => c.componentId === "pc1")
+  expect(packedComp).toBeDefined()
+  expect(packedComp?.courtyard).toEqual({
+    offsetFromCenter: { x: 0.5, y: -0.25 },
+    width: 2,
+    height: 6,
+  })
+
+  expect(result.obstacles).toEqual([
+    {
+      obstacleId: "pc2",
+      absoluteCenter: { x: 5, y: -1 },
+      width: 3,
+      height: 8,
+    },
+  ])
+})

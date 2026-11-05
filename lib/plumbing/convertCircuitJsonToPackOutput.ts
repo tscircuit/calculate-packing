@@ -14,10 +14,30 @@ import { getObstacleFromElement } from "./getObstacleFromElement"
 
 type PcbComponentId = PcbComponent["pcb_component_id"]
 
+const getRotatedRectHalfExtents = (
+  width: number,
+  height: number,
+  ccwRotationDegrees = 0,
+) => {
+  const angleRad = (ccwRotationDegrees * Math.PI) / 180
+  const snapTrigMagnitude = (value: number) => {
+    const abs = Math.abs(value)
+    if (abs < 1e-12) return 0
+    if (Math.abs(abs - 1) < 1e-12) return 1
+    return abs
+  }
+  const absCos = snapTrigMagnitude(Math.cos(angleRad))
+  const absSin = snapTrigMagnitude(Math.sin(angleRad))
+  return {
+    halfWidth: (width * absCos + height * absSin) / 2,
+    halfHeight: (width * absSin + height * absCos) / 2,
+  }
+}
+
 /**
  * Extract a bounding-box courtyard for a set of pcb_component_ids using the db.
- * Supports pcb_courtyard_rect, pcb_courtyard_polygon, pcb_courtyard_outline,
- * and pcb_courtyard_circle.
+ * Supports pcb_courtyard_rect, pcb_courtyard_pill, pcb_courtyard_polygon,
+ * pcb_courtyard_outline, and pcb_courtyard_circle.
  */
 const extractCourtyardForComponent = (opts: {
   db: ReturnType<typeof cju>
@@ -40,10 +60,44 @@ const extractCourtyardForComponent = (opts: {
 
   for (const rect of db.pcb_courtyard_rect.list()) {
     if (!idSet.has(rect.pcb_component_id)) continue
-    minX = Math.min(minX, rect.center.x - rect.width / 2)
-    maxX = Math.max(maxX, rect.center.x + rect.width / 2)
-    minY = Math.min(minY, rect.center.y - rect.height / 2)
-    maxY = Math.max(maxY, rect.center.y + rect.height / 2)
+    const { halfWidth, halfHeight } = getRotatedRectHalfExtents(
+      rect.width,
+      rect.height,
+      rect.ccw_rotation,
+    )
+    minX = Math.min(minX, rect.center.x - halfWidth)
+    maxX = Math.max(maxX, rect.center.x + halfWidth)
+    minY = Math.min(minY, rect.center.y - halfHeight)
+    maxY = Math.max(maxY, rect.center.y + halfHeight)
+    found = true
+  }
+
+  const courtyardPills =
+    (
+      db as unknown as {
+        pcb_courtyard_pill?: {
+          list: () => Array<{
+            pcb_component_id: string
+            center: { x: number; y: number }
+            width: number
+            height: number
+            ccw_rotation?: number
+          }>
+        }
+      }
+    ).pcb_courtyard_pill?.list() ?? []
+
+  for (const pill of courtyardPills) {
+    if (!idSet.has(pill.pcb_component_id)) continue
+    const { halfWidth, halfHeight } = getRotatedRectHalfExtents(
+      pill.width,
+      pill.height,
+      pill.ccw_rotation,
+    )
+    minX = Math.min(minX, pill.center.x - halfWidth)
+    maxX = Math.max(maxX, pill.center.x + halfWidth)
+    minY = Math.min(minY, pill.center.y - halfHeight)
+    maxY = Math.max(maxY, pill.center.y + halfHeight)
     found = true
   }
 
