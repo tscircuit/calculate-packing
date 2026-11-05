@@ -14,19 +14,35 @@ import type { PackInput, PackOutput } from "../types"
  *     • drop `center` and `ccwRotationOffset`
  */
 export const convertPackOutputToPackInput = (packed: PackOutput): PackInput => {
-  const strippedComponents = packed.components.map((pc) => ({
-    ...(pc.isStatic
-      ? {
-          ...pc,
-          pads: pc.pads.map((pad) => ({ ...pad })),
-        }
-      : {
-          componentId: pc.componentId,
-          availableRotationDegrees: pc.availableRotationDegrees, // Preserve rotation constraints
-          pads: pc.pads.map(({ absoluteCenter: _ac, ...rest }) => rest),
-          courtyard: pc.courtyard,
-        }),
-  }))
+  const strippedComponents = packed.components.map((pc) => {
+    const normalizedRotation = (((pc.ccwRotationOffset ?? 0) % 360) + 360) % 360
+    const shouldUnswapDimensions =
+      normalizedRotation === 90 || normalizedRotation === 270
+    const unswapPadSize = <T extends { size: { x: number; y: number } }>(
+      pad: T,
+    ): T => ({
+      ...pad,
+      size: shouldUnswapDimensions
+        ? { x: pad.size.y, y: pad.size.x }
+        : { ...pad.size },
+    })
+
+    return {
+      ...(pc.isStatic
+        ? {
+            ...pc,
+            pads: pc.pads.map((pad) => unswapPadSize(pad)),
+          }
+        : {
+            componentId: pc.componentId,
+            availableRotationDegrees: pc.availableRotationDegrees, // Preserve rotation constraints
+            pads: pc.pads.map(({ absoluteCenter: _ac, ...rest }) =>
+              unswapPadSize(rest),
+            ),
+            courtyard: pc.courtyard,
+          }),
+    }
+  })
 
   /* eslint-disable @typescript-eslint/consistent-type-assertions */
   return {
