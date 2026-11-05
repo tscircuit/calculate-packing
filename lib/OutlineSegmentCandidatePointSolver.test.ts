@@ -205,3 +205,130 @@ test.skip("OutlineSegmentCandidatePointSolver - should compute viable segment co
   expect(solver.failed).toBe(false)
   expect(solver.viableOutlineSegment).toBeDefined()
 })
+
+test("OutlineSegmentCandidatePointSolver - pushes asymmetric courtyard components out by near-edge extent", () => {
+  // CCW obstacle outline: box from x=[-5, 5], y=[-5, 5]
+  const ccwFullOutline: [Point, Point][] = [
+    [
+      { x: -5, y: -5 },
+      { x: 5, y: -5 },
+    ], // bottom (outward normal: 0, -1)
+    [
+      { x: 5, y: -5 },
+      { x: 5, y: 5 },
+    ], // right (outward normal: +1, 0)
+    [
+      { x: 5, y: 5 },
+      { x: -5, y: 5 },
+    ], // top (outward normal: 0, +1)
+    [
+      { x: -5, y: 5 },
+      { x: -5, y: -5 },
+    ], // left (outward normal: -1, 0)
+  ]
+
+  // Component whose courtyard extends 8mm in -x and only 2mm in +x (offsetFromCenter.x = -3, width = 10)
+  // and 7mm in -y and 1mm in +y (offsetFromCenter.y = -3, height = 8)
+  const componentToPack: InputComponent = {
+    componentId: "U2",
+    pads: [
+      {
+        padId: "U2.1",
+        networkId: "NET1",
+        type: "rect",
+        offset: { x: 0, y: 0 },
+        size: { x: 2, y: 2 },
+      },
+    ],
+    courtyard: {
+      offsetFromCenter: { x: -3, y: -3 },
+      width: 10,
+      height: 8,
+    },
+  }
+
+  const packedComponents: PackedComponent[] = [
+    {
+      componentId: "U1",
+      center: { x: 0, y: 0 },
+      ccwRotationOffset: 0,
+      pads: [
+        {
+          padId: "U1.1",
+          networkId: "NET1",
+          type: "rect",
+          offset: { x: 0, y: 0 },
+          size: { x: 2, y: 2 },
+          absoluteCenter: { x: 0, y: 0 },
+        },
+      ],
+      courtyard: {
+        offsetFromCenter: { x: 0, y: 0 },
+        width: 10,
+        height: 10,
+      },
+    },
+  ]
+
+  // 1) Right edge (x = 5, outward normal +x):
+  // Near edge is localMinX = -3 - 5 = -8, so center.x must be 5 - (-8) = 13
+  // (previously bounds.maxX = 5 + 2 = 7, which placed courtyard minX at -1 inside the obstacle!)
+  const rightSolver = new OutlineSegmentCandidatePointSolver({
+    outlineSegment: ccwFullOutline[1]!,
+    ccwFullOutline,
+    componentRotationDegrees: 0,
+    packStrategy: "minimum_sum_distance_to_network",
+    minGap: 0,
+    packedComponents,
+    componentToPack,
+  })
+  rightSolver.solve()
+  expect(rightSolver.failed).toBe(false)
+  expect(rightSolver.optimalPosition?.x).toBeCloseTo(13, 5)
+
+  // 2) Top edge (y = 5, outward normal +y):
+  // Near edge is localMinY = -3 - 4 = -7, so center.y must be 5 - (-7) = 12
+  const topSolver = new OutlineSegmentCandidatePointSolver({
+    outlineSegment: ccwFullOutline[2]!,
+    ccwFullOutline,
+    componentRotationDegrees: 0,
+    packStrategy: "minimum_sum_distance_to_network",
+    minGap: 0,
+    packedComponents,
+    componentToPack,
+  })
+  topSolver.solve()
+  expect(topSolver.failed).toBe(false)
+  expect(topSolver.optimalPosition?.y).toBeCloseTo(12, 5)
+
+  // 3) Left edge (x = -5, outward normal -x):
+  // Near edge is localMaxX = -3 + 5 = 2, so center.x must be -5 - 2 = -7
+  // (previously bounds.minX = -5 - 8 = -13, leaving a 6mm gap!)
+  const leftSolver = new OutlineSegmentCandidatePointSolver({
+    outlineSegment: ccwFullOutline[3]!,
+    ccwFullOutline,
+    componentRotationDegrees: 0,
+    packStrategy: "minimum_sum_distance_to_network",
+    minGap: 0,
+    packedComponents,
+    componentToPack,
+  })
+  leftSolver.solve()
+  expect(leftSolver.failed).toBe(false)
+  expect(leftSolver.optimalPosition?.x).toBeCloseTo(-7, 5)
+
+  // 4) Bottom edge (y = -5, outward normal -y):
+  // Near edge is localMaxY = -3 + 4 = 1, so center.y must be -5 - 1 = -6
+  const bottomSolver = new OutlineSegmentCandidatePointSolver({
+    outlineSegment: ccwFullOutline[0]!,
+    ccwFullOutline,
+    componentRotationDegrees: 0,
+    packStrategy: "minimum_sum_distance_to_network",
+    minGap: 0,
+    packedComponents,
+    componentToPack,
+  })
+  bottomSolver.solve()
+  expect(bottomSolver.failed).toBe(false)
+  expect(bottomSolver.optimalPosition?.y).toBeCloseTo(-6, 5)
+})
