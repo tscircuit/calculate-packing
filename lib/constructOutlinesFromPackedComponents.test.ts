@@ -3,6 +3,7 @@ import {
   constructOutlinesFromPackedComponents,
   constructSemanticOutlinesFromPackedComponents,
 } from "./constructOutlinesFromPackedComponents"
+import { setPackedComponentPadCenters } from "./PackSolver2/setPackedComponentPadCenters"
 import type { PackedComponent } from "./types"
 
 // Helper to calculate signed area
@@ -199,5 +200,45 @@ test("constructOutlinesFromPackedComponents preserves winding directions", () =>
     const area = signedArea(outline)
     // All these pads are separate islands, so all should be CCW outer boundaries
     expect(area).toBeGreaterThan(0)
+  }
+})
+
+test("constructOutlinesFromPackedComponents does not double-rotate 90deg and 270deg pad dimensions", () => {
+  for (const ccwRotationOffset of [90, 270]) {
+    const component: PackedComponent = {
+      componentId: `rotated-${ccwRotationOffset}`,
+      center: { x: 10, y: 20 },
+      ccwRotationOffset,
+      pads: [
+        {
+          padId: "p1",
+          networkId: "n1",
+          type: "rect",
+          offset: { x: 3, y: 0 },
+          size: { x: 4, y: 2 },
+          absoluteCenter: { x: 0, y: 0 },
+        },
+      ],
+    }
+    setPackedComponentPadCenters(component)
+
+    const minGap = 1
+    const outlines = constructOutlinesFromPackedComponents([component], {
+      minGap,
+    })
+    expect(outlines.length).toBe(1)
+
+    const pts = outlines[0]!.flatMap(([p1, p2]) => [p1, p2])
+    const minX = Math.min(...pts.map((p) => p.x))
+    const maxX = Math.max(...pts.map((p) => p.x))
+    const minY = Math.min(...pts.map((p) => p.y))
+    const maxY = Math.max(...pts.map((p) => p.y))
+
+    // A 4x2 pad rotated by 90°/270° becomes 2 wide x 4 tall in world space.
+    // Inflated by minGap=1 on each side: width = 2 + 2 = 4, height = 4 + 2 = 6.
+    expect(maxX - minX).toBeCloseTo(4)
+    expect(maxY - minY).toBeCloseTo(6)
+    expect((minX + maxX) / 2).toBeCloseTo(component.pads[0]!.absoluteCenter.x)
+    expect((minY + maxY) / 2).toBeCloseTo(component.pads[0]!.absoluteCenter.y)
   }
 })
