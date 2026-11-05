@@ -511,12 +511,12 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       const isXMinusFacing = !isXPlusFacing
       if (isXPlusFacing) {
         adjustedCenter = {
-          x: bounds.maxX,
+          x: center.x + (center.x - bounds.minX),
           y: center.y,
         }
       } else if (isXMinusFacing) {
         adjustedCenter = {
-          x: bounds.minX,
+          x: center.x - (bounds.maxX - center.x),
           y: center.y,
         }
       }
@@ -526,12 +526,12 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       if (isYPlusFacing) {
         adjustedCenter = {
           x: center.x,
-          y: bounds.maxY,
+          y: center.y + (center.y - bounds.minY),
         }
       } else if (isYMinusFacing) {
         adjustedCenter = {
           x: center.x,
-          y: bounds.minY,
+          y: center.y - (bounds.maxY - center.y),
         }
       }
     }
