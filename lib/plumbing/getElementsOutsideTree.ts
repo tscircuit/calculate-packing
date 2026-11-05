@@ -11,7 +11,12 @@ export const getElementOutsideTree = (
   const collectComponentIds = (node: any) => {
     if (!node) return
     if (node.nodeType === "component") {
-      const pcbId = node.otherChildElements?.[0]?.pcb_component_id
+      const pcbComponent = node.otherChildElements?.find(
+        (e: any) => e.type === "pcb_component",
+      )
+      const pcbId =
+        pcbComponent?.pcb_component_id ??
+        node.otherChildElements?.[0]?.pcb_component_id
       if (pcbId) componentIdsInTree.add(pcbId)
     }
     for (const child of node.childNodes ?? []) collectComponentIds(child)
