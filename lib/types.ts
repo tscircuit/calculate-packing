@@ -78,6 +78,11 @@ export interface PackInput {
     padIds: string[]
     weight: number
     ignoreWeakConnections?: boolean
+    /**
+     * Hard maximum straight-line distance between a pad on the component being
+     * packed and the closest already-packed pad in this connection.
+     */
+    maxDistance?: number
   }>
 
   disconnectedPackDirection?:

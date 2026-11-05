@@ -24,7 +24,6 @@ Internally the algorithm:
 
 <img width="4652" height="3508" alt="image" src="https://github.com/user-attachments/assets/a1c7f129-6e87-42d2-aa3e-3a0f39719469" />
 
-
 ## Installation
 
 ```bash
@@ -67,6 +66,11 @@ const input: PackInput = {
 const result = pack(input)
 console.log(result.components) // → positioned & rotated components
 ```
+
+`weightedConnections` may include `maxDistance` to impose a hard maximum
+straight-line distance between the closest participating pads. The solver
+rejects placements that cannot satisfy the limit instead of returning a layout
+that violates it.
 
 See `tests/` for more elaborate examples (SVG snapshots, circuit-json fixtures).
 

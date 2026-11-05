@@ -40,6 +40,8 @@ interface CandidateResult {
   rotationIndex: number
 }
 
+const MAX_DISTANCE_TOLERANCE = 1e-6
+
 /**
  * Packs a single component given a set of already packed components.
  *
@@ -61,6 +63,10 @@ export class SingleComponentPackSolver extends BaseSolver {
   obstacles: InputObstacle[]
   boundaryOutline?: Array<{ x: number; y: number }>
   weightedConnections?: PackInput["weightedConnections"]
+  private maximumDistanceConnections: NonNullable<
+    PackInput["weightedConnections"]
+  >
+  private packedPadById: Map<string, PackedComponent["pads"][number]>
 
   override getSolverName(): string {
     return "SingleComponentPackSolver"
@@ -102,6 +108,19 @@ export class SingleComponentPackSolver extends BaseSolver {
     this.bounds = params.bounds
     this.boundaryOutline = params.boundaryOutline
     this.weightedConnections = params.weightedConnections
+    const componentPadIds = new Set(
+      this.componentToPack.pads.map((pad) => pad.padId),
+    )
+    this.maximumDistanceConnections = (params.weightedConnections ?? []).filter(
+      (connection) =>
+        typeof connection.maxDistance === "number" &&
+        connection.padIds.some((padId) => componentPadIds.has(padId)),
+    )
+    this.packedPadById = new Map(
+      this.packedComponents.flatMap((component) =>
+        component.pads.map((pad) => [pad.padId, pad] as const),
+      ),
+    )
   }
 
   override _setup() {
@@ -334,6 +353,9 @@ export class SingleComponentPackSolver extends BaseSolver {
           outsideBoundaryOutline = !allPadsInside || !cornersInside
         }
 
+        const maximumDistanceViolation =
+          this.getMaximumDistanceViolation(candidateComponent)
+
         // Calculate distance based on pack strategy
         distance = this.calculateDistance(optimalPosition, rotation)
 
@@ -376,6 +398,16 @@ export class SingleComponentPackSolver extends BaseSolver {
             segmentIndex: queuedSegment.segmentIndex,
             rotationIndex: this.currentRotationIndex,
             gapDistance: -1, // Special marker for boundary violation
+          })
+        } else if (maximumDistanceViolation !== null) {
+          this.rejectedCandidates.push({
+            segment: queuedSegment.segment,
+            rotation,
+            optimalPosition,
+            distance,
+            segmentIndex: queuedSegment.segmentIndex,
+            rotationIndex: this.currentRotationIndex,
+            gapDistance: -maximumDistanceViolation,
           })
         } else {
           // Store candidate result
@@ -509,6 +541,54 @@ export class SingleComponentPackSolver extends BaseSolver {
     }
 
     return totalDistance
+  }
+
+  private getMaximumDistanceViolation(
+    component: PackedComponent,
+  ): number | null {
+    if (this.maximumDistanceConnections.length === 0) return null
+
+    const componentPadById = new Map(
+      component.pads.map((pad) => [pad.padId, pad] as const),
+    )
+
+    let largestViolation = 0
+
+    for (const connection of this.maximumDistanceConnections) {
+      const maxDistance = connection.maxDistance
+      if (typeof maxDistance !== "number") continue
+
+      let minimumDistance = Infinity
+      for (const padId of connection.padIds) {
+        const componentPad = componentPadById.get(padId)
+        if (!componentPad) continue
+
+        for (const targetPadId of connection.padIds) {
+          const packedPad = this.packedPadById.get(targetPadId)
+          if (!packedPad) continue
+
+          minimumDistance = Math.min(
+            minimumDistance,
+            Math.hypot(
+              componentPad.absoluteCenter.x - packedPad.absoluteCenter.x,
+              componentPad.absoluteCenter.y - packedPad.absoluteCenter.y,
+            ),
+          )
+        }
+      }
+
+      if (
+        Number.isFinite(minimumDistance) &&
+        minimumDistance > maxDistance + MAX_DISTANCE_TOLERANCE
+      ) {
+        largestViolation = Math.max(
+          largestViolation,
+          minimumDistance - maxDistance,
+        )
+      }
+    }
+
+    return largestViolation > 0 ? largestViolation : null
   }
 
   private createPackedComponent(
