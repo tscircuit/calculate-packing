@@ -165,6 +165,44 @@ export const extractPadInfos = (
         })
         break
       }
+      case "hole_with_polygon_pad": {
+        if (ph.pad_outline && ph.pad_outline.length > 0) {
+          const angleRad = ((ph.ccw_rotation ?? 0) * Math.PI) / 180
+          const snapTrig = (value: number) => {
+            if (Math.abs(value) < 1e-12) return 0
+            if (Math.abs(Math.abs(value) - 1) < 1e-12) return Math.sign(value)
+            return value
+          }
+          const cos = snapTrig(Math.cos(angleRad))
+          const sin = snapTrig(Math.sin(angleRad))
+          const rotatedPoints = ph.ccw_rotation
+            ? ph.pad_outline.map((point) => ({
+                x: point.x * cos - point.y * sin,
+                y: point.x * sin + point.y * cos,
+              }))
+            : ph.pad_outline
+          const { minX, maxX, minY, maxY } =
+            getPolygonBoundingBox(rotatedPoints)
+          const width = maxX - minX
+          const height = maxY - minY
+          const centerX = ph.x + (minX + maxX) / 2
+          const centerY = ph.y + (minY + maxY) / 2
+
+          pushPad({
+            padId: ph.pcb_plated_hole_id,
+            pcbPortId: ph.pcb_port_id,
+            sx: width,
+            sy: height,
+            x: centerX,
+            y: centerY,
+          })
+        } else {
+          console.warn(
+            `Polygon plated hole ${ph.pcb_plated_hole_id} has no pad_outline points`,
+          )
+        }
+        break
+      }
       default: {
         console.warn(`Unsupported plated hole shape ${(ph as any).shape}`)
         break
