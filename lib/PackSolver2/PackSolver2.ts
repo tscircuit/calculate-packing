@@ -89,62 +89,40 @@ export class PackSolver2 extends BaseSolver {
     })
   }
 
-  private packFirstComponent(): void {
-    const firstComponentToPack = this.unpackedComponentQueue.shift()!
-
-    // If boundary outline exists, use its geometric centroid as the starting position
-    let initialPosition = { x: 0, y: 0 }
-    if (
-      this.packInput.boundaryOutline &&
-      this.packInput.boundaryOutline.length >= 3
-    ) {
-      initialPosition = getPolygonCentroid(this.packInput.boundaryOutline)
-    }
-
-    const newPackedComponent: PackedComponent = {
-      ...firstComponentToPack,
-      center: initialPosition,
-      ccwRotationOffset:
-        firstComponentToPack.ccwRotationOffset ??
-        firstComponentToPack.availableRotationDegrees?.[0] ??
-        0,
-      pads: firstComponentToPack.pads.map((p) => ({
-        ...p,
-        absoluteCenter: { x: 0, y: 0 },
-      })),
-    }
-
-    setPackedComponentPadCenters(newPackedComponent)
-
-    // If there are obstacles, ensure at least minGap clearance; otherwise fall back to outline-based placement
+  private isInitialPlacementValid(candidate: PackedComponent): boolean {
     const obstacles = this.packInput.obstacles ?? []
-    const newComponentBoxes = getComponentCollisionBoxes(newPackedComponent)
+    const candidateBoxes = getComponentCollisionBoxes(candidate)
     const tooCloseToObstacles = obstacles.some((obs) => {
       const obsBox = {
         center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
         width: obs.width,
         height: obs.height,
       }
-      return newComponentBoxes.some((box) => {
+      return candidateBoxes.some((box) => {
         const { distance } = computeDistanceBetweenBoxes(box, obsBox)
         return distance + 1e-6 < this.packInput.minGap
       })
     })
+    if (tooCloseToObstacles) return false
 
-    // Check if component is outside boundary outline
-    let outsideBoundaryOutline = false
+    if (this.packInput.bounds) {
+      const componentBounds = getComponentBounds(candidate, 0)
+      const outsideBounds =
+        componentBounds.minX < this.packInput.bounds.minX - 1e-6 ||
+        componentBounds.maxX > this.packInput.bounds.maxX + 1e-6 ||
+        componentBounds.minY < this.packInput.bounds.minY - 1e-6 ||
+        componentBounds.maxY > this.packInput.bounds.maxY + 1e-6
+      if (outsideBounds) return false
+    }
+
     if (
       this.packInput.boundaryOutline &&
       this.packInput.boundaryOutline.length >= 3
     ) {
-      const componentBounds = getComponentBounds(newPackedComponent, 0)
-
-      // Check if all pads are within the boundary outline
-      const allPadsInside = newPackedComponent.pads.every((pad) =>
+      const componentBounds = getComponentBounds(candidate, 0)
+      const allPadsInside = candidate.pads.every((pad) =>
         isPointInPolygon(pad.absoluteCenter, this.packInput.boundaryOutline!),
       )
-
-      // Also check corners of component bounds
       const cornersInside = [
         { x: componentBounds.minX, y: componentBounds.minY },
         { x: componentBounds.minX, y: componentBounds.maxY },
@@ -153,22 +131,77 @@ export class PackSolver2 extends BaseSolver {
       ].every((corner) =>
         isPointInPolygon(corner, this.packInput.boundaryOutline!),
       )
-
-      outsideBoundaryOutline = !allPadsInside || !cornersInside
+      if (!allPadsInside || !cornersInside) return false
     }
 
-    if (!tooCloseToObstacles && !outsideBoundaryOutline) {
-      this.packedComponents.push(newPackedComponent)
-      return
+    return true
+  }
+
+  private packFirstComponent(): void {
+    const firstComponentToPack = this.unpackedComponentQueue.shift()!
+
+    const candidatePositions: Array<{ x: number; y: number }> = []
+    if (
+      this.packInput.boundaryOutline &&
+      this.packInput.boundaryOutline.length >= 3
+    ) {
+      candidatePositions.push(
+        getPolygonCentroid(this.packInput.boundaryOutline),
+      )
+    } else {
+      candidatePositions.push({ x: 0, y: 0 })
+      if (this.packInput.bounds) {
+        const boundsCenter = {
+          x: (this.packInput.bounds.minX + this.packInput.bounds.maxX) / 2,
+          y: (this.packInput.bounds.minY + this.packInput.bounds.maxY) / 2,
+        }
+        if (
+          Math.abs(boundsCenter.x) > 1e-9 ||
+          Math.abs(boundsCenter.y) > 1e-9
+        ) {
+          candidatePositions.push(boundsCenter)
+        }
+      }
     }
 
-    // Attempt to place along obstacle outlines using the SingleComponentPackSolver
+    const candidateRotations =
+      firstComponentToPack.ccwRotationOffset !== undefined
+        ? [firstComponentToPack.ccwRotationOffset]
+        : firstComponentToPack.availableRotationDegrees &&
+            firstComponentToPack.availableRotationDegrees.length > 0
+          ? firstComponentToPack.availableRotationDegrees
+          : [0, 90, 180, 270]
+
+    let firstCandidate: PackedComponent | undefined
+    for (const position of candidatePositions) {
+      for (const rotation of candidateRotations) {
+        const candidate: PackedComponent = {
+          ...firstComponentToPack,
+          center: position,
+          ccwRotationOffset: rotation,
+          pads: firstComponentToPack.pads.map((p) => ({
+            ...p,
+            absoluteCenter: { x: 0, y: 0 },
+          })),
+        }
+        setPackedComponentPadCenters(candidate)
+        if (!firstCandidate) {
+          firstCandidate = candidate
+        }
+        if (this.isInitialPlacementValid(candidate)) {
+          this.packedComponents.push(candidate)
+          return
+        }
+      }
+    }
+
+    // Attempt to place along obstacle/boundary outlines using the SingleComponentPackSolver
     const fallbackSolver = new SingleComponentPackSolver({
       packedComponents: [],
       componentToPack: firstComponentToPack,
       packPlacementStrategy: this.packInput.packPlacementStrategy,
       minGap: this.packInput.minGap,
-      obstacles: obstacles,
+      obstacles: this.packInput.obstacles ?? [],
       bounds: this.packInput.bounds,
       boundaryOutline: this.packInput.boundaryOutline,
       weightedConnections: this.packInput.weightedConnections,
@@ -177,10 +210,10 @@ export class PackSolver2 extends BaseSolver {
     const result = fallbackSolver.getResult()
     if (result) {
       this.packedComponents.push(result)
-    } else {
+    } else if (firstCandidate) {
       // Fallback: place at center even if it violates constraints (should rarely happen)
       // This typically indicates impossible constraints (e.g., component too large for boundary)
-      this.packedComponents.push(newPackedComponent)
+      this.packedComponents.push(firstCandidate)
     }
   }
 
