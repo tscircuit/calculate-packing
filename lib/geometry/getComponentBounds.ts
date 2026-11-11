@@ -16,12 +16,25 @@ export const getComponentBounds = (
   }
 
   const angleRad = (component.ccwRotationOffset * Math.PI) / 180
+  const normalizedRotation = ((component.ccwRotationOffset % 360) + 360) % 360
+  const isAxisAligned90Rotation = normalizedRotation % 90 === 0
 
   for (const pad of component.pads) {
+    if (!isAxisAligned90Rotation) {
+      expandRotatedRectIntoBounds({
+        bounds,
+        center: pad.offset,
+        width: pad.size.x,
+        height: pad.size.y,
+        angleRad,
+        translate: component.center,
+      })
+      continue
+    }
     // Position the pad by rotating its local offset (kept fresh from the
-    // component's current center), but treat its box as axis-aligned: pad.size
-    // is already the final rotated size (setPackedComponentPadCenters swaps w/h
-    // for 90/270), so rotating the rect again would apply the rotation twice.
+    // component's current center), but treat its box as axis-aligned for 0/90/180/270
+    // rotations: pad.size is already the final rotated size (setPackedComponentPadCenters
+    // swaps w/h for 90/270), so rotating the rect again would apply the rotation twice.
     const rotatedOffset = rotatePoint(pad.offset, angleRad)
     const cx = component.center.x + rotatedOffset.x
     const cy = component.center.y + rotatedOffset.y
