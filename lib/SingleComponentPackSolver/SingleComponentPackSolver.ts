@@ -20,6 +20,7 @@ import { checkOverlapWithPackedComponents } from "lib/PackSolver2/checkOverlapWi
 import { getComponentCollisionBoxes } from "lib/PackSolver2/getComponentCollisionBoxes"
 import { computeDistanceBetweenBoxes, type Bounds } from "@tscircuit/math-utils"
 import { isPointInPolygon } from "lib/math/isPointInPolygon"
+import { getPolygonCentroid } from "lib/math/getPolygonCentroid"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
 
 type Phase = "outline" | "segment_candidate" | "evaluate"
@@ -133,34 +134,83 @@ export class SingleComponentPackSolver extends BaseSolver {
   }
 
   private executeOutlinePhase() {
-    // Special case: if no packed components, attempt center; if too close to obstacles, fall back to outline-based placement
+    // Special case: if no packed components, attempt center/bounds/outline centroid across available rotations;
+    // if invalid, fall back to outline-based placement
     if (this.packedComponents.length === 0) {
-      const availableRotations = this.componentToPack
-        .availableRotationDegrees ?? [0, 90, 180, 270]
-      const position = { x: 0, y: 0 }
-      const rotation = availableRotations[0] ?? 0
+      const candidateRotations =
+        this.componentToPack.ccwRotationOffset !== undefined
+          ? [this.componentToPack.ccwRotationOffset]
+          : this.componentToPack.availableRotationDegrees &&
+              this.componentToPack.availableRotationDegrees.length > 0
+            ? this.componentToPack.availableRotationDegrees
+            : [0, 90, 180, 270]
 
-      // Build candidate at center and verify obstacle clearance
-      const candidate = this.createPackedComponent(position, rotation)
-      const candidateBoxes = getComponentCollisionBoxes(candidate)
-      const tooCloseToObstacles = (this.obstacles ?? []).some((obs) => {
-        const obsBox = {
-          center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
-          width: obs.width,
-          height: obs.height,
+      const candidatePositions: Array<{ x: number; y: number }> = []
+      if (this.boundaryOutline && this.boundaryOutline.length >= 3) {
+        candidatePositions.push(getPolygonCentroid(this.boundaryOutline))
+      } else {
+        candidatePositions.push({ x: 0, y: 0 })
+        if (this.bounds) {
+          const boundsCenter = {
+            x: (this.bounds.minX + this.bounds.maxX) / 2,
+            y: (this.bounds.minY + this.bounds.maxY) / 2,
+          }
+          if (
+            Math.abs(boundsCenter.x) > 1e-9 ||
+            Math.abs(boundsCenter.y) > 1e-9
+          ) {
+            candidatePositions.push(boundsCenter)
+          }
         }
-        return candidateBoxes.some((box) => {
-          const { distance } = computeDistanceBetweenBoxes(box, obsBox)
-          return distance + 1e-6 < this.minGap
-        })
-      })
-
-      if (!tooCloseToObstacles) {
-        this.outputPackedComponent = candidate
-        this.solved = true
-        return
       }
-      // Otherwise, fall through to outline construction using obstacles
+
+      for (const position of candidatePositions) {
+        for (const rotation of candidateRotations) {
+          const candidate = this.createPackedComponent(position, rotation)
+          const candidateBoxes = getComponentCollisionBoxes(candidate)
+          const tooCloseToObstacles = (this.obstacles ?? []).some((obs) => {
+            const obsBox = {
+              center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
+              width: obs.width,
+              height: obs.height,
+            }
+            return candidateBoxes.some((box) => {
+              const { distance } = computeDistanceBetweenBoxes(box, obsBox)
+              return distance + 1e-6 < this.minGap
+            })
+          })
+          if (tooCloseToObstacles) continue
+
+          if (this.bounds) {
+            const componentBounds = getComponentBounds(candidate, 0)
+            const outsideBounds =
+              componentBounds.minX < this.bounds.minX - 1e-6 ||
+              componentBounds.maxX > this.bounds.maxX + 1e-6 ||
+              componentBounds.minY < this.bounds.minY - 1e-6 ||
+              componentBounds.maxY > this.bounds.maxY + 1e-6
+            if (outsideBounds) continue
+          }
+
+          if (this.boundaryOutline && this.boundaryOutline.length >= 3) {
+            const componentBounds = getComponentBounds(candidate, 0)
+            const allPadsInside = candidate.pads.every((pad) =>
+              isPointInPolygon(pad.absoluteCenter, this.boundaryOutline!),
+            )
+            const cornersInside = [
+              { x: componentBounds.minX, y: componentBounds.minY },
+              { x: componentBounds.minX, y: componentBounds.maxY },
+              { x: componentBounds.maxX, y: componentBounds.minY },
+              { x: componentBounds.maxX, y: componentBounds.maxY },
+            ].every((corner) => isPointInPolygon(corner, this.boundaryOutline!))
+            if (!allPadsInside || !cornersInside) continue
+          }
+
+          this.outputPackedComponent = candidate
+          this.solved = true
+          return
+        }
+      }
+      // Otherwise, fall through to outline construction using obstacles / boundary
     }
 
     // Construct outlines from packed components (and obstacles)
