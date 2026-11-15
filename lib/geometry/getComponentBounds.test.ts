@@ -28,4 +28,8 @@ test("getComponentBounds handles a 90deg-rotated rect pad", () => {
   const bounds = getComponentBounds(component, 0)
   expect(bounds.maxX - bounds.minX).toBeCloseTo(1)
   expect(bounds.maxY - bounds.minY).toBeCloseTo(2)
+  expect(bounds.minX).toBeCloseTo(-0.5)
+  expect(bounds.maxX).toBeCloseTo(0.5)
+  expect(bounds.minY).toBeCloseTo(-1)
+  expect(bounds.maxY).toBeCloseTo(1)
 })
