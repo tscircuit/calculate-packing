@@ -1,24 +1,12 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
-  "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": "on"
-      }
-    }
-  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "formatter": {
     "enabled": true,
     "indentStyle": "space"
   },
   "files": {
-    "includes": [
-      "**",
-      "!**/cosmos-export",
-      "!**/dist",
-      "!**/package.json",
-      "!**/README.md"
-    ]
+    "includes": ["**", "!**/cosmos-export", "!**/dist", "!**/package.json"]
   },
   "javascript": {
     "formatter": {
@@ -94,10 +82,7 @@
           "options": {
             "strictCase": true,
             "requireAscii": true,
-            "filenameCases": [
-              "kebab-case",
-              "export"
-            ]
+            "filenameCases": ["kebab-case", "export"]
           }
         },
         "useAsConstAssertion": "error",
