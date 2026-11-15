@@ -24,7 +24,6 @@ Internally the algorithm:
 
 <img width="4652" height="3508" alt="image" src="https://github.com/user-attachments/assets/a1c7f129-6e87-42d2-aa3e-3a0f39719469" />
 
-
 ## Installation
 
 ```bash
