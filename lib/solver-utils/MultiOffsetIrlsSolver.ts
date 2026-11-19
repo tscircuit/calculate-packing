@@ -52,6 +52,8 @@ export class MultiOffsetIrlsSolver extends BaseSolver {
   public optimalPosition?: Point
 
   private readonly initialPosition: Point
+  private bestTrackedPosition?: Point
+  private bestTrackedDistance = Infinity
 
   override getSolverName(): string {
     return "MultiOffsetIrlsSolver"
@@ -84,15 +86,28 @@ export class MultiOffsetIrlsSolver extends BaseSolver {
   override _setup() {
     this.currentPosition = { ...this.initialPosition }
     this.optimalPosition = undefined
+    this.bestTrackedPosition = undefined
+    this.bestTrackedDistance = Infinity
 
-    // Check if we have any work to do
-    const hasTargets = Array.from(this.targetPointMap.values()).some(
-      (targets) => targets.length > 0,
+    // Check if any of this solver's offset pads actually have target points
+    const hasTargets = this.offsetPadPoints.some(
+      (pad) => (this.targetPointMap.get(pad.id)?.length ?? 0) > 0,
     )
     if (!hasTargets || this.offsetPadPoints.length === 0) {
-      this.optimalPosition = { ...this.currentPosition }
+      const constrained = this.constraintFn
+        ? this.constraintFn(this.currentPosition)
+        : this.currentPosition
+      this.currentPosition = { ...constrained }
+      this.optimalPosition = { ...constrained }
       this.solved = true
+      return
     }
+
+    const initialValid = this.constraintFn
+      ? this.constraintFn(this.currentPosition)
+      : this.currentPosition
+    this.bestTrackedPosition = { ...initialValid }
+    this.bestTrackedDistance = this.getTotalDistance(initialValid)
   }
 
   override _step() {
@@ -159,6 +174,12 @@ export class MultiOffsetIrlsSolver extends BaseSolver {
     const dy = constrainedPosition.y - currentY
     const positionChange = Math.sqrt(dx * dx + dy * dy)
 
+    const candidateDistance = this.getTotalDistance(constrainedPosition)
+    if (candidateDistance <= this.bestTrackedDistance) {
+      this.bestTrackedDistance = candidateDistance
+      this.bestTrackedPosition = { ...constrainedPosition }
+    }
+
     if (positionChange < this.epsilon) {
       this.optimalPosition = { ...constrainedPosition }
       this.solved = true
@@ -166,6 +187,13 @@ export class MultiOffsetIrlsSolver extends BaseSolver {
     }
 
     this.currentPosition = constrainedPosition
+  }
+
+  override tryFinalAcceptance() {
+    const acceptedPosition = this.bestTrackedPosition ?? this.currentPosition
+    this.currentPosition = { ...acceptedPosition }
+    this.optimalPosition = { ...acceptedPosition }
+    this.solved = true
   }
 
   /**
