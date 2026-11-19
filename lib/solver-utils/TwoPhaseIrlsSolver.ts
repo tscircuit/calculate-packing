@@ -53,6 +53,7 @@ export class TwoPhaseIrlsSolver extends BaseSolver {
     this.phase1Epsilon = params.phase1Epsilon ?? params.epsilon ?? 1e-6
     this.phase2Epsilon = params.phase2Epsilon ?? params.epsilon ?? 1e-6
     this.maxIterations = params.maxIterations ?? 100
+    this.MAX_ITERATIONS = this.maxIterations * 2 + 2
   }
 
   override getConstructorParams(): TwoPhaseIrlsSolverParams {
@@ -75,12 +76,16 @@ export class TwoPhaseIrlsSolver extends BaseSolver {
     this.closestTargetPadId = undefined
     this.closestTargetPoint = undefined
 
-    // Check if we have any work to do
-    const hasTargets = Array.from(this.targetPointMap.values()).some(
-      (targets) => targets.length > 0,
+    // Check if any of this solver's offset pads actually have target points
+    const hasTargets = this.offsetPadPoints.some(
+      (pad) => (this.targetPointMap.get(pad.id)?.length ?? 0) > 0,
     )
     if (!hasTargets || this.offsetPadPoints.length === 0) {
-      this.optimalPosition = { ...this.currentPosition }
+      const constrained = this.constraintFn
+        ? this.constraintFn(this.currentPosition)
+        : this.currentPosition
+      this.currentPosition = { ...constrained }
+      this.optimalPosition = { ...constrained }
       this.solved = true
       return
     }
@@ -191,6 +196,13 @@ export class TwoPhaseIrlsSolver extends BaseSolver {
       this.failed = true
       this.error = `Phase 2 failed: ${this.phase2Solver.error}`
     }
+  }
+
+  override tryFinalAcceptance() {
+    const acceptedPosition = this.getBestPosition()
+    this.currentPosition = { ...acceptedPosition }
+    this.optimalPosition = { ...acceptedPosition }
+    this.solved = true
   }
 
   /**

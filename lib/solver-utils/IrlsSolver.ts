@@ -37,6 +37,8 @@ export class IrlsSolver extends BaseSolver {
   public optimalPosition?: Point
 
   private readonly initialPosition: Point
+  private bestTrackedPosition?: Point
+  private bestTrackedDistance = Infinity
 
   override getSolverName(): string {
     return "IrlsSolver"
@@ -67,12 +69,25 @@ export class IrlsSolver extends BaseSolver {
   override _setup() {
     this.currentPosition = { ...this.initialPosition }
     this.optimalPosition = undefined
+    this.bestTrackedPosition = undefined
+    this.bestTrackedDistance = Infinity
 
-    // If no target points, we're already solved at initial position
+    // If no target points, we're already solved at the constrained initial position
     if (this.targetPoints.length === 0) {
-      this.optimalPosition = { ...this.currentPosition }
+      const constrained = this.constraintFn
+        ? this.constraintFn(this.currentPosition)
+        : this.currentPosition
+      this.currentPosition = { ...constrained }
+      this.optimalPosition = { ...constrained }
       this.solved = true
+      return
     }
+
+    const initialValid = this.constraintFn
+      ? this.constraintFn(this.currentPosition)
+      : this.currentPosition
+    this.bestTrackedPosition = { ...initialValid }
+    this.bestTrackedDistance = this.getTotalDistance(initialValid)
   }
 
   override _step() {
@@ -123,6 +138,12 @@ export class IrlsSolver extends BaseSolver {
     const dy = constrainedPosition.y - currentY
     const positionChange = Math.sqrt(dx * dx + dy * dy)
 
+    const candidateDistance = this.getTotalDistance(constrainedPosition)
+    if (candidateDistance <= this.bestTrackedDistance) {
+      this.bestTrackedDistance = candidateDistance
+      this.bestTrackedPosition = { ...constrainedPosition }
+    }
+
     if (positionChange < this.epsilon) {
       this.optimalPosition = { ...constrainedPosition }
       this.solved = true
@@ -130,6 +151,13 @@ export class IrlsSolver extends BaseSolver {
     }
 
     this.currentPosition = constrainedPosition
+  }
+
+  override tryFinalAcceptance() {
+    const acceptedPosition = this.bestTrackedPosition ?? this.currentPosition
+    this.currentPosition = { ...acceptedPosition }
+    this.optimalPosition = { ...acceptedPosition }
+    this.solved = true
   }
 
   /**
@@ -143,7 +171,7 @@ export class IrlsSolver extends BaseSolver {
    * Calculate total distance from current position to all target points
    */
   getTotalDistance(position?: Point): number {
-    const pos = position || this.currentPosition
+    const pos = position || this.getBestPosition()
     return this.targetPoints.reduce((sum, target) => {
       const dx = pos.x - target.x
       const dy = pos.y - target.y

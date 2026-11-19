@@ -1,9 +1,11 @@
 import { test, expect } from "bun:test"
+import { IrlsSolver } from "./IrlsSolver"
 import {
   MultiOffsetIrlsSolver,
   type OffsetPadPoint,
   type Point,
 } from "./MultiOffsetIrlsSolver"
+import { TwoPhaseIrlsSolver } from "./TwoPhaseIrlsSolver"
 
 test("MultiOffsetIrlsSolver - basic functionality", () => {
   const offsetPadPoints: OffsetPadPoint[] = [
@@ -215,4 +217,147 @@ test("MultiOffsetIrlsSolver - visualize method", () => {
   expect(graphics.lines).toBeDefined()
   expect(graphics.points!.length).toBeGreaterThan(0) // Should have points
   expect(graphics.lines!.length).toBeGreaterThan(0) // Should have lines
+})
+
+test("MultiOffsetIrlsSolver - accepts best constrained iterate when maxIterations is reached", () => {
+  // Obtuse triangle (>120° at origin) where Weiszfeld converges sublinearly
+  // toward (0, 0) and does not reach 1e-6 within a 10-step budget.
+  const offsetPadPoints: OffsetPadPoint[] = [
+    { id: "pad1", offsetX: 0, offsetY: 0 },
+  ]
+  const targetPointMap = new Map<string, Point[]>([
+    [
+      "pad1",
+      [
+        { x: -10, y: 5.7 },
+        { x: 0, y: 0 },
+        { x: 10, y: 5.7 },
+      ],
+    ],
+  ])
+  const constraintFn = (point: Point): Point => ({
+    x: 0,
+    y: Math.max(0, point.y),
+  })
+
+  const solver = new MultiOffsetIrlsSolver({
+    offsetPadPoints,
+    targetPointMap,
+    initialPosition: { x: 4, y: 5 },
+    constraintFn,
+    epsilon: 1e-9,
+    maxIterations: 10,
+  })
+
+  solver.solve()
+
+  expect(solver.solved).toBe(true)
+  expect(solver.failed).toBe(false)
+  const best = solver.getBestPosition()
+  expect(best.x).toBe(0)
+  expect(best.y).toBeGreaterThanOrEqual(0)
+  expect(solver.getTotalDistance(best)).toBeLessThan(
+    solver.getTotalDistance({ x: 0, y: 5 }),
+  )
+})
+
+test("MultiOffsetIrlsSolver, IrlsSolver, and TwoPhaseIrlsSolver - honor constraintFn when active pads have no targets", () => {
+  const constraintFn = (point: Point): Point => ({
+    x: Math.max(10, point.x),
+    y: 0,
+  })
+
+  // targetPointMap has targets only for an unrelated pad ID
+  const targetPointMap = new Map<string, Point[]>([
+    ["unrelated_pad", [{ x: 100, y: 100 }]],
+  ])
+
+  const multiSolver = new MultiOffsetIrlsSolver({
+    offsetPadPoints: [{ id: "pad1", offsetX: 0, offsetY: 0 }],
+    targetPointMap,
+    initialPosition: { x: 2, y: 8 },
+    constraintFn,
+  })
+  multiSolver.solve()
+  expect(multiSolver.solved).toBe(true)
+  expect(multiSolver.iterations).toBe(0)
+  expect(multiSolver.getBestPosition()).toEqual({ x: 10, y: 0 })
+
+  const irlsSolver = new IrlsSolver({
+    targetPoints: [],
+    initialPosition: { x: 2, y: 8 },
+    constraintFn,
+  })
+  irlsSolver.solve()
+  expect(irlsSolver.solved).toBe(true)
+  expect(irlsSolver.getBestPosition()).toEqual({ x: 10, y: 0 })
+
+  const twoPhaseSolver = new TwoPhaseIrlsSolver({
+    offsetPadPoints: [{ id: "pad1", offsetX: 0, offsetY: 0 }],
+    targetPointMap,
+    initialPosition: { x: 2, y: 8 },
+    constraintFn,
+  })
+  twoPhaseSolver.solve()
+  expect(twoPhaseSolver.solved).toBe(true)
+  expect(twoPhaseSolver.getBestPosition()).toEqual({ x: 10, y: 0 })
+})
+
+test("MultiOffsetIrlsSolver and TwoPhaseIrlsSolver - succeed under oscillating constraints via final acceptance", () => {
+  // With targets at (0, 0) and (8, 0):
+  // - From x=10: Weiszfeld gives x=6.67 (>4) -> constraint maps to x=0 (total dist = 8)
+  // - From x=0:  Weiszfeld gives x≈0   (<=4) -> constraint maps to x=10 (total dist = 12)
+  // Without tryFinalAcceptance, the solver oscillates forever and fails; with
+  // bestTrackedPosition, it deterministically selects (0, 0).
+  const oscillatingConstraint = (point: Point): Point => ({
+    x: point.x <= 4 ? 10 : 0,
+    y: 0,
+  })
+
+  const multiSolver = new MultiOffsetIrlsSolver({
+    offsetPadPoints: [{ id: "pad1", offsetX: 0, offsetY: 0 }],
+    targetPointMap: new Map([
+      [
+        "pad1",
+        [
+          { x: 0, y: 0 },
+          { x: 8, y: 0 },
+        ],
+      ],
+    ]),
+    initialPosition: { x: 10, y: 0 },
+    constraintFn: oscillatingConstraint,
+    maxIterations: 6,
+  })
+
+  multiSolver.solve()
+  expect(multiSolver.solved).toBe(true)
+  expect(multiSolver.failed).toBe(false)
+  expect(multiSolver.getBestPosition()).toEqual({ x: 0, y: 0 })
+
+  const twoPhaseSolver = new TwoPhaseIrlsSolver({
+    offsetPadPoints: [{ id: "pad1", offsetX: 0, offsetY: 0 }],
+    targetPointMap: new Map([
+      [
+        "pad1",
+        [
+          { x: -10, y: 5.7 },
+          { x: 0, y: 0 },
+          { x: 10, y: 5.7 },
+        ],
+      ],
+    ]),
+    initialPosition: { x: 4, y: 10 },
+    constraintFn: (point: Point): Point => ({
+      x: 0,
+      y: Math.max(0, point.y),
+    }),
+    epsilon: 1e-12,
+    maxIterations: 1,
+  })
+
+  twoPhaseSolver.solve()
+  expect(twoPhaseSolver.solved).toBe(true)
+  expect(twoPhaseSolver.failed).toBe(false)
+  expect(twoPhaseSolver.getBestPosition()).toEqual({ x: 0, y: 0 })
 })
