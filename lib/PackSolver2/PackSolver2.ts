@@ -1,20 +1,20 @@
-import type { GraphicsObject } from "graphics-debug"
-import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
-import { sortComponentQueue } from "./sortComponentQueue"
-import { SingleComponentPackSolver } from "../SingleComponentPackSolver/SingleComponentPackSolver"
+import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
 import { BaseSolver } from "@tscircuit/solver-utils"
+import type { GraphicsObject } from "graphics-debug"
+import { getColorForString } from "lib/testing/createColorMapFromStrings"
+import { getComponentBounds } from "../geometry/getComponentBounds"
+import { getPolygonCentroid } from "../math/getPolygonCentroid"
+import { isPointInPolygon } from "../math/isPointInPolygon"
+import { SingleComponentPackSolver } from "../SingleComponentPackSolver/SingleComponentPackSolver"
 import type {
   InputComponent,
   OutputPad,
   PackedComponent,
   PackInput,
 } from "../types"
-import { getColorForString } from "lib/testing/createColorMapFromStrings"
-import { computeDistanceBetweenBoxes } from "@tscircuit/math-utils"
 import { getComponentCollisionBoxes } from "./getComponentCollisionBoxes"
-import { getComponentBounds } from "../geometry/getComponentBounds"
-import { isPointInPolygon } from "../math/isPointInPolygon"
-import { getPolygonCentroid } from "../math/getPolygonCentroid"
+import { setPackedComponentPadCenters } from "./setPackedComponentPadCenters"
+import { sortComponentQueue } from "./sortComponentQueue"
 
 export class PackSolver2 extends BaseSolver {
   declare activeSubSolver: SingleComponentPackSolver | null | undefined
@@ -89,6 +89,71 @@ export class PackSolver2 extends BaseSolver {
     })
   }
 
+  private createInitialPackedComponent(
+    component: InputComponent,
+    position: { x: number; y: number },
+    rotation: number,
+  ): PackedComponent {
+    const packedComponent: PackedComponent = {
+      ...component,
+      center: position,
+      ccwRotationOffset: rotation,
+      pads: component.pads.map((p) => ({
+        ...p,
+        absoluteCenter: { x: 0, y: 0 },
+      })),
+    }
+    setPackedComponentPadCenters(packedComponent)
+    return packedComponent
+  }
+
+  private fitsFirstComponentConstraints(candidate: PackedComponent): boolean {
+    const obstacles = this.packInput.obstacles ?? []
+    const candidateBoxes = getComponentCollisionBoxes(candidate)
+    const tooCloseToObstacles = obstacles.some((obs) => {
+      const obsBox = {
+        center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
+        width: obs.width,
+        height: obs.height,
+      }
+      return candidateBoxes.some((box) => {
+        const { distance } = computeDistanceBetweenBoxes(box, obsBox)
+        return distance + 1e-6 < this.packInput.minGap
+      })
+    })
+    if (tooCloseToObstacles) return false
+
+    const componentBounds = getComponentBounds(candidate, 0)
+    if (this.packInput.bounds) {
+      const outsideBounds =
+        componentBounds.minX < this.packInput.bounds.minX ||
+        componentBounds.maxX > this.packInput.bounds.maxX ||
+        componentBounds.minY < this.packInput.bounds.minY ||
+        componentBounds.maxY > this.packInput.bounds.maxY
+      if (outsideBounds) return false
+    }
+
+    if (
+      this.packInput.boundaryOutline &&
+      this.packInput.boundaryOutline.length >= 3
+    ) {
+      const allPadsInside = candidate.pads.every((pad) =>
+        isPointInPolygon(pad.absoluteCenter, this.packInput.boundaryOutline!),
+      )
+      const cornersInside = [
+        { x: componentBounds.minX, y: componentBounds.minY },
+        { x: componentBounds.minX, y: componentBounds.maxY },
+        { x: componentBounds.maxX, y: componentBounds.minY },
+        { x: componentBounds.maxX, y: componentBounds.maxY },
+      ].every((corner) =>
+        isPointInPolygon(corner, this.packInput.boundaryOutline!),
+      )
+      if (!allPadsInside || !cornersInside) return false
+    }
+
+    return true
+  }
+
   private packFirstComponent(): void {
     const firstComponentToPack = this.unpackedComponentQueue.shift()!
 
@@ -101,65 +166,25 @@ export class PackSolver2 extends BaseSolver {
       initialPosition = getPolygonCentroid(this.packInput.boundaryOutline)
     }
 
-    const newPackedComponent: PackedComponent = {
-      ...firstComponentToPack,
-      center: initialPosition,
-      ccwRotationOffset:
-        firstComponentToPack.ccwRotationOffset ??
-        firstComponentToPack.availableRotationDegrees?.[0] ??
-        0,
-      pads: firstComponentToPack.pads.map((p) => ({
-        ...p,
-        absoluteCenter: { x: 0, y: 0 },
-      })),
-    }
+    const candidateRotations =
+      firstComponentToPack.ccwRotationOffset !== undefined
+        ? [firstComponentToPack.ccwRotationOffset]
+        : firstComponentToPack.availableRotationDegrees?.length
+          ? firstComponentToPack.availableRotationDegrees
+          : [0]
 
-    setPackedComponentPadCenters(newPackedComponent)
-
-    // If there are obstacles, ensure at least minGap clearance; otherwise fall back to outline-based placement
-    const obstacles = this.packInput.obstacles ?? []
-    const newComponentBoxes = getComponentCollisionBoxes(newPackedComponent)
-    const tooCloseToObstacles = obstacles.some((obs) => {
-      const obsBox = {
-        center: { x: obs.absoluteCenter.x, y: obs.absoluteCenter.y },
-        width: obs.width,
-        height: obs.height,
+    let defaultPackedComponent: PackedComponent | undefined
+    for (const rotation of candidateRotations) {
+      const candidate = this.createInitialPackedComponent(
+        firstComponentToPack,
+        initialPosition,
+        rotation,
+      )
+      defaultPackedComponent ??= candidate
+      if (this.fitsFirstComponentConstraints(candidate)) {
+        this.packedComponents.push(candidate)
+        return
       }
-      return newComponentBoxes.some((box) => {
-        const { distance } = computeDistanceBetweenBoxes(box, obsBox)
-        return distance + 1e-6 < this.packInput.minGap
-      })
-    })
-
-    // Check if component is outside boundary outline
-    let outsideBoundaryOutline = false
-    if (
-      this.packInput.boundaryOutline &&
-      this.packInput.boundaryOutline.length >= 3
-    ) {
-      const componentBounds = getComponentBounds(newPackedComponent, 0)
-
-      // Check if all pads are within the boundary outline
-      const allPadsInside = newPackedComponent.pads.every((pad) =>
-        isPointInPolygon(pad.absoluteCenter, this.packInput.boundaryOutline!),
-      )
-
-      // Also check corners of component bounds
-      const cornersInside = [
-        { x: componentBounds.minX, y: componentBounds.minY },
-        { x: componentBounds.minX, y: componentBounds.maxY },
-        { x: componentBounds.maxX, y: componentBounds.minY },
-        { x: componentBounds.maxX, y: componentBounds.maxY },
-      ].every((corner) =>
-        isPointInPolygon(corner, this.packInput.boundaryOutline!),
-      )
-
-      outsideBoundaryOutline = !allPadsInside || !cornersInside
-    }
-
-    if (!tooCloseToObstacles && !outsideBoundaryOutline) {
-      this.packedComponents.push(newPackedComponent)
-      return
     }
 
     // Attempt to place along obstacle outlines using the SingleComponentPackSolver
@@ -168,7 +193,7 @@ export class PackSolver2 extends BaseSolver {
       componentToPack: firstComponentToPack,
       packPlacementStrategy: this.packInput.packPlacementStrategy,
       minGap: this.packInput.minGap,
-      obstacles: obstacles,
+      obstacles: this.packInput.obstacles ?? [],
       bounds: this.packInput.bounds,
       boundaryOutline: this.packInput.boundaryOutline,
       weightedConnections: this.packInput.weightedConnections,
@@ -180,7 +205,7 @@ export class PackSolver2 extends BaseSolver {
     } else {
       // Fallback: place at center even if it violates constraints (should rarely happen)
       // This typically indicates impossible constraints (e.g., component too large for boundary)
-      this.packedComponents.push(newPackedComponent)
+      this.packedComponents.push(defaultPackedComponent!)
     }
   }
 
