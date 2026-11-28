@@ -1,46 +1,8 @@
 import type { cju } from "@tscircuit/circuit-json-util"
 import type { PcbComponent } from "circuit-json"
-
-const getPolygonBoundingBox = (points: Array<{ x: number; y: number }>) => {
-  if (!points || points.length === 0)
-    return { minX: 0, maxX: 0, minY: 0, maxY: 0 }
-
-  let minX = Infinity,
-    minY = Infinity,
-    maxX = -Infinity,
-    maxY = -Infinity
-
-  for (const point of points) {
-    minX = Math.min(minX, point.x)
-    maxX = Math.max(maxX, point.x)
-    minY = Math.min(minY, point.y)
-    maxY = Math.max(maxY, point.y)
-  }
-
-  return { minX, maxX, minY, maxY }
-}
-
-const getRotatedBoundingBoxSize = (opts: {
-  width: number
-  height: number
-  ccwRotationDegrees: number
-}) => {
-  const { width, height, ccwRotationDegrees } = opts
-  const angleRad = (ccwRotationDegrees * Math.PI) / 180
-  const snapTrigMagnitude = (value: number) => {
-    const absoluteValue = Math.abs(value)
-    if (absoluteValue < 1e-12) return 0
-    if (Math.abs(absoluteValue - 1) < 1e-12) return 1
-    return absoluteValue
-  }
-  const absCos = snapTrigMagnitude(Math.cos(angleRad))
-  const absSin = snapTrigMagnitude(Math.sin(angleRad))
-
-  return {
-    width: width * absCos + height * absSin,
-    height: width * absSin + height * absCos,
-  }
-}
+import { getPlatedHolePadDimensions } from "./getPlatedHolePadDimensions"
+import { getPolygonBoundingBox } from "./getPolygonBoundingBox"
+import { getRotatedBoundingBoxSize } from "./getRotatedBoundingBoxSize"
 
 /* ---------- Flattened type helpers and pad extraction ---------- */
 type PadInfo = {
@@ -59,117 +21,35 @@ export const extractPadInfos = (
 ): PadInfo[] => {
   const out: PadInfo[] = []
 
-  const pushPad = ({
-    padId,
-    pcbPortId,
-    sx,
-    sy,
-    x,
-    y,
-  }: {
-    padId: string
-    pcbPortId: string | undefined
-    sx: number
-    sy: number
-    x: number
-    y: number
-  }) =>
-    out.push({
-      padId,
-      networkId: getNetworkId(pcbPortId),
-      size: { x: sx, y: sy },
-      absoluteCenter: { x, y },
-      pcbPortId,
-    })
-
   for (const via of db.pcb_via.list({
     pcb_component_id: pcbComponent.pcb_component_id,
   })) {
-    pushPad({
+    const pcbPortId =
+      "pcb_port_id" in via && typeof via.pcb_port_id === "string"
+        ? via.pcb_port_id
+        : undefined
+    const diameter = via.outer_diameter ?? via.hole_diameter ?? 0
+    out.push({
       padId: via.pcb_via_id,
-      pcbPortId: (via as any).pcb_port_id,
-      sx: via.outer_diameter ?? via.hole_diameter ?? 0,
-      sy: via.outer_diameter ?? via.hole_diameter ?? 0,
-      x: via.x,
-      y: via.y,
+      networkId: getNetworkId(pcbPortId),
+      size: { x: diameter, y: diameter },
+      absoluteCenter: { x: via.x, y: via.y },
+      pcbPortId,
     })
   }
 
   for (const ph of db.pcb_plated_hole.list({
     pcb_component_id: pcbComponent.pcb_component_id,
   })) {
-    switch (ph.shape) {
-      case "circle": {
-        pushPad({
-          padId: ph.pcb_plated_hole_id,
-          pcbPortId: ph.pcb_port_id,
-          sx: ph.outer_diameter ?? ph.hole_diameter ?? 0,
-          sy: ph.outer_diameter ?? ph.hole_diameter ?? 0,
-          x: ph.x,
-          y: ph.y,
-        })
-        break
-      }
-      case "oval":
-      case "pill": {
-        const size = getRotatedBoundingBoxSize({
-          width: ph.outer_width,
-          height: ph.outer_height,
-          ccwRotationDegrees: ph.ccw_rotation,
-        })
-        pushPad({
-          padId: ph.pcb_plated_hole_id,
-          pcbPortId: ph.pcb_port_id,
-          sx: size.width,
-          sy: size.height,
-          x: ph.x,
-          y: ph.y,
-        })
-        break
-      }
-      case "circular_hole_with_rect_pad": {
-        pushPad({
-          padId: ph.pcb_plated_hole_id,
-          pcbPortId: ph.pcb_port_id,
-          sx: ph.rect_pad_width,
-          sy: ph.rect_pad_height,
-          x: ph.x,
-          y: ph.y,
-        })
-        break
-      }
-      case "pill_hole_with_rect_pad": {
-        pushPad({
-          padId: ph.pcb_plated_hole_id,
-          pcbPortId: ph.pcb_port_id,
-          sx: ph.rect_pad_width,
-          sy: ph.rect_pad_height,
-          x: ph.x,
-          y: ph.y,
-        })
-        break
-      }
-      case "rotated_pill_hole_with_rect_pad": {
-        const size = getRotatedBoundingBoxSize({
-          width: ph.rect_pad_width,
-          height: ph.rect_pad_height,
-          ccwRotationDegrees: ph.rect_ccw_rotation,
-        })
-        pushPad({
-          padId: ph.pcb_plated_hole_id,
-          pcbPortId: ph.pcb_port_id,
-          sx: size.width,
-          sy: size.height,
-          x: ph.x,
-          y: ph.y,
-        })
-        break
-      }
-      default: {
-        console.warn(`Unsupported plated hole shape ${(ph as any).shape}`)
-        break
-      }
-    }
+    const padDims = getPlatedHolePadDimensions(ph)
+    if (!padDims) continue
+    out.push({
+      padId: ph.pcb_plated_hole_id,
+      networkId: getNetworkId(ph.pcb_port_id),
+      size: { x: padDims.width, y: padDims.height },
+      absoluteCenter: { x: padDims.centerX, y: padDims.centerY },
+      pcbPortId: ph.pcb_port_id,
+    })
   }
 
   for (const sp of db.pcb_smtpad.list({
@@ -177,72 +57,63 @@ export const extractPadInfos = (
   })) {
     switch (sp.shape) {
       case "rect": {
-        pushPad({
+        out.push({
           padId: sp.pcb_smtpad_id,
+          networkId: getNetworkId(sp.pcb_port_id),
+          size: { x: sp.width ?? 0, y: sp.height ?? 0 },
+          absoluteCenter: { x: sp.x, y: sp.y },
           pcbPortId: sp.pcb_port_id,
-          sx: sp.width ?? 0,
-          sy: sp.height ?? 0,
-          x: sp.x,
-          y: sp.y,
         })
         break
       }
       case "pill": {
-        pushPad({
+        out.push({
           padId: sp.pcb_smtpad_id,
+          networkId: getNetworkId(sp.pcb_port_id),
+          size: { x: sp.width, y: sp.height },
+          absoluteCenter: { x: sp.x, y: sp.y },
           pcbPortId: sp.pcb_port_id,
-          sx: sp.width,
-          sy: sp.height,
-          x: sp.x,
-          y: sp.y,
         })
         break
       }
       case "rotated_rect":
       case "rotated_pill": {
-        // PackInput pads are axis-aligned rectangles, so preserve collision
-        // coverage by using the rotated pad's axis-aligned bounding box.
         const size = getRotatedBoundingBoxSize({
           width: sp.width,
           height: sp.height,
           ccwRotationDegrees: sp.ccw_rotation,
         })
-        pushPad({
+        out.push({
           padId: sp.pcb_smtpad_id,
+          networkId: getNetworkId(sp.pcb_port_id),
+          size: { x: size.width, y: size.height },
+          absoluteCenter: { x: sp.x, y: sp.y },
           pcbPortId: sp.pcb_port_id,
-          sx: size.width,
-          sy: size.height,
-          x: sp.x,
-          y: sp.y,
         })
         break
       }
       case "circle": {
-        pushPad({
+        out.push({
           padId: sp.pcb_smtpad_id,
+          networkId: getNetworkId(sp.pcb_port_id),
+          size: { x: sp.radius * 2, y: sp.radius * 2 },
+          absoluteCenter: { x: sp.x, y: sp.y },
           pcbPortId: sp.pcb_port_id,
-          sx: sp.radius * 2, // Convert radius to diameter for width/height
-          sy: sp.radius * 2,
-          x: sp.x,
-          y: sp.y,
         })
         break
       }
       case "polygon": {
         if (sp.points && sp.points.length > 0) {
           const { minX, maxX, minY, maxY } = getPolygonBoundingBox(sp.points)
-          const width = maxX - minX
-          const height = maxY - minY
-          const centerX = (minX + maxX) / 2
-          const centerY = (minY + maxY) / 2
-
-          pushPad({
+          out.push({
             padId: sp.pcb_smtpad_id,
+            networkId: getNetworkId(sp.pcb_port_id),
+            size: { x: maxX - minX, y: maxY - minY },
+            absoluteCenter: {
+              x: (minX + maxX) / 2,
+              y: (minY + maxY) / 2,
+            },
             pcbPortId: sp.pcb_port_id,
-            sx: width,
-            sy: height,
-            x: centerX,
-            y: centerY,
           })
         } else {
           console.warn(`Polygon pad ${sp.pcb_smtpad_id} has no points`)
