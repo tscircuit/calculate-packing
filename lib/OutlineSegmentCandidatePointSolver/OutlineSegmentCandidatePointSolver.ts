@@ -19,6 +19,7 @@ import { rotatePoint } from "lib/math/rotatePoint"
 import { getComponentBounds } from "lib/geometry/getComponentBounds"
 import { getColorForString } from "lib/testing/createColorMapFromStrings"
 import { getOutwardNormal } from "./getOutwardNormal"
+import { pushCenterOutsideOutlineSegment } from "./pushCenterOutsideOutlineSegment"
 import { LargestRectOutsideOutlineFromPointSolver } from "lib/LargestRectOutsideOutlineFromPointSolver"
 import { getInputComponentBounds } from "lib/geometry/getInputComponentBounds"
 import { expandSegment } from "lib/math/expandSegment"
@@ -497,44 +498,13 @@ export class OutlineSegmentCandidatePointSolver extends BaseSolver {
       this.ccwFullOutline,
     )
 
-    // To compute push distance, we need to consider the direction of the
-    // outward normal and the distance we need to push using the minX/maxX or
-    // minY/maxY relative to the center
-    const isHorizontalNormal =
-      Math.abs(outwardNormal.x) > Math.abs(outwardNormal.y)
-    const isVerticalNormal = !isHorizontalNormal
-
-    let adjustedCenter = center
-
-    if (isHorizontalNormal) {
-      const isXPlusFacing = outwardNormal.x > 0
-      const isXMinusFacing = !isXPlusFacing
-      if (isXPlusFacing) {
-        adjustedCenter = {
-          x: bounds.maxX,
-          y: center.y,
-        }
-      } else if (isXMinusFacing) {
-        adjustedCenter = {
-          x: bounds.minX,
-          y: center.y,
-        }
-      }
-    } else if (isVerticalNormal) {
-      const isYPlusFacing = outwardNormal.y > 0
-      const isYMinusFacing = !isYPlusFacing
-      if (isYPlusFacing) {
-        adjustedCenter = {
-          x: center.x,
-          y: bounds.maxY,
-        }
-      } else if (isYMinusFacing) {
-        adjustedCenter = {
-          x: center.x,
-          y: bounds.minY,
-        }
-      }
-    }
+    // Push the component center outward by the opposite-side extent relative to
+    // center so asymmetric courtyards and off-center pad bounds stay clear.
+    let adjustedCenter = pushCenterOutsideOutlineSegment({
+      center,
+      componentBounds: bounds,
+      outwardNormal,
+    })
 
     // If boundary outline is specified, ensure all component corners are within it
     if (this.boundaryOutline && this.boundaryOutline.length >= 3) {
